@@ -9,6 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: "94.249.213.192"
