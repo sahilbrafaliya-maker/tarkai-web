@@ -3,7 +3,7 @@ const steps = [
     step: '01',
     title: 'Spark the Portal',
     description: 'Drop your goals, skills, and sparks of curiosity. The intake animates a live skill graph in seconds.',
-    image: 'photo-1521737604893-5a810fda9664',
+    image: 'photo-1522202176988-66273c2fd55f',
   },
   {
     step: '02',
