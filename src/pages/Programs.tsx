@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
+import { Helmet } from 'react-helmet-async';
 
 const programs = [
   {
@@ -157,6 +158,12 @@ const programs = [
 const Programs = () => {
   return (
     <Layout>
+      <Helmet>
+        <title>AI Education Programs | Industry-Aligned AI Training – TARK AI</title>
+        <meta name="description" content="Industry-aligned AI Education Programs. Master AI/ML Architecture, Data Science, and strategic analytics with mentor-led training and production-ready projects." />
+        <meta name="keywords" content="AI Education Programs, AI Training Programs, Machine Learning Courses, Data Science Programs, AI Career Training, AI Certification" />
+        <link rel="canonical" href="https://tarkaiedtech.com/programs" />
+      </Helmet>
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 md:px-12 lg:px-20">
         <div className="container-wide mx-auto">
@@ -241,7 +248,7 @@ const Programs = () => {
                   </div>
                   <Link to="/contact">
                     <Button variant="minimal" className="group/btn">
-                      Learn More 
+                      Learn More
                       <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
                   </Link>

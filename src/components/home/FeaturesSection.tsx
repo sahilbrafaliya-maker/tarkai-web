@@ -31,7 +31,7 @@ const FeaturesSection = () => {
         {/* Section Header */}
         <div className="mb-16 md:mb-20" data-reveal>
           <p className="text-sm uppercase tracking-[0.2em] text-accent mb-4">Career Guidance Portal</p>
-          <h2 className="text-balance">Step Inside TarkAI Compass</h2>
+          <h2 className="text-balance">AI-Driven Career Guidance for Smarter Decisions</h2>
         </div>
 
         {/* Feature Timeline */}

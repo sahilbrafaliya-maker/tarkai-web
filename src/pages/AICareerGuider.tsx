@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, Sparkles, Compass, Brain } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -94,6 +95,12 @@ const AICareerGuider = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>AI Career Guidance Portal | Intelligent Career Roadmaps – TARK AI</title>
+        <meta name="description" content="AI Career Guidance Portal for Future Careers. Get personalized AI-powered career roadmaps, intelligent skill mapping, and career path recommendations." />
+        <meta name="keywords" content="AI Career Guidance Portal, AI Career Assessment, AI Career Roadmap, Intelligent Career Guidance, AI Skill Mapping, AI-Based Career Planning" />
+        <link rel="canonical" href="https://tarkaiedtech.com/ai-career-guider" />
+      </Helmet>
       <section className="pt-32 pb-20 px-6 md:px-12 lg:px-20">
         <div className="container-wide mx-auto space-y-16">
           {/* Hero */}

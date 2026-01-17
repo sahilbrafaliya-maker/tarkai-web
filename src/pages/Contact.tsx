@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,14 +20,14 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     toast({
       title: "Message sent",
       description: "We'll get back to you within 24-48 hours.",
     });
-    
+
     setFormData({
       name: '',
       email: '',
@@ -46,6 +47,12 @@ const Contact = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Contact TARK AI | AI Career Counseling Platform</title>
+        <meta name="description" content="Contact TARK AI EdTech for AI career guidance, program inquiries, or partnership opportunities. Get expert AI career counseling and personalized support." />
+        <meta name="keywords" content="AI Career Counseling Platform, Contact AI Career Guidance, AI EdTech Support, AI Training Inquiry, Career Counseling India" />
+        <link rel="canonical" href="https://tarkaiedtech.com/contact" />
+      </Helmet>
       {/* Hero */}
       <section className="pt-32 pb-20 px-6 md:px-12 lg:px-20">
         <div className="container-wide mx-auto">

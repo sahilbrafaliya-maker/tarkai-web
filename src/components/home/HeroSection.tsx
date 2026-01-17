@@ -41,7 +41,7 @@ const HeroSection = () => {
             </div>
 
             <div className="space-y-6">
-              <h1 className="text-balance">Step Into TarkAI Compass — Your Living Career Navigator</h1>
+              <h1 className="text-balance">AI-Powered Career Guidance Platform for Students & Professionals</h1>
               <p className="text-lg md:text-xl text-foreground/75 leading-relaxed max-w-2xl">
                 Begin inside our AI career guidance portal where every answer, aptitude score, and ambition fuels a responsive storyline. From the first diagnostic pulse to mentor-approved roadmaps, TarkAI keeps you moving with clarity and cinematic energy.
               </p>

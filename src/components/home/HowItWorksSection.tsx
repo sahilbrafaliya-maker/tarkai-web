@@ -31,7 +31,7 @@ const HowItWorksSection = () => {
         {/* Section Header */}
         <div className="mb-12 md:mb-16" data-reveal>
           <p className="text-sm uppercase tracking-[0.2em] text-accent mb-4">How It Unfolds</p>
-          <h2 className="text-balance">Three beats from clarity to momentum</h2>
+          <h2 className="text-balance">Personalized Career Roadmaps Powered by AI</h2>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3" data-reveal>

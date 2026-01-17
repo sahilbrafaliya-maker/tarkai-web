@@ -49,10 +49,11 @@ const ProgramsSpotlightSection = () => {
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 mb-16" data-reveal>
           <div className="space-y-5 max-w-2xl">
             <p className="text-sm uppercase tracking-[0.2em] text-accent">Signature Programs</p>
-            <h2 className="text-balance">Choose the pathway that aligns with your next career chapter</h2>
+            <h2 className="text-balance">Industry-Aligned AI Education Programs</h2>
             <p className="text-foreground/65 leading-relaxed">
-              Each cohort blends studio-like projects, cinematic lessons, and embedded mentorship. Start inside the
-              portal, and when you are ready, drop into a program that keeps the momentum flowing.
+              Each cohort blends studio-like projects, cinematic lessons, and embedded mentorship. Start with our{' '}
+              <Link to="/ai-career-guider" className="text-accent hover:text-accent/80 underline">AI career guidance platform</Link>
+              {' '}and when you are ready, drop into a program that keeps the momentum flowing.
             </p>
           </div>
 

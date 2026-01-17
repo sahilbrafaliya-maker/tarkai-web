@@ -30,7 +30,7 @@ const WhyTarkAISection = () => {
           <div className="lg:col-span-4 space-y-8" data-reveal>
             <div>
               <p className="text-sm uppercase tracking-[0.2em] text-accent mb-4">Why Now</p>
-              <h2 className="mb-6 text-balance">The Need for AI & Data Science Fluency</h2>
+              <h2 className="mb-6 text-balance">Why Choose TARK AI EdTech for Your Career Journey</h2>
               <div className="divider-accent" />
             </div>
 

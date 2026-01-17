@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Layout from '@/components/layout/Layout';
 
 const pillars = [
@@ -30,6 +31,12 @@ const pillars = [
 const About = () => {
   return (
     <Layout>
+      <Helmet>
+        <title>About TARK AI | Leading AI EdTech Company in India</title>
+        <meta name="description" content="TARK AI EdTech Private Limited democratizes access to intelligent career guidance. Learn how we prepare learners for the future of work through AI-powered education." />
+        <meta name="keywords" content="AI EdTech Company in India, AI Career Guidance Platform, AI Education Technology, EdTech India, AI Training Company" />
+        <link rel="canonical" href="https://tarkaiedtech.com/about" />
+      </Helmet>
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 md:px-12 lg:px-20">
         <div className="container-wide mx-auto">

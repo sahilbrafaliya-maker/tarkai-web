@@ -61,7 +61,7 @@ const Footer = () => {
             <p className="text-foreground/65 max-w-sm" style={{ fontFamily: 'Instrument Serif, serif' }}>
               Where intelligence choreographs every learning moment.
             </p>
-            <p className="text-sm text-foreground/50 uppercase tracking-[0.3em]">TarkAI EdTech Pvt. Ltd.</p>
+            <p className="text-sm text-foreground/50 uppercase tracking-[0.3em]">TARK AI EdTech Private Limited</p>
           </div>
 
           {/* Links */}
@@ -117,14 +117,14 @@ const Footer = () => {
         {/* Bottom */}
         <div className="pt-10 border-t border-white/20" data-reveal>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-xs text-foreground/50">
-            <p>© {new Date().getFullYear()} TarkAI EdTech Pvt. Ltd.</p>
+            <p>© 2026 TARK AI EdTech Private Limited</p>
             <p className="max-w-md md:text-right">
               AI recommendations are guidance-based and should be used as decision support, not absolute advice.
             </p>
           </div>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 };
 

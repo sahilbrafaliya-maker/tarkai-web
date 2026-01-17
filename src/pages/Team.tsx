@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Layout from '@/components/layout/Layout';
 
 const leadership = [
@@ -65,6 +66,12 @@ const cultureHighlights = [
 const Team = () => {
   return (
     <Layout>
+      <Helmet>
+        <title>Meet Our Team | TARK AI EdTech Leadership</title>
+        <meta name="description" content="Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics dedicated to personalized AI education and career guidance." />
+        <meta name="keywords" content="TARK AI Team, AI EdTech Leadership, AI Education Experts, EdTech Founders India" />
+        <link rel="canonical" href="https://tarkaiedtech.com/team" />
+      </Helmet>
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 md:px-12 lg:px-20">
         <div className="container-wide mx-auto">
