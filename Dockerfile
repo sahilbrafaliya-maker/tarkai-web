@@ -1,23 +1,9 @@
-# Use a single stage to guarantee all files are present
-FROM node:20-alpine
+FROM nginx:alpine
 
-WORKDIR /app
+RUN rm -rf /etc/nginx/conf.d/*
 
-# Copy dependency definitions
-COPY package.json package-lock.json ./
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY out /usr/share/nginx/html
 
-# Install ALL dependencies (including dev) to ensure build works
-RUN npm ci
-
-# Copy all source code
-COPY . .
-
-# Build the project
-ENV NEXT_TELEMETRY_DISABLED 1
-RUN npm run build
-
-# Expose the port
-EXPOSE 3000
-
-# Start the application using standard Next.js start command
-CMD ["npm", "start"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
