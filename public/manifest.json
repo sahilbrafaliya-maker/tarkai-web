@@ -1,0 +1,23 @@
+{
+    "name": "TARK AI EdTech",
+    "short_name": "TARK AI",
+    "description": "AI-Powered Career Guidance Platform for Students & Professionals",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#186474",
+    "orientation": "portrait",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "any",
+            "type": "image/png"
+        },
+        {
+            "src": "/Logo.png",
+            "sizes": "any",
+            "type": "image/png"
+        }
+    ]
+}
