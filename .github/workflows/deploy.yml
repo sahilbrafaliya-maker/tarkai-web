@@ -19,11 +19,11 @@ jobs:
           timeout: 30s
           script: |
             # Configuration
-            APP_DIR="/root/projects/tarkai-web"
+            APP_DIR="/var/www/tarkaiedtech"
             REPO_URL="https://github.com/sahilbrafaliya-maker/tarkai-web.git"
             CONTAINER_NAME="tarkai-web"
             IMAGE_NAME="tarkai-web-image"
-            HOST_PORT=8085  # Using 8085 to avoid conflicts since other apps are running
+            HOST_PORT="127.0.0.1:3000"
 
             # Ensure directory exists and pull latest code
             if [ ! -d "$APP_DIR" ]; then
