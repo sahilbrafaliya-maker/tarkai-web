@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: Deploy Static Site to VPS
 
 on:
   push:
@@ -8,50 +8,40 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          host: "94.249.213.192"
-          username: "root"
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Upload static files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 94.249.213.192
+          username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22192
-          timeout: 30s
+          source: "out/*"
+          target: "/var/www/tarkaiedtech_site"
+          strip_components: 1
+
+      - name: Reload NGINX
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 94.249.213.192
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22192
           script: |
-            # Configuration
-            APP_DIR="/var/www/tarkaiedtech"
-            REPO_URL="https://github.com/sahilbrafaliya-maker/tarkai-web.git"
-            CONTAINER_NAME="tarkai-web"
-            IMAGE_NAME="tarkai-web-image"
-            HOST_PORT="127.0.0.1:3000"
-
-            # Ensure directory exists and pull latest code
-            if [ ! -d "$APP_DIR" ]; then
-              echo "Cloning repository..."
-              git clone "$REPO_URL" "$APP_DIR"
-            else
-              echo "Pulling latest changes..."
-              cd "$APP_DIR"
-              git pull origin main
-            fi
-
-            cd "$APP_DIR"
-
-            # Build Docker image locally
-            echo "Building Docker image..."
-            docker build -t "$IMAGE_NAME" .
-
-            # Stop and remove existing container
-            echo "Restarting container..."
-            docker stop "$CONTAINER_NAME" || true
-            docker rm "$CONTAINER_NAME" || true
-
-            # Run new container
-            docker run -d \
-              --name "$CONTAINER_NAME" \
-              --restart unless-stopped \
-              -p $HOST_PORT:80 \
-              "$IMAGE_NAME"
-
-            # Clean up dangling images
-            docker image prune -f
+            nginx -t
+            systemctl reload nginx
