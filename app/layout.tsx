@@ -58,8 +58,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/Logo.png",
-        width: 1200,
-        height: 630,
+        width: 1600,
+        height: 1600,
         alt: "TARK AI EdTech Private Limited",
       },
     ],
