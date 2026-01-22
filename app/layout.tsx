@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
     images: [
       {
-        url: "/Logo.png",
+        url: "/favicon-96x96.png",
         width: 1600,
         height: 1600,
         alt: "TARK AI EdTech Private Limited",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TARK AI: AI-Powered Career Guidance Platform",
     description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
-    images: ["/Logo.png"],
+    images: ["/favicon-96x96.png"],
     creator: "@TarkAI", // Assuming this handle based on docs
   },
   alternates: {
