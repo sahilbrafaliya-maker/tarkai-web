@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaChevronDown, FaCheck } from "react-icons/fa";
+import { useState, useRef, useEffect, FormEvent } from "react";
+import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaChevronDown, FaCheck, FaSpinner } from "react-icons/fa";
 
 const programs = [
     { id: "ai-architect", name: "AI / ML Architect Program" },
@@ -16,6 +16,16 @@ export default function ContactPage() {
     const [selectedProgram, setSelectedProgram] = useState("");
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    // Form State
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        message: ""
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null, message: string }>({ type: null, message: "" });
+
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -27,6 +37,44 @@ export default function ContactPage() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitStatus({ type: null, message: "" });
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    program: programs.find(p => p.id === selectedProgram)?.name || selectedProgram
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setSubmitStatus({ type: 'success', message: "Message sent! We'll get back to you shortly." });
+                setFormData({ firstName: "", lastName: "", email: "", message: "" });
+                setSelectedProgram("");
+            } else {
+                setSubmitStatus({ type: 'error', message: data.error || "Failed to send message. Please try again." });
+            }
+        } catch (error) {
+            setSubmitStatus({ type: 'error', message: "Something went wrong. Please check your connection." });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <div className="bg-white min-h-screen pb-20 pt-28">
             <div className="bg-brand-lightest py-16">
@@ -50,13 +98,16 @@ export default function ContactPage() {
                         <h2 className="text-3xl font-bold text-brand-darkest mb-2">Send us a Message</h2>
                         <p className="text-gray-500 mb-8">We usually respond within 24 hours.</p>
 
-                        <form className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label htmlFor="firstName" className="text-sm font-semibold text-brand-darkest ml-1">First Name</label>
                                     <input
                                         type="text"
                                         id="firstName"
+                                        value={formData.firstName}
+                                        onChange={handleChange}
+                                        required
                                         className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400"
                                         placeholder="John"
                                     />
@@ -66,6 +117,9 @@ export default function ContactPage() {
                                     <input
                                         type="text"
                                         id="lastName"
+                                        value={formData.lastName}
+                                        onChange={handleChange}
+                                        required
                                         className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400"
                                         placeholder="Doe"
                                     />
@@ -77,6 +131,9 @@ export default function ContactPage() {
                                 <input
                                     type="email"
                                     id="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
                                     className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400"
                                     placeholder="john@example.com"
                                 />
@@ -114,9 +171,6 @@ export default function ContactPage() {
                                             ))}
                                         </div>
                                     </div>
-
-                                    {/* Hidden input for form submission if needed */}
-                                    <input type="hidden" name="program" value={selectedProgram} />
                                 </div>
                             </div>
 
@@ -125,17 +179,37 @@ export default function ContactPage() {
                                 <textarea
                                     id="message"
                                     rows={4}
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    required
                                     className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400 resize-none"
                                     placeholder="How can we help you?"
                                 ></textarea>
                             </div>
 
+                            {/* Status Message */}
+                            {submitStatus.message && (
+                                <div className={`p-4 rounded-xl ${submitStatus.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                                    {submitStatus.message}
+                                </div>
+                            )}
+
                             <button
                                 type="submit"
-                                className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-accent transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2"
+                                disabled={isSubmitting}
+                                className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-accent transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 disabled:hover:translate-y-0"
                             >
-                                <span>Send Message</span>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                {isSubmitting ? (
+                                    <>
+                                        <FaSpinner className="animate-spin" />
+                                        <span>Sending...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span>Send Message</span>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                    </>
+                                )}
                             </button>
                         </form>
                     </div>
@@ -157,15 +231,20 @@ export default function ContactPage() {
                                 <div className="shrink-0 w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center text-brand-accent text-xl mr-5 border border-white/10 group-hover/item:bg-brand-accent group-hover/item:text-white transition-all duration-300">
                                     <FaMapMarkerAlt />
                                 </div>
-                                <div>
+                                <div className="grow">
                                     <h3 className="font-bold text-lg mb-1">Our Headquarters</h3>
                                     <div className="group-hover/item:translate-x-2 transition-transform duration-300">
-                                        <p className="text-gray-300 leading-relaxed text-sm">
+                                        <a
+                                            href="https://www.google.com/maps/place/TarkAI+Edtech+Pvt.+Ltd./@21.2336976,72.9054404,17z/data=!4m14!1m7!3m6!1s0xa6a5897416ee0a23:0x313c23aae12a5532!2sTarkAI+Edtech+Pvt.+Ltd.!8m2!3d21.2336976!4d72.9054404!16s%2Fg%2F11ywb447zk!3m5!1s0xa6a5897416ee0a23:0x313c23aae12a5532!8m2!3d21.2336976!4d72.9054404!16s%2Fg%2F11ywb447zk!17m2!4m1!1e3!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDEyMS4wIKXMDSoASAFQAw%3D%3D"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-gray-300 leading-relaxed text-sm hover:text-white transition-colors block"
+                                        >
                                             Kyros Business Center, 404&405,<br />
                                             beside Ashirwad Society,<br />
                                             Sarthana Jakat Naka,<br />
                                             Surat, Gujarat 395013
-                                        </p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -206,6 +285,21 @@ export default function ContactPage() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Embedded Google Map */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative z-10">
+                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden h-[450px] w-full animate-slide-up animate-delay-200">
+                    <iframe
+                        src="https://maps.google.com/maps?q=TarkAI+Edtech+Pvt.+Ltd.+Surat&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
                 </div>
             </div>
         </div>
