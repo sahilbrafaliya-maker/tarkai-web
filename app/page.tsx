@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import HeroBackground from "./components/HeroBackground";
 import { FaChalkboardTeacher, FaLightbulb, FaRocket } from "react-icons/fa";
 import ScrollToTop from "./components/ScrollToTop";
