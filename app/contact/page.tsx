@@ -160,8 +160,11 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-bold text-lg mb-1">Our Headquarters</h3>
                                     <div className="group-hover/item:translate-x-2 transition-transform duration-300">
-                                        <p className="text-gray-300 leading-relaxed">
-                                            Surat, Gujarat
+                                        <p className="text-gray-300 leading-relaxed text-sm">
+                                            Kyros Business Center, 404&405,<br />
+                                            beside Ashirwad Society,<br />
+                                            Sarthana Jakat Naka,<br />
+                                            Surat, Gujarat 395013
                                         </p>
                                     </div>
                                 </div>
