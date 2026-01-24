@@ -30,13 +30,13 @@ export default function Home() {
               Begin inside our intelligent career portal. Transforming education through innovation, personalized learning, and cutting-edge technology.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 gsap-fade-up px-4 sm:px-0">
-              <Link
+              {/* <Link
                 href="/ai-career-guider"
                 className="w-full sm:w-auto px-6 py-3 text-sm md:text-base md:px-8 md:py-4 bg-brand-dark text-white font-bold rounded-lg hover:bg-brand-accent transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg text-center flex items-center justify-center gap-2"
               >
                 <FaRocket className="text-sm" />
                 Launch AI Career Guide
-              </Link>
+              </Link> */}
               <Link
                 href="/programs"
                 className="w-full sm:w-auto px-6 py-3 text-sm md:text-base md:px-8 md:py-4 bg-brand-accent text-white font-bold rounded-lg hover:bg-brand-dark transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg text-center"
