@@ -6,11 +6,11 @@
 ## 📋 CORE KEYWORDS
 
 ### Primary Keywords (Use These!)
-1. **AI Career Guidance Platform** - Home Page
-2. **AI Career Guidance Portal** - AI Career Guider
+1. **AI-Powered Platform** - Home Page
+2. **AI-Powered Portal** - AI Career Guider
 3. **AI Education Programs** - Programs Page
 4. **AI EdTech Company in India** - About Page
-5. **AI Career Counseling Platform** - Contact Page
+5. **AI Counseling Platform** - Contact Page
 
 ### Secondary Keywords
 - AI-Powered Education
@@ -24,7 +24,7 @@
 - Data Science Programs
 
 ### Long-Tail Keywords (High Conversion)
-- AI career guidance platform for students
+- AI career platform for students
 - Best AI career counseling platform in India
 - AI-powered career guidance portal
 - Career guidance using artificial intelligence
@@ -53,7 +53,7 @@
 ```
 [Primary Keyword] | [Value Proposition] – TARK AI
 ```
-**Example:** AI Career Guidance Platform | AI-Powered Education – TARK AI
+**Example:** AI-Powered Platform | AI-Powered Education – TARK AI
 
 **Rules:**
 - Length: 50-60 characters
@@ -94,7 +94,7 @@ From Programs → AI Career Guide
 From AI Career Guide → Signup
 
 ### Anchor Text Examples
-✅ "AI career guidance platform"
+✅ "AI career platform"
 ✅ "explore our AI education programs"
 ✅ "get personalized career roadmaps"
 ✅ "AI-powered career counseling"
@@ -108,13 +108,13 @@ From AI Career Guide → Signup
 ## 📊 PAGE-SPECIFIC SEO
 
 ### Home Page (/)
-- **H1:** AI-Powered Career Guidance Platform for Students & Professionals
-- **Primary Keyword:** AI Career Guidance Platform
+- **H1:** AI-powered platform for Students & Professionals
+- **Primary Keyword:** AI-Powered Platform
 - **Focus:** Overview of TARK AI platform and value proposition
 
 ### AI Career Guider (/ai-career-guider)
-- **H1:** AI Career Guidance Portal for Your Future
-- **Primary Keyword:** AI Career Guidance Portal
+- **H1:** AI-Powered Portal for Your Future
+- **Primary Keyword:** AI-Powered Portal
 - **Focus:** Interactive portal features and career assessment
 
 ### Programs (/programs)
@@ -129,7 +129,7 @@ From AI Career Guide → Signup
 
 ### Contact (/contact)
 - **H1:** Contact TARK AI for Career Guidance
-- **Primary Keyword:** AI Career Counseling Platform
+- **Primary Keyword:** AI Counseling Platform
 - **Focus:** Contact form and support information
 
 ### Team (/team)
@@ -147,7 +147,7 @@ From AI Career Guide → Signup
 ```
 
 **Examples:**
-✅ "Students using AI career guidance platform - TARK AI"
+✅ "Students using AI career platform - TARK AI"
 ✅ "AI-powered career roadmap dashboard - TARK AI"
 ✅ "Data science training program classroom - TARK AI"
 

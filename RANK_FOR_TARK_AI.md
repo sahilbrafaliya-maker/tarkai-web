@@ -61,14 +61,14 @@ Google looks for brand mentions across the web.
 **LinkedIn Company Page:**
 1. Create: https://www.linkedin.com/company/setup/new/
 2. Company name: **TARK AI**
-3. Tagline: "AI-Powered Career Guidance Platform"
+3. Tagline: "AI-Powered Platform"
 4. Website: https://tarkaiedtech.com
 5. Post weekly updates
 
 **Twitter/X Profile:**
 1. Handle: @TarkAI (or @TarkAIEdTech)
 2. Name: **TARK AI**
-3. Bio: "AI-Powered Career Guidance Platform | Helping students & professionals make smarter career decisions"
+3. Bio: "AI-Powered Platform | Helping students & professionals make smarter career decisions"
 4. Link: https://tarkaiedtech.com
 
 **Facebook Page:**
@@ -125,7 +125,7 @@ Submit to:
 - OpenPR.com
 - PR.com
 
-Title: "TARK AI Launches AI-Powered Career Guidance Platform for Indian Students"
+Title: "TARK AI Launches AI-Powered Platform for Indian Students"
 
 ---
 
@@ -183,10 +183,10 @@ Title: "TARK AI Launches AI-Powered Career Guidance Platform for Indian Students
 ### Immediate Change Needed
 
 **Current H1:**
-"AI-Powered Career Guidance Platform for Students & Professionals"
+"AI-Powered Platform for Students & Professionals"
 
 **Better H1:**
-"TARK AI: AI-Powered Career Guidance Platform for Students & Professionals"
+"TARK AI: AI-Powered Platform for Students & Professionals"
 
 **Current First Paragraph:**
 "Begin inside our AI career guidance portal..."

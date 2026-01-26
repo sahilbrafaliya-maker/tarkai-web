@@ -1,7 +1,7 @@
 {
     "name": "TARK AI EdTech",
     "short_name": "TARK AI",
-    "description": "AI-Powered Career Guidance Platform for Students & Professionals",
+    "description": "AI-Powered Platform for Students & Professionals",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

@@ -6,8 +6,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Career Guidance Platform | AI-Powered Education – TARK AI",
-  description: "TARK AI is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
+  title: "TARK AI: Where Intelligence Meets Education",
+  description: "TARK AI is an AI-powered EdTech platform delivering intelligent personalized roadmaps and future-ready AI programs.",
   alternates: {
     canonical: "https://tarkaiedtech.com",
   },
@@ -22,11 +22,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-darkest tracking-tight mb-6 md:mb-8 gsap-fade-up">
-              TARK AI: AI-Powered Career Guidance Platform<br className="hidden sm:block" />
-              <span className="text-brand-accent"> for Students & Professionals</span>
+              TARK AI<br /><span className="text-brand-accent">Where Intelligence Meets Education</span><br className="hidden sm:block" />
+              {/* <span className="text-brand-accent">Focused Learning. Intelligent Growth.</span> */}
             </h1>
             <p className="text-xl sm:text-2xl text-brand-dark max-w-3xl mx-auto mb-10 gsap-fade-up">
-              <span className="font-bold block mb-2">Welcome to TARK AI, your AI-powered career guidance platform.</span>
               Begin inside our intelligent career portal. Transforming education through innovation, personalized learning, and cutting-edge technology.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 gsap-fade-up px-4 sm:px-0">

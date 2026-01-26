@@ -20,11 +20,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://tarkaiedtech.com"),
   title: {
-    default: "TARK AI: AI-Powered Career Guidance Platform",
+    default: "TARK AI: Where Intelligence Meets Education",
     template: "%s | TARK AI"
   },
   description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
-  keywords: ["AI Career Guidance Platform", "AI EdTech Platform", "AI-Powered Education", "AI Career Counseling", "AI Career Navigator", "TARK AI"],
+  keywords: ["AI EdTech Platform", "AI-Powered Education", "AI Career Navigator", "TARK AI"],
   authors: [{ name: "TARK AI EdTech Private Limited" }],
   creator: "TARK AI EdTech Private Limited",
   publisher: "TARK AI EdTech Private Limited",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://tarkaiedtech.com",
     siteName: "TARK AI EdTech",
-    title: "TARK AI: AI-Powered Career Guidance Platform",
+    title: "TARK AI: Where Intelligence Meets Education",
     description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
     images: [
       {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TARK AI: AI-Powered Career Guidance Platform",
+    title: "TARK AI: Where Intelligence Meets Education",
     description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
     images: ["/favicon-96x96.png"],
     creator: "@TarkAI", // Assuming this handle based on docs
@@ -118,6 +118,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
         <Preloader />
