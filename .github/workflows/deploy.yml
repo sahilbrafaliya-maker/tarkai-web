@@ -19,8 +19,8 @@ jobs:
       - name: Create deployment package
         run: |
           # Create tarball of the current directory
-          # Exclude .git directory and the target tarball itself
-          tar -czf deploy.tar.gz --exclude='.git' --exclude='.github' --exclude='deploy.tar.gz' .
+          # Store it in /tmp to avoid "file changed as we read it" error
+          tar -czf /tmp/deploy.tar.gz --exclude='.git' --exclude='.github' .
 
       - name: Upload to VPS
         uses: appleboy/scp-action@v0.1.7
@@ -29,8 +29,9 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22192
-          source: "deploy.tar.gz"
+          source: "/tmp/deploy.tar.gz"
           target: "/tmp/"
+          strip_components: 1
 
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
