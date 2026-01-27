@@ -11,6 +11,8 @@ services:
       - "5010:5010"
     env_file:
       - .env.production
+    environment:
+      - PORT=5010
     networks:
       - app-network
     healthcheck:
