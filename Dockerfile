@@ -1,28 +1,45 @@
-# Stage 1: Build the application
-FROM node:20-alpine AS builder
-
+# Stage 1: Dependencies
+FROM node:20-alpine AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies
+# Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Copy source code and build
+# Stage 2: Build the application
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Set environment variables for build
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Build the application
 RUN npm run build
 
-# Stage 2: Serve the application
-FROM nginx:alpine
+# Stage 3: Production image
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Remove default nginx static assets
-RUN rm -rf /etc/nginx/conf.d/*
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Copy static assets from builder stage
-COPY --from=builder /app/out /usr/share/nginx/html
+# Copy necessary files from builder
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-EXPOSE 80
+USER nextjs
 
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 5010
+
+ENV PORT=5010
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]
+

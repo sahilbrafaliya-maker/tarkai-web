@@ -1,8 +1,15 @@
 const nextConfig = {
-  output: "export",
+  // Running as a dynamic Next.js server (not static export)
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
+  // Enable standalone output for optimized Docker builds
+  output: 'standalone',
 };
 
 export default nextConfig;

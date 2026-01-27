@@ -11,9 +11,9 @@ docker build --no-cache -t tarkaiedtech-web .
 # For safety, we stick to port mapping but bind to 0.0.0.0
 docker run -d \
   --name tarkaiedtech-web \
-  -p 3000:3000 \
+  -p 5010:5010 \
   --restart always \
-  --env PORT=3000 \
+  --env PORT=5010 \
   --env HOSTNAME="0.0.0.0" \
   tarkaiedtech-web
 
@@ -22,7 +22,7 @@ echo "Waiting for container to initialize..."
 sleep 10
 
 # Test local connection inside the server
-curl -v http://127.0.0.1:3000
+curl -v http://127.0.0.1:5010
 
 # Setup Nginx
 cat <<EOF > /etc/nginx/sites-available/tarkaiedtech
@@ -31,7 +31,7 @@ server {
     server_name tarkaiedtech.com www.tarkaiedtech.com;
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:5010;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';

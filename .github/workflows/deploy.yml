@@ -1,4 +1,4 @@
-name: Deploy Static Site to VPS
+name: Deploy to VPS with Docker
 
 on:
   push:
@@ -8,34 +8,38 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Install dependencies
-        run: npm install
+      - name: Create deployment package
+        run: |
+          # Create a deployment directory
+          mkdir -p deploy
+          
+          # Copy necessary files
+          cp Dockerfile deploy/
+          cp docker-compose.yml deploy/
+          cp -r . deploy/app
+          
+          # Create tarball
+          tar -czf deploy.tar.gz -C deploy .
 
-      - name: Build static site
-        run: npm run build
-
-      - name: Upload static files to VPS
+      - name: Upload to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: 94.249.213.192
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22192
-          source: "out/*"
-          target: "/var/www/tarkaiedtech_site"
-          strip_components: 1
+          source: "deploy.tar.gz"
+          target: "/tmp/"
 
-      - name: Reload NGINX
+      - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: 94.249.213.192
@@ -43,5 +47,173 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22192
           script: |
-            nginx -t
-            systemctl reload nginx
+            set -e
+            
+            # Define deployment directory
+            DEPLOY_DIR="/var/www/tarkaiedtech"
+            BACKUP_DIR="/var/www/backups/tarkaiedtech"
+            
+            echo "📦 Starting deployment..."
+            
+            # Create directories if they don't exist
+            mkdir -p $DEPLOY_DIR
+            mkdir -p $BACKUP_DIR
+            
+            # Backup current deployment
+            if [ -d "$DEPLOY_DIR/app" ]; then
+              echo "💾 Creating backup..."
+              TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+              tar -czf $BACKUP_DIR/backup_$TIMESTAMP.tar.gz -C $DEPLOY_DIR . 2>/dev/null || true
+              
+              # Keep only last 5 backups
+              cd $BACKUP_DIR
+              ls -t backup_*.tar.gz | tail -n +6 | xargs -r rm
+            fi
+            
+            # Extract new deployment
+            echo "📂 Extracting new deployment..."
+            cd /tmp
+            tar -xzf deploy.tar.gz -C $DEPLOY_DIR
+            rm deploy.tar.gz
+            
+            # Create .env.production if it doesn't exist
+            if [ ! -f "$DEPLOY_DIR/.env.production" ]; then
+              echo "🔧 Creating .env.production from example..."
+              cp $DEPLOY_DIR/app/.env.production.example $DEPLOY_DIR/.env.production
+              echo "⚠️  WARNING: Please update .env.production with actual values!"
+            fi
+            
+            # Navigate to deployment directory
+            cd $DEPLOY_DIR
+            
+            # Stop and remove old containers
+            echo "🛑 Stopping old containers..."
+            docker-compose down || true
+            
+            # Build and start new containers
+            echo "🏗️  Building new Docker image..."
+            docker-compose build --no-cache
+            
+            echo "🚀 Starting new containers..."
+            docker-compose up -d
+            
+            # Wait for health check
+            echo "⏳ Waiting for application to be healthy..."
+            sleep 10
+            
+            # Check if container is running
+            if docker-compose ps | grep -q "Up"; then
+              echo "✅ Deployment successful!"
+              docker-compose ps
+            else
+              echo "❌ Deployment failed! Rolling back..."
+              docker-compose down
+              
+              # Restore from backup if available
+              LATEST_BACKUP=$(ls -t $BACKUP_DIR/backup_*.tar.gz 2>/dev/null | head -1)
+              if [ -n "$LATEST_BACKUP" ]; then
+                echo "🔄 Restoring from backup: $LATEST_BACKUP"
+                tar -xzf $LATEST_BACKUP -C $DEPLOY_DIR
+                cd $DEPLOY_DIR
+                docker-compose up -d
+              fi
+              
+              exit 1
+            fi
+            
+            # Cleanup old Docker images
+            echo "🧹 Cleaning up old Docker images..."
+            docker image prune -f
+            
+            echo "🎉 Deployment complete!"
+
+      - name: Configure Nginx (First time only)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 94.249.213.192
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22192
+          script: |
+            # Check if nginx config already exists
+            if [ ! -f "/etc/nginx/sites-available/tarkaiedtech" ]; then
+              echo "Setting up Nginx configuration..."
+              
+              cat > /etc/nginx/sites-available/tarkaiedtech << 'EOF'
+            # Redirect HTTP to HTTPS
+            server {
+                listen 80;
+                listen [::]:80;
+                server_name tarkaiedtech.com www.tarkaiedtech.com;
+                
+                # For Let's Encrypt verification
+                location ^~ /.well-known/acme-challenge/ {
+                    root /var/www/certbot;
+                }
+                
+                location / {
+                    return 301 https://$server_name$request_uri;
+                }
+            }
+
+            # HTTPS server
+            server {
+                listen 443 ssl http2;
+                listen [::]:443 ssl http2;
+                server_name tarkaiedtech.com www.tarkaiedtech.com;
+                
+                # SSL certificates (configure these paths after setting up certbot)
+                # ssl_certificate /etc/letsencrypt/live/tarkaiedtech.com/fullchain.pem;
+                # ssl_certificate_key /etc/letsencrypt/live/tarkaiedtech.com/privkey.pem;
+                
+                # Temporarily use HTTP until SSL is configured
+                # Comment this out after SSL setup
+                listen 80;
+                
+                # Security headers
+                add_header X-Frame-Options "SAMEORIGIN" always;
+                add_header X-Content-Type-Options "nosniff" always;
+                add_header X-XSS-Protection "1; mode=block" always;
+                
+                # Proxy to Next.js app
+                location / {
+                    proxy_pass http://localhost:5010;
+                    proxy_http_version 1.1;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection 'upgrade';
+                    proxy_set_header Host $host;
+                    proxy_cache_bypass $http_upgrade;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+                    
+                    # Timeouts
+                    proxy_connect_timeout 60s;
+                    proxy_send_timeout 60s;
+                    proxy_read_timeout 60s;
+                }
+                
+                # Cache static assets
+                location /_next/static {
+                    proxy_pass http://localhost:5010;
+                    proxy_cache_valid 60m;
+                    add_header Cache-Control "public, immutable";
+                }
+            }
+            EOF
+              
+              # Enable the site
+              ln -sf /etc/nginx/sites-available/tarkaiedtech /etc/nginx/sites-enabled/
+              
+              # Remove default nginx config if it exists
+              rm -f /etc/nginx/sites-enabled/default
+              
+              # Test and reload nginx
+              nginx -t && systemctl reload nginx
+              
+              echo "✅ Nginx configured successfully!"
+            else
+              echo "ℹ️  Nginx already configured, reloading..."
+              nginx -t && systemctl reload nginx
+            fi
+

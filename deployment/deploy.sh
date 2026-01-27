@@ -10,13 +10,13 @@ echo "Building Docker image..."
 docker build --no-cache -t tarkaiedtech-web .
 
 # 3. Run Docker container
-# Explicitly binding to 0.0.0.0:3000 on host to map to container's 3000
+# Explicitly binding to 0.0.0.0:5010 on host to map to container's 5010
 echo "Starting container..."
 docker run -d \
   --name tarkaiedtech-web \
-  -p 127.0.0.1:3000:3000 \
+  -p 127.0.0.1:5010:5010 \
   --restart always \
-  --env PORT=3000 \
+  --env PORT=5010 \
   --env HOSTNAME="0.0.0.0" \
   tarkaiedtech-web
 
@@ -26,7 +26,7 @@ sleep 5
 
 # 5. Check if curl works locally
 echo "Checking local connectivity..."
-curl -v http://127.0.0.1:3000
+curl -v http://127.0.0.1:5010
 
 # 6. Setup Nginx
 echo "Configuring Nginx..."
@@ -47,7 +47,7 @@ server {
     server_name tarkaiedtech.com www.tarkaiedtech.com;
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:5010;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
