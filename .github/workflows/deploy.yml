@@ -18,16 +18,9 @@ jobs:
 
       - name: Create deployment package
         run: |
-          # Create a deployment directory
-          mkdir -p deploy
-          
-          # Copy necessary files
-          cp Dockerfile deploy/
-          cp docker-compose.yml deploy/
-          cp -r . deploy/app
-          
-          # Create tarball
-          tar -czf deploy.tar.gz -C deploy .
+          # Create tarball of the current directory
+          # Exclude .git directory and the target tarball itself
+          tar -czf deploy.tar.gz --exclude='.git' --exclude='.github' --exclude='deploy.tar.gz' .
 
       - name: Upload to VPS
         uses: appleboy/scp-action@v0.1.7
