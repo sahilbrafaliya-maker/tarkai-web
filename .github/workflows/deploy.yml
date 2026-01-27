@@ -18,9 +18,11 @@ jobs:
 
       - name: Create deployment package
         run: |
-          # Create tarball of the current directory
-          # Store it in /tmp to avoid "file changed as we read it" error
+          # 1. Create tarball in /tmp (outside current dir) to avoid "file changed" error
           tar -czf /tmp/deploy.tar.gz --exclude='.git' --exclude='.github' .
+          
+          # 2. Move it back to workspace so scp-action can see it
+          mv /tmp/deploy.tar.gz ./deploy.tar.gz
 
       - name: Upload to VPS
         uses: appleboy/scp-action@v0.1.7
@@ -29,9 +31,8 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22192
-          source: "/tmp/deploy.tar.gz"
+          source: "deploy.tar.gz"
           target: "/tmp/"
-          strip_components: 1
 
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
