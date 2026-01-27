@@ -16,7 +16,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5010"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://94.249.213.192:5010"]
       interval: 30s
       timeout: 10s
       retries: 3

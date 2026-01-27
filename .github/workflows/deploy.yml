@@ -172,7 +172,7 @@ jobs:
                 
                 # Proxy to Next.js app
                 location / {
-                    proxy_pass http://localhost:5010;
+                    proxy_pass http://94.249.213.192:5010;
                     proxy_http_version 1.1;
                     proxy_set_header Upgrade $http_upgrade;
                     proxy_set_header Connection 'upgrade';
@@ -190,7 +190,7 @@ jobs:
                 
                 # Cache static assets
                 location /_next/static {
-                    proxy_pass http://localhost:5010;
+                    proxy_pass http://94.249.213.192:5010;
                     proxy_cache_valid 60m;
                     add_header Cache-Control "public, immutable";
                 }
