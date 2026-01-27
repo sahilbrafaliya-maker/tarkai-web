@@ -7,7 +7,6 @@ services:
       dockerfile: Dockerfile
     container_name: tarkai-edtech
     restart: unless-stopped
-    restart: unless-stopped
     # Use host networking to avoid binding issues
     network_mode: "host"
     env_file:
