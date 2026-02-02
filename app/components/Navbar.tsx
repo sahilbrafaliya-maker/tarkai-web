@@ -45,7 +45,7 @@ export default function Navbar() {
                 <div className="flex justify-between h-20 items-center relative">
 
                     {/* Logo - Left Aligned */}
-                    <div className="flex-shrink-0 flex items-center">
+                    <div className="shrink-0 flex items-center">
                         <Link href="/" className="flex items-center">
                             <Image
                                 src="/Logo.png"

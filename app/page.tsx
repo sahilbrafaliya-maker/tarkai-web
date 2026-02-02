@@ -4,6 +4,7 @@ import HeroBackground from "./components/HeroBackground";
 import { FaChalkboardTeacher, FaLightbulb, FaRocket } from "react-icons/fa";
 import ScrollToTop from "./components/ScrollToTop";
 import HomeWaypoints from "./components/HomeWaypoints";
+import SignaturePrograms from "./components/SignaturePrograms";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -105,84 +106,7 @@ export default function Home() {
       <HomeWaypoints />
 
       {/* Signature Programs Section */}
-      <section className="py-20 bg-brand-lightest relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16 gsap-fade-up">
-            <h2 className="text-3xl font-bold text-brand-darkest mb-4">Signature Programs</h2>
-            <div className="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 gsap-stagger">
-            {[
-              {
-                title: "AI / ML Architect Program",
-                duration: "12 Modules",
-                description: "From intelligent databases to agentic systems—craft full-stack AI experiences that are production ready.",
-                highlights: ["Full-stack ML systems", "LLM fine-tuning & agent orchestration"],
-                icon: <FaRocket />
-              },
-              {
-                title: "Data Science & Strategic Analytics",
-                duration: "12 Modules",
-                description: "Transform noisy data into boardroom narratives and predictive models leaders can act on instantly.",
-                highlights: ["Analytics storytelling", "Spark-powered ML pipelines"],
-                icon: <FaChalkboardTeacher />
-              },
-              {
-                title: "Future Founders – AI Foundation",
-                duration: "8 Modules",
-                description: "A playful launchpad for teens and first-time builders to code, analyze, and present their first AI ideas.",
-                highlights: ["Creative coding sprints", "Responsible AI mindset"],
-                icon: <FaLightbulb />
-              },
-              {
-                title: "Green Intelligence – Climate Analytics",
-                duration: "8 Modules",
-                description: "Decode carbon markets, architect ESG dashboards, and advise on climate-positive strategies with data.",
-                highlights: ["Emission analytics", "Carbon market storytelling"],
-                icon: <FaLightbulb />
-              }
-            ].map((program, index) => {
-              const toSlug = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-              return (
-                <Link
-                  key={index}
-                  href={`/programs#${toSlug(program.title)}`}
-                  className="block h-full"
-                >
-                  <div className="group bg-white p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-brand-light/20 flex flex-col items-start text-left hover:-translate-y-1 h-full">
-                    <div className="flex items-center justify-between w-full mb-6">
-                      <div className="p-3 bg-brand-lightest rounded-lg text-brand-darkest text-2xl group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
-                        {program.icon}
-                      </div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-full">
-                        {program.duration}
-                      </span>
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-brand-darkest mb-3 group-hover:text-brand-accent transition-colors">{program.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed grow">{program.description}</p>
-
-                    <ul className="mb-8 space-y-2 w-full">
-                      {program.highlights.map((highlight, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-brand-dark font-medium">
-                          <span className="w-1.5 h-1.5 bg-brand-accent rounded-full mr-2"></span>
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <span className="mt-auto flex items-center text-brand-darkest font-bold group-hover:text-brand-accent transition-colors">
-                      Explore syllabus <span className="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
-                    </span>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+      <SignaturePrograms />
 
       {/* Why Now Section - Redesigned */}
       <section className="py-24 bg-brand-darkest text-white relative overflow-hidden">
