@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollAnimations from "./components/ScrollAnimations";
+import ScrollProgressBar from "./components/ScrollProgressBar";
 import Preloader from "./components/Preloader";
 
 import "./globals.css";
@@ -125,6 +126,7 @@ export default function RootLayout({
 
         <ScrollAnimations />
         <Navbar />
+        <ScrollProgressBar />
         {children}
         <Footer />
         <script

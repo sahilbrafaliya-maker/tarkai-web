@@ -145,7 +145,7 @@ export default function Navbar() {
                         onClick={() => setIsMobileMenuOpen(false)}
                         className="mt-4 w-full flex justify-center"
                     >
-                         <div className="relative group overflow-hidden px-8 py-3 rounded-full font-bold text-white shadow-xl transition-all duration-300 active:scale-95 w-3/4 text-center">
+                        <div className="relative group overflow-hidden px-8 py-3 rounded-full font-bold text-white shadow-xl transition-all duration-300 active:scale-95 w-3/4 text-center">
                             <span className="absolute inset-0 bg-linear-to-r from-brand-accent to-brand-dark"></span>
                             <span className="relative flex items-center justify-center gap-2 z-20">
                                 Connect

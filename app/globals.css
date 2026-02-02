@@ -1,170 +1,181 @@
 @import "tailwindcss";
 
 :root {
-  --background: #D4EEEE;
-  --foreground: #0F1C1E;
+    --background: #D4EEEE;
+    --foreground: #0F1C1E;
 
-  /* Brand Palette */
-  --color-brand-lightest: #D4EEEE;
-  --color-brand-light: #9FEFFF;
-  --color-brand-accent: #2DA5A3;
-  --color-brand-dark: #186474;
-  --color-brand-darkest: #0F1C1E;
+    /* Brand Palette */
+    --color-brand-lightest: #D4EEEE;
+    --color-brand-light: #9FEFFF;
+    --color-brand-accent: #2DA5A3;
+    --color-brand-dark: #186474;
+    --color-brand-darkest: #0F1C1E;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
 
-  --color-brand-lightest: var(--color-brand-lightest);
-  --color-brand-light: var(--color-brand-light);
-  --color-brand-accent: var(--color-brand-accent);
-  --color-brand-dark: var(--color-brand-dark);
-  --color-brand-darkest: var(--color-brand-darkest);
+    --color-brand-lightest: var(--color-brand-lightest);
+    --color-brand-light: var(--color-brand-light);
+    --color-brand-accent: var(--color-brand-accent);
+    --color-brand-dark: var(--color-brand-dark);
+    --color-brand-darkest: var(--color-brand-darkest);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 
-  --animate-blob: blob 7s infinite;
-  --animate-fade-in: fadeIn 0.8s ease-out forwards;
-  --animate-slide-up: slideUp 0.8s ease-out forwards;
-  --animate-scale-in: scaleIn 0.5s ease-out forwards;
+    --animate-blob: blob 7s infinite;
+    --animate-fade-in: fadeIn 0.8s ease-out forwards;
+    --animate-slide-up: slideUp 0.8s ease-out forwards;
+    --animate-scale-in: scaleIn 0.5s ease-out forwards;
 
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
     }
 
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-  }
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+    @keyframes shimmer {
+        from {
+            transform: skewX(-20deg) translateX(-150%);
+        }
 
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
+        to {
+            transform: skewX(-20deg) translateX(150%);
+        }
     }
 
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+    --animate-shimmer: shimmer 2s infinite linear;
+    --animate-spin-slow: spin 3s linear infinite;
 
-  @keyframes shimmer {
-    from {
-      transform: skewX(-20deg) translateX(-150%);
-    }
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
 
-    to {
-      transform: skewX(-20deg) translateX(150%);
+        to {
+            transform: rotate(360deg);
+        }
     }
-  }
-
-  --animate-shimmer: shimmer 2s infinite linear;
 }
 
 /* Explicit Animation Class for Navbar Button */
 .animate-wave {
-  animation: shimmer 2.5s infinite linear;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-  width: 50%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: skewX(-20deg);
+    animation: shimmer 2.5s infinite linear;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: skewX(-20deg);
 }
 
 @keyframes shimmer {
-  0% {
-    transform: skewX(-20deg) translateX(-250%);
-  }
+    0% {
+        transform: skewX(-20deg) translateX(-250%);
+    }
 
-  100% {
-    transform: skewX(-20deg) translateX(250%);
-  }
+    100% {
+        transform: skewX(-20deg) translateX(250%);
+    }
 }
 
 .animate-delay-100 {
-  animation-delay: 100ms;
+    animation-delay: 100ms;
 }
 
 .animate-delay-200 {
-  animation-delay: 200ms;
+    animation-delay: 200ms;
 }
 
 .animate-delay-300 {
-  animation-delay: 300ms;
+    animation-delay: 300ms;
 }
 
 .animate-delay-400 {
-  animation-delay: 400ms;
+    animation-delay: 400ms;
 }
 
 .animate-delay-500 {
-  animation-delay: 500ms;
+    animation-delay: 500ms;
 }
 
 /* Staggered animation utility */
 .stagger-child>* {
-  opacity: 0;
-  animation: slideUp 0.6s ease-out forwards;
+    opacity: 0;
+    animation: slideUp 0.6s ease-out forwards;
 }
 
 .stagger-child>*:nth-child(1) {
-  animation-delay: 0.1s;
+    animation-delay: 0.1s;
 }
 
 .stagger-child>*:nth-child(2) {
-  animation-delay: 0.2s;
+    animation-delay: 0.2s;
 }
 
 .stagger-child>*:nth-child(3) {
-  animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
 
 .stagger-child>*:nth-child(4) {
-  animation-delay: 0.4s;
+    animation-delay: 0.4s;
 }
 
 .stagger-child>*:nth-child(5) {
-  animation-delay: 0.5s;
+    animation-delay: 0.5s;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
 }
