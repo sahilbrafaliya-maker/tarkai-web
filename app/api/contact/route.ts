@@ -25,7 +25,7 @@ export async function POST(request: Request) {
             },
         });
 
-        // Email Content
+        // Email Content    
         const mailOptions = {
             from: process.env.EMAIL_USER, // Sender
             to: 'tarkaiedtech@gmail.com', // Receiver

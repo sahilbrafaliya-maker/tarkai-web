@@ -27,20 +27,20 @@ jobs:
       - name: Upload to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: 94.249.213.192
-          username: root
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22192
+          port: ${{ secrets.VPS_PORT }}
           source: "deploy.tar.gz"
           target: "/tmp/"
 
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 94.249.213.192
-          username: root
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22192
+          port: ${{ secrets.VPS_PORT }}
           script: |
             set -e
             
@@ -60,9 +60,9 @@ jobs:
               TIMESTAMP=$(date +%Y%m%d_%H%M%S)
               tar -czf $BACKUP_DIR/backup_$TIMESTAMP.tar.gz -C $DEPLOY_DIR . 2>/dev/null || true
               
-              # Keep only last 5 backups
+              # Keep only last 2 backups
               cd $BACKUP_DIR
-              ls -t backup_*.tar.gz | tail -n +6 | xargs -r rm
+              ls -t backup_*.tar.gz | tail -n +3 | xargs -r rm
             fi
             
             # Extract new deployment
@@ -116,8 +116,16 @@ jobs:
               exit 1
             fi
             
-            # Cleanup old Docker images
-            echo "🧹 Cleaning up old Docker images..."
+            # Cleanup
+            echo "🧹 Cleaning up system..."
+            
+            # 1. Prune Docker Build Cache (Fixes the 11GB usage)
+            # -a: Remove all unused build cache, not just dangling ones
+            # -f: Force without confirmation
+            docker builder prune -af
+            
+            # 2. Prune Docker Images
+            # Removes dangling images (replaced by new builds)
             docker image prune -f
             
             echo "🎉 Deployment complete!"
@@ -125,10 +133,10 @@ jobs:
       - name: Configure Nginx (First time only)
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 94.249.213.192
-          username: root
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22192
+          port: ${{ secrets.VPS_PORT }}
           script: |
             # Check if nginx config already exists
             if [ ! -f "/etc/nginx/sites-available/tarkaiedtech" ]; then
