@@ -40,7 +40,12 @@ export default function ContactPage() {
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        if (e.target.id === 'mobile') {
+            const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+            setFormData({ ...formData, [e.target.id]: value });
+        } else {
+            setFormData({ ...formData, [e.target.id]: e.target.value });
+        }
     };
 
     const handleSubmit = async (e: FormEvent) => {
@@ -150,8 +155,12 @@ export default function ContactPage() {
                                         value={(formData as any).mobile}
                                         onChange={handleChange}
                                         required
+                                        maxLength={10}
+                                        minLength={10}
+                                        pattern="[0-9]{10}"
+                                        inputMode="numeric"
                                         className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400"
-                                        placeholder="+91 9876543210"
+                                        placeholder="9876543210"
                                     />
                                 </div>
                             </div>
@@ -214,7 +223,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-accent transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 disabled:hover:translate-y-0"
+                                className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-accent transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 disabled:hover:translate-y-0 cursor-pointer"
                             >
                                 {isSubmitting ? (
                                     <>
