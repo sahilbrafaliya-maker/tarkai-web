@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaChevronDown, FaCheck, FaSpinner } from "react-icons/fa";
+import GeometricShapes from "../components/GeometricShapes";
+import BackgroundText from "../components/BackgroundText";
 
 const programs = [
     { id: "ai-architect", name: "AI / ML Architect Program" },
@@ -82,9 +84,11 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="bg-white min-h-screen pb-20 pt-28">
-            <div className="bg-brand-lightest py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="bg-white min-h-screen pb-20 pt-28 relative overflow-hidden">
+            <GeometricShapes />
+            <div className="bg-brand-lightest py-16 relative overflow-hidden">
+                <BackgroundText text="CONTACT US" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <h1 className="text-4xl md:text-5xl font-bold text-brand-darkest mb-6 animate-slide-up">Contact TARK AI for Career Guidance</h1>
                     <p className="text-xl text-brand-dark max-w-3xl mx-auto animate-slide-up animate-delay-200 opacity-0" style={{ animationFillMode: 'forwards' }}>
                         Have questions about our programs or want to partner with us? We'd love to hear from you.

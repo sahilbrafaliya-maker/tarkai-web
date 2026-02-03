@@ -2,12 +2,16 @@
 
 import Link from 'next/link';
 import { programs } from '@/data/programsData';
+import GeometricShapes from '../components/GeometricShapes';
+import BackgroundText from '../components/BackgroundText';
 
 export default function ProgramsPage() {
     return (
-        <div className="bg-white min-h-screen pt-28">
-            <div className="bg-brand-lightest py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="bg-white min-h-screen pt-28 relative overflow-hidden">
+            <GeometricShapes />
+            <div className="bg-brand-lightest py-20 relative overflow-hidden">
+                <BackgroundText text="PROGRAMS" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-brand-darkest mb-6 gsap-fade-up">AI Education Programs for Career Growth</h1>
                     <p className="text-xl text-brand-dark max-w-3xl mx-auto gsap-fade-up">
                         Choose from a wide range of industry-aligned courses designed to launch your career.
@@ -54,7 +58,7 @@ export default function ProgramsPage() {
                                 <Link href={`/programs/${program.slug}`}>
                                     {/* Visual Representation */}
                                     <div className={`absolute inset-0 ${program.color} opacity-90 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-100`}></div>
-                                    <div className="absolute inset-0 bg-gradient-to-br from-brand-darkest/50 to-transparent"></div>
+                                    <div className="absolute inset-0 bg-linear-to-br from-brand-darkest/50 to-transparent"></div>
 
                                     <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center text-white">
                                         <div className="w-32 h-32 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-7xl mb-8 border border-white/20 shadow-inner group-hover:scale-110 transition-transform duration-500">

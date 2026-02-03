@@ -1,5 +1,7 @@
 import { FaEye, FaRocket } from 'react-icons/fa';
 import { Metadata } from 'next';
+import GeometricShapes from '../components/GeometricShapes';
+import BackgroundText from '../components/BackgroundText';
 
 export const metadata: Metadata = {
     title: "About TARK AI | Leading AI EdTech Company in India",
@@ -11,9 +13,11 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
     return (
-        <div className="bg-white min-h-screen pb-20 pt-28">
-            <div className="bg-brand-lightest py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="bg-white min-h-screen pb-20 pt-28 relative overflow-hidden">
+            <GeometricShapes />
+            <div className="bg-brand-lightest py-20 relative overflow-hidden">
+                <BackgroundText text="ABOUT TARK" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-brand-darkest mb-8 animate-slide-up">
                         About TARK AI EdTech - Leading AI Education Platform
                     </h1>
@@ -90,7 +94,7 @@ export default function AboutPage() {
                                 "To create future-ready professionals and innovators across AI, Data Science, and Climate Tech"
                             ].map((item, i) => (
                                 <li key={i} className="flex items-start">
-                                    <span className="flex-shrink-0 w-2 h-2 bg-brand-accent rounded-full mt-2.5 mr-4"></span>
+                                    <span className="shrink-0 w-2 h-2 bg-brand-accent rounded-full mt-2.5 mr-4"></span>
                                     <span className="text-lg text-gray-700">{item}</span>
                                 </li>
                             ))}

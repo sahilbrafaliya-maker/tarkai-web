@@ -81,9 +81,9 @@ export default async function ProgramDetail({ params }: { params: Promise<{ slug
                                 Apply Now
                             </Link>
 
-                            <p className="text-xs text-center text-gray-400 mt-4">
+                            {/* <p className="text-xs text-center text-gray-400 mt-4">
                                 Limited seats available for next cohort.
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </div>

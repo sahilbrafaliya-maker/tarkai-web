@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import GeometricShapes from '../components/GeometricShapes';
+import BackgroundText from '../components/BackgroundText';
 
 export default function TeamPage() {
     const [hoveredMember, setHoveredMember] = useState<number | null>(null);
@@ -43,9 +45,11 @@ export default function TeamPage() {
     ];
 
     return (
-        <div className="bg-white min-h-screen pb-20 pt-28">
-            <div className="bg-brand-lightest py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="bg-white min-h-screen pb-20 pt-28 relative overflow-hidden">
+            <GeometricShapes />
+            <div className="bg-brand-lightest py-16 relative overflow-hidden">
+                <BackgroundText text="LEADERSHIP" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <h1 className="text-4xl md:text-5xl font-bold text-brand-darkest mb-6 animate-slide-up">Meet the TARK AI Leadership Team</h1>
                     <p className="text-xl text-brand-dark max-w-3xl mx-auto animate-slide-up animate-delay-200 opacity-0" style={{ animationFillMode: 'forwards' }}>
                         The passionate individuals behind TarkAI EdTech working to shape the future of education.

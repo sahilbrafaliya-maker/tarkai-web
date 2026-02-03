@@ -4,7 +4,13 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-export default function GeometricShapes() {
+interface GeometricShapesProps {
+    hideBigHexagon?: boolean;
+    hideTriangle?: boolean;
+    hideTopLeftHexagon?: boolean;
+}
+
+export default function GeometricShapes({ hideBigHexagon = false, hideTriangle = false, hideTopLeftHexagon = false }: GeometricShapesProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
@@ -38,11 +44,13 @@ export default function GeometricShapes() {
     return (
         <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             {/* Hexagon - Top Left */}
-            <div className="geo-shape absolute top-[10%] left-[5%] opacity-30 text-brand-accent">
-                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="currentColor" strokeWidth="2" />
-                </svg>
-            </div>
+            {!hideTopLeftHexagon && (
+                <div className="geo-shape absolute top-[10%] left-[5%] opacity-30 text-brand-accent">
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="currentColor" strokeWidth="2" />
+                    </svg>
+                </div>
+            )}
 
             {/* Circle - Top Right */}
             <div className="geo-shape absolute top-[15%] right-[10%] opacity-30 text-brand-dark">
@@ -50,11 +58,13 @@ export default function GeometricShapes() {
             </div>
 
             {/* Triangle - Bottom Left */}
-            <div className="geo-shape absolute bottom-[20%] left-[8%] opacity-30 text-brand-accent">
-                <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 15L90 85H10L50 15Z" stroke="currentColor" strokeWidth="2" />
-                </svg>
-            </div>
+            {!hideTriangle && (
+                <div className="geo-shape absolute bottom-[20%] left-[8%] opacity-30 text-brand-accent">
+                    <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 15L90 85H10L50 15Z" stroke="currentColor" strokeWidth="2" />
+                    </svg>
+                </div>
+            )}
 
             {/* Abstract Grid - Center Right */}
             <div className="geo-shape absolute top-[40%] right-[5%] opacity-20 text-brand-dark hidden md:block">
@@ -66,11 +76,13 @@ export default function GeometricShapes() {
             </div>
 
             {/* Large Hexagon - Bottom Right (Offscreen mostly) */}
-            <div className="geo-shape absolute -bottom-10 -right-10 opacity-10 text-brand-accent">
-                <svg width="300" height="300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" className="fill-current" />
-                </svg>
-            </div>
+            {!hideBigHexagon && (
+                <div className="geo-shape absolute -bottom-10 -right-10 opacity-10 text-brand-accent">
+                    <svg width="300" height="300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" className="fill-current" />
+                    </svg>
+                </div>
+            )}
         </div>
     );
 }
