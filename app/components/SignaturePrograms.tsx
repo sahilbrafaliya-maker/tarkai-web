@@ -78,7 +78,7 @@ export default function SignaturePrograms() {
 
   return (
     // Increased height to simulate scroll travel distance (300vh = 3 screens worth of scroll)
-    <section className="bg-brand-lightest py-8 lg:py-16 z-30 relative">
+    <section className="bg-white py-8 lg:py-16 z-30 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mb-6 lg:mb-8">
         <div className="text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">
@@ -92,8 +92,8 @@ export default function SignaturePrograms() {
         </div>
       </div>
 
-      <div ref={containerRef} className="relative h-[300vh] bg-brand-lightest">
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-brand-lightest">
+      <div ref={containerRef} className="relative h-[300vh] bg-white">
+        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-white">
           <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div className="flex flex-col lg:flex-row gap8 lg:h-[480px] h-auto">
 
@@ -190,15 +190,7 @@ export default function SignaturePrograms() {
                           className="w-full h-auto object-cover aspect-4/3"
                         />
                       </div>
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <div className="bg-black/60 backdrop-blur-md text-white flex items-center justify-between px-4 py-3 rounded-lg border border-white/20">
-                          <div className="flex items-center gap-2">
-                            <FaRocket className="text-brand-accent text-sm" />
-                            <span className="text-xs font-semibold tracking-wide uppercase">Signature Certification</span>
-                          </div>
-                          {/* Info icon not imported, using FaRocket for now or generic icon if available, or just omitting */}
-                        </div>
-                      </div>
+
                     </div>
                   </motion.div>
                 </AnimatePresence>

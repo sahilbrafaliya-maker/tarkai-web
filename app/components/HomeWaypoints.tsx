@@ -68,6 +68,14 @@ export default function HomeWaypoints() {
     return (
         <section className="overflow-hidden">
             <div ref={triggerRef}>
+                <div className="absolute top-28 left-0 w-full text-center z-20 pointer-events-none">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">
+                        Your Journey with TarkAI
+                    </h2>
+                    <p className="text-lg text-brand-dark max-w-2xl mx-auto px-4">
+                        A clear path from curiosity to mastery.
+                    </p>
+                </div>
                 <div
                     ref={sectionRef}
                     className="h-screen w-[400vw] flex flex-row relative"
@@ -75,10 +83,10 @@ export default function HomeWaypoints() {
                     {steps.map((step, index) => (
                         <div
                             key={index}
-                            className="w-screen h-full flex flex-col justify-center items-center relative p-12"
+                            className="w-screen h-full flex flex-col justify-center items-center relative p-4 pt-32"
                         >
                             {/* Background Number */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20rem] font-bold text-black/5 select-none z-0">
+                            <div className={`absolute top-1/2 -translate-y-1/2 text-[15rem] font-bold text-black/5 select-none z-0 ${index % 2 === 0 ? 'left-[20%]' : 'right-[20%]'} -translate-x-1/2`}>
                                 0{index + 1}
                             </div>
 
@@ -86,7 +94,7 @@ export default function HomeWaypoints() {
                                 {/* Text Content */}
                                 <div className={`order-2 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2 text-right'}`}>
                                     <span className="text-xl font-bold text-brand-accent tracking-widest uppercase mb-4 block">Step 0{index + 1}</span>
-                                    <h2 className="text-5xl md:text-7xl font-extrabold text-brand-darkest mb-6 leading-tight">
+                                    <h2 className="text-4xl md:text-5xl font-extrabold text-brand-darkest mb-4 leading-tight">
                                         {step.title}
                                     </h2>
                                     <p className="text-xl md:text-2xl text-brand-dark leading-relaxed max-w-xl">
@@ -108,9 +116,6 @@ export default function HomeWaypoints() {
                 </div>
             </div>
 
-            <div className="text-center py-4 bg-gray-100/50">
-                <p className="text-sm text-gray-400 uppercase tracking-widest animate-pulse">Scroll to Explore</p>
-            </div>
         </section>
     );
 }
