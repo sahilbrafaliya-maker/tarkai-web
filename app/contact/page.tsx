@@ -21,6 +21,7 @@ export default function ContactPage() {
         firstName: "",
         lastName: "",
         email: "",
+        mobile: "",
         message: ""
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,7 +64,7 @@ export default function ContactPage() {
 
             if (response.ok) {
                 setSubmitStatus({ type: 'success', message: "Message sent! We'll get back to you shortly." });
-                setFormData({ firstName: "", lastName: "", email: "", message: "" });
+                setFormData({ firstName: "", lastName: "", email: "", mobile: "", message: "" });
                 setSelectedProgram("");
             } else {
                 setSubmitStatus({ type: 'error', message: data.error || "Failed to send message. Please try again." });
@@ -126,17 +127,33 @@ export default function ContactPage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-semibold text-brand-darkest ml-1">Email Address</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400"
-                                    placeholder="john@example.com"
-                                />
+
+
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label htmlFor="email" className="text-sm font-semibold text-brand-darkest ml-1">Email Address</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400"
+                                        placeholder="john@example.com"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="mobile" className="text-sm font-semibold text-brand-darkest ml-1">Mobile Number</label>
+                                    <input
+                                        type="tel"
+                                        id="mobile"
+                                        value={(formData as any).mobile}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 font-medium placeholder-gray-400"
+                                        placeholder="+91 9876543210"
+                                    />
+                                </div>
                             </div>
 
                             <div className="space-y-2" ref={dropdownRef}>

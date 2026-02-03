@@ -4,10 +4,10 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
     try {
         const data = await request.json();
-        const { firstName, lastName, email, program, message } = data;
+        const { firstName, lastName, email, mobile, program, message } = data;
 
         // Validation
-        if (!firstName || !lastName || !email || !message) {
+        if (!firstName || !lastName || !email || !mobile || !message) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 }
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
             text: `
 Name: ${firstName} ${lastName}
 Email: ${email}
+Mobile: ${mobile}
 Program: ${program || 'Not selected'}
 
 Message:
@@ -44,6 +45,7 @@ ${message}
                     <h2 style="color: #0d9488;">New Contact Form Submission</h2>
                     <p><strong>Name:</strong> ${firstName} ${lastName}</p>
                     <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Mobile:</strong> ${mobile}</p>
                     <p><strong>Program:</strong> ${program || 'Not selected'}</p>
                     <hr style="border: 1px solid #eee; margin: 20px 0;" />
                     <h3 style="color: #555;">Message:</h3>

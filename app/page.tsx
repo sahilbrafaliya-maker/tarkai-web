@@ -109,7 +109,7 @@ export default function Home() {
       <SignaturePrograms />
 
       {/* Why Now Section - Redesigned */}
-      <section className="py-24 bg-brand-darkest text-white relative overflow-hidden">
+      <section className="py-24 bg-brand-darkest text-white relative overflow-hidden z-10">
         {/* Background Glows */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-light/5 rounded-full blur-[100px] pointer-events-none"></div>
