@@ -6,29 +6,42 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
+import { motion, AnimatePresence } from 'motion/react';
+
 export default function Navbar() {
     const pathname = usePathname();
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+    // Feature: Check if we are on the home page for specific styles
+    const isHome = pathname === "/";
+    const [isScrolled, setIsScrolled] = useState(false);
+
     useEffect(() => {
         const controlNavbar = () => {
             if (typeof window !== 'undefined') {
-                if (window.scrollY > lastScrollY) { // if scroll down hide the navbar
+                const currentScrollY = window.scrollY;
+
+                // Determine if we've scrolled enough to change background
+                if (currentScrollY > 20) {
+                    setIsScrolled(true);
+                } else {
+                    setIsScrolled(false);
+                }
+
+                if (currentScrollY > lastScrollY && currentScrollY > 50) { // if scroll down hide the navbar (threshold 50 prevents jitter)
                     setIsVisible(false);
-                    setIsMobileMenuOpen(false); // Close mobile menu on scroll
+                    setIsMobileMenuOpen(false);
                 } else { // if scroll up show the navbar
                     setIsVisible(true);
                 }
-                setLastScrollY(window.scrollY);
+                setLastScrollY(currentScrollY);
             }
         };
 
         if (typeof window !== 'undefined') {
             window.addEventListener('scroll', controlNavbar);
-
-            // cleanup function
             return () => {
                 window.removeEventListener('scroll', controlNavbar);
             };
@@ -39,13 +52,44 @@ export default function Navbar() {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    // Determine navbar background class
+    const navBackgroundClass = (isHome && !isScrolled)
+        ? 'bg-transparent border-transparent'
+        : 'bg-brand-lightest/90 backdrop-blur-md border-b border-brand-accent/20 shadow-sm';
+
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: -20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        }
+    };
+
     return (
-        <nav className={`fixed top-0 w-full z-50 bg-brand-lightest/90 backdrop-blur-sm border-b border-brand-accent/20 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isVisible ? 'translate-y-0' : '-translate-y-full'} ${navBackgroundClass}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-20 items-center relative">
+                <motion.div
+                    initial={isHome ? "hidden" : "visible"}
+                    animate="visible"
+                    variants={containerVariants}
+                    className="flex justify-between h-20 items-center relative"
+                >
 
                     {/* Logo - Left Aligned */}
-                    <div className="shrink-0 flex items-center">
+                    <motion.div variants={itemVariants} className="shrink-0 flex items-center">
                         <Link href="/" className="flex items-center">
                             <Image
                                 src="/Logo.png"
@@ -56,7 +100,7 @@ export default function Navbar() {
                                 priority
                             />
                         </Link>
-                    </div>
+                    </motion.div>
 
                     {/* Navigation Links - Centered (Desktop) */}
                     <div className="hidden md:flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
@@ -68,24 +112,25 @@ export default function Navbar() {
                         ].map((link) => {
                             const isActive = pathname === link.href;
                             return (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className={`group relative transition-colors py-1 ${isActive
-                                        ? 'text-brand-accent font-bold'
-                                        : 'text-brand-dark hover:text-brand-accent font-medium'
-                                        } `}
-                                >
-                                    {link.name}
-                                    <span className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-brand-accent transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                                        } `}></span>
-                                </Link>
+                                <motion.div key={link.name} variants={itemVariants}>
+                                    <Link
+                                        href={link.href}
+                                        className={`group relative transition-colors py-1 ${isActive
+                                            ? 'text-brand-accent font-bold'
+                                            : 'text-brand-dark hover:text-brand-accent font-medium'
+                                            } `}
+                                    >
+                                        {link.name}
+                                        <span className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-brand-accent transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                                            } `}></span>
+                                    </Link>
+                                </motion.div>
                             );
                         })}
                     </div>
 
                     {/* Contact Button - Right Aligned (Desktop) */}
-                    <div className="hidden md:flex items-center">
+                    <motion.div variants={itemVariants} className="hidden md:flex items-center">
                         <Link href="/contact" className="relative group overflow-hidden px-8 py-3 rounded-full font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-brand-accent/30 active:scale-95">
                             <span className="absolute inset-0 bg-linear-to-r from-brand-accent to-brand-dark transition-all duration-300 group-hover:scale-110"></span>
 
@@ -98,10 +143,10 @@ export default function Navbar() {
                                 <svg className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </span>
                         </Link>
-                    </div>
+                    </motion.div>
 
                     {/* Mobile Menu Button */}
-                    <div className="flex items-center md:hidden">
+                    <motion.div variants={itemVariants} className="flex items-center md:hidden">
                         <button
                             onClick={toggleMobileMenu}
                             className="text-brand-dark hover:text-brand-accent focus:outline-none p-2"
@@ -112,8 +157,8 @@ export default function Navbar() {
                                 <FaBars className="w-6 h-6" />
                             )}
                         </button>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
 
             {/* Mobile Menu Overlay */}

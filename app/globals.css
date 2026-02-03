@@ -22,8 +22,8 @@
     --color-brand-dark: var(--color-brand-dark);
     --color-brand-darkest: var(--color-brand-darkest);
 
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+    --font-sans: "Lexend", sans-serif;
+    --font-mono: "Courier New", monospace;
 
     --animate-blob: blob 7s infinite;
     --animate-fade-in: fadeIn 0.8s ease-out forwards;

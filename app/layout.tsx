@@ -1,5 +1,5 @@
+
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollAnimations from "./components/ScrollAnimations";
@@ -8,15 +8,6 @@ import Preloader from "./components/Preloader";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tarkaiedtech.com"),
@@ -118,9 +109,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet" />
+      </head>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`antialiased bg-background text-foreground`}
       >
         <Preloader />
 

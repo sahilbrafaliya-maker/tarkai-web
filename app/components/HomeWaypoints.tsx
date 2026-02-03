@@ -1,180 +1,115 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { useGSAP } from "@gsap/react";
 import { FaGraduationCap, FaNetworkWired, FaRocket, FaUsers } from "react-icons/fa";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger);
+
 
 export default function HomeWaypoints() {
-    const container = useRef<HTMLDivElement>(null);
-    const [svgHeight, setSvgHeight] = useState(800);
-
-    // Measure height on mount and resize to ensure 1:1 aspect ratio (no distortion)
-    useEffect(() => {
-        const updateHeight = () => {
-            if (container.current) {
-                setSvgHeight(container.current.offsetHeight);
-            }
-        };
-
-        updateHeight();
-        window.addEventListener("resize", updateHeight);
-        return () => window.removeEventListener("resize", updateHeight);
-    }, []);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        const items = gsap.utils.toArray<HTMLElement>(".waypoint-box");
-
-        // Animate boxes: "Down Opacity" - Fade in and slide down slightly
-        items.forEach((item, i) => {
-            gsap.fromTo(item,
-                { opacity: 0, y: -50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 80%",
-                        end: "top 50%",
-                        scrub: 1,
-                    }
-                }
-            );
-        });
-
-        // Motion Path Animation
-        // We'll animate a dot along the central SVG line
-        if (svgHeight > 0) {
-            gsap.killTweensOf("#home-follower-dot"); // Safety cleanup
-
-            gsap.to("#home-follower-dot", {
+        const pin = gsap.fromTo(
+            sectionRef.current,
+            {
+                translateX: 0,
+            },
+            {
+                translateX: "-300vw",
+                ease: "none",
+                duration: 1,
                 scrollTrigger: {
-                    trigger: "#home-waypoints-svg",
-                    start: "top center",
-                    end: "bottom center",
-                    scrub: 1,
+                    trigger: triggerRef.current,
+                    start: "top top",
+                    end: "2000 top",
+                    scrub: 0.6,
+                    pin: true,
                 },
-                motionPath: {
-                    path: "#home-motion-path",
-                    align: "#home-motion-path",
-                    alignOrigin: [0.5, 0.5],
-                },
-                ease: "none"
-            });
+            }
+        );
 
-            // Draw the path itself
-            gsap.fromTo("#home-motion-path",
-                { strokeDasharray: svgHeight, strokeDashoffset: svgHeight },
-                {
-                    strokeDashoffset: "0",
-                    scrollTrigger: {
-                        trigger: "#home-waypoints-svg",
-                        start: "top center",
-                        end: "bottom center",
-                        scrub: 1
-                    }
-                }
-            );
-        }
-
-    }, { scope: container, dependencies: [svgHeight] });
-
-    // Dynamic path generation based on height to maintain curve shape but fit container
-    const curvePoints = `M 50 20
-                         C 50 ${svgHeight * 0.1} 80 ${svgHeight * 0.2} 50 ${svgHeight * 0.3}
-                         C 20 ${svgHeight * 0.4} 50 ${svgHeight * 0.5} 50 ${svgHeight * 0.6}
-                         C 80 ${svgHeight * 0.7} 50 ${svgHeight * 0.8} 50 ${svgHeight - 20}`;
+        return () => {
+            pin.kill();
+        };
+    }, { scope: triggerRef });
 
     const steps = [
         {
             icon: <FaNetworkWired />,
             title: "Discover",
             desc: "Explore AI-driven career paths tailored to your potential.",
+            color: "bg-blue-500"
         },
         {
             icon: <FaGraduationCap />,
             title: "Learn",
             desc: "Master skills with our intelligent, adaptive curriculum.",
+            color: "bg-purple-500"
         },
         {
             icon: <FaUsers />,
             title: "Connect",
             desc: "Join a community of builders and future leaders.",
+            color: "bg-emerald-500"
         },
         {
             icon: <FaRocket />,
             title: "Launch",
             desc: "Deploy your skills and accelerate your career.",
+            color: "bg-orange-500"
         },
     ];
 
     return (
-        <section ref={container} className="relative py-12 bg-brand-lightest overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center mb-10">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">
-                        Your Journey with TarkAI
-                    </h2>
-                    <p className="text-lg text-brand-dark max-w-2xl mx-auto">
-                        A clear path from curiosity to mastery.
-                    </p>
-                </div>
+        <section className="overflow-hidden">
+            <div ref={triggerRef}>
+                <div
+                    ref={sectionRef}
+                    className="h-screen w-[400vw] flex flex-row relative"
+                >
+                    {steps.map((step, index) => (
+                        <div
+                            key={index}
+                            className="w-screen h-full flex flex-col justify-center items-center relative p-12"
+                        >
+                            {/* Background Number */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20rem] font-bold text-black/5 select-none z-0">
+                                0{index + 1}
+                            </div>
 
-                <div className="relative">
-                    {/* Central SVG Path Container */}
-                    <div className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-20 md:w-32 h-full z-0 hidden md:block">
-                        <svg id="home-waypoints-svg" className="w-full h-full" viewBox={`0 0 100 ${svgHeight}`} preserveAspectRatio="xMidYMid meet">
-                            <path
-                                id="home-motion-path"
-                                d={curvePoints}
-                                fill="none"
-                                stroke="#2DA5A3"
-                                strokeWidth="4"
-                                strokeOpacity="0.3"
-                            />
-                            <circle
-                                id="home-follower-dot"
-                                r="10"
-                                fill="#2DA5A3"
-                                className="shadow-lg shadow-brand-accent ml-[-10px]"
-                            />
-                        </svg>
-                    </div>
-
-                    {/* Content Boxes */}
-                    <div className="space-y-12 relative z-10">
-                        {steps.map((step, index) => (
-                            <div
-                                key={index}
-                                className={`flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} flex-col gap-8 md:gap-0`}
-                            >
-                                {/* Text Box side */}
-                                <div className="w-full md:w-1/2 px-4 md:px-12">
-                                    <div className="waypoint-box bg-white/60 backdrop-blur-md border border-white/40 p-8 rounded-2xl shadow-xl hover:bg-white/80 transition-all duration-300">
-                                        <div className="w-16 h-16 bg-brand-accent/10 rounded-full flex items-center justify-center text-3xl text-brand-accent mb-6">
-                                            {step.icon}
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-brand-darkest mb-3">
-                                            {step.title}
-                                        </h3>
-                                        <p className="text-brand-dark leading-relaxed">
-                                            {step.desc}
-                                        </p>
-                                    </div>
+                            <div className="relative z-10 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                                {/* Text Content */}
+                                <div className={`order-2 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2 text-right'}`}>
+                                    <span className="text-xl font-bold text-brand-accent tracking-widest uppercase mb-4 block">Step 0{index + 1}</span>
+                                    <h2 className="text-5xl md:text-7xl font-extrabold text-brand-darkest mb-6 leading-tight">
+                                        {step.title}
+                                    </h2>
+                                    <p className="text-xl md:text-2xl text-brand-dark leading-relaxed max-w-xl">
+                                        {step.desc}
+                                    </p>
                                 </div>
 
-                                {/* Spacer for the central line */}
-                                <div className="w-full md:w-1/2 hidden md:block"></div>
+                                {/* Visual Content (Card) */}
+                                <div className={`order-1 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1 flex justify-end'}`}>
+                                    <div className={`w-full aspect-square md:w-96 md:h-96 ${step.color} rounded-3xl shadow-2xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-all duration-500`}>
+                                        <div className="text-white text-9xl">
+                                            {step.icon}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
+            </div>
+
+            <div className="text-center py-4 bg-gray-100/50">
+                <p className="text-sm text-gray-400 uppercase tracking-widest animate-pulse">Scroll to Explore</p>
             </div>
         </section>
     );

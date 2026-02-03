@@ -96,7 +96,7 @@ export default function TeamPage() {
                         <div className="md:w-1/2 order-1 flex flex-col items-center">
                             <div className="relative w-80 h-80 md:w-96 md:h-96 rounded-2xl overflow-hidden shadow-2xl mb-6">
                                 <Image
-                                    src="/kashish_nagar.JPG"
+                                    src="/Kashish_Nager.jpeg"
                                     alt="Kashish Nagar"
                                     fill
                                     sizes="(max-width: 768px) 100vw, 50vw"
