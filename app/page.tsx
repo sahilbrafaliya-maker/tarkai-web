@@ -4,6 +4,7 @@ import HeroBackground from "./components/HeroBackground";
 import { FaChalkboardTeacher, FaLightbulb, FaRocket } from "react-icons/fa";
 import ScrollToTop from "./components/ScrollToTop";
 import HomeWaypoints from "./components/HomeWaypoints";
+import GeometricShapes from "./components/GeometricShapes";
 import SignaturePrograms from "./components/SignaturePrograms";
 import { Metadata } from "next";
 
@@ -63,8 +64,9 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="features" className="py-20 bg-white relative overflow-hidden">
+        <GeometricShapes />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 gsap-fade-up">
             <h2 className="text-3xl font-bold text-brand-darkest mb-4">Why Choose TarkAI?</h2>
             <p className="text-lg text-brand-dark max-w-2xl mx-auto">
@@ -110,6 +112,7 @@ export default function Home() {
 
       {/* Why Now Section - Redesigned */}
       <section id="why-now" className="py-24 bg-brand-darkest text-white relative overflow-hidden">
+        <GeometricShapes />
         {/* Background Glows */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-light/5 rounded-full blur-[100px] pointer-events-none"></div>
@@ -165,8 +168,9 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-white text-brand-darkest">
-        <div className="max-w-4xl mx-auto px-4 text-center gsap-scale">
+      <section className="py-20 bg-white text-brand-darkest relative overflow-hidden">
+        <GeometricShapes />
+        <div className="max-w-4xl mx-auto px-4 text-center gsap-scale relative z-10">
           <h2 className="text-3xl font-bold mb-6">Ready to Start Your Journey?</h2>
           <p className="text-xl text-brand-dark mb-10">
             Join thousands of students who are already learning with TarkAI.

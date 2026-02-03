@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { FaRocket, FaChalkboardTeacher, FaLightbulb, FaLeaf, FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
+import GeometricShapes from "./GeometricShapes";
 
 // --- Data ---
 const programs = [
@@ -79,6 +80,7 @@ export default function SignaturePrograms() {
   return (
     // Increased height to simulate scroll travel distance (300vh = 3 screens worth of scroll)
     <section className="bg-white py-8 lg:py-16 z-30 relative">
+      <GeometricShapes />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mb-6 lg:mb-8">
         <div className="text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">

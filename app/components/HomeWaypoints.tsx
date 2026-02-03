@@ -4,6 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import GeometricShapes from "./GeometricShapes";
 import { FaGraduationCap, FaNetworkWired, FaRocket, FaUsers } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -66,7 +67,8 @@ export default function HomeWaypoints() {
     ];
 
     return (
-        <section className="overflow-hidden">
+        <section className="overflow-hidden relative">
+            <GeometricShapes />
             <div ref={triggerRef}>
                 <div className="absolute top-28 left-0 w-full text-center z-20 pointer-events-none">
                     <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">

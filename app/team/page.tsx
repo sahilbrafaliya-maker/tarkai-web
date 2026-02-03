@@ -160,7 +160,7 @@ export default function TeamPage() {
                                     />
 
                                     {/* Overlay Gradient */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
 
                                     {/* Content */}
                                     <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end h-full text-white">
