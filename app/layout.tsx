@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ScrollAnimations from "./components/ScrollAnimations";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 import Preloader from "./components/Preloader";
 
@@ -120,7 +119,7 @@ export default function RootLayout({
       >
         <Preloader />
 
-        <ScrollAnimations />
+
         <Navbar />
         <ScrollProgressBar />
         {children}
