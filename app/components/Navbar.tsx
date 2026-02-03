@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, Variants } from 'motion/react';
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -58,7 +58,7 @@ export default function Navbar() {
         : 'bg-brand-lightest/90 backdrop-blur-md border-b border-brand-accent/20 shadow-sm';
 
     // Animation variants
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -69,7 +69,7 @@ export default function Navbar() {
         }
     };
 
-    const itemVariants = {
+    const itemVariants: Variants = {
         hidden: { opacity: 0, y: -20 },
         visible: {
             opacity: 1,
