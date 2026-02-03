@@ -283,7 +283,6 @@ export default function ContactPage() {
                                     <h3 className="font-bold text-lg mb-1">Email Us</h3>
                                     <div className="group-hover/item:translate-x-2 transition-transform duration-300">
                                         <a href="mailto:info@tarkaiedtech.com" className="text-gray-300 hover:text-white transition-colors block leading-relaxed">info@tarkaiedtech.com</a>
-                                        <a href="mailto:support@tarkaiedtech.com" className="text-gray-300 hover:text-white transition-colors block leading-relaxed">support@tarkaiedtech.com</a>
                                     </div>
                                 </div>
                             </div>

@@ -157,7 +157,7 @@ export default function SignaturePrograms() {
                                         <div className="space-y-3">
                                             {selectedProgram.highlights.map((highlight, idx) => (
                                                 <div key={idx} className="flex items-start gap-3">
-                                                    <FaCheckCircle className="mt-1 text-brand-accent flex-shrink-0" size={16} />
+                                                    <FaCheckCircle className="mt-1 text-brand-accent shrink-0" size={16} />
                                                     <span className="text-sm font-medium text-brand-dark/90">{highlight}</span>
                                                 </div>
                                             ))}

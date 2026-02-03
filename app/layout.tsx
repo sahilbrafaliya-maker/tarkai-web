@@ -90,7 +90,7 @@ const jsonLd = {
       "logo": "https://tarkaiedtech.com/Logo.png",
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "tarkaiedtech@gmail.com",
+        "email": "info@tarkaiedtech.com",
         "contactType": "customer service"
       },
       "sameAs": [

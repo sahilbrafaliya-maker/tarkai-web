@@ -44,7 +44,7 @@ export default function Footer() {
                         <h4 className="font-semibold mb-6 text-brand-accent">Contact</h4>
                         <ul className="space-y-3 text-sm text-gray-400">
                             <li>
-                                <a href="mailto:tarkaiedtech@gmail.com" className="hover:text-brand-light transition-colors">tarkaiedtech@gmail.com</a>
+                                <a href="mailto:info@tarkaiedtech.com" className="hover:text-brand-light transition-colors">info@tarkaiedtech.com</a>
                             </li>
                             <li>+91 97123 58689</li>
                             <li>Kyros Business Center, 404&405, beside Ashirwad Society, Sarthana Jakat Naka, Surat, Gujarat 395013</li>
