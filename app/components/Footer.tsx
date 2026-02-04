@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaArrowRight } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import GeometricShapes from "./GeometricShapes";
 
 export default function Footer() {
@@ -53,9 +53,10 @@ export default function Footer() {
                             <div className="space-y-6">
                                 <h3 className="text-sm font-bold uppercase tracking-widest text-brand-accent">Company</h3>
                                 <ul className="space-y-4">
+                                    <li><Link href="/" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
+                                    <li><Link href="/programs" className="text-gray-400 hover:text-white transition-colors">Programs</Link></li>
                                     <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
                                     <li><Link href="/team" className="text-gray-400 hover:text-white transition-colors">Our Team</Link></li>
-                                    <li><Link href="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</Link></li>
                                     <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
                                 </ul>
                             </div>
@@ -64,17 +65,14 @@ export default function Footer() {
                             <div className="space-y-6">
                                 <h3 className="text-sm font-bold uppercase tracking-widest text-brand-accent">Connect</h3>
                                 <div className="flex gap-4">
-                                    <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-accent hover:scale-110 transition-all duration-300">
-                                        <FaGithub />
-                                    </a>
-                                    <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#0077b5] hover:scale-110 transition-all duration-300">
+                                    <a href="https://www.linkedin.com/company/111475196/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#0077b5] hover:scale-110 transition-all duration-300">
                                         <FaLinkedin />
                                     </a>
-                                    <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#1DA1F2] hover:scale-110 transition-all duration-300">
-                                        <FaTwitter />
-                                    </a>
-                                    <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#E1306C] hover:scale-110 transition-all duration-300">
+                                    <a href="https://www.instagram.com/tarkaiedtech/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#E1306C] hover:scale-110 transition-all duration-300">
                                         <FaInstagram />
+                                    </a>
+                                    <a href="https://wa.me/919712358689" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#25D366] hover:scale-110 transition-all duration-300">
+                                        <FaWhatsapp />
                                     </a>
                                 </div>
                             </div>
