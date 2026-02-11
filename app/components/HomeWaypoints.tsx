@@ -80,7 +80,7 @@ export default function HomeWaypoints() {
                 </div>
                 <div
                     ref={sectionRef}
-                    className="h-screen w-[400vw] flex flex-row relative"
+                    className="h-screen w-[400vw] pt-30 pb-10 flex flex-row relative"
                 >
                     {steps.map((step, index) => (
                         <div

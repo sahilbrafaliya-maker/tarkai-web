@@ -79,14 +79,14 @@ export default function SignaturePrograms() {
 
   return (
     // Increased height to simulate scroll travel distance (300vh = 3 screens worth of scroll)
-    <section className="bg-white py-8 lg:py-16 z-30 relative">
+    <section className="bg-white py-4 lg:py-16 z-30 relative">
       <GeometricShapes hideBigHexagon={true} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mb-6 lg:mb-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 w-full mb-3 lg:mb-8">
         <div className="text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">
             Signature Programs
           </h2>
-          <div className="w-24 h-1 bg-brand-accent mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-1 bg-brand-accent mx-auto rounded-full mb-4 lg:mb-8"></div>
 
           <p className="text-lg text-brand-dark max-w-2xl mx-auto">
             Curriculum designed for the future of intelligence.
@@ -96,16 +96,16 @@ export default function SignaturePrograms() {
 
       <div ref={containerRef} className="relative h-[300vh] bg-white">
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-white">
-          <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div className="flex flex-col lg:flex-row gap8 lg:h-[480px] h-auto">
+          <div className="max-w-9xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 lg:h-[480px] h-auto">
 
-              {/* Column 1: Navigation List - 30% */}
-              <div className="w-full lg:w-[30%] flex flex-col gap-3 pr-2">
+              {/* Column 1: Navigation List - Hidden on mobile, vertical on desktop */}
+              <div className="hidden lg:flex lg:w-[30%] lg:flex-col gap-2 lg:gap-3 pr-2">
                 {programs.map((program) => (
                   <button
                     key={program.id}
                     onClick={() => setSelectedId(program.id)}
-                    className={`relative w-full text-left px-5 py-4 rounded-xl transition-all duration-300 group overflow-hidden ${selectedId === program.id
+                    className={`relative min-w-[240px] lg:min-w-0 lg:w-full text-left px-3 py-3 lg:px-5 lg:py-4 rounded-xl transition-all duration-300 group overflow-hidden ${selectedId === program.id
                       ? "bg-white shadow-lg border border-brand-accent/20 scale-[1.02] z-10"
                       : "hover:bg-white/40 border border-transparent hover:border-white/50"
                       }`}
@@ -117,7 +117,7 @@ export default function SignaturePrograms() {
 
                     <div className="relative flex items-center gap-4 z-10">
                       {/* Icon Container */}
-                      <div className={`p-3 rounded-lg transition-colors duration-300 ${selectedId === program.id
+                      <div className={`p-3 rounded-lg transition-colors duration-300 shrink-0 ${selectedId === program.id
                         ? "bg-brand-accent text-white shadow-md"
                         : "bg-white/60 text-brand-dark/50 group-hover:text-brand-accent group-hover:bg-white"
                         }`}>
@@ -125,7 +125,7 @@ export default function SignaturePrograms() {
                       </div>
 
                       {/* Text Content */}
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <h3 className={`text-base font-bold leading-tight mb-0.5 transition-colors ${selectedId === program.id ? "text-brand-darkest" : "text-brand-dark/70 group-hover:text-brand-darkest"
                           }`}>
                           {program.title}
@@ -134,7 +134,7 @@ export default function SignaturePrograms() {
                       </div>
 
                       {/* Active Arrow Indicator */}
-                      <FaArrowRight className={`text-sm text-brand-accent transition-all duration-300 ${selectedId === program.id ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
+                      <FaArrowRight className={`text-sm text-brand-accent transition-all duration-300 shrink-0 ${selectedId === program.id ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
                         }`} />
                     </div>
                   </button>
