@@ -54,7 +54,13 @@ export default function AdminPage() {
         try {
             const res = await fetch('/api/blogs');
             const data = await res.json();
-            setBlogs(data);
+            const data = await res.json();
+            if (Array.isArray(data)) {
+                setBlogs(data);
+            } else {
+                console.error("API returned non-array data:", data);
+                setBlogs([]);
+            }
         } catch (error) {
             console.error('Error fetching blogs:', error);
         }
