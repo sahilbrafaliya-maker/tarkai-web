@@ -166,6 +166,19 @@ export default function AdminPage() {
 
                 {isLoading ? (
                     <div className="text-center py-20 text-gray-500">Loading content...</div>
+                ) : blogs.length === 0 ? (
+                    <div className="text-center py-20">
+                        <div className="bg-white rounded-3xl p-10 max-w-2xl mx-auto border border-gray-200 border-dashed">
+                            <h3 className="text-2xl font-bold text-gray-400 mb-2">No Posts Yet</h3>
+                            <p className="text-gray-500 mb-6">Create your first blog post to get started.</p>
+                            <button
+                                onClick={startCreate}
+                                className="px-6 py-2 bg-brand-accent text-white font-bold rounded-xl shadow-lg hover:bg-brand-dark transition-all flex items-center gap-2 mx-auto"
+                            >
+                                <FaPlus /> Create Post
+                            </button>
+                        </div>
+                    </div>
                 ) : (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <AnimatePresence>
