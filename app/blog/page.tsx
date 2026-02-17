@@ -62,6 +62,13 @@ export default function BlogPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 relative z-10">
                 {isLoading ? (
                     <div className="text-center py-20 text-xl text-gray-500">Loading insights...</div>
+                ) : blogPosts.length === 0 ? (
+                    <div className="text-center py-20">
+                        <div className="bg-gray-50 rounded-3xl p-10 max-w-2xl mx-auto border border-gray-100">
+                            <h3 className="text-2xl font-bold text-gray-400 mb-2">No Content Yet</h3>
+                            <p className="text-gray-500">Stay tuned! Insightful articles are coming soon.</p>
+                        </div>
+                    </div>
                 ) : (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {blogPosts.map((post, index) => (
