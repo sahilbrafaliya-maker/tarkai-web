@@ -145,12 +145,13 @@ export default function AdminPage() {
                                 const data = await res.json();
                                 setCurrentBlog(prev => ({ ...prev, image: data.url }));
                             } else {
-                                console.error("Upload failed");
-                                alert("Image upload failed");
+                                const errorData = await res.json().catch(() => ({}));
+                                console.error("Upload failed", res.status, res.statusText, errorData);
+                                alert(`Image upload failed: ${res.status} ${res.statusText} - ${errorData.error || 'Unknown error'}`);
                             }
                         } catch (err) {
                             console.error("Error uploading image:", err);
-                            alert("Error uploading image");
+                            alert(`Error uploading image: ${err instanceof Error ? err.message : 'Unknown error'}`);
                         }
                     }
                     setUploading(false);
