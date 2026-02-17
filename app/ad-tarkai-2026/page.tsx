@@ -327,11 +327,11 @@ function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b:
             exit={{ opacity: 0, scale: 0.9 }}
             className="group relative h-[450px] w-full perspective-1000"
         >
-            <div className="absolute inset-0 bg-white rounded-[2rem] shadow-lg overflow-hidden border border-gray-200 transition-all duration-300">
+            <div className="absolute inset-0 bg-white rounded-4xl shadow-lg overflow-hidden border border-gray-200 transition-all duration-300">
 
                 {/* Image Section */}
                 <div className="relative h-1/2 overflow-hidden clip-path-slant">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${blog.color} opacity-20 mix-blend-overlay z-10`} />
+                    <div className={`absolute inset-0 bg-linear-to-br ${blog.color} opacity-20 mix-blend-overlay z-10`} />
                     {/* Use standard img tag or unoptimized next/image if domain not configured yet for uploads, 
                         assuming standard Next setup allows local public images. */}
                     <Image
@@ -349,7 +349,7 @@ function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b:
 
                     {/* Category Tag */}
                     <div className="absolute bottom-4 left-4 z-20">
-                        <span className={`inline-block px-3 py-1 rounded-lg text-xs font-bold text-white bg-gradient-to-r ${blog.color} shadow-lg backdrop-blur-md`}>
+                        <span className={`inline-block px-3 py-1 rounded-lg text-xs font-bold text-white bg-linear-to-r ${blog.color} shadow-lg backdrop-blur-md`}>
                             {blog.category}
                         </span>
                     </div>
@@ -360,7 +360,7 @@ function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b:
                     <h3 className="text-xl font-bold text-brand-darkest mb-3 leading-tight">
                         {blog.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed flex-grow">
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed grow">
                         {blog.description}
                     </p>
 
