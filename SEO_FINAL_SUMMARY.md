@@ -62,10 +62,10 @@ Primary Keyword: ✅ AI EdTech Company in India
 
 **5. Contact Page (`/contact`)**
 ```
-Title: Contact TARK AI | AI Career Counseling Platform
-Description: Contact TARK AI EdTech for AI career guidance, program inquiries, or partnership opportunities.
-Keywords: AI Career Counseling Platform, Contact AI Career Guidance
-Primary Keyword: ✅ AI Career Counseling Platform
+Title: Contact TARK AI | AI-Powered Education & Program Inquiries
+Description: Get in touch with TARK AI EdTech for AI education programs, partnership opportunities, or course inquiries. Expert support for AI, ML, Data Science, and Climate Tech learning.
+Keywords: Contact TARK AI, AI EdTech Support, AI Education Inquiries
+Primary Keyword: ✅ Contact TARK AI
 ```
 
 **6. Team Page (`/team`)**
@@ -169,7 +169,7 @@ H1: TARK AI: AI-Powered Career Guidance Platform for Students & Professionals
 | AI Career Guide | AI Career Guidance Portal | ✅ | Optimized |
 | Programs | AI Education Programs | ✅ | Optimized |
 | About | AI EdTech Company in India | ✅ | Optimized |
-| Contact | AI Career Counseling Platform | ✅ | Optimized |
+| Contact | Contact TARK AI | ✅ | Optimized |
 | Team | AI EdTech Leadership | ✅ | Optimized |
 
 **All primary keywords successfully integrated! ✅**

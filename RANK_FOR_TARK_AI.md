@@ -142,7 +142,7 @@ Title: "TARK AI Launches AI-Powered Platform for Indian Students"
 
 **Secondary Keywords:**
 6. AI career guidance India
-7. AI career counseling platform
+7. AI education platform India
 8. Best AI career guidance
 9. AI education platform India
 10. Career guidance AI

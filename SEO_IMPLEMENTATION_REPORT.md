@@ -54,11 +54,11 @@
 - **Primary Keyword:** AI EdTech Company in India ✅
 
 #### **Contact Page (Contact.tsx)**
-- **Title:** Contact TARK AI | AI Career Counseling Platform
-- **Meta Description:** Contact TARK AI EdTech for AI career guidance, program inquiries, or partnership opportunities. Get expert AI career counseling and personalized support.
-- **Keywords:** AI Career Counseling Platform, Contact AI Career Guidance, AI EdTech Support
+- **Title:** Contact TARK AI | AI-Powered Education & Program Inquiries
+- **Meta Description:** Get in touch with TARK AI EdTech for AI education programs, partnership opportunities, or course inquiries. Expert support for AI, ML, Data Science, and Climate Tech learning.
+- **Keywords:** Contact TARK AI, AI EdTech Support, AI Education Inquiries, TARK AI Programs, AI Learning Support
 - **URL:** https://tarkaiedtech.com/contact
-- **Primary Keyword:** AI Career Counseling Platform ✅
+- **Primary Keyword:** Contact TARK AI ✅
 
 #### **Team Page (Team.tsx)**
 - **Title:** Meet Our Team | TARK AI EdTech Leadership
@@ -105,7 +105,7 @@
 | AI Career Guide | AI Career Guidance Portal | ✅ |
 | Programs | AI Education Programs | ✅ |
 | About | AI EdTech Company in India | ✅ |
-| Contact | AI Career Counseling Platform | ✅ |
+| Contact | Contact TARK AI | ✅ |
 | Team | AI EdTech Leadership | ✅ |
 
 ---

@@ -10,7 +10,7 @@
 2. **AI-Powered Portal** - AI Career Guider
 3. **AI Education Programs** - Programs Page
 4. **AI EdTech Company in India** - About Page
-5. **AI Counseling Platform** - Contact Page
+5. **Contact TARK AI** - Contact Page
 
 ### Secondary Keywords
 - AI-Powered Education
@@ -25,7 +25,7 @@
 
 ### Long-Tail Keywords (High Conversion)
 - AI career platform for students
-- Best AI career counseling platform in India
+- AI education platform India
 - AI-powered career guidance portal
 - Career guidance using artificial intelligence
 - AI education platform for career growth
@@ -129,7 +129,7 @@ From AI Career Guide → Signup
 
 ### Contact (/contact)
 - **H1:** Contact TARK AI for Career Guidance
-- **Primary Keyword:** AI Counseling Platform
+- **Primary Keyword:** Contact TARK AI
 - **Focus:** Contact form and support information
 
 ### Team (/team)

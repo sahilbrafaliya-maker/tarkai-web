@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Contact TARK AI | AI Career Counseling Platform",
-    description: "Contact TARK AI EdTech for AI career guidance, program inquiries, or partnership opportunities.",
-    keywords: ["AI Career Counseling Platform", "Contact AI Career Guidance"],
+    title: "Contact TARK AI | AI-Powered Education & Program Inquiries",
+    description: "Get in touch with TARK AI EdTech for AI education programs, partnership opportunities, or course inquiries. Expert support for AI, ML, Data Science, and Climate Tech learning.",
+    keywords: ["Contact TARK AI", "AI EdTech Support", "AI Education Inquiries", "TARK AI Programs", "AI Learning Support"],
     alternates: {
         canonical: "https://tarkaiedtech.com/contact",
     },

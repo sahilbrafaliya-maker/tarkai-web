@@ -95,7 +95,7 @@
 2. AI Career Guidance Portal
 3. AI Education Programs
 4. AI EdTech Company in India
-5. AI Career Counseling Platform
+5. Contact TARK AI
 
 #### Tier 2: Medium Priority (Track Bi-Weekly)
 6. AI-Powered Education
@@ -106,7 +106,7 @@
 
 #### Tier 3: Long-Tail (Track Monthly)
 11. AI career guidance platform for students
-12. Best AI career counseling platform in India
+12. AI education platform India
 13. AI-powered career guidance portal
 14. Career guidance using artificial intelligence
 15. AI education platform for career growth
