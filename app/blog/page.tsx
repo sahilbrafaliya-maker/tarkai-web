@@ -29,6 +29,8 @@ export default function BlogPage() {
             try {
                 const res = await fetch('/api/blogs');
                 const data = await res.json();
+                // Ensure client-side sorting as well
+                data.sort((a: BlogPost, b: BlogPost) => new Date(b.date).getTime() - new Date(a.date).getTime());
                 setBlogPosts(data);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
