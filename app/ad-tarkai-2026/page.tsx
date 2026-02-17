@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FaEdit, FaTrash, FaPlus, FaSave, FaTimes, FaLock, FaCalendarAlt, FaUpload } from 'react-icons/fa';
-import Image from 'next/image';
+import NextImage from 'next/image';
 
 interface BlogPost {
     id: number;
@@ -97,13 +97,45 @@ export default function AdminPage() {
         const file = e.target.files?.[0];
         if (!file) return;
 
+        if (file.size > 5 * 1024 * 1024) {
+            alert("File is too large. Please select an image under 5MB.");
+            return;
+        }
+
         setUploading(true);
+
         const reader = new FileReader();
-        reader.onloadend = () => {
-            if (typeof reader.result === 'string') {
-                setCurrentBlog({ ...currentBlog, image: reader.result });
-            }
-            setUploading(false);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                const MAX_SIZE = 1000;
+                if (width > height) {
+                    if (width > MAX_SIZE) {
+                        height *= MAX_SIZE / width;
+                        width = MAX_SIZE;
+                    }
+                } else {
+                    if (height > MAX_SIZE) {
+                        width *= MAX_SIZE / height;
+                        height = MAX_SIZE;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+
+                setCurrentBlog({ ...currentBlog, image: dataUrl });
+                setUploading(false);
+            };
+            img.src = event.target?.result as string;
         };
         reader.readAsDataURL(file);
     };
@@ -338,7 +370,7 @@ function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b:
                     <div className={`absolute inset-0 bg-linear-to-br ${blog.color} opacity-20 mix-blend-overlay z-10`} />
                     {/* Use standard img tag or unoptimized next/image if domain not configured yet for uploads, 
                         assuming standard Next setup allows local public images. */}
-                    <Image
+                    <NextImage
                         src={blog.image || '/Logo.png'}
                         alt={blog.title}
                         fill
