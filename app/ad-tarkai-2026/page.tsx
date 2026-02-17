@@ -54,7 +54,6 @@ export default function AdminPage() {
         try {
             const res = await fetch('/api/blogs');
             const data = await res.json();
-            const data = await res.json();
             if (Array.isArray(data)) {
                 setBlogs(data);
             } else {
