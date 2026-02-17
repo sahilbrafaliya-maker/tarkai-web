@@ -130,10 +130,31 @@ export default function AdminPage() {
                 const ctx = canvas.getContext('2d');
                 ctx?.drawImage(img, 0, 0, width, height);
 
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                canvas.toBlob(async (blob) => {
+                    if (blob) {
+                        const formData = new FormData();
+                        formData.append('file', blob, file.name);
 
-                setCurrentBlog({ ...currentBlog, image: dataUrl });
-                setUploading(false);
+                        try {
+                            const res = await fetch('/api/upload', {
+                                method: 'POST',
+                                body: formData,
+                            });
+
+                            if (res.ok) {
+                                const data = await res.json();
+                                setCurrentBlog(prev => ({ ...prev, image: data.url }));
+                            } else {
+                                console.error("Upload failed");
+                                alert("Image upload failed");
+                            }
+                        } catch (err) {
+                            console.error("Error uploading image:", err);
+                            alert("Error uploading image");
+                        }
+                    }
+                    setUploading(false);
+                }, 'image/jpeg', 0.8);
             };
             img.src = event.target?.result as string;
         };
