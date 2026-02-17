@@ -29,9 +29,15 @@ export default function BlogPage() {
             try {
                 const res = await fetch('/api/blogs');
                 const data = await res.json();
-                // Ensure client-side sorting as well
-                data.sort((a: BlogPost, b: BlogPost) => new Date(b.date).getTime() - new Date(a.date).getTime());
-                setBlogPosts(data);
+
+                if (Array.isArray(data)) {
+                    // Ensure client-side sorting as well
+                    data.sort((a: BlogPost, b: BlogPost) => new Date(b.date).getTime() - new Date(a.date).getTime());
+                    setBlogPosts(data);
+                } else {
+                    console.error("API returned non-array data:", data);
+                    setBlogPosts([]);
+                }
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
             }
