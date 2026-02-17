@@ -319,7 +319,13 @@ export default function AdminPage() {
                                                 />
                                                 <div className="w-full p-3 border border-gray-200 rounded-xl flex items-center gap-2 text-gray-500 bg-gray-50">
                                                     <FaUpload />
-                                                    <span className="truncate">{currentBlog.image || 'Upload Image'}</span>
+                                                    <NextImage
+                                                        src={currentBlog.image || '/Logo.png'}
+                                                        alt="Preview"
+                                                        fill
+                                                        className="object-cover rounded-lg"
+                                                        unoptimized
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -397,6 +403,7 @@ function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b:
                         alt={blog.title}
                         fill
                         className="object-cover"
+                        unoptimized
                     />
 
                     {/* Floating Date Badge */}

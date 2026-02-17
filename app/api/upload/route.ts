@@ -16,6 +16,7 @@ export async function POST(request: Request) {
 
         // Ensure uploads directory exists
         const uploadDir = path.join(process.cwd(), 'public/uploads');
+        console.log('Using upload directory:', uploadDir);
         try {
             await fs.access(uploadDir);
         } catch {
