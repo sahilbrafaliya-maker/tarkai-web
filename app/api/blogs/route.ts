@@ -16,6 +16,8 @@ async function saveBlogs(blogs: any[]) {
 export async function GET() {
     try {
         const blogs = await getBlogs();
+        // Sort blogs by date (newest first)
+        blogs.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
         return NextResponse.json(blogs);
     } catch (error) {
         return NextResponse.json({ error: 'Failed to fetch blogs' }, { status: 500 });
