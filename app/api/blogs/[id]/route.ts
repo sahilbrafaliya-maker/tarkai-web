@@ -1,59 +1,48 @@
 import { NextResponse } from 'next/server';
-import path from 'path';
-import { promises as fs } from 'fs';
-
-const dataFilePath = path.join(process.cwd(), 'data/blogs.json');
-
-async function getBlogs() {
-    const jsonData = await fs.readFile(dataFilePath, 'utf8');
-    return JSON.parse(jsonData);
-}
-
-async function saveBlogs(blogs: any[]) {
-    await fs.writeFile(dataFilePath, JSON.stringify(blogs, null, 2));
-}
+import dbConnect from '@/lib/mongodb';
+import Blog from '@/models/Blog';
 
 // Params type definition for dynamic route
 type Params = Promise<{ id: string }>;
 
 export async function PUT(request: Request, { params }: { params: Params }) {
     try {
+        await dbConnect();
         const { id } = await params;
         const updatedData = await request.json();
-        const blogs = await getBlogs();
 
-        const index = blogs.findIndex((b: any) => b.id === parseInt(id));
+        // Ensure we update based on the 'id' field, not '_id' unless we switched
+        // We are using 'id' (number) for compatibility
+        const blog = await Blog.findOneAndUpdate({ id: parseInt(id) }, updatedData, {
+            new: true,
+            runValidators: true,
+        });
 
-        if (index === -1) {
+        if (!blog) {
             return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
         }
 
-        // Update fields
-        blogs[index] = { ...blogs[index], ...updatedData };
-        await saveBlogs(blogs);
-
-        return NextResponse.json(blogs[index]);
+        return NextResponse.json(blog);
     } catch (error) {
+        console.error("Error updating blog:", error);
         return NextResponse.json({ error: 'Failed to update blog' }, { status: 500 });
     }
 }
 
 export async function DELETE(request: Request, { params }: { params: Params }) {
     try {
+        await dbConnect();
         const { id } = await params;
-        let blogs = await getBlogs();
 
-        const initialLength = blogs.length;
-        blogs = blogs.filter((b: any) => b.id !== parseInt(id));
+        const deletedBlog = await Blog.findOneAndDelete({ id: parseInt(id) });
 
-        if (blogs.length === initialLength) {
+        if (!deletedBlog) {
             return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
         }
 
-        await saveBlogs(blogs);
-
         return NextResponse.json({ message: 'Blog deleted successfully' });
     } catch (error) {
+        console.error("Error deleting blog:", error);
         return NextResponse.json({ error: 'Failed to delete blog' }, { status: 500 });
     }
 }

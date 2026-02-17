@@ -1,43 +1,41 @@
 import { NextResponse } from 'next/server';
-import path from 'path';
-import { promises as fs } from 'fs';
-
-const dataFilePath = path.join(process.cwd(), 'data/blogs.json');
-
-async function getBlogs() {
-    const jsonData = await fs.readFile(dataFilePath, 'utf8');
-    return JSON.parse(jsonData);
-}
-
-async function saveBlogs(blogs: any[]) {
-    await fs.writeFile(dataFilePath, JSON.stringify(blogs, null, 2));
-}
+import dbConnect from '@/lib/mongodb';
+import Blog from '@/models/Blog';
 
 export async function GET() {
     try {
-        const blogs = await getBlogs();
+        await dbConnect();
         // Sort blogs by date (newest first)
-        blogs.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        return NextResponse.json(blogs);
+        // We fetch all then sort in memory because date is a string. 
+        // Ideally schema should use Date type for better sorting, but string compatibility is safest for now.
+        const blogs = await Blog.find({});
+
+        const sortedBlogs = blogs.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        return NextResponse.json(sortedBlogs);
     } catch (error) {
+        console.error("Error fetching blogs:", error);
         return NextResponse.json({ error: 'Failed to fetch blogs' }, { status: 500 });
     }
 }
 
 export async function POST(request: Request) {
     try {
+        await dbConnect();
         const newBlog = await request.json();
-        const blogs = await getBlogs();
 
-        // Simple ID generation
-        const newId = blogs.length > 0 ? Math.max(...blogs.map((b: any) => b.id)) + 1 : 1;
-        const blogWithId = { ...newBlog, id: newId };
+        // Generate ID
+        // Find existing max ID
+        const lastBlog = await Blog.findOne().sort({ id: -1 });
+        const newId = lastBlog ? lastBlog.id + 1 : 1;
 
-        blogs.push(blogWithId);
-        await saveBlogs(blogs);
+        const blogData = { ...newBlog, id: newId };
 
-        return NextResponse.json(blogWithId, { status: 201 });
+        const createdBlog = await Blog.create(blogData);
+
+        return NextResponse.json(createdBlog, { status: 201 });
     } catch (error) {
+        console.error("Error creating blog:", error);
         return NextResponse.json({ error: 'Failed to create blog' }, { status: 500 });
     }
 }
