@@ -93,28 +93,19 @@ export default function AdminPage() {
         }
     };
 
-    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
         setUploading(true);
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData,
-            });
-            const data = await res.json();
-            if (data.url) {
-                setCurrentBlog({ ...currentBlog, image: data.url });
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            if (typeof reader.result === 'string') {
+                setCurrentBlog({ ...currentBlog, image: reader.result });
             }
-        } catch (error) {
-            console.error('Upload failed:', error);
-            alert('Image upload failed');
-        }
-        setUploading(false);
+            setUploading(false);
+        };
+        reader.readAsDataURL(file);
     };
 
     const startEdit = (blog: BlogPost) => {
