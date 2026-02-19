@@ -25,11 +25,19 @@ export async function POST(request: Request) {
         const newBlog = await request.json();
 
         // Generate ID
-        // Find existing max ID
         const lastBlog = await Blog.findOne().sort({ id: -1 });
         const newId = lastBlog ? lastBlog.id + 1 : 1;
 
-        const blogData = { ...newBlog, id: newId };
+        // Generate slug from title if not present
+        let slug = newBlog.slug;
+        if (!slug && newBlog.title) {
+            slug = newBlog.title
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)+/g, '');
+        }
+
+        const blogData = { ...newBlog, id: newId, slug };
 
         const createdBlog = await Blog.create(blogData);
 

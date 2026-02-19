@@ -11,6 +11,7 @@ import { FaArrowRight, FaCalendarAlt } from 'react-icons/fa';
 // Type definition for Blog Post
 interface BlogPost {
     id: number;
+    slug?: string;
     title: string;
     category: string;
     date: string;
@@ -135,7 +136,7 @@ function BlogCard({ post, index }: { post: BlogPost, index: number }) {
                     </p>
 
                     <div className="mt-auto pt-4 border-t border-brand-dark/5 flex items-center justify-between">
-                        <Link href="#" className="flex items-center gap-2 text-sm font-bold text-brand-dark group-hover:text-brand-accent transition-all pl-0 group-hover:pl-2">
+                        <Link href={`/blog/${post.slug || post.id}`} className="flex items-center gap-2 text-sm font-bold text-brand-dark group-hover:text-brand-accent transition-all pl-0 group-hover:pl-2">
                             Read Article
                             <span className="bg-brand-lightest rounded-full p-1 group-hover:bg-brand-accent group-hover:text-white transition-colors">
                                 <FaArrowRight size={12} />
