@@ -71,7 +71,7 @@ export default function HomeWaypoints() {
             <GeometricShapes />
             <div ref={triggerRef}>
                 <div className="absolute top-28 left-0 w-full text-center z-20 pointer-events-none">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-darkest mb-4">
                         Your Journey with TarkAI
                     </h2>
                     <p className="text-lg text-brand-dark max-w-2xl mx-auto px-4">
@@ -106,8 +106,8 @@ export default function HomeWaypoints() {
 
                                 {/* Visual Content (Card) */}
                                 <div className={`order-1 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1 flex justify-end'}`}>
-                                    <div className={`w-full max-w-xs mx-auto md:max-w-none md:mx-0 aspect-square md:w-96 md:h-96 ${step.color} rounded-3xl shadow-2xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-all duration-500`}>
-                                        <div className="text-white text-6xl md:text-9xl">
+                                    <div className={`w-full max-w-xs mx-auto md:max-w-none md:mx-0 aspect-square md:w-72 md:h-72 ${step.color} rounded-3xl shadow-2xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-all duration-500`}>
+                                        <div className="text-white text-6xl md:text-8xl">
                                             {step.icon}
                                         </div>
                                     </div>

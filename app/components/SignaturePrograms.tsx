@@ -81,12 +81,12 @@ export default function SignaturePrograms() {
     // Increased height to simulate scroll travel distance (300vh = 3 screens worth of scroll)
     <section className="bg-white py-4 lg:py-16 z-30 relative">
       <GeometricShapes hideBigHexagon={true} />
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 w-full mb-3 lg:mb-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-darkest mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-darkest mb-4">
             Signature Programs
           </h2>
-          <div className="w-24 h-1 bg-brand-accent mx-auto rounded-full mb-4 lg:mb-8"></div>
+          {/* <div className="w-24 h-1 bg-brand-accent mx-auto rounded-full mb-4 lg:mb-8"></div> */}
 
           <p className="text-lg text-brand-dark max-w-2xl mx-auto">
             Curriculum designed for the future of intelligence.

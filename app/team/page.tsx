@@ -62,8 +62,8 @@ export default function TeamPage() {
                 <div className="space-y-16 md:space-y-24">
 
                     {/* Sahil Rafaliya - Text Left, Image Right */}
-                    <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
-                        <div className="md:w-1/2 order-2 md:order-1 space-y-6 text-left">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 lg:gap-20">
+                        <div className="md:w-5/8 order-2 md:order-1 space-y-6 text-left ">
                             <p className="text-lg text-gray-700 leading-relaxed text-justify">
                                 Sahil Rafaliya is a <b> Data science professional</b> with a strong specialization in
                                 Climate Technology and AI-driven analytics. He holds an M.Sc. in Data Science
@@ -78,7 +78,7 @@ export default function TeamPage() {
                                 future-oriented solutions.
                             </p>
                         </div>
-                        <div className="md:w-1/2 order-1 md:order-2 flex flex-col items-center">
+                        <div className="order-1 md:order-2 flex flex-col">
                             <div className="relative w-80 h-80 md:w-96 md:h-96 rounded-2xl overflow-hidden shadow-2xl mb-6">
                                 <Image
                                     src="/sahil_rafaliya.jpeg"
@@ -88,16 +88,16 @@ export default function TeamPage() {
                                     className="object-cover hover:scale-105 transition-transform duration-700"
                                 />
                             </div>
-                            <div className="text-center">
-                                <h3 className="text-2xl font-bold text-brand-darkest">Sahil Rafaliya</h3>
-                                <p className="text-brand-accent font-bold uppercase tracking-wider text-sm mt-1">Founder & CEO</p>
+                            <div className="">
+                                <h3 className="text-2xl font-bold text-brand-darkest w-full text-center">Sahil Rafaliya</h3>
+                                <p className="text-brand-accent font-bold uppercase tracking-wider text-sm mt-1 w-full text-center">Founder & CEO</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Kashish Nagar - Image Left, Text Right */}
-                    <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
-                        <div className="md:w-1/2 order-1 flex flex-col items-center">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 lg:gap-20">
+                        <div className="order-1 flex flex-col ">
                             <div className="relative w-80 h-80 md:w-96 md:h-96 rounded-2xl overflow-hidden shadow-2xl mb-6">
                                 <Image
                                     src="/Kashish_Nager.jpeg"
@@ -107,12 +107,12 @@ export default function TeamPage() {
                                     className="object-cover hover:scale-105 transition-transform duration-700"
                                 />
                             </div>
-                            <div className="text-center">
-                                <h3 className="text-2xl font-bold text-brand-darkest">Kashish Nagar</h3>
-                                <p className="text-brand-accent font-bold uppercase tracking-wider text-sm mt-1">Co-Founder & EVP</p>
+                            <div className="">
+                                <h3 className="text-2xl font-bold text-brand-darkest w-full text-center">Kashish Nagar</h3>
+                                <p className="text-brand-accent font-bold uppercase tracking-wider text-sm mt-1 w-full text-center">Co-Founder & EVP</p>
                             </div>
                         </div>
-                        <div className="md:w-1/2 order-2 space-y-6 text-left">
+                        <div className="md:w-5/8 order-2 space-y-6 text-left">
                             <p className="text-lg text-gray-700 leading-relaxed text-justify">
                                 Kashish Nagar is an <b> AI and Machine Learning specialist </b> with a strong
                                 academic and mentoring background. She holds an <b> M.Sc. in Artificial

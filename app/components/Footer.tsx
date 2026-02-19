@@ -42,10 +42,22 @@ export default function Footer() {
                             <div className="space-y-6">
                                 <h3 className="text-sm font-bold uppercase tracking-widest text-brand-accent">Programs</h3>
                                 <ul className="space-y-4">
-                                    <li><Link href="/programs/ai-architect" className="text-gray-400 hover:text-white transition-colors">AI Architect</Link></li>
-                                    <li><Link href="/programs/data-science" className="text-gray-400 hover:text-white transition-colors">Data Science</Link></li>
-                                    <li><Link href="/programs/green-intel" className="text-gray-400 hover:text-white transition-colors">Green Intelligence</Link></li>
-                                    <li><Link href="/programs/future-founders" className="text-gray-400 hover:text-white transition-colors">Future Founders</Link></li>
+                                    <li><Link 
+                                    href={"#"}
+                                    // href="/programs/ai-architect" 
+                                    className="text-gray-400 hover:text-white transition-colors">AI Architect</Link></li>
+                                    <li><Link
+                                    href={"#"}
+                                    // href="/programs/data-science" 
+                                    className="text-gray-400 hover:text-white transition-colors">Data Science</Link></li>
+                                    <li><Link
+                                    href={"#"}
+                                    // href="/programs/green-intel" 
+                                    className="text-gray-400 hover:text-white transition-colors">Green Intelligence</Link></li>
+                                    <li><Link 
+                                    href={"#"}
+                                    // href="/programs/future-founders" 
+                                    className="text-gray-400 hover:text-white transition-colors">Future Founders</Link></li>
                                 </ul>
                             </div>
 
