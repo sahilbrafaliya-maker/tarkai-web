@@ -14,5 +14,35 @@ export default function ContactLayout({
 }: {
     children: React.ReactNode;
 }) {
-    return <>{children}</>;
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "ContactPage",
+                        "name": "Contact TARK AI",
+                        "description": "Get in touch with TARK AI regarding AI education programs.",
+                        "url": "https://tarkaiedtech.com/contact",
+                        "mainEntity": {
+                            "@type": "Organization",
+                            "name": "TARK AI EdTech Private Limited",
+                            "telephone": "+91-9712358689",
+                            "email": "info@tarkaiedtech.com",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "streetAddress": "Kyros Business Center, 404&405, beside Ashirwad Society, Sarthana Jakat Naka",
+                                "addressLocality": "Surat",
+                                "addressRegion": "Gujarat",
+                                "postalCode": "395013",
+                                "addressCountry": "IN"
+                            }
+                        }
+                    })
+                }}
+            />
+            {children}
+        </>
+    );
 }

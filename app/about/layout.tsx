@@ -14,5 +14,29 @@ export default function AboutLayout({
 }: {
     children: React.ReactNode;
 }) {
-    return <>{children}</>;
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "AboutPage",
+                        "name": "About TARK AI",
+                        "description": "TARK AI EdTech Private Limited is India's leading AI-powered career guidance platform.",
+                        "url": "https://tarkaiedtech.com/about",
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "TARK AI EdTech Private Limited",
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": "https://tarkaiedtech.com/Logo.png"
+                            }
+                        }
+                    })
+                }}
+            />
+            {children}
+        </>
+    );
 }
