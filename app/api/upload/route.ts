@@ -12,10 +12,15 @@ export async function POST(request: Request) {
         }
 
         const buffer = Buffer.from(await file.arrayBuffer());
-        const filename = Date.now() + '-' + file.name.replaceAll(" ", "_");
+        // Generate a unique filename using randomUUID
+        // We import query 'crypto' dynamically or use globalThis.crypto if available, 
+        // but since this is Node environment (app router), 'crypto' is built-in.
+        // However, to be safe and simple without import churn:
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const filename = uniqueSuffix + path.extname(file.name);
 
-        // Save to data/uploads instead of public/uploads
-        const uploadDir = path.join(process.cwd(), 'data/uploads');
+        // Save to public/uploads
+        const uploadDir = path.join(process.cwd(), 'public/uploads');
         console.log('Using upload directory:', uploadDir);
         try {
             await fs.access(uploadDir);
@@ -26,8 +31,8 @@ export async function POST(request: Request) {
         const filePath = path.join(uploadDir, filename);
         await fs.writeFile(filePath, buffer);
 
-        // Return API URL that serves the file
-        return NextResponse.json({ url: `/api/images/${filename}` }, { status: 201 });
+        // Return public URL that serves the file directly
+        return NextResponse.json({ url: `/uploads/${filename}` }, { status: 201 });
     } catch (error) {
         console.error('Error uploading file:', error);
         return NextResponse.json({ error: 'Failed to upload file' }, { status: 500 });
