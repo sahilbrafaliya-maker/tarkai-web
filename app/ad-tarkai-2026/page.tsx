@@ -459,7 +459,7 @@ export default function AdminPage() {
                                     <label className="block text-sm font-bold text-gray-700 mb-3">Social URLs <span className="text-gray-400 font-normal">(optional)</span></label>
                                     <div className="flex flex-col gap-3">
                                         <div className="flex items-center gap-3">
-                                            <FaInstagram className="text-pink-500 text-xl flex-shrink-0" />
+                                            <FaInstagram className="text-pink-500 text-xl shrink-0" />
                                             <input
                                                 type="url"
                                                 value={form.instagram}
@@ -469,7 +469,7 @@ export default function AdminPage() {
                                             />
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <FaLinkedin className="text-blue-600 text-xl flex-shrink-0" />
+                                            <FaLinkedin className="text-blue-600 text-xl shrink-0" />
                                             <input
                                                 type="url"
                                                 value={form.linkedin}
@@ -479,7 +479,7 @@ export default function AdminPage() {
                                             />
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <FaTwitter className="text-sky-500 text-xl flex-shrink-0" />
+                                            <FaTwitter className="text-sky-500 text-xl shrink-0" />
                                             <input
                                                 type="url"
                                                 value={form.twitter}
@@ -571,7 +571,6 @@ export default function AdminPage() {
 function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b: BlogPost) => void, onDelete: (id: number) => void }) {
     const imgSrc = blog.coverImage || blog.image || '/Logo.png';
     const displayTag = blog.tag || blog.category || '';
-    const cardColor = blog.color || 'from-violet-400 to-indigo-600';
 
     return (
         <motion.div
@@ -579,55 +578,68 @@ function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b:
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="group relative h-[450px] w-full"
+            className="group w-full"
         >
-            <div className="absolute inset-0 bg-white rounded-4xl shadow-lg overflow-hidden border border-gray-200 transition-all duration-300">
-                <div className="relative h-1/2 overflow-hidden clip-path-slant">
-                    <div className={`absolute inset-0 bg-linear-to-br ${cardColor} opacity-20 mix-blend-overlay z-10`} />
-                    <NextImage src={imgSrc} alt={blog.title} fill className="object-cover" unoptimized />
+            <div className="bg-white/60 backdrop-blur-md rounded-xl border border-white/60 shadow-sm overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:border-brand-accent/30 flex flex-col relative h-full">
 
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-dark shadow-sm z-20 flex items-center gap-1">
-                        <FaCalendarAlt className="text-brand-accent" />
-                        {blog.date}
-                    </div>
+                {/* Image */}
+                <div className="relative h-52 overflow-hidden shrink-0">
+                    <NextImage src={imgSrc} alt={blog.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110" unoptimized />
 
+                    {/* Tag on image top-right */}
                     {displayTag && (
-                        <div className="absolute bottom-4 left-4 z-20">
-                            <span className={`inline-block px-3 py-1 rounded-lg text-xs font-bold text-white bg-linear-to-r ${cardColor} shadow-lg`}>
+                        <div className="absolute top-3 right-3 z-10">
+                            <span className="inline-block px-3 py-1 rounded-full text-xs font-bold text-white bg-brand-accent shadow-md">
                                 {displayTag}
                             </span>
                         </div>
                     )}
                 </div>
 
-                <div className="p-6 h-1/2 flex flex-col relative z-20">
-                    <h3 className="text-xl font-bold text-brand-darkest mb-2 leading-tight">{blog.title}</h3>
-                    <p className="text-sm text-gray-600 mb-2 line-clamp-2 leading-relaxed grow">{blog.description}</p>
+                {/* Content */}
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                    {/* Date between image and title */}
+                    <span className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
+                        <FaCalendarAlt className="text-brand-accent" size={10} />
+                        {blog.date}
+                    </span>
+                    <div className="border-t border-gray-100" />
+                    <h3 className="text-lg font-bold text-brand-darkest leading-snug group-hover:text-brand-accent transition-colors">
+                        {blog.title}
+                    </h3>
 
-                    <div className="flex gap-2 mb-3 items-center">
+                    {/* Socials & Info */}
+                    <div className="flex gap-2 items-center mb-1">
                         {blog.instagram && <FaInstagram className="text-pink-500 text-sm" />}
                         {blog.linkedin && <FaLinkedin className="text-blue-600 text-sm" />}
                         {blog.twitter && <FaTwitter className="text-sky-500 text-sm" />}
                         {blog.images?.length > 0 && (
-                            <span className="text-xs text-gray-400">{blog.images.length} image{blog.images.length > 1 ? 's' : ''}</span>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{blog.images.length} Gallery Item{blog.images.length > 1 ? 's' : ''}</span>
                         )}
                     </div>
 
-                    <div className="mt-auto pt-3 border-t border-gray-100 flex items-center gap-3">
+                    <p className="text-sm text-gray-600 leading-relaxed grow line-clamp-3">
+                        {blog.description}
+                    </p>
+
+                    <div className="mt-auto pt-3 border-t border-gray-100 flex items-center gap-2">
                         <button
                             onClick={() => onEdit(blog)}
-                            className="flex-1 py-2 bg-brand-lightest text-brand-dark font-bold rounded-lg hover:bg-brand-dark hover:text-white transition-colors flex items-center justify-center gap-2"
+                            className="flex-1 py-2 bg-brand-lightest text-brand-dark text-sm font-bold rounded-lg hover:bg-brand-dark hover:text-white transition-colors flex items-center justify-center gap-2"
                         >
-                            <FaEdit /> Edit
+                            <FaEdit size={12} /> Edit
                         </button>
                         <button
                             onClick={() => onDelete(blog.id)}
-                            className="flex-1 py-2 bg-red-50 text-red-500 font-bold rounded-lg hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center gap-2"
+                            className="flex-1 py-2 bg-red-50 text-red-500 text-sm font-bold rounded-lg hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center gap-2"
                         >
-                            <FaTrash /> Delete
+                            <FaTrash size={12} /> Delete
                         </button>
                     </div>
                 </div>
+
+                {/* Glow */}
+                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-accent opacity-10 blur-3xl rounded-full group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
             </div>
         </motion.div>
     );
