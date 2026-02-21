@@ -2,28 +2,32 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IBlog extends Document {
     id: number;
-    slug?: string;
+    slug: string;
     title: string;
-    category: string;
-    date: string;
-    image: string;
     description: string;
-    content?: string;
-    color: string;
+    date: string;
+    tag: string;
+    coverImage: string;
+    paragraph: string;
+    instagram: string;
+    linkedin: string;
+    twitter: string;
+    images: string[];
 }
 
 const BlogSchema: Schema = new Schema({
-    id: { type: Number, required: true, unique: true }, // Keeping numerical ID for compatibility
-    slug: { type: String, required: false, unique: true }, // SEO friendly URL
+    id: { type: Number, unique: true },
+    slug: { type: String, unique: true, sparse: true },
     title: { type: String, required: true },
-    category: { type: String, required: true },
-    date: { type: String, required: true },
-    image: { type: String, required: false },
-    description: { type: String, required: true },
-    content: { type: String, required: false }, // Markdown or HTML content
-    color: { type: String, required: false },
-}, {
-    timestamps: true,
-});
+    description: { type: String, default: '' },
+    date: { type: String, default: '' },
+    tag: { type: String, default: '' },
+    coverImage: { type: String, default: '' },
+    paragraph: { type: String, default: '' },
+    instagram: { type: String, default: '' },
+    linkedin: { type: String, default: '' },
+    twitter: { type: String, default: '' },
+    images: { type: [String], default: [] },
+}, { timestamps: true });
 
 export default mongoose.models.Blog || mongoose.model<IBlog>('Blog', BlogSchema);

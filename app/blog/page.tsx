@@ -13,11 +13,16 @@ interface BlogPost {
     id: number;
     slug?: string;
     title: string;
-    category: string;
+    tag: string;
+    // Legacy field support
+    category?: string;
     date: string;
-    image: string;
+    // New field name
+    coverImage?: string;
+    // Legacy field support
+    image?: string;
     description: string;
-    color: string;
+    color?: string;
 }
 
 export default function BlogPage() {
@@ -57,7 +62,7 @@ export default function BlogPage() {
                 <BackgroundText text="BLOGS" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-brand-darkest mb-8 animate-slide-up">
-                        INSIGHTS & IDEAS
+                        INSIGHTS &amp; IDEAS
                     </h1>
                     <p
                         className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed animate-slide-up animate-delay-200 opacity-0"
@@ -91,62 +96,61 @@ export default function BlogPage() {
 }
 
 function BlogCard({ post, index }: { post: BlogPost, index: number }) {
+    const imageUrl = post.coverImage || post.image || '/Logo.png';
+    const displayCategory = post.tag || post.category || 'Blog';
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="group relative h-[450px] w-full perspective-1000"
+            className="group w-full"
         >
-            <div className="absolute inset-0 bg-linear-to-br from-white/40 to-white/10 backdrop-blur-md rounded-4xl border border-white/50 shadow-xl overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:border-brand-accent/30">
+            <div className="bg-white/60 backdrop-blur-md rounded-xl border border-white/60 shadow-sm overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:border-brand-accent/30 flex flex-col">
 
-                {/* Image Section with Overlay */}
-                <div className="relative h-1/2 overflow-hidden clip-path-slant">
-                    <div className={`absolute inset-0 bg-linear-to-br ${post.color} opacity-20 mix-blend-overlay z-10`} />
-                    {/* Fallback image logic if needed, or ensuring valid paths */}
+                {/* Image */}
+                <div className="relative h-52 overflow-hidden shrink-0">
                     <Image
-                        src={post.image || '/Logo.png'}
+                        src={imageUrl}
                         alt={post.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-
-                    {/* Floating Date Badge */}
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-dark shadow-sm z-20 flex items-center gap-1">
-                        <FaCalendarAlt className="text-brand-accent" />
-                        {post.date}
-                    </div>
-
-                    {/* Category Tag */}
-                    <div className="absolute bottom-4 left-4 z-20">
-                        <span className={`inline-block px-3 py-1 rounded-lg text-xs font-bold text-white bg-linear-to-r ${post.color} shadow-lg backdrop-blur-md`}>
-                            {post.category}
+                    {/* Tag on image top-right */}
+                    <div className="absolute top-3 right-3 z-10">
+                        <span className="inline-block px-3 py-1 rounded-full text-xs font-bold text-white bg-brand-accent shadow-md">
+                            {displayCategory}
                         </span>
                     </div>
                 </div>
 
-                {/* Content Section */}
-                <div className="p-6 h-1/2 flex flex-col relative z-20">
-                    <h3 className="text-xl font-bold text-brand-darkest mb-3 leading-tight group-hover:text-brand-accent transition-colors">
+                {/* Content */}
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                    {/* Date between image and title */}
+                    <span className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
+                        <FaCalendarAlt className="text-brand-accent" size={10} />
+                        {post.date}
+                    </span>
+                    <div className="border-t border-gray-100" />
+                    <h3 className="text-lg font-bold text-brand-darkest leading-snug group-hover:text-brand-accent transition-colors">
                         {post.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed grow">
+                    <p className="text-sm text-gray-600 leading-relaxed flex-1">
                         {post.description}
                     </p>
-
-                    <div className="mt-auto pt-4 border-t border-brand-dark/5 flex items-center justify-between">
-                        <Link href={`/blog/${post.slug || post.id}`} className="flex items-center gap-2 text-sm font-bold text-brand-dark group-hover:text-brand-accent transition-all pl-0 group-hover:pl-2">
+                    <div className="pt-3 border-t border-gray-100 mt-2">
+                        <Link href={`/blog/${post.slug || post.id}`} className="flex items-center gap-2 text-sm font-bold text-brand-dark group-hover:text-brand-accent transition-all">
                             Read Article
                             <span className="bg-brand-lightest rounded-full p-1 group-hover:bg-brand-accent group-hover:text-white transition-colors">
-                                <FaArrowRight size={12} />
+                                <FaArrowRight size={11} />
                             </span>
                         </Link>
                     </div>
                 </div>
 
-                {/* Decorative Glow */}
-                <div className={`absolute -bottom-10 -right-10 w-32 h-32 bg-linear-to-br ${post.color} opacity-20 blur-3xl rounded-full group-hover:opacity-40 transition-opacity duration-500`} />
+                {/* Glow */}
+                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-accent opacity-10 blur-3xl rounded-full group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
             </div>
         </motion.div>
     );
