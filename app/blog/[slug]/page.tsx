@@ -164,7 +164,7 @@ export default function BlogDetailPage() {
                 )}
             </AnimatePresence>
 
-            <article className="max-w-8/12 mx-auto px-4 pt-28 pb-24 relative z-10">
+            <article className="max-w-4xl mx-auto px-4 pt-24 md:pt-32 pb-24 relative z-10">
 
                 {/* Back link */}
                 <Link
@@ -183,7 +183,7 @@ export default function BlogDetailPage() {
                         className="mb-10"
                     >
                         {/* Slider */}
-                        <div className="relative rounded-3xl overflow-hidden shadow-lg bg-gray-100" style={{ height: '420px' }}>
+                        <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-lg bg-gray-100 h-[280px] sm:h-[420px]">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={slideIndex}
@@ -266,13 +266,13 @@ export default function BlogDetailPage() {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-4xl font-extrabold text-brand-darkest leading-tight mb-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-darkest leading-[1.15] mb-6">
                     {blog.title}
                 </h1>
 
                 {/* Description */}
                 {blog.description && (
-                    <p className="text-gray-600 text-lg leading-relaxed mb-8 border-l-4 border-brand-accent/30 pl-4">
+                    <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-10 border-l-4 border-brand-accent/30 pl-5">
                         {blog.description}
                     </p>
                 )}
@@ -289,9 +289,9 @@ export default function BlogDetailPage() {
                         <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             components={{
-                                h1: ({ children }) => <h1 className="text-2xl font-extrabold text-brand-darkest mt-8 mb-3 leading-tight">{children}</h1>,
-                                h2: ({ children }) => <h2 className="text-xl font-bold text-brand-darkest mt-7 mb-2 leading-snug">{children}</h2>,
-                                h3: ({ children }) => <h3 className="text-lg font-bold text-brand-dark mt-6 mb-2">{children}</h3>,
+                                h1: ({ children }) => <h1 className="text-xl sm:text-2xl font-extrabold text-brand-darkest mt-8 mb-3 leading-tight">{children}</h1>,
+                                h2: ({ children }) => <h2 className="text-lg sm:text-xl font-bold text-brand-darkest mt-7 mb-2 leading-snug">{children}</h2>,
+                                h3: ({ children }) => <h3 className="text-base sm:text-lg font-bold text-brand-dark mt-6 mb-2">{children}</h3>,
                                 p: ({ children }) => <p className="text-gray-700 leading-relaxed text-base">{children}</p>,
                                 ul: ({ children }) => <ul className="list-disc list-outside pl-6 mb-4 space-y-1 text-gray-700">{children}</ul>,
                                 ol: ({ children }) => <ol className="list-decimal list-outside pl-6 mb-4 space-y-1 text-gray-700">{children}</ol>,
@@ -332,16 +332,16 @@ export default function BlogDetailPage() {
                         className="mb-10"
                     >
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Follow &amp; Connect</h3>
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-2 md:gap-3">
                             {socialLinks.map(social => (
                                 <a
                                     key={social.key}
                                     href={social.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-semibold shadow-sm transition-all duration-200 ${social.style}`}
+                                    className={`inline-flex items-center gap-2 px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl border border-gray-200 bg-white text-xs md:text-sm font-semibold shadow-sm transition-all duration-200 ${social.style}`}
                                 >
-                                    <span className="text-base">{social.icon}</span>
+                                    <span className="text-sm md:text-base">{social.icon}</span>
                                     {social.label}
                                 </a>
                             ))}
