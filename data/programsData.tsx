@@ -5,11 +5,12 @@ export const programs = [
         title: "AI / ML Architect Program",
         slug: "ai-ml-architect-program",
         subtitle: "Full-Stack Artificial Intelligence Engineering",
-        duration: "12 Modules",
+        duration: "7 Months",
         color: "bg-blue-600",
+        image: "/AI_ML_Architect_Program.jfif",
         icon: <FaRobot />,
         description: [
-            "A flagship 6-month immersion that builds rock-solid data foundations, levels up your model intuition, and ends with production-ready LLM and agentic systems.",
+            "A flagship 7-month immersion that builds rock-solid data foundations, levels up your model intuition, and ends with production-ready LLM and agentic systems.",
             "Design resilient data backbones with relational, NoSQL, and optimized SQL workflows.",
             "Build, evaluate, and tune machine learning systems that hold up in real-world product sprints.",
             "Fine-tune large language models and orchestrate agentic AI experiences ready for deployment."
@@ -207,8 +208,9 @@ export const programs = [
         title: "Data Science & Strategic Analytics",
         slug: "data-science-strategic-analytics",
         subtitle: "From Raw Data to Business Intelligence",
-        duration: "12 Modules",
+        duration: "7 Months",
         color: "bg-purple-600",
+        image: "/Data_Science.jfif",
         icon: <FaChartBar />,
         description: [
             "Transform into the data partner every leadership team craves—tell compelling stories with data, automate insight pipelines, and launch ML-powered decisions.",
@@ -366,8 +368,9 @@ export const programs = [
         title: "Future Founders – AI Foundation",
         slug: "future-founders-ai-foundation",
         subtitle: "Digital Literacy & Coding for the Next Generation",
-        duration: "8 Modules",
+        duration: "3 Months",
         color: "bg-orange-500",
+        image: "/AI_Foundation.png",
         icon: <FaLaptopCode />,
         description: [
             "A playful-yet-powerful launchpad for teens and first-time builders—learn digital fluency, code creatively, and demo AI ideas with confidence.",
@@ -470,8 +473,9 @@ export const programs = [
         title: "Green Intelligence – Climate Analytics",
         slug: "green-intelligence-climate-analytics",
         subtitle: "Specialization in Carbon Markets & ESG Data",
-        duration: "8 Modules",
+        duration: "3 Months",
         color: "bg-green-600",
+        image: "/Climate_Analytics.jfif",
         icon: <FaLeaf />,
         description: [
             "Blend climate science with data craftsmanship to decode carbon markets, verify emissions, and advise on ESG action plans.",

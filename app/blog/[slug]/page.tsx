@@ -116,7 +116,7 @@ export default function BlogDetailPage() {
                     <p className="text-6xl mb-4">🔍</p>
                     <h1 className="text-2xl font-bold text-brand-darkest mb-2">Post Not Found</h1>
                     <p className="text-gray-500 mb-6">{error || "This blog post doesn't exist."}</p>
-                    <Link href="/blog" className="inline-flex items-center gap-2 bg-brand-dark text-white px-6 py-3 rounded-xl transition hover:bg-brand-accent font-medium">
+                    <Link href="/blog" className="inline-flex items-center gap-2 bg-brand-darkest text-white px-6 py-3 rounded-xl transition hover:bg-brand-accent font-medium">
                         <FaArrowLeft size={12} /> Back to Blog
                     </Link>
                 </div>
@@ -169,7 +169,7 @@ export default function BlogDetailPage() {
                 {/* Back link */}
                 <Link
                     href="/blog"
-                    className="inline-flex items-center gap-2 text-brand-dark/60 hover:text-brand-accent text-sm font-medium transition mb-8 group"
+                    className="inline-flex items-center gap-2 text-[#1a6575] font-bold hover:text-brand-accent text-sm transition mb-8 group"
                 >
                     <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" size={11} />
                     Back to Blog
@@ -201,11 +201,11 @@ export default function BlogDetailPage() {
                                         priority
                                         onClick={() => setLightboxImg(blog.images[slideIndex])}
                                     />
-                                    <div className="absolute bottom-4 right-4">
+                                    {/* <div className="absolute bottom-4 right-4">
                                         <span className="bg-white/80 backdrop-blur-sm text-brand-darkest text-xs font-semibold px-3 py-1.5 rounded-full shadow">
                                             Click to enlarge
                                         </span>
-                                    </div>
+                                    </div> */}
                                 </motion.div>
                             </AnimatePresence>
 

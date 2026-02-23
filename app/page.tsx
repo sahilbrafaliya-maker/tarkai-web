@@ -154,13 +154,6 @@ export default function Home() {
                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:translate-x-2 transition-transform duration-300">{item.title}</h3>
                   <p className="text-lg text-brand-light/60 max-w-3xl group-hover:text-brand-light/90 transition-colors duration-300">{item.description}</p>
                 </div>
-                <div className="flex flex-col gap-2 shrink-0">
-                  {["AI Surge", "Data-Driven", "Mentored"].map((tag, i) => (
-                    <span key={i} className="text-xs font-bold uppercase tracking-wider text-brand-darkest bg-brand-light/80 hover:bg-brand-accent hover:text-white transition-colors px-3 py-1 rounded text-center cursor-default">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
             ))}
           </div>

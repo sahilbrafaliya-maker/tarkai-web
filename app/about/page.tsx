@@ -25,9 +25,9 @@ export default function AboutPage() {
                         <p>
                             Founded in 2026 and headquartered in Surat, Gujarat, TARK AI EdTech Private Limited is a future-focused education company. TARK AI is India's leading AI-powered career guidance platform, built on the belief that learning should go beyond certificates and create meaningful impact.
                         </p>
-                        <p>
+                        {/* <p>
                             TarkAI was established to address gaps in modern education, where tools are often prioritized over deep understanding, problem-solving, and real-world readiness. We focus on conceptual clarity, practical application, and long-term career value.
-                        </p>
+                        </p> */}
                     </div>
                 </div>
             </div>

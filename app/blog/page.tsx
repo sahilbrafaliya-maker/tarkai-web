@@ -107,51 +107,45 @@ function BlogCard({ post, index }: { post: BlogPost, index: number }) {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="group w-full"
         >
-            <div className="bg-white/60 backdrop-blur-md rounded-xl border border-white/60 shadow-sm overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:border-brand-accent/30 flex flex-col">
+            <Link href={`/blog/${post.slug || post.id}`} className="block h-full">
+                <div className="bg-white/60 backdrop-blur-md rounded-xl shadow-sm overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:border-brand-accent/30 flex flex-col h-full relative">
 
-                {/* Image */}
-                <div className="relative h-52 overflow-hidden shrink-0">
-                    <Image
-                        src={imageUrl}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    {/* Tag on image top-right */}
-                    <div className="absolute top-3 right-3 z-10">
-                        <span className="inline-block px-3 py-1 rounded-full text-xs font-bold text-white bg-brand-accent shadow-md">
-                            {displayCategory}
-                        </span>
-                    </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-5 flex flex-col gap-2 flex-1">
-                    {/* Date between image and title */}
-                    <span className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
-                        <FaCalendarAlt className="text-brand-accent" size={10} />
-                        {post.date}
-                    </span>
-                    <div className="border-t border-gray-100" />
-                    <h3 className="text-lg font-bold text-brand-darkest leading-snug group-hover:text-brand-accent transition-colors">
-                        {post.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed flex-1">
-                        {post.description}
-                    </p>
-                    <div className="pt-3 border-t border-gray-100 mt-2">
-                        <Link href={`/blog/${post.slug || post.id}`} className="flex items-center gap-2 text-sm font-bold text-brand-dark group-hover:text-brand-accent transition-all">
-                            Read Article
-                            <span className="bg-brand-lightest rounded-full p-1 group-hover:bg-brand-accent group-hover:text-white transition-colors">
-                                <FaArrowRight size={11} />
+                    {/* Image */}
+                    <div className="relative h-52 overflow-hidden shrink-0">
+                        <Image
+                            src={imageUrl}
+                            alt={post.title}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        {/* Tag on image top-right */}
+                        <div className="absolute top-3 right-3 z-10">
+                            <span className="inline-block px-3 py-1 rounded-full text-xs font-bold text-white bg-brand-accent shadow-md">
+                                {displayCategory}
                             </span>
-                        </Link>
+                        </div>
                     </div>
-                </div>
 
-                {/* Glow */}
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-accent opacity-10 blur-3xl rounded-full group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
-            </div>
+                    {/* Content */}
+                    <div className="p-5 flex flex-col gap-2 flex-1">
+                        {/* Date between image and title */}
+                        <span className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
+                            <FaCalendarAlt className="text-brand-accent" size={10} />
+                            {post.date}
+                        </span>
+                        <div className="border-t border-gray-100" />
+                        <h3 className="text-lg font-bold text-brand-darkest leading-snug group-hover:text-brand-accent transition-colors">
+                            {post.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 leading-relaxed flex-1">
+                            {post.description}
+                        </p>
+                    </div>
+
+                    {/* Glow */}
+                    <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-accent opacity-10 blur-3xl rounded-full group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
+                </div>
+            </Link>
         </motion.div>
     );
 }

@@ -12,47 +12,47 @@ const programs = [
     id: "ai-architect",
     title: "AI / ML Architect Program",
     subtitle: "Architect the Future",
-    duration: "12 Modules",
+    duration: "7 Months",
     description: "From intelligent databases to agentic systems—craft full-stack AI experiences that are production ready. Master the art of building scalable, efficient, and ethical AI solutions driving the next generation of software.",
     highlights: ["Full-stack ML systems", "LLM fine-tuning", "Agent orchestration", "Production Deployment"],
     icon: <FaRocket />,
     color: "bg-blue-500",
     // Using a high-quality tech/AI abstract image
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
+    image: "/AI_ML_Architect_Program.jfif",
     featured: true
   },
   {
     id: "data-science",
     title: "Data Science & Strategic Analytics",
     subtitle: "Decipher the Data",
-    duration: "12 Modules",
+    duration: "7 Months",
     description: "Transform noisy data into boardroom narratives and predictive models leaders can act on instantly. Learn advanced statistical analysis, machine learning pipelines, and the art of data storytelling.",
     highlights: ["Analytics storytelling", "Spark-powered ML pipelines", "Big Data Visualization", "Business Intelligence"],
     icon: <FaChalkboardTeacher />,
     color: "bg-emerald-500",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
+    image: "/Data_Science.jfif"
   },
   {
     id: "future-founders",
     title: "Future Founders – AI Foundation",
     subtitle: "Build Your Vision",
-    duration: "8 Modules",
+    duration: "3 Months",
     description: "A playful launchpad for teens and first-time builders to code, analyze, and present their first AI ideas. We nurture the entrepreneurial spirit combined with technical prowess to create the founders of tomorrow.",
     highlights: ["Creative coding sprints", "Responsible AI mindset", "Prototype Development", "Pitching & Strategy"],
     icon: <FaLightbulb />,
     color: "bg-orange-500",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop"
+    image: "/AI_Foundation.png"
   },
   {
     id: "green-intel",
     title: "Green Intelligence – Climate Analytics",
     subtitle: "Sustain the Planet",
-    duration: "8 Modules",
+    duration: "3 Months",
     description: "Decode carbon markets, architect ESG dashboards, and advise on climate-positive strategies with data. Use technology to solve the most pressing challenges of our time.",
     highlights: ["Emission analytics", "Carbon market storytelling", "ESG Reporting", "Climate Modeling"],
     icon: <FaLeaf />,
     color: "bg-lime-500",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1200&auto=format&fit=crop"
+    image: "/Climate_Analytics.jfif"
   }
 ];
 

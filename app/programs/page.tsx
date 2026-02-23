@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { programs } from '@/data/programsData';
 import GeometricShapes from '../components/GeometricShapes';
 import BackgroundText from '../components/BackgroundText';
@@ -47,7 +48,7 @@ export default function ProgramsPage() {
                                 href={`/programs/${program.slug}`}
                                 className="inline-flex items-center text-brand-accent font-bold text-lg hover:text-brand-dark transition-colors group"
                             >
-                                View Detailed Roadmap
+                                View Detailed
                                 <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </Link>
                         </div>
@@ -57,10 +58,20 @@ export default function ProgramsPage() {
                             <div className="sticky top-32 h-[400px] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer">
                                 <Link href={`/programs/${program.slug}`}>
                                     {/* Visual Representation */}
-                                    <div className={`absolute inset-0 ${program.color} opacity-90 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-100`}></div>
-                                    <div className="absolute inset-0 bg-linear-to-br from-brand-darkest/50 to-transparent"></div>
+                                    <div className={`absolute inset-0 ${program.color} opacity-0 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-90 z-10`}></div>
+                                    <div className="absolute inset-0 bg-linear-to-br from-brand-darkest/70 via-brand-darkest/40 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div className="absolute inset-0 bg-black/10 z-10 opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
 
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center text-white">
+                                    {(program as any).image && (
+                                        <Image
+                                            src={(program as any).image}
+                                            alt={program.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                    )}
+
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center text-white z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                         <div className="w-32 h-32 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-7xl mb-8 border border-white/20 shadow-inner group-hover:scale-110 transition-transform duration-500">
                                             {program.icon}
                                         </div>
