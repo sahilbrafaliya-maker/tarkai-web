@@ -20,6 +20,39 @@ export default function ProgramsPage() {
                 </div>
             </div>
 
+            {/* Program Quick Comparison Grid */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 relative z-10">
+                <div className="bg-white/60 backdrop-blur-md rounded-3xl shadow-xl border border-gray-100/50 p-6 md:p-8">
+                    <h2 className="text-2xl font-extrabold text-brand-darkest mb-6">Program Overview at a Glance</h2>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="border-b border-gray-100">
+                                    <th className="py-4 px-4 text-sm font-bold uppercase tracking-wider text-brand-accent">Program</th>
+                                    <th className="py-4 px-4 text-sm font-bold uppercase tracking-wider text-brand-accent">Main Focus</th>
+                                    <th className="py-4 px-4 text-sm font-bold uppercase tracking-wider text-brand-accent">Duration</th>
+                                    <th className="py-4 px-4 text-sm font-bold uppercase tracking-wider text-brand-accent">Modules</th>
+                                    <th className="py-4 px-4 text-sm font-bold uppercase tracking-wider text-brand-accent">Mentorship</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-50">
+                                {programs.map((prog, idx) => (
+                                    <tr key={idx} className="hover:bg-brand-lightest/30 transition-colors">
+                                        <td className="py-4 px-4 font-bold text-brand-darkest text-base">{prog.title}</td>
+                                        <td className="py-4 px-4 text-gray-600 text-sm">{prog.subtitle}</td>
+                                        <td className="py-4 px-4 text-gray-700 font-semibold text-sm">
+                                            {prog.slug === 'ai-ml-architect-program' || prog.slug === 'data-science-strategic-analytics' ? '6 Months' : '3 Months'}
+                                        </td>
+                                        <td className="py-4 px-4 text-gray-600 text-sm">{prog.roadmap.length} Modules</td>
+                                        <td className="py-4 px-4 text-brand-accent font-bold text-sm">Included (Founder-led)</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 space-y-20 lg:space-y-32">
                 {programs.map((program, index) => (
                     <div

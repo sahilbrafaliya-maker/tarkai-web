@@ -6,6 +6,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import HomeWaypoints from "./components/HomeWaypoints";
 import GeometricShapes from "./components/GeometricShapes";
 import SignaturePrograms from "./components/SignaturePrograms";
+import FAQSection from "./components/FAQSection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,6 +15,53 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://tarkaiedtech.com",
   },
+};
+
+const homeFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is TARK AI EdTech?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TARK AI EdTech Private Limited is a premier, future-focused educational platform in India that delivers concept-driven, mentor-led programs in Artificial Intelligence, Machine Learning, Data Science, and Climate Analytics. We focus on conceptual clarity, real-world application, and building lasting engineering skills."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the TARK AI Career Guidance Portal work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The portal uses intelligent skill mapping and personalized guidance to analyze a learner's strengths and professional aspirations. It generates structured, step-by-step career roadmaps that help students and professionals transition from foundational basics to industry-ready mastery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the 'Why First, Then How' learning philosophy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is TARK AI's signature instructional methodology. Instead of jumping straight into syntax or tools, we guide learners through the logical 'Why' behind algorithms and architectures first. We move systematically from Concept → Code → Production-level Case Studies to foster deep engineering intuition."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the mentors and instructors at TARK AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our courses are designed and taught by highly qualified co-founders and data science professionals, including academic scholars holding M.Sc. degrees in Artificial Intelligence, Machine Learning, and Climate Analytics from prestigious national institutes like the Indian Institute of Information Technology (IIIT), Lucknow."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does TARK AI provide placement and career readiness support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All our major career programs include a comprehensive 1-Month Placement Ready Program. This covers ATS-friendly resume creation, LinkedIn profile optimization, mock technical and HR interviews, active portfolio reviews (GitHub and live site audits), and career coaching."
+      }
+    }
+  ]
 };
 
 export default function Home() {
@@ -160,6 +208,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQSection />
+
       {/* CTA Section */}
       <section className="py-20 bg-white text-brand-darkest relative overflow-hidden">
         <GeometricShapes hideBigHexagon={true} />
@@ -176,6 +227,11 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }}
+      />
 
       <ScrollToTop />
     </div>

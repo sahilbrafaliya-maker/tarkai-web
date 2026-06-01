@@ -74,24 +74,57 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
+      "@id": "https://tarkaiedtech.com/#organization",
       "name": "TARK AI EdTech Private Limited",
       "alternateName": "TARK AI",
+      "legalName": "TARKAI EdTech Private Limited",
       "url": "https://tarkaiedtech.com",
-      "logo": "https://tarkaiedtech.com/Logo.png",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://tarkaiedtech.com/#logo",
+        "url": "https://tarkaiedtech.com/Logo.png",
+        "caption": "TARK AI EdTech Private Limited Logo"
+      },
+      "foundingDate": "2026",
+      "telephone": "+91-9712358689",
+      "email": "info@tarkaiedtech.com",
       "contactPoint": {
         "@type": "ContactPoint",
+        "telephone": "+91-9712358689",
         "email": "info@tarkaiedtech.com",
         "contactType": "customer service"
       },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Kyros Business Center, 404&405, beside Ashirwad Society, Sarthana Jakat Naka",
+        "addressLocality": "Surat",
+        "addressRegion": "Gujarat",
+        "postalCode": "395013",
+        "addressCountry": "IN"
+      },
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science",
+        "Climate Technology",
+        "Green Intelligence",
+        "Career Guidance",
+        "EdTech"
+      ],
       "sameAs": [
-        "https://www.linkedin.com/company/tark-ai", // Anticipating future link
-        "https://twitter.com/TarkAI"
+        "https://www.linkedin.com/company/111475196/",
+        "https://www.instagram.com/tarkaiedtech/",
+        "https://wa.me/919712358689"
       ]
     },
     {
       "@type": "WebSite",
+      "@id": "https://tarkaiedtech.com/#website",
       "name": "TARK AI EdTech",
       "url": "https://tarkaiedtech.com",
+      "publisher": {
+        "@id": "https://tarkaiedtech.com/#organization"
+      },
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://tarkaiedtech.com/search?q={search_term_string}",

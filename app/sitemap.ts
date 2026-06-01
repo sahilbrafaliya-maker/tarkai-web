@@ -21,6 +21,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: route === '' ? 1.0 : 0.8,
     }));
 
+    // Dynamic program courses
+    const programRoutes = [
+        'ai-ml-architect-program',
+        'data-science-strategic-analytics',
+        'future-founders-ai-foundation',
+        'green-intelligence-climate-analytics'
+    ].map((slug) => ({
+        url: `${baseUrl}/programs/${slug}`,
+        lastModified: new Date().toISOString().split('T')[0],
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+    }));
+
     // Dynamic blog posts
     let blogRoutes: MetadataRoute.Sitemap = [];
     try {
@@ -37,5 +50,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         console.error('Sitemap generation error:', error);
     }
 
-    return [...routes, ...blogRoutes];
+    return [...routes, ...programRoutes, ...blogRoutes];
 }

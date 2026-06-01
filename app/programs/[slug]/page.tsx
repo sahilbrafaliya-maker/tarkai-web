@@ -2,11 +2,31 @@ import { programs } from "@/data/programsData";
 import RoadmapViewer from "@/components/RoadmapViewer";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export async function generateStaticParams() {
     return programs.map((program) => ({
         slug: program.slug,
     }));
+}
+
+type Props = {
+    params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const program = programs.find((p) => p.slug === slug);
+    if (!program) return {};
+
+    return {
+        title: `${program.title} | AI Education Programs – TARK AI`,
+        description: `${program.subtitle}. ${program.description[0]}`,
+        keywords: [program.title, program.subtitle, "AI Education Programs", "TARK AI"],
+        alternates: {
+            canonical: `https://tarkaiedtech.com/programs/${program.slug}`,
+        },
+    };
 }
 
 export default async function ProgramDetail({ params }: { params: Promise<{ slug: string }> }) {
@@ -17,8 +37,32 @@ export default async function ProgramDetail({ params }: { params: Promise<{ slug
         return notFound();
     }
 
+    const courseJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "@id": `https://tarkaiedtech.com/programs/${program.slug}/#course`,
+      "name": program.title,
+      "description": program.description.join(" "),
+      "provider": {
+        "@type": "Organization",
+        "name": "TARK AI EdTech Private Limited",
+        "url": "https://tarkaiedtech.com"
+      },
+      "educationalCredentialAwarded": `Certificate of Completion in ${program.title}`,
+      "about": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science",
+        "Climate Technology"
+      ]
+    };
+
     return (
         <div className="bg-white min-h-screen pt-28 pb-20">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
+            />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Back Link */}
                 <div className="mb-8">
