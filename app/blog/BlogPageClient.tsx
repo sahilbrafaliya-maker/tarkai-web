@@ -91,6 +91,7 @@ function BlogCard({ post, index }: { post: BlogPost, index: number }) {
                             alt={post.title}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            draggable={false}
                         />
                         {/* Tag on image top-right */}
                         <div className="absolute top-3 right-3 z-10">

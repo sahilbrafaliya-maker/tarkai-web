@@ -158,14 +158,29 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                                     transition={{ duration: 0.3 }}
                                     className="absolute inset-0"
                                 >
-                                    <Image
-                                        src={blog.images[slideIndex]}
-                                        alt={`Gallery image ${slideIndex + 1}`}
-                                        fill
-                                        className="object-cover cursor-zoom-in"
-                                        priority
-                                        onClick={() => setLightboxImg(blog.images[slideIndex])}
-                                    />
+                                    <Link href={`/blog/${blog.slug}`} className="block w-full h-full relative overflow-hidden">
+                                         {/* Blurred background to prevent empty borders */}
+                                         <Image
+                                             src={blog.images[slideIndex]}
+                                             alt=""
+                                             fill
+                                             className="object-cover blur-md opacity-25 scale-105 pointer-events-none"
+                                             draggable={false}
+                                         />
+                                         {/* Crisp contained foreground image */}
+                                         <Image
+                                             src={blog.images[slideIndex]}
+                                             alt={`Gallery image ${slideIndex + 1}`}
+                                             fill
+                                             className="object-contain cursor-zoom-in relative z-10"
+                                             priority
+                                             draggable={false}
+                                             onClick={(e) => {
+                                                 e.preventDefault();
+                                                 setLightboxImg(blog.images[slideIndex]);
+                                             }}
+                                         />
+                                    </Link>
                                 </motion.div>
                             </AnimatePresence>
 
@@ -215,7 +230,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-darkest leading-[1.15] mb-6">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-darkest leading-[1.15] mb-6">
                     {blog.title}
                 </h1>
 

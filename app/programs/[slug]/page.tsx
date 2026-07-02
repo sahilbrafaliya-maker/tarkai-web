@@ -14,17 +14,64 @@ type Props = {
     params: Promise<{ slug: string }>;
 };
 
+// Map slugs to local SEO-optimised title prefixes
+const localTitleMap: Record<string, string> = {
+    "ai-ml-architect-program": "AI/ML Course in Surat",
+    "data-science-strategic-analytics": "Data Science Course in Surat",
+    "future-founders-ai-foundation": "AI Foundation Course Surat",
+    "green-intelligence-climate-analytics": "Climate Analytics Course Surat",
+};
+
+// Map slugs to local SEO keyword arrays
+const localKeywordMap: Record<string, string[]> = {
+    "ai-ml-architect-program": [
+        "AI ML course in Surat", "Machine Learning institute Surat",
+        "AI course with placement Surat", "agentic AI course Gujarat",
+        "LLM training Surat", "best AI ML program Surat", "TARK AI"
+    ],
+    "data-science-strategic-analytics": [
+        "Best Data Science classes in Surat", "Data Science course Surat Gujarat",
+        "Python SQL course Surat", "data analytics program Gujarat",
+        "data science with placement Surat", "TARK AI"
+    ],
+    "future-founders-ai-foundation": [
+        "AI Foundation course Surat", "AI course for beginners Surat",
+        "teen AI course Surat Gujarat", "AI course for students Surat",
+        "beginner AI program Gujarat", "TARK AI"
+    ],
+    "green-intelligence-climate-analytics": [
+        "Climate Analytics course Surat", "Climate tech course Gujarat",
+        "ESG analytics program India", "carbon markets course Surat",
+        "sustainability analytics course", "TARK AI"
+    ],
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const program = programs.find((p) => p.slug === slug);
     if (!program) return {};
 
+    const localPrefix = localTitleMap[slug] || "AI Course in Surat";
+    const localKeywords = localKeywordMap[slug] || ["AI course Surat", "TARK AI"];
+
     return {
-        title: `${program.title} | AI Education Programs – TARK AI`,
-        description: `${program.subtitle}. ${program.description[0]}`,
-        keywords: [program.title, program.subtitle, "AI Education Programs", "TARK AI"],
+        title: `${localPrefix} | ${program.title} – TARK AI EdTech`,
+        description: `${program.subtitle} — IIIT Lucknow faculty, small batches & 1-Month Placement Ready Program. ${program.description[0].substring(0, 80)}...`,
+        keywords: [
+            ...localKeywords,
+            program.title,
+            program.subtitle,
+            "AI Education Programs Surat",
+            "IIIT Lucknow faculty"
+        ],
         alternates: {
             canonical: `https://tarkaiedtech.com/programs/${program.slug}`,
+        },
+        openGraph: {
+            title: `${localPrefix} | ${program.title} – TARK AI EdTech`,
+            description: `${program.subtitle} — IIIT Lucknow faculty, small batches & 1-Month Placement Ready Program in Surat, Gujarat.`,
+            url: `https://tarkaiedtech.com/programs/${program.slug}`,
+            type: "website",
         },
     };
 }
@@ -37,18 +84,61 @@ export default async function ProgramDetail({ params }: { params: Promise<{ slug
         return notFound();
     }
 
+    const durationMap: Record<string, string> = {
+        "ai-ml-architect-program": "P6M",
+        "data-science-strategic-analytics": "P6M",
+        "future-founders-ai-foundation": "P3M",
+        "green-intelligence-climate-analytics": "P3M",
+    };
+
+    const teachesMap: Record<string, string[]> = {
+        "ai-ml-architect-program": ["Artificial Intelligence", "Machine Learning", "LLMs", "Agentic AI Systems", "Python", "Deep Learning"],
+        "data-science-strategic-analytics": ["Python", "SQL", "Data Analysis", "Machine Learning", "Business Intelligence"],
+        "future-founders-ai-foundation": ["Python Basics", "AI Fundamentals", "Digital Literacy", "Creative Coding"],
+        "green-intelligence-climate-analytics": ["Carbon Markets", "ESG Analytics", "Climate Data Science", "Emissions Accounting"],
+    };
+
     const courseJsonLd = {
       "@context": "https://schema.org",
       "@type": "Course",
       "@id": `https://tarkaiedtech.com/programs/${program.slug}/#course`,
       "name": program.title,
       "description": program.description.join(" "),
-      "provider": {
-        "@type": "Organization",
-        "name": "TARK AI EdTech Private Limited",
-        "url": "https://tarkaiedtech.com"
-      },
+      "url": `https://tarkaiedtech.com/programs/${program.slug}`,
+      "inLanguage": "en-IN",
+      "courseMode": "Blended",
+      "timeToComplete": durationMap[program.slug] || "P6M",
+      "teaches": teachesMap[program.slug] || ["Artificial Intelligence", "Machine Learning"],
       "educationalCredentialAwarded": `Certificate of Completion in ${program.title}`,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "Blended",
+        "location": {
+          "@type": "Place",
+          "name": "TARK AI EdTech — Kyros Business Center, Surat",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Kyros Business Center, 404 & 405, beside Ashirwad Society, Sarthana Jakat Naka",
+            "addressLocality": "Surat",
+            "addressRegion": "Gujarat",
+            "postalCode": "395013",
+            "addressCountry": "IN"
+          }
+        }
+      },
+      "provider": {
+        "@type": "EducationalOrganization",
+        "@id": "https://tarkaiedtech.com/#organization",
+        "name": "TARK AI EdTech Private Limited",
+        "url": "https://tarkaiedtech.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Surat",
+          "addressRegion": "Gujarat",
+          "postalCode": "395013",
+          "addressCountry": "IN"
+        }
+      },
       "about": [
         "Artificial Intelligence",
         "Machine Learning",
@@ -57,11 +147,25 @@ export default async function ProgramDetail({ params }: { params: Promise<{ slug
       ]
     };
 
+    const breadcrumbJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tarkaiedtech.com" },
+        { "@type": "ListItem", "position": 2, "name": "Programs", "item": "https://tarkaiedtech.com/programs" },
+        { "@type": "ListItem", "position": 3, "name": program.title, "item": `https://tarkaiedtech.com/programs/${program.slug}` }
+      ]
+    };
+
     return (
         <div className="bg-white min-h-screen pt-28 pb-20">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Back Link */}

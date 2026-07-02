@@ -38,6 +38,49 @@ const emptyForm = {
     images: [] as string[],
 };
 
+const compressImage = async (file: File, maxWidth = 1200, maxHeight = 675, quality = 0.8): Promise<File> => {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target?.result as string;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxWidth || height > maxHeight) {
+                    if (width > height) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    } else {
+                        width = Math.round((width * maxHeight) / height);
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob(
+                    (blob) => {
+                        if (blob) {
+                            resolve(new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", { type: 'image/jpeg', lastModified: Date.now() }));
+                        } else {
+                            resolve(file);
+                        }
+                    },
+                    'image/jpeg',
+                    quality
+                );
+            };
+        };
+    });
+};
+
 export default function AdminPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [password, setPassword] = useState('');
@@ -168,8 +211,9 @@ export default function AdminPage() {
             // Upload cover if new
             let coverImageUrl = form.coverImage;
             if (coverFile) {
+                const compressedCover = await compressImage(coverFile);
                 const fd = new FormData();
-                fd.append('file', coverFile);
+                fd.append('file', compressedCover);
                 const res = await fetch('/api/upload', { method: 'POST', body: fd });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || 'Cover upload failed');
@@ -180,7 +224,10 @@ export default function AdminPage() {
             let newGalleryUrls: string[] = [];
             if (galleryFiles.length > 0) {
                 const fd = new FormData();
-                galleryFiles.forEach(f => fd.append('file', f));
+                for (const file of galleryFiles) {
+                    const compressedFile = await compressImage(file);
+                    fd.append('file', compressedFile);
+                }
                 const res = await fetch('/api/upload-multiple', { method: 'POST', body: fd });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || 'Gallery upload failed');
@@ -392,14 +439,13 @@ export default function AdminPage() {
                                     <label className="block text-sm font-bold text-gray-700 mb-2">Description</label>
                                     <textarea
                                         rows={3}
-                                        maxLength={100}
                                         value={form.description}
                                         onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
                                         placeholder="Short summary shown on the blog card"
                                         className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent/50 outline-none resize-none"
                                     />
-                                    <p className={`text-xs mt-1 text-right font-medium ${form.description.length >= 90 ? 'text-red-400' : 'text-gray-400'}`}>
-                                        {form.description.length} / 100
+                                    <p className="text-xs mt-1 text-right font-medium text-gray-400">
+                                        {form.description.length} characters
                                     </p>
                                 </div>
 

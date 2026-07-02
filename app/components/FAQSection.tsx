@@ -14,26 +14,27 @@ export default function FAQSection() {
 
     const faqs: FAQItem[] = [
         {
-            question: "What is TARK AI EdTech?",
-            answer: "TARK AI EdTech Private Limited is a premier, future-focused educational platform in India that delivers concept-driven, mentor-led programs in Artificial Intelligence, Machine Learning, Data Science, and Climate Analytics. We focus on conceptual clarity, real-world application, and building lasting engineering skills."
+            question: "What is the best AI institute in Surat in 2026?",
+            answer: "TARK AI EdTech Private Limited is one of the top-rated AI institutes in Surat, Gujarat. Located at Kyros Business Center, Sarthana Jakat Naka, it offers structured programs in AI/ML, Data Science, and Climate Analytics — all taught by co-founders holding M.Sc. degrees in AI and Machine Learning from IIIT Lucknow. Unlike most coaching centres in Surat, TARK AI maintains small batch sizes for personalised mentorship and includes a 1-Month Placement Ready Program with every major course."
         },
         {
-            question: "How does the TARK AI Career Guidance Portal work?",
-            answer: "The portal uses intelligent skill mapping and personalized guidance to analyze a learner's strengths and professional aspirations. It generates structured, step-by-step career roadmaps that help students and professionals transition from foundational basics to industry-ready mastery."
+            question: "What AI and Data Science courses does TARK AI offer in Surat?",
+            answer: "TARK AI EdTech in Surat offers four programs: (1) AI/ML Architect Program (6 months) — agentic AI, LLMs, full-stack AI systems; (2) Data Science & Strategic Analytics (6 months) — Python, SQL, data engineering, ML-powered decisions; (3) Green Intelligence – Climate Analytics (3 months) — carbon markets, ESG analytics, emissions; and (4) Future Founders – AI Foundation (3 months) — for teens and beginners with zero prior experience. All programs follow a Concept → Code → Case Studies methodology and include hands-on projects."
         },
         {
-            question: "What is the 'Why First, Then How' learning philosophy?",
-            answer: "It is TARK AI's signature instructional methodology. Instead of jumping straight into syntax or tools, we guide learners through the logical 'Why' behind algorithms and architectures first. We move systematically from Concept → Code → Production-level Case Studies to foster deep engineering intuition."
+            question: "How long does it take to complete an AI course at TARK AI?",
+            answer: "Programs at TARK AI Surat range from 3 to 6 months. The AI/ML Architect Program and the Data Science & Strategic Analytics program each run for 6 months. The Climate Analytics and Foundation programs run for 3 months each. Every major program also includes a dedicated 1-Month Placement Ready Program at the end, covering ATS resume building, LinkedIn optimisation, mock technical and HR interviews, and GitHub portfolio review — bringing total engagement to 4–7 months depending on the track."
         },
         {
-            question: "Who are the mentors and instructors at TARK AI?",
-            answer: "Our courses are designed and taught by highly qualified co-founders and data science professionals, including academic scholars holding M.Sc. degrees in Artificial Intelligence, Machine Learning, and Climate Analytics from prestigious national institutes like the Indian Institute of Information Technology (IIIT), Lucknow."
+            question: "Do I need a coding background to join TARK AI's AI programs in Surat?",
+            answer: "No prior coding background is required for TARK AI's Foundation and beginner tracks. The Future Founders program is designed specifically for teens and first-time builders. For the AI/ML Architect Program, basic familiarity with programming is helpful but not mandatory — the curriculum begins with foundational reasoning before introducing code, following the 'Why First, Then How' approach. Students from BSc, BCom, BBA, and non-technical backgrounds across Surat and Gujarat regularly enroll and succeed."
         },
         {
-            question: "Does TARK AI provide placement and career readiness support?",
-            answer: "Yes. All our major career programs include a comprehensive 1-Month Placement Ready Program. This covers ATS-friendly resume creation, LinkedIn profile optimization, mock technical and HR interviews, active portfolio reviews (GitHub and live site audits), and career coaching."
+            question: "What placement and career support does TARK AI Surat provide?",
+            answer: "All major TARK AI programs include a comprehensive 1-Month Placement Ready Program at no extra cost. This covers: ATS-optimised resume creation, LinkedIn profile makeover, mock technical and HR interview rounds, GitHub and portfolio review, and one-on-one career coaching. Faculty are M.Sc. AI/ML graduates from IIIT Lucknow who actively guide students through job search strategy. To book a free demo class and ask about placement outcomes, WhatsApp TARK AI at +91-9712358689 or visit Kyros Business Center, Sarthana Jakat Naka, Surat 395013."
         }
     ];
+
 
     const toggleAccordion = (index: number) => {
         setActiveIndex(activeIndex === index ? null : index);

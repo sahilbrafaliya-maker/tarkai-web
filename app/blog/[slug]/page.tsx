@@ -99,11 +99,56 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
         ]
     };
 
+    const imageUrl = blogData.coverImage || blogData.image || 'https://tarkaiedtech.com/Logo.png';
+    const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `https://tarkaiedtech.com${imageUrl}`;
+
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "@id": `https://tarkaiedtech.com/blog/${slug}/#article`,
+        "headline": blogData.title,
+        "description": blogData.description || `Read insights on ${blogData.title} from TARK AI EdTech, Surat's leading AI institute.`,
+        "url": `https://tarkaiedtech.com/blog/${slug}`,
+        "inLanguage": "en-IN",
+        "datePublished": blogData.date ? new Date(blogData.date).toISOString() : new Date().toISOString(),
+        "dateModified": blogData.updatedAt ? new Date(blogData.updatedAt).toISOString() : (blogData.date ? new Date(blogData.date).toISOString() : new Date().toISOString()),
+        "image": {
+            "@type": "ImageObject",
+            "url": fullImageUrl,
+            "caption": blogData.title
+        },
+        "keywords": blogData.tag ? [blogData.tag, "AI EdTech Surat", "TARK AI Blog"] : ["AI Insights", "AI EdTech Surat", "TARK AI Blog"],
+        "author": {
+            "@type": "Organization",
+            "@id": "https://tarkaiedtech.com/#organization",
+            "name": "TARK AI EdTech Private Limited",
+            "url": "https://tarkaiedtech.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://tarkaiedtech.com/#organization",
+            "name": "TARK AI EdTech Private Limited",
+            "url": "https://tarkaiedtech.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://tarkaiedtech.com/Logo.png",
+                "width": 600,
+                "height": 60
+            }
+        },
+        "isPartOf": { "@id": "https://tarkaiedtech.com/#website" },
+        "mainEntityOfPage": { "@id": `https://tarkaiedtech.com/blog/${slug}/#article` }
+    };
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
             />
             <BlogDetailClient blog={blogData} otherPosts={otherPostsData} />
         </>

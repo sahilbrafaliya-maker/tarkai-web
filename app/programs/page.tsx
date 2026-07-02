@@ -101,6 +101,7 @@ export default function ProgramsPage() {
                                             alt={program.title}
                                             fill
                                             className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            draggable={false}
                                         />
                                     )}
 

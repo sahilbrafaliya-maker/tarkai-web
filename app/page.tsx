@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import HeroBackground from "./components/HeroBackground";
-import { FaChalkboardTeacher, FaLightbulb, FaRocket } from "react-icons/fa";
+import { FaChalkboardTeacher, FaLightbulb, FaRocket, FaMapMarkerAlt, FaWhatsapp, FaPhone } from "react-icons/fa";
 import ScrollToTop from "./components/ScrollToTop";
 import HomeWaypoints from "./components/HomeWaypoints";
 import GeometricShapes from "./components/GeometricShapes";
@@ -10,10 +10,16 @@ import FAQSection from "./components/FAQSection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "TARK AI: Where Intelligence Meets Education",
-  description: "TARK AI is an AI-powered EdTech platform delivering intelligent personalized roadmaps and future-ready AI programs.",
+  title: "Best AI Institute in Surat | AI & ML Courses – TARK AI EdTech",
+  description: "Top-rated AI & ML institute in Surat, Gujarat. IIIT Lucknow faculty, small batches, hands-on projects & 1-Month Placement Ready Program. Book a free demo class.",
   alternates: {
     canonical: "https://tarkaiedtech.com",
+  },
+  openGraph: {
+    title: "Best AI Institute in Surat | AI & ML Courses – TARK AI EdTech",
+    description: "Top-rated AI & ML institute in Surat, Gujarat. IIIT Lucknow faculty, small batches, hands-on projects & 1-Month Placement Ready Program. Book a free demo class.",
+    url: "https://tarkaiedtech.com",
+    type: "website",
   },
 };
 
@@ -23,42 +29,42 @@ const homeFaqJsonLd = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is TARK AI EdTech?",
+      "name": "What is the best AI institute in Surat in 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "TARK AI EdTech Private Limited is a premier, future-focused educational platform in India that delivers concept-driven, mentor-led programs in Artificial Intelligence, Machine Learning, Data Science, and Climate Analytics. We focus on conceptual clarity, real-world application, and building lasting engineering skills."
+        "text": "TARK AI EdTech Private Limited is widely regarded as one of the best AI institutes in Surat, Gujarat. Located at Kyros Business Center, Sarthana Jakat Naka, TARK AI offers structured programs in AI/ML, Data Science, and Climate Analytics taught by co-founders holding M.Sc. degrees in AI and Machine Learning from IIIT Lucknow. All major programs include a 1-Month Placement Ready Program covering resume building, mock interviews, LinkedIn optimization, and career coaching."
       }
     },
     {
       "@type": "Question",
-      "name": "How does the TARK AI Career Guidance Portal work?",
+      "name": "What AI and Data Science courses are available at TARK AI in Surat?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The portal uses intelligent skill mapping and personalized guidance to analyze a learner's strengths and professional aspirations. It generates structured, step-by-step career roadmaps that help students and professionals transition from foundational basics to industry-ready mastery."
+        "text": "TARK AI EdTech in Surat offers four structured programs: (1) AI/ML Architect Program — a 6-month deep dive into agentic AI, LLMs, and full-stack AI systems; (2) Data Science & Strategic Analytics — a 6-month program covering Python, SQL, data engineering, and ML-powered decisions; (3) Green Intelligence – Climate Analytics — a 3-month program on carbon markets, emissions analytics, and ESG strategy; and (4) Future Founders – AI Foundation — a 3-month beginner track for teens and first-time builders. All programs are mentor-led with hands-on, project-based learning."
       }
     },
     {
       "@type": "Question",
-      "name": "What is the 'Why First, Then How' learning philosophy?",
+      "name": "How long does it take to complete an AI course at TARK AI Surat?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It is TARK AI's signature instructional methodology. Instead of jumping straight into syntax or tools, we guide learners through the logical 'Why' behind algorithms and architectures first. We move systematically from Concept → Code → Production-level Case Studies to foster deep engineering intuition."
+        "text": "At TARK AI Surat, program durations range from 3 to 6 months depending on the track. The AI/ML Architect Program and Data Science & Strategic Analytics program are each 6 months long. The Green Intelligence – Climate Analytics program and the Future Founders – AI Foundation program are each 3 months. All programs follow a Concept to Code to Case Study learning structure and include a dedicated 1-Month Placement Ready Program at the end of the core curriculum."
       }
     },
     {
       "@type": "Question",
-      "name": "Who are the mentors and instructors at TARK AI?",
+      "name": "Do I need a coding background to join TARK AI AI courses in Surat?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our courses are designed and taught by highly qualified co-founders and data science professionals, including academic scholars holding M.Sc. degrees in Artificial Intelligence, Machine Learning, and Climate Analytics from prestigious national institutes like the Indian Institute of Information Technology (IIIT), Lucknow."
+        "text": "No prior coding background is required to join TARK AI's Foundation or beginner-friendly tracks. The Future Founders program is specifically designed for teens and first-time builders with zero prior experience. For the AI/ML Architect Program, basic familiarity with programming concepts is helpful but not mandatory — the curriculum starts from foundational principles using the 'Why First, Then How' methodology, teaching the reasoning behind algorithms before writing any code. Surat residents and students from across Gujarat regularly enroll without prior coding experience."
       }
     },
     {
       "@type": "Question",
-      "name": "Does TARK AI provide placement and career readiness support?",
+      "name": "What career support does TARK AI Surat provide after course completion?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. All our major career programs include a comprehensive 1-Month Placement Ready Program. This covers ATS-friendly resume creation, LinkedIn profile optimization, mock technical and HR interviews, active portfolio reviews (GitHub and live site audits), and career coaching."
+        "text": "TARK AI EdTech includes a comprehensive 1-Month Placement Ready Program in all major career tracks. This includes: ATS-friendly resume building, LinkedIn profile optimization, mock technical and HR interviews, GitHub and portfolio review, and one-on-one career coaching sessions. TARK AI's faculty — M.Sc. AI/ML graduates from IIIT Lucknow — actively mentor students throughout the program. To inquire about placement support or book a free demo class, WhatsApp TARK AI at +91-9712358689."
       }
     }
   ]
@@ -72,30 +78,40 @@ export default function Home() {
         <HeroBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-brand-accent mb-4 gsap-fade-up">
+              Surat&apos;s Premier AI &amp; ML Institute
+            </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-darkest tracking-tight mb-6 md:mb-8 gsap-fade-up">
-              TARK AI<br /><span className="text-brand-accent">Where Intelligence Meets Education</span><br className="hidden sm:block" />
-              {/* <span className="text-brand-accent">Focused Learning. Intelligent Growth.</span> */}
+              TARK AI EdTech<br /><span className="text-brand-accent">Where Intelligence Meets Education</span><br className="hidden sm:block" />
             </h1>
-            <p className="text-xl sm:text-2xl text-brand-dark max-w-3xl mx-auto mb-10 gsap-fade-up">
-              Begin inside our intelligent career portal. Transforming education through innovation, personalized learning, and cutting-edge technology.
+            <p className="text-xl sm:text-2xl text-brand-dark max-w-3xl mx-auto mb-4 gsap-fade-up">
+              AI &amp; ML courses in Surat taught by IIIT Lucknow M.Sc. graduates. Small batches, hands-on projects, and a 1-Month Placement Ready Program included.
+            </p>
+            <p className="text-base text-brand-dark/70 max-w-2xl mx-auto mb-10 gsap-fade-up">
+              Serving students &amp; professionals across Surat, Gujarat — Foundation to Advanced AI tracks available.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 gsap-fade-up px-4 sm:px-0">
-              {/* <Link
-                href="/ai-career-guider"
-                className="w-full sm:w-auto px-6 py-3 text-sm md:text-base md:px-8 md:py-4 bg-brand-dark text-white font-bold rounded-lg hover:bg-brand-accent transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg text-center flex items-center justify-center gap-2"
+              <a
+                href="https://wa.me/919712358689?text=Hi%20TARK%20AI!%20I%27d%20like%20to%20book%20a%20free%20demo%20class."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-darkest text-white border-2 border-brand-darkest hover:bg-brand-dark hover:border-brand-dark"
+                id="hero-whatsapp-cta"
               >
-                <FaRocket className="text-sm" />
-                Launch AI Career Guide
-              </Link> */}
+                <FaWhatsapp className="text-lg" />
+                Book a Free Demo Class
+              </a>
               <Link
                 href="/programs"
-                className="w-full sm:w-auto px-6 py-3 text-sm md:text-base md:px-8 md:py-4 bg-brand-accent text-white font-bold rounded-lg hover:bg-brand-dark transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg text-center"
+                className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-accent text-white border-2 border-brand-accent hover:bg-brand-dark hover:border-brand-dark"
+                id="hero-explore-programs"
               >
                 Explore Programs
               </Link>
               <Link
                 href="/about"
-                className="w-full sm:w-auto px-6 py-3 text-sm md:text-base md:px-8 md:py-4 bg-white text-brand-dark font-bold rounded-lg border-2 border-brand-accent hover:bg-brand-light hover:text-brand-darkest transition-all duration-300 hover:-translate-y-1 hover:shadow-md text-center"
+                className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm text-brand-darkest border-2 border-brand-darkest/20 hover:border-brand-darkest hover:bg-brand-darkest hover:text-white"
+                id="hero-learn-more"
               >
                 Learn More
               </Link>
@@ -111,32 +127,70 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Local Trust Signals Strip */}
+      <section className="bg-brand-darkest text-white py-5 border-t border-brand-accent/20" aria-label="Contact and location information">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 text-sm">
+            <a
+              href="https://maps.google.com/?q=Kyros+Business+Center+Sarthana+Jakat+Naka+Surat+Gujarat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-brand-light/80 hover:text-white transition-colors"
+              id="address-map-link"
+            >
+              <FaMapMarkerAlt className="text-brand-accent shrink-0" />
+              <span>Kyros Business Center, 404 &amp; 405, Sarthana Jakat Naka, Surat 395013</span>
+            </a>
+            <span className="hidden md:block text-brand-accent/30">|</span>
+            <a
+              href="tel:+919712358689"
+              className="flex items-center gap-2 text-brand-light/80 hover:text-white transition-colors"
+              id="trust-strip-phone"
+            >
+              <FaPhone className="text-brand-accent shrink-0" />
+              <span>+91 97123 58689</span>
+            </a>
+            <span className="hidden md:block text-brand-accent/30">|</span>
+            <a
+              href="https://wa.me/919712358689?text=Hi%20TARK%20AI!%20I%27d%20like%20to%20book%20a%20free%20demo%20class."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-green-400 hover:text-green-300 font-bold transition-colors"
+              id="trust-strip-whatsapp"
+            >
+              <FaWhatsapp className="text-lg shrink-0" />
+              <span>WhatsApp Us — Book a Free Demo</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section id="features" className="py-20 bg-white relative overflow-hidden">
         <GeometricShapes hideBigHexagon={true} hideTriangle={true} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10 gsap-fade-up">
-            <h2 className="text-3xl font-extrabold text-brand-darkest mb-4">Why Choose TarkAI?</h2>
+            <h2 className="text-3xl font-extrabold text-brand-darkest mb-4">Why TARK AI is Surat&apos;s Best Choice for AI Education</h2>
             <p className="text-lg text-brand-dark max-w-2xl mx-auto">
-              We focus on delivering high-quality education that is accessible, engaging, and effective.
+              Specific credentials, not vague promises — here&apos;s exactly what separates TARK AI from other institutes in Surat and Gujarat.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 gsap-stagger">
             {[
               {
-                title: "Expert Instructors",
-                description: "Learn from industry leaders and experienced educators dedicated to your success.",
+                title: "IIIT Lucknow Faculty",
+                description: "Your instructors are co-founders holding M.Sc. degrees in AI, Machine Learning, and Climate Analytics from IIIT Lucknow — not just corporate trainers.",
                 icon: <FaChalkboardTeacher />
               },
               {
-                title: "Interactive Learning",
-                description: "Engage with dynamic content, quizzes, and live sessions that make learning fun.",
+                title: "Concept → Code → Case Studies",
+                description: "Our 'Why First, Then How' methodology builds deep engineering intuition. Small batches ensure every student gets personal attention from day one.",
                 icon: <FaLightbulb />
               },
               {
-                title: "Career Focus",
-                description: "Curriculum designed to equip you with the skills needed for today's job market.",
+                title: "1-Month Placement Ready Program",
+                description: "ATS resume, LinkedIn optimization, mock interviews, GitHub portfolio review, and career coaching — all included in major programs at no extra cost.",
                 icon: <FaRocket />
               }
             ].map((feature, index) => (
@@ -172,7 +226,7 @@ export default function Home() {
               <span className="text-brand-accent">The Intelligence Shift.</span>
             </h2>
             <p className="text-xl text-brand-light/70 leading-relaxed">
-              Industries are pivoting. The gap between "AI-curious" and "AI-capable" is where the biggest opportunities lie today. TarkAI bridges that gap.
+              Industries are pivoting. The gap between &quot;AI-curious&quot; and &quot;AI-capable&quot; is where the biggest opportunities lie today. TarkAI bridges that gap.
             </p>
           </div>
 
@@ -215,16 +269,32 @@ export default function Home() {
       <section className="py-20 bg-white text-brand-darkest relative overflow-hidden">
         <GeometricShapes hideBigHexagon={true} />
         <div className="max-w-4xl mx-auto px-4 text-center gsap-scale relative z-10">
-          <h2 className="text-3xl font-extrabold mb-3">Ready to Start Your Journey?</h2>
-          <p className="text-xl text-brand-dark mb-5">
-            Join thousands of students who are already learning with TarkAI.
+          <h2 className="text-3xl font-extrabold mb-3">Ready to Start Your AI Career in Surat?</h2>
+          <p className="text-xl text-brand-dark mb-2">
+            Talk to our mentors. Ask about programs, fees, batch dates, and placement support.
           </p>
-          <Link
-            href="/contact"
-            className="inline-block px-10 py-4 bg-brand-accent text-white font-bold rounded-full hover:bg-brand-dark hover:text-white transition-all duration-300 hover:scale-110 shadow-lg animate-pulse"
-          >
-            Get in Touch
-          </Link>
+          <p className="text-base text-brand-dark/60 mb-8">
+            TARK AI EdTech · Kyros Business Center, Sarthana Jakat Naka, Surat 395013
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://wa.me/919712358689?text=Hi%20TARK%20AI!%20I%27d%20like%20to%20book%20a%20free%20demo%20class."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-darkest text-white border-2 border-brand-darkest hover:bg-brand-dark hover:border-brand-dark"
+              id="cta-whatsapp-demo"
+            >
+              <FaWhatsapp className="text-xl" />
+              Book a Free Demo Class
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-accent text-white border-2 border-brand-accent hover:bg-brand-dark hover:border-brand-dark"
+              id="cta-contact"
+            >
+              Get in Touch
+            </Link>
+          </div>
         </div>
       </section>
 

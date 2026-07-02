@@ -30,6 +30,49 @@ const emptyForm = {
     twitter: '',
 };
 
+const compressImage = async (file: File, maxWidth = 1200, maxHeight = 675, quality = 0.8): Promise<File> => {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            const img = new window.Image();
+            img.src = event.target?.result as string;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxWidth || height > maxHeight) {
+                    if (width > height) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    } else {
+                        width = Math.round((width * maxHeight) / height);
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob(
+                    (blob) => {
+                        if (blob) {
+                            resolve(new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", { type: 'image/jpeg', lastModified: Date.now() }));
+                        } else {
+                            resolve(file);
+                        }
+                    },
+                    'image/jpeg',
+                    quality
+                );
+            };
+        };
+    });
+};
+
 export default function AdminPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [password, setPassword] = useState('');
@@ -171,8 +214,9 @@ export default function AdminPage() {
             // 1. Upload cover image if new one selected
             let coverImageUrl = existingCoverImage;
             if (coverImageFile) {
+                const compressedCover = await compressImage(coverImageFile);
                 const fd = new FormData();
-                fd.append('file', coverImageFile);
+                fd.append('file', compressedCover);
                 const res = await fetch('/api/upload', { method: 'POST', body: fd });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || 'Cover image upload failed');
@@ -183,7 +227,10 @@ export default function AdminPage() {
             let newImageUrls: string[] = [];
             if (galleryFiles.length > 0) {
                 const fd = new FormData();
-                galleryFiles.forEach(f => fd.append('file', f));
+                for (const file of galleryFiles) {
+                    const compressedFile = await compressImage(file);
+                    fd.append('file', compressedFile);
+                }
                 const res = await fetch('/api/upload-multiple', { method: 'POST', body: fd });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || 'Gallery upload failed');

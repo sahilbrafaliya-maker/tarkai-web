@@ -1,4 +1,45 @@
+# ── Standard crawlers ───────────────────────────────────────────────────────
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /ad-tarkai-2026/
+Disallow: /_next/
+Disallow: /uploads/
 
+# ── Google ───────────────────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /ad-tarkai-2026/
+
+# ── Google Image ─────────────────────────────────────────────────────────────
+User-agent: Googlebot-Image
+Allow: /
+Disallow: /uploads/private/
+
+# ── AI crawlers — allow for GEO/AEO citation ────────────────────────────────
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Gemini
+Allow: /
+
+# ── Sitemap ──────────────────────────────────────────────────────────────────
 Sitemap: https://tarkaiedtech.com/sitemap.xml

@@ -184,14 +184,15 @@ export default function SignaturePrograms() {
                     </div>
 
                     <div className="relative group">
-                      <div className="overflow-hidden rounded-2xl shadow-2xl ring-1 ring-black/5 transform transition-transform duration-700 group-hover:scale-105">
+                      <Link href={`/programs#${selectedProgram.id}`} className="block overflow-hidden rounded-2xl shadow-2xl ring-1 ring-black/5 transform transition-transform duration-700 group-hover:scale-105">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={selectedProgram.image}
                           alt={selectedProgram.title}
                           className="w-full h-auto object-cover aspect-4/3"
+                          draggable="false"
                         />
-                      </div>
+                      </Link>
 
                     </div>
                   </motion.div>

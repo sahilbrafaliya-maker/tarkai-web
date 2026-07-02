@@ -105,6 +105,7 @@ export default function Navbar() {
                             height={50}
                             className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10' : 'h-16'}`}
                             priority
+                            draggable={false}
                         />
                     </Link>
                 </motion.div>
