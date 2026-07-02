@@ -68,6 +68,9 @@ jobs:
             # Extract new deployment
             echo "📂 Extracting new deployment..."
             cd /tmp
+            # Clean up old static sitemap files from host directory before extraction
+            rm -f $DEPLOY_DIR/public/sitemap.xml
+            rm -f $DEPLOY_DIR/public/sitemap.xml.bak
             tar -xzf deploy.tar.gz -C $DEPLOY_DIR
             rm deploy.tar.gz
             
