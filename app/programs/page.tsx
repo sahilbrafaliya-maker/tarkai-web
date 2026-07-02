@@ -1,12 +1,110 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { programs } from '@/data/programsData';
 import GeometricShapes from '../components/GeometricShapes';
 import BackgroundText from '../components/BackgroundText';
+import { FaTimes, FaArrowRight, FaSpinner, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 
 export default function ProgramsPage() {
+    // Modal states
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState<'brochure' | 'enroll'>('brochure');
+    const [activeProgramTitle, setActiveProgramTitle] = useState('');
+    
+    // Form fields
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    
+    // Status states
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+    const handleOpenModal = (type: 'brochure' | 'enroll', programTitle: string) => {
+        setModalType(type);
+        setActiveProgramTitle(programTitle);
+        setName('');
+        setEmail('');
+        setPhone('');
+        setToastMessage(null);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        // Custom validations
+        if (!name.trim() || !email.trim() || !phone.trim()) {
+            setToastMessage({ type: 'error', text: 'Please fill in all required fields.' });
+            return;
+        }
+
+        setIsSubmitting(true);
+        setToastMessage(null);
+
+        try {
+            const res = await fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    phone,
+                    branch: 'N/A',
+                    program: activeProgramTitle,
+                    type: modalType,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Failed to submit enquiry.');
+            }
+
+            // Success case
+            setToastMessage({
+                type: 'success',
+                text: modalType === 'brochure' 
+                    ? 'Thank you! Your brochure download will start automatically.' 
+                    : 'Enrolment request submitted! Our team will contact you shortly.'
+            });
+
+            // If it was a brochure request, trigger the download automatically
+            if (modalType === 'brochure') {
+                const link = document.createElement('a');
+                link.href = '/TarkAI Edtech Brochure.pdf';
+                link.download = 'TarkAI Edtech Brochure.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            // Reset form
+            setName('');
+            setEmail('');
+            setPhone('');
+
+            // Automatically close modal after 3 seconds on success
+            setTimeout(() => {
+                setIsModalOpen(false);
+            }, 3000);
+
+        } catch (error: any) {
+            console.error('Submission error:', error);
+            setToastMessage({ type: 'error', text: error.message || 'Something went wrong. Please try again.' });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <div className="bg-white min-h-screen pt-28 relative overflow-hidden">
             <GeometricShapes />
@@ -77,13 +175,31 @@ export default function ProgramsPage() {
                                 </div>
                             </div>
 
-                            <Link
-                                href={`/programs/${program.slug}`}
-                                className="inline-flex items-center text-brand-accent font-bold text-lg hover:text-brand-dark transition-colors group"
-                            >
-                                View Detailed
-                                <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </Link>
+                            {/* CTAs row */}
+                            <div className="flex flex-wrap gap-3 items-center">
+                                <Link
+                                    href={`/programs/${program.slug}`}
+                                    className="inline-flex items-center text-brand-accent font-bold text-base hover:text-brand-dark transition-colors group mr-2"
+                                >
+                                    View Detailed
+                                    <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </Link>
+
+                                <button
+                                    onClick={() => handleOpenModal('brochure', program.title)}
+                                    className="px-5 py-2.5 bg-white border border-brand-accent text-brand-accent font-semibold rounded-lg hover:bg-brand-lightest/45 transition-all duration-300 shadow-xs flex items-center gap-2 cursor-pointer text-sm"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    Download Brochure
+                                </button>
+
+                                <button
+                                    onClick={() => handleOpenModal('enroll', program.title)}
+                                    className="px-5 py-2.5 bg-brand-accent text-white font-semibold rounded-lg hover:bg-brand-dark transition-all duration-300 shadow-sm cursor-pointer text-sm"
+                                >
+                                    Enroll Now
+                                </button>
+                            </div>
                         </div>
 
                         {/* Sticky Image Side */}
@@ -117,6 +233,112 @@ export default function ProgramsPage() {
                     </div>
                 ))}
             </div>
+
+            {/* Modal Popup Overlay */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-300">
+                    <div 
+                        className="relative bg-[#FAF8F5] max-w-md w-full rounded-[32px] p-8 shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close Button */}
+                        <button 
+                            onClick={handleCloseModal}
+                            className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full text-gray-500 hover:text-black hover:bg-gray-100 transition-colors cursor-pointer"
+                        >
+                            <FaTimes size={20} />
+                        </button>
+
+                        {/* Title Header */}
+                        <div className="mb-6">
+                            <h2 className="text-2xl font-bold text-gray-900 leading-tight">
+                                {modalType === 'brochure' ? 'Download Brochure' : 'Enroll Now'}
+                            </h2>
+                            <p className="text-sm font-semibold text-brand-accent mt-1">
+                                {activeProgramTitle}
+                            </p>
+                        </div>
+
+                        {/* Form */}
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            {/* Name Input */}
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                                    Name
+                                </label>
+                                <input 
+                                    type="text"
+                                    placeholder="Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                    className="w-full h-12 px-4 rounded-xl border border-gray-200/80 bg-white placeholder-gray-400 text-gray-900 focus:outline-hidden focus:border-brand-accent transition-all text-sm shadow-xs"
+                                />
+                            </div>
+
+                            {/* Email Input */}
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                                    Email
+                                </label>
+                                <input 
+                                    type="email"
+                                    placeholder="Email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="w-full h-12 px-4 rounded-xl border border-gray-200/80 bg-white placeholder-gray-400 text-gray-900 focus:outline-hidden focus:border-brand-accent transition-all text-sm shadow-xs"
+                                />
+                            </div>
+
+                            {/* Phone Number Input */}
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                                    Phone Number
+                                </label>
+                                <input 
+                                    type="tel"
+                                    placeholder="Phone Number"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    required
+                                    className="w-full h-12 px-4 rounded-xl border border-gray-200/80 bg-white placeholder-gray-400 text-gray-900 focus:outline-hidden focus:border-brand-accent transition-all text-sm shadow-xs"
+                                />
+                            </div>
+
+                            {/* Feedback Toast */}
+                            {toastMessage && (
+                                <div className={`flex items-center gap-2 p-3.5 rounded-xl border text-sm ${
+                                    toastMessage.type === 'success' 
+                                        ? 'bg-emerald-50 border-emerald-100 text-emerald-800' 
+                                        : 'bg-rose-50 border-rose-100 text-rose-800'
+                                }`}>
+                                    {toastMessage.type === 'success' ? <FaCheckCircle className="shrink-0" /> : <FaExclamationCircle className="shrink-0" />}
+                                    <span>{toastMessage.text}</span>
+                                </div>
+                            )}
+
+                            {/* Submit Button */}
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full flex items-center justify-between pl-6 pr-3.5 h-12 rounded-full bg-brand-accent hover:bg-brand-dark border border-black/10 text-white font-bold transition-all shadow-md group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span className="text-base text-white font-extrabold tracking-wide">
+                                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                                </span>
+                                <div className="w-8 h-8 rounded-full bg-white text-brand-accent flex items-center justify-center shadow-xs shrink-0 group-hover:translate-x-0.5 transition-transform duration-300">
+                                    {isSubmitting ? (
+                                        <FaSpinner className="animate-spin text-sm" />
+                                    ) : (
+                                        <FaArrowRight className="text-sm text-brand-accent" />
+                                    )}
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

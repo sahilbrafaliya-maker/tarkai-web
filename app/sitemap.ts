@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next';
 import dbConnect from '@/lib/mongodb';
 import Blog from '@/models/Blog';
 
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://tarkaiedtech.com';
 

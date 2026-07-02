@@ -85,16 +85,25 @@ function BlogCard({ post, index }: { post: BlogPost, index: number }) {
                 <div className="bg-white/60 backdrop-blur-md rounded-xl shadow-sm overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 group-hover:border-brand-accent/30 flex flex-col h-full relative">
 
                     {/* Image */}
-                    <div className="relative h-52 overflow-hidden shrink-0">
+                    <div className="relative h-52 overflow-hidden shrink-0 bg-gray-50/50">
+                        {/* Blurred background image to prevent empty spaces */}
+                        <Image
+                            src={imageUrl}
+                            alt=""
+                            fill
+                            className="object-cover blur-md opacity-25 scale-105 pointer-events-none"
+                            draggable={false}
+                        />
+                        {/* Crisp contained foreground image */}
                         <Image
                             src={imageUrl}
                             alt={post.title}
                             fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            className="object-contain transition-transform duration-700 group-hover:scale-105 relative z-10"
                             draggable={false}
                         />
                         {/* Tag on image top-right */}
-                        <div className="absolute top-3 right-3 z-10">
+                        <div className="absolute top-3 right-3 z-20">
                             <span className="inline-block px-3 py-1 rounded-full text-xs font-bold text-white bg-brand-accent shadow-md">
                                 {displayCategory}
                             </span>
