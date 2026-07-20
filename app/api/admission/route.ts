@@ -111,42 +111,27 @@ export async function POST(request: NextRequest) {
     const cleanEmail = sanitize(data.email);
     const cleanMobile = sanitize(data.mobile);
 
-    // ── Google Apps Script Integration ──────────────────────────────────────
-    const scriptUrl =
-      process.env.GOOGLE_APPS_SCRIPT_URL ||
-      'https://script.google.com/macros/s/AKfycbzlwDJuUJURJIZxzwZGteutxKL2fzKeXDxgITx5Nc4S1SzoXCAQwbTkj3VSxFL8AEI9/exec';
+    // ── Direct Google Form & Sheet Integration ───────────────────────────────
+    const googleFormUrl =
+      'https://docs.google.com/forms/u/0/d/e/1FAIpQLSedoPaZ3GJrjq15-sS7qdHp9ij0yEqWgQjaONDgh9x3Pokizg/formResponse';
 
-    if (scriptUrl) {
-      try {
-        const sheetPayload = {
-          applicationId,
-          timestamp,
-          fullName: cleanName,
-          mobile: cleanMobile,
-          email: cleanEmail,
-          currentStatus: data.currentStatus,
-          courseInterested: data.courseInterested,
-          demoSession: data.demoSession,
-          browser: data.browser || 'Unknown',
-          device: data.device || 'Unknown',
-          utmSource: data.utmSource || '',
-          utmMedium: data.utmMedium || '',
-          utmCampaign: data.utmCampaign || '',
-          referralUrl: data.referralUrl || '',
-          ip: ip,
-        };
+    try {
+      const formParams = new URLSearchParams();
+      formParams.append('entry.863474013', cleanName);
+      formParams.append('entry.1004421340', cleanMobile);
+      formParams.append('entry.870850154', cleanEmail);
+      formParams.append('entry.1211601395', data.currentStatus);
+      formParams.append('entry.1367535186', data.courseInterested);
+      formParams.append('entry.870638862', data.demoSession);
 
-        const sheetRes = await fetch(scriptUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(sheetPayload),
-          redirect: 'follow',
-        });
-        const sheetText = await sheetRes.text();
-        console.log('Google Apps Script response:', sheetText);
-      } catch (scriptError) {
-        console.error('Google Apps Script error:', scriptError);
-      }
+      await fetch(googleFormUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formParams.toString(),
+      });
+      console.log('Google Form direct submission successful');
+    } catch (gfErr) {
+      console.error('Google Form submission error:', gfErr);
     }
 
     // ── Email Notifications ──────────────────────────────────────────────────
