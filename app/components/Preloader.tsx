@@ -1,13 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 export default function Preloader() {
+    const pathname = usePathname();
     const [isLoaded, setIsLoaded] = useState(false);
     const preloaderRef = useRef<HTMLDivElement>(null);
     const logoRef = useRef<HTMLDivElement>(null);
+
+    // Skip preloader on admission page
+    if (pathname?.startsWith('/admission')) {
+        return null;
+    }
 
     useEffect(() => {
         const handleLoad = () => {

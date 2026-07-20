@@ -74,11 +74,17 @@ jobs:
             tar -xzf deploy.tar.gz -C $DEPLOY_DIR
             rm deploy.tar.gz
             
-            # Create .env.production if it doesn't exist
-            if [ ! -f "$DEPLOY_DIR/.env.production" ]; then
+            # Environment Variables Setup
+            echo "🔑 Managing .env.production..."
+            if [ -n "${{ secrets.ENV_PRODUCTION }}" ]; then
+              echo "✅ Injecting .env.production from GitHub Secret (ENV_PRODUCTION)..."
+              echo "${{ secrets.ENV_PRODUCTION }}" > $DEPLOY_DIR/.env.production
+            elif [ -n "${{ secrets.ENV_FILE }}" ]; then
+              echo "✅ Injecting .env.production from GitHub Secret (ENV_FILE)..."
+              echo "${{ secrets.ENV_FILE }}" > $DEPLOY_DIR/.env.production
+            elif [ ! -f "$DEPLOY_DIR/.env.production" ]; then
               echo "🔧 Creating .env.production from example..."
-              cp $DEPLOY_DIR/app/.env.production.example $DEPLOY_DIR/.env.production
-              echo "⚠️  WARNING: Please update .env.production with actual values!"
+              cp $DEPLOY_DIR/.env.production.example $DEPLOY_DIR/.env.production 2>/dev/null || true
             fi
             
             # Navigate to deployment directory

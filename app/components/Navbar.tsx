@@ -153,7 +153,7 @@ export default function Navbar() {
 
                         <span className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></span>
                         <span className="relative flex items-center gap-2 z-20">
-                            Connect
+                            Book Demo
                             <svg className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </span>
                     </Link>
@@ -209,7 +209,7 @@ export default function Navbar() {
                                 <div className="relative group overflow-hidden px-8 py-3 rounded-full font-bold text-white shadow-xl transition-all duration-300 active:scale-95 w-full text-center">
                                     <span className="absolute inset-0 bg-linear-to-r from-brand-accent to-brand-dark"></span>
                                     <span className="relative flex items-center justify-center gap-2 z-20">
-                                        Connect
+                                        Book Demo
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                     </span>
                                 </div>
