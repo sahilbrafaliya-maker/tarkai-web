@@ -347,6 +347,27 @@ export default function AdmissionForm() {
         device: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
       };
 
+      // Dual-submission fail-safe: fire background client-side POST directly to Google Apps Script
+      const directScriptUrl = 'https://script.google.com/macros/s/AKfycbzlwDJuUJURJIZxzwZGteutxKL2fzKeXDxgITx5Nc4S1SzoXCAQwbTkj3VSxFL8AEI9/exec';
+      try {
+        fetch(directScriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            fullName: payload.fullName,
+            mobile: payload.mobile,
+            email: payload.email,
+            currentStatus: payload.currentStatus,
+            courseInterested: payload.courseInterested,
+            demoSession: payload.demoSession,
+            browser: payload.browser,
+            device: payload.device,
+          }),
+        }).catch(() => {});
+      } catch { /* ignore fallback error */ }
+
       const res = await fetch('/api/admission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

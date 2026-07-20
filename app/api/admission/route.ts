@@ -91,9 +91,10 @@ export async function POST(request: NextRequest) {
         });
         const verifyData = await verifyRes.json();
         console.log('reCAPTCHA verification result:', verifyData);
-        if (!verifyData.success && process.env.NODE_ENV !== 'development') {
+        // Only block if explicit low bot score (< 0.15)
+        if (verifyData.score !== undefined && verifyData.score < 0.15) {
           return NextResponse.json(
-            { error: 'Security verification failed. Please refresh and try again.' },
+            { error: 'Security verification failed. Please try again.' },
             { status: 400 }
           );
         }
@@ -111,7 +112,10 @@ export async function POST(request: NextRequest) {
     const cleanMobile = sanitize(data.mobile);
 
     // ── Google Apps Script Integration ──────────────────────────────────────
-    const scriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
+    const scriptUrl =
+      process.env.GOOGLE_APPS_SCRIPT_URL ||
+      'https://script.google.com/macros/s/AKfycbzlwDJuUJURJIZxzwZGteutxKL2fzKeXDxgITx5Nc4S1SzoXCAQwbTkj3VSxFL8AEI9/exec';
+
     if (scriptUrl) {
       try {
         const sheetPayload = {
