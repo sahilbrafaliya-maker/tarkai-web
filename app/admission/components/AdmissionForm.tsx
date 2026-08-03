@@ -5,12 +5,19 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'motion/react';
+import { validateFullName, validateEmailAddress, validateMobileNumber } from '@/lib/securityValidation';
 
 // ─── Validation Schema ────────────────────────────────────────────────────────
 const FormSchema = z.object({
-  fullName: z.string().min(2, 'Full name must be at least 2 characters').max(100, 'Name too long'),
-  mobile: z.string().regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit Indian mobile number'),
-  email: z.string().email('Enter a valid email address'),
+  fullName: z.string().refine((val) => validateFullName(val).isValid, {
+    message: 'Please enter a valid full name',
+  }),
+  mobile: z.string().refine((val) => validateMobileNumber(val).isValid, {
+    message: 'Please enter a genuine 10-digit Indian mobile number',
+  }),
+  email: z.string().refine((val) => validateEmailAddress(val).isValid, {
+    message: 'Please enter a valid email address (disposable domains not allowed)',
+  }),
   currentStatus: z.enum(
     ['School Student', 'College Student', 'Graduate', 'Working Professional'] as const
   ),

@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { z } from 'zod';
+import { validateFullName, validateEmailAddress, validateMobileNumber } from '@/lib/securityValidation';
 
 // ─── Schema ─────────────────────────────────────────────────────────────────
 const AdmissionSchema = z.object({
-  fullName: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  mobile: z.string().regex(/^[6-9]\d{9}$/, 'Please enter a valid 10-digit Indian mobile number'),
-  email: z.string().email('Please enter a valid email address'),
+  fullName: z.string().refine((val) => validateFullName(val).isValid, {
+    message: 'Please enter a valid full name',
+  }),
+  mobile: z.string().refine((val) => validateMobileNumber(val).isValid, {
+    message: 'Please enter a genuine 10-digit Indian mobile number',
+  }),
+  email: z.string().refine((val) => validateEmailAddress(val).isValid, {
+    message: 'Please enter a valid email address (disposable domains not allowed)',
+  }),
   currentStatus: z.enum(['School Student', 'College Student', 'Graduate', 'Working Professional']),
   courseInterested: z.enum(['AI/ML Architect Program', 'Data Science & Analytics']),
   demoSession: z.enum(['AI/ML Architect Program', 'Data Science & Analytics']),

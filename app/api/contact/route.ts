@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { validateFullName, validateEmailAddress, validateMobileNumber } from '@/lib/securityValidation';
 
 export async function POST(request: Request) {
     try {
@@ -14,22 +15,38 @@ export async function POST(request: Request) {
             );
         }
 
+        const fullName = `${firstName} ${lastName}`.trim();
+        const nameVal = validateFullName(fullName);
+        if (!nameVal.isValid) {
+            return NextResponse.json({ error: nameVal.error }, { status: 400 });
+        }
+
+        const emailVal = validateEmailAddress(email);
+        if (!emailVal.isValid) {
+            return NextResponse.json({ error: emailVal.error }, { status: 400 });
+        }
+
+        const phoneVal = validateMobileNumber(mobile);
+        if (!phoneVal.isValid) {
+            return NextResponse.json({ error: phoneVal.error }, { status: 400 });
+        }
+
         // Configure Transporter (User's Gmail)
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,
-            secure: false, // true for 465, false for other ports
+            secure: false,
             auth: {
-                user: process.env.EMAIL_USER, // sahil.b.rafaliya@gmail.com
-                pass: process.env.EMAIL_PASS, // App Password
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
             },
         });
 
         // Email Content    
         const mailOptions = {
-            from: process.env.EMAIL_USER, // Sender
-            to: 'info@tarkaiedtech.com', // Receiver
-            replyTo: email, // Reply to the person who filled the form
+            from: process.env.EMAIL_USER,
+            to: 'info@tarkaiedtech.com',
+            replyTo: email,
             subject: `New Contact Form Submission: ${firstName} ${lastName}`,
             text: `
 Name: ${firstName} ${lastName}

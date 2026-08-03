@@ -7,6 +7,7 @@ import { programs } from '@/data/programsData';
 import GeometricShapes from '../components/GeometricShapes';
 import BackgroundText from '../components/BackgroundText';
 import { FaTimes, FaArrowRight, FaSpinner, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { validateFullName, validateEmailAddress, validateMobileNumber } from '@/lib/securityValidation';
 
 export default function ProgramsPage() {
     // Modal states
@@ -40,9 +41,22 @@ export default function ProgramsPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
-        // Custom validations
-        if (!name.trim() || !email.trim() || !phone.trim()) {
-            setToastMessage({ type: 'error', text: 'Please fill in all required fields.' });
+        // Strict Security Validations
+        const nameVal = validateFullName(name);
+        if (!nameVal.isValid) {
+            setToastMessage({ type: 'error', text: nameVal.error || 'Please enter a valid full name.' });
+            return;
+        }
+
+        const emailVal = validateEmailAddress(email);
+        if (!emailVal.isValid) {
+            setToastMessage({ type: 'error', text: emailVal.error || 'Please enter a valid email address.' });
+            return;
+        }
+
+        const phoneVal = validateMobileNumber(phone);
+        if (!phoneVal.isValid) {
+            setToastMessage({ type: 'error', text: phoneVal.error || 'Please enter a valid 10-digit mobile number.' });
             return;
         }
 
@@ -54,9 +68,9 @@ export default function ProgramsPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name,
-                    email,
-                    phone,
+                    name: name.trim(),
+                    email: email.trim().toLowerCase(),
+                    phone: phone.replace(/\D/g, ''),
                     branch: 'N/A',
                     program: activeProgramTitle,
                     type: modalType,
@@ -298,9 +312,10 @@ export default function ProgramsPage() {
                                 </label>
                                 <input 
                                     type="tel"
-                                    placeholder="Phone Number"
+                                    placeholder="10-digit mobile number"
                                     value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
+                                    maxLength={10}
+                                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                                     required
                                     className="w-full h-12 px-4 rounded-xl border border-gray-200/80 bg-white placeholder-gray-400 text-gray-900 focus:outline-hidden focus:border-brand-accent transition-all text-sm shadow-xs"
                                 />

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, FormEvent } from "react";
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaChevronDown, FaCheck, FaSpinner } from "react-icons/fa";
 import GeometricShapes from "../components/GeometricShapes";
 import BackgroundText from "../components/BackgroundText";
+import { validateFullName, validateEmailAddress, validateMobileNumber } from "@/lib/securityValidation";
 
 const programs = [
     { id: "ai-architect", name: "AI / ML Architect Program" },
@@ -54,6 +55,28 @@ export default function ContactPage() {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitStatus({ type: null, message: "" });
+
+        const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+        const nameVal = validateFullName(fullName);
+        if (!nameVal.isValid) {
+            setSubmitStatus({ type: 'error', message: nameVal.error || "Please enter a valid name." });
+            setIsSubmitting(false);
+            return;
+        }
+
+        const emailVal = validateEmailAddress(formData.email);
+        if (!emailVal.isValid) {
+            setSubmitStatus({ type: 'error', message: emailVal.error || "Please enter a valid email address." });
+            setIsSubmitting(false);
+            return;
+        }
+
+        const mobileVal = validateMobileNumber(formData.mobile);
+        if (!mobileVal.isValid) {
+            setSubmitStatus({ type: 'error', message: mobileVal.error || "Please enter a valid 10-digit mobile number." });
+            setIsSubmitting(false);
+            return;
+        }
 
         try {
             const response = await fetch('/api/contact', {
