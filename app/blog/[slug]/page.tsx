@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogDetailClient from './BlogDetailClient';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 type Params = Promise<{ slug: string }>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {

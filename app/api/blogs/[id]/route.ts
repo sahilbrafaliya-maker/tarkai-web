@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Blog from '@/models/Blog';
 import cloudinary from '@/lib/cloudinary';
+import { revalidatePath } from 'next/cache';
 
 // Helper to extract Cloudinary public ID from URL
 const getPublicIdFromUrl = (url: string) => {
@@ -51,6 +52,9 @@ export async function PUT(request: Request, { params }: { params: Params }) {
             runValidators: true,
         });
 
+        revalidatePath('/blog');
+        if (blog?.slug) revalidatePath(`/blog/${blog.slug}`);
+
         return NextResponse.json(blog);
     } catch (error) {
         console.error("Error updating blog:", error);
@@ -80,6 +84,9 @@ export async function DELETE(request: Request, { params }: { params: Params }) {
                 await deleteCloudinaryImage(imgUrl);
             }
         }
+
+        revalidatePath('/blog');
+        if (deletedBlog.slug) revalidatePath(`/blog/${deletedBlog.slug}`);
 
         return NextResponse.json({ message: 'Blog deleted successfully' });
     } catch (error) {

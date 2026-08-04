@@ -3,6 +3,9 @@ import Blog from '@/models/Blog';
 import { Metadata } from 'next';
 import BlogPageClient from './BlogPageClient';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: 'Insights & Blog | TARK AI EdTech',
     description: 'Explore the latest insights on Artificial Intelligence, Data Science, and Career Development from TARK AI Industry Experts.',

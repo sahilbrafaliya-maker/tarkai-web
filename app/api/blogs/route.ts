@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Blog from '@/models/Blog';
+import { revalidatePath } from 'next/cache';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
     try {
@@ -40,6 +43,9 @@ export async function POST(request: Request) {
         const blogData = { ...newBlog, id: newId, slug };
 
         const createdBlog = await Blog.create(blogData);
+
+        revalidatePath('/blog');
+        if (slug) revalidatePath(`/blog/${slug}`);
 
         return NextResponse.json(createdBlog, { status: 201 });
     } catch (error) {
