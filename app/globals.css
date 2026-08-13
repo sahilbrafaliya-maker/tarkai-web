@@ -176,8 +176,32 @@
     animation-delay: 0.5s;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Inter", sans-serif;
+}
+
+@keyframes continuous-marquee {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.animate-continuous-marquee {
+    display: flex;
+    width: max-content;
+    animation: continuous-marquee 32s linear infinite;
+    will-change: transform;
+}
+
+.animate-continuous-marquee.is-paused {
+    animation-play-state: paused;
 }

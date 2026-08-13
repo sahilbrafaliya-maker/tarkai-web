@@ -7,7 +7,6 @@ import AdmissionTimeline from '@/app/admission/components/AdmissionTimeline';
 import TestimonialsSection from '@/app/admission/components/TestimonialsSection';
 import ProgramsSection from '@/app/admission/components/ProgramsSection';
 import FAQSection from '@/app/admission/components/FAQSection';
-import AdmissionForm from '@/app/admission/components/AdmissionForm';
 import FloatingWidgets from '@/app/admission/components/FloatingWidgets';
 
 export default function AdmissionPageClient() {
@@ -18,11 +17,8 @@ export default function AdmissionPageClient() {
   };
 
   return (
-    <main className="overflow-x-hidden">
-      <HeroSection onApplyNow={scrollToForm} />
-      <div ref={formRef}>
-        <AdmissionForm />
-      </div>
+    <main className="min-h-screen bg-[#edf2f6] text-[#0f172a] overflow-x-hidden font-sans">
+      <HeroSection onApplyNow={scrollToForm} formRef={formRef} />
       <BenefitsSection />
       <ProgramsSection onEnroll={scrollToForm} />
       <AdmissionTimeline />
