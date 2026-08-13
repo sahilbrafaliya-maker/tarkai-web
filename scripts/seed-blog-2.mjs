@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb+srv://TarkAI:jjJsHK9vQpYRmmAa@cluster0.dd8kbuv.mongodb.net/tarkai?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+    console.error('Error: MONGODB_URI environment variable is missing.');
+    process.exit(1);
+}
 
 const BlogSchema = new mongoose.Schema({
     id: { type: Number, unique: true },
