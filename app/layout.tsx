@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 import Preloader from "./components/Preloader";
+import ChunkLoadHandler from "./components/ChunkLoadHandler";
 
 import "./globals.css";
 
@@ -278,6 +279,7 @@ fbq('track', 'PageView');`,
         suppressHydrationWarning
         className={`antialiased bg-background text-foreground`}
       >
+        <ChunkLoadHandler />
         <Preloader />
 
 

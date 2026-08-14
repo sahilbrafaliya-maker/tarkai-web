@@ -11,12 +11,11 @@ export default function Preloader() {
     const preloaderRef = useRef<HTMLDivElement>(null);
     const logoRef = useRef<HTMLDivElement>(null);
 
-    // Skip preloader on admission page
-    if (pathname?.startsWith('/admission')) {
-        return null;
-    }
+    const isAdmission = Boolean(pathname?.startsWith('/admission'));
 
     useEffect(() => {
+        if (isAdmission) return;
+
         const handleLoad = () => {
             // Add a small delay for smoother experience even on fast connections
             setTimeout(() => setIsLoaded(true), 800);
@@ -29,9 +28,11 @@ export default function Preloader() {
             window.addEventListener("load", handleLoad);
             return () => window.removeEventListener("load", handleLoad);
         }
-    }, []);
+    }, [isAdmission]);
 
     useGSAP(() => {
+        if (isAdmission) return;
+
         if (isLoaded && preloaderRef.current) {
             const tl = gsap.timeline();
 
@@ -65,7 +66,12 @@ export default function Preloader() {
                 ease: "sine.inOut"
             });
         }
-    }, [isLoaded]);
+    }, [isLoaded, isAdmission]);
+
+    // Render nothing on admission page AFTER calling all hooks
+    if (isAdmission) {
+        return null;
+    }
 
     return (
         <div
