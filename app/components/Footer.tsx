@@ -19,7 +19,7 @@ export default function Footer() {
                     {/* Massive Header */}
                     <div className="mb-20">
                         <h2 className="text-[12vw] leading-[0.8] font-black tracking-tighter text-white/10 select-none">
-                            TARK AI
+                            TARKAI
                         </h2>
                         <h2 className="text-4xl md:text-6xl font-bold mt-[-4vw] ml-2 md:ml-4 bg-gradient-to-r from-white to-white/50 bg-clip-text text-transparent">
                             Architect Your Future.
@@ -97,7 +97,7 @@ export default function Footer() {
             {/* Bottom Bar */}
             <div className="relative z-10 border-t border-white/10 bg-black/20 backdrop-blur-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-light/40">
-                    <p>&copy; {new Date().getFullYear()} TARK AI EdTech Pvt. Ltd. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} TARKAI EdTech Pvt. Ltd. All rights reserved.</p>
                     <div className="flex gap-8">
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>

@@ -50,7 +50,7 @@ export default function TeamPage() {
             <div className="bg-brand-lightest py-16 relative overflow-hidden">
                 <BackgroundText text="LEADERSHIP" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                    <h1 className="text-4xl md:text-5xl font-bold text-brand-darkest mb-6 animate-slide-up">Meet the TARK AI Leadership Team</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-brand-darkest mb-6 animate-slide-up">Meet the TARKAI Leadership Team</h1>
                     <p className="text-xl text-brand-dark max-w-3xl mx-auto animate-slide-up animate-delay-200 opacity-0" style={{ animationFillMode: 'forwards' }}>
                         The passionate individuals behind TarkAI EdTech working to shape the future of education.
                     </p>

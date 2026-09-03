@@ -81,7 +81,7 @@ export default function Preloader() {
             <div ref={logoRef} className="text-center">
                 {/* You can replace this text with your Logo Image for better branding */}
                 <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter">
-                    TARK <span className="text-brand-accent">AI</span>
+                    TARK<span className="text-brand-accent">AI</span>
                 </h1>
                 <p className="mt-4 text-brand-light/70 text-sm tracking-widest uppercase">
                     Loading Experience...

@@ -1,8 +1,7 @@
 
 import type { Metadata } from "next";
 import Script from "next/script";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import LayoutWrapper from "./components/LayoutWrapper";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 import Preloader from "./components/Preloader";
 import ChunkLoadHandler from "./components/ChunkLoadHandler";
@@ -13,14 +12,14 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://tarkaiedtech.com"),
   title: {
-    default: "TARK AI: Where Intelligence Meets Education",
-    template: "%s | TARK AI"
+    default: "TARKAI: Where Intelligence Meets Education",
+    template: "%s | TARKAI"
   },
-  description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
-  keywords: ["AI EdTech Platform", "AI-Powered Education", "AI Career Navigator", "TARK AI"],
-  authors: [{ name: "TARK AI EdTech Private Limited" }],
-  creator: "TARK AI EdTech Private Limited",
-  publisher: "TARK AI EdTech Private Limited",
+  description: "TARKAI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
+  keywords: ["AI EdTech Platform", "AI-Powered Education", "AI Career Navigator", "TARKAI"],
+  authors: [{ name: "TARKAI EdTech Private Limited" }],
+  creator: "TARKAI EdTech Private Limited",
+  publisher: "TARKAI EdTech Private Limited",
   robots: {
     index: true,
     follow: true,
@@ -47,22 +46,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://tarkaiedtech.com",
-    siteName: "TARK AI EdTech",
-    title: "TARK AI: Where Intelligence Meets Education",
-    description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
+    siteName: "TARKAI EdTech",
+    title: "TARKAI: Where Intelligence Meets Education",
+    description: "TARKAI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
     images: [
       {
         url: "/favicon-96x96.png",
         width: 1600,
         height: 1600,
-        alt: "TARK AI EdTech Private Limited",
+        alt: "TARKAI EdTech Private Limited",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TARK AI: Where Intelligence Meets Education",
-    description: "TARK AI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
+    title: "TARKAI: Where Intelligence Meets Education",
+    description: "TARKAI EdTech Private Limited is an AI-powered EdTech platform delivering intelligent career guidance, personalized roadmaps, and future-ready AI programs.",
     images: ["/favicon-96x96.png"],
     creator: "@TarkAI", // Assuming this handle based on docs
   },
@@ -77,15 +76,15 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": "https://tarkaiedtech.com/#organization",
-      "name": "TARK AI EdTech Private Limited",
-      "alternateName": "TARK AI",
+      "name": "TARKAI EdTech Private Limited",
+      "alternateName": "TARKAI",
       "legalName": "TARKAI EdTech Private Limited",
       "url": "https://tarkaiedtech.com",
       "logo": {
         "@type": "ImageObject",
         "@id": "https://tarkaiedtech.com/#logo",
         "url": "https://tarkaiedtech.com/Logo.png",
-        "caption": "TARK AI EdTech Private Limited — Best AI Institute in Surat"
+        "caption": "TARKAI EdTech Private Limited — Best AI Institute in Surat"
       },
       "image": "https://tarkaiedtech.com/Logo.png",
       "foundingDate": "2026",
@@ -201,7 +200,7 @@ const jsonLd = {
     {
       "@type": "WebSite",
       "@id": "https://tarkaiedtech.com/#website",
-      "name": "TARK AI EdTech",
+      "name": "TARKAI EdTech",
       "alternateName": "Best AI Institute in Surat",
       "url": "https://tarkaiedtech.com",
       "inLanguage": "en-IN",
@@ -219,8 +218,8 @@ const jsonLd = {
       "@type": "WebPage",
       "@id": "https://tarkaiedtech.com/#webpage",
       "url": "https://tarkaiedtech.com",
-      "name": "Best AI Institute in Surat | TARK AI EdTech",
-      "description": "TARK AI is Surat's top-rated AI & ML institute — IIIT Lucknow faculty, small batches, 1-Month Placement Ready Program.",
+      "name": "Best AI Institute in Surat | TARKAI EdTech",
+      "description": "TARKAI is Surat's top-rated AI & ML institute — IIIT Lucknow faculty, small batches, 1-Month Placement Ready Program.",
       "isPartOf": { "@id": "https://tarkaiedtech.com/#website" },
       "about": { "@id": "https://tarkaiedtech.com/#organization" },
       "breadcrumb": {
@@ -283,10 +282,8 @@ fbq('track', 'PageView');`,
         <Preloader />
 
 
-        <Navbar />
         <ScrollProgressBar />
-        {children}
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
