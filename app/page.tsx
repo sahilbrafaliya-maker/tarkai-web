@@ -1,13 +1,32 @@
 import Link from "next/link";
-
-import HeroBackground from "./components/HeroBackground";
-import { FaChalkboardTeacher, FaLightbulb, FaRocket, FaMapMarkerAlt, FaWhatsapp, FaPhone } from "react-icons/fa";
-import ScrollToTop from "./components/ScrollToTop";
-import HomeWaypoints from "./components/HomeWaypoints";
-import GeometricShapes from "./components/GeometricShapes";
-import SignaturePrograms from "./components/SignaturePrograms";
-import FAQSection from "./components/FAQSection";
+import Image from "next/image";
 import { Metadata } from "next";
+
+import HeroVisual from "./components/HeroVisual";
+import { FaChalkboardTeacher } from "@react-icons/all-files/fa/FaChalkboardTeacher";
+import { FaLightbulb } from "@react-icons/all-files/fa/FaLightbulb";
+import { FaRocket } from "@react-icons/all-files/fa/FaRocket";
+import { FaMapMarkerAlt } from "@react-icons/all-files/fa/FaMapMarkerAlt";
+import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp";
+import { FaPhone } from "@react-icons/all-files/fa/FaPhone";
+import { FaMicrochip } from "@react-icons/all-files/fa/FaMicrochip";
+import { FaChartLine } from "@react-icons/all-files/fa/FaChartLine";
+import { FaUsers } from "@react-icons/all-files/fa/FaUsers";
+import ScrollToTop from "./components/ScrollToTop";
+import dynamic from "next/dynamic";
+
+const HomeWaypoints = dynamic(() => import("./components/HomeWaypoints"));
+const GeometricShapes = dynamic(() => import("./components/GeometricShapes"));
+const SignaturePrograms = dynamic(() => import("./components/SignaturePrograms"));
+const StudentReelsSection = dynamic(() => import("./components/StudentReelsSection"));
+const FAQSection = dynamic(() => import("./components/FAQSection"));
+const HomeContactSection = dynamic(() => import("./components/HomeContactSection"));
+const PlacementStoriesSection = dynamic(() => import("./components/PlacementStoriesSection"));
+import HomeBlogSection from "./components/HomeBlogSection";
+
+import dbConnect from "@/lib/mongodb";
+import Blog from "@/models/Blog";
+
 
 export const metadata: Metadata = {
   title: "Best AI Institute in Surat | AI & ML Courses – TARK AI EdTech",
@@ -70,60 +89,72 @@ const homeFaqJsonLd = {
   ]
 };
 
-export default function Home() {
+export default async function Home() {
+  let latestBlogs: any[] = [];
+  try {
+      await dbConnect();
+      const blogs = await Blog.find({}).sort({ date: -1 }).limit(4).lean();
+      latestBlogs = JSON.parse(JSON.stringify(blogs));
+  } catch (error) {
+      console.error('Failed to pre-render home blogs server-side:', error);
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-brand-lightest min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <HeroBackground />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <p className="text-sm font-bold uppercase tracking-widest text-brand-accent mb-4 gsap-fade-up">
-              Surat&apos;s Premier AI &amp; ML Institute
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-darkest tracking-tight mb-6 md:mb-8 gsap-fade-up">
-              TARK AI EdTech<br /><span className="text-brand-accent">Where Intelligence Meets Education</span><br className="hidden sm:block" />
-            </h1>
-            <p className="text-xl sm:text-2xl text-brand-dark max-w-3xl mx-auto mb-4 gsap-fade-up">
-              AI &amp; ML courses in Surat taught by IIIT Lucknow M.Sc. graduates. Small batches, hands-on projects, and a 1-Month Placement Ready Program included.
-            </p>
-            <p className="text-base text-brand-dark/70 max-w-2xl mx-auto mb-10 gsap-fade-up">
-              Serving students &amp; professionals across Surat, Gujarat — Foundation to Advanced AI tracks available.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 gsap-fade-up px-4 sm:px-0">
-              <a
-                href="https://wa.me/919712358689?text=Hi%20TARK%20AI!%20I%27d%20like%20to%20book%20a%20free%20demo%20class."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-darkest text-white border-2 border-brand-darkest hover:bg-brand-dark hover:border-brand-dark"
-                id="hero-whatsapp-cta"
-              >
-                <FaWhatsapp className="text-lg" />
-                Book a Free Demo Class
-              </a>
-              <Link
-                href="/programs"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-accent text-white border-2 border-brand-accent hover:bg-brand-dark hover:border-brand-dark"
-                id="hero-explore-programs"
-              >
-                Explore Programs
-              </Link>
-              <Link
-                href="/about"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm text-brand-darkest border-2 border-brand-darkest/20 hover:border-brand-darkest hover:bg-brand-darkest hover:text-white"
-                id="hero-learn-more"
-              >
-                Learn More
-              </Link>
-            </div>
-          </div>
+      {/* Old Hero Section */}
+      <section className="relative bg-linear-to-b from-white to-[#E8F8F8] min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-10 md:pb-18 lg:pb-26">
+        
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(45,165,163,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(45,165,163,0.03)_1px,transparent_1px)] bg-size-[30px_30px] mask-[linear-gradient(to_right,black_0%,black_45%,transparent_55%)]" />
+          
+          <div className="absolute top-0 right-10 w-100 h-100 bg-brand-light rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+          <div className="absolute -bottom-10 -left-10 w-100 h-100 bg-brand-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob [animation-delay:2s]"></div>
         </div>
 
-        {/* Decorative background elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30 pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-brand-light rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-          <div className="absolute top-0 -right-4 w-96 h-96 bg-brand-accent rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-96 h-96 bg-brand-dark rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[48%_52%] gap-8 lg:gap-0 items-center">
+            
+            <div className="text-left flex flex-col justify-center max-w-2xl mx-auto md:mx-0 w-full z-10 order-1 mt-4 lg:mt-12 xl:mt-16">
+              <p className="text-[13px] sm:text-[14px] font-semibold uppercase tracking-[0.12em] text-brand-accent mb-4 animate-slide-up">
+                Surat's Premier AI & ML Institute
+              </p>
+              <h1 className="text-4xl sm:text-[42px] md:text-[52px] lg:text-[60px] font-bold text-brand-darkest tracking-[-0.04em] mb-5 leading-[1.06] max-w-155 animate-slide-up">
+                TarkAI EdTech<br /> Where Intelligence <span className="text-brand-accent">Meets Education</span><br className="hidden sm:block" />
+              </h1>
+              <p className="text-[16px] sm:text-[18px] font-normal text-brand-dark/90 leading-[1.65] max-w-140 mb-6 animate-slide-up animate-delay-200">
+                AI & ML courses in Surat taught by IIIT Lucknow M.Sc. graduates. Small batches, hands-on projects, and a 1-Month Placement Ready Program included.
+              </p>
+              
+              <div className="flex items-start gap-3 mb-8 animate-slide-up animate-delay-300">
+                <span className="text-brand-dark font-medium text-[14px] sm:text-[15px] leading-[1.6] max-w-md">Serving students & professionals across Surat, Gujarat — Foundation to Advanced AI tracks available.</span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-slide-up animate-delay-400 w-full">
+                <a
+                  href="https://wa.me/919712358689?text=Hi%20TARK%20AI!%20I%27d%20like%20to%20book%20a%20free%20demo%20class."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 h-12.5 sm:h-13.5 text-[15px] sm:text-[16px] font-semibold leading-[1.2] rounded-xl transition-all duration-300 shadow-[0_4px_14px_0_rgba(45,165,163,0.3)] hover:shadow-[0_6px_20px_rgba(45,165,163,0.4)] hover:-translate-y-0.5 bg-linear-to-r from-brand-accent to-[#1d8280] text-white"
+                  id="hero-whatsapp-cta"
+                >
+                  <FaWhatsapp className="text-lg" aria-hidden="true" focusable="false" />
+                  Book a Free Demo Class
+                </a>
+                <Link
+                  href="/programs"
+                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 h-12.5 sm:h-13.5 text-[15px] sm:text-[16px] font-semibold leading-[1.2] rounded-xl transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 bg-white text-brand-darkest border-2 border-brand-accent/20 hover:border-brand-accent"
+                  id="hero-explore-programs"
+                >
+                  Explore Programs
+                </Link>
+              </div>
+            </div>
+
+            <div className="w-full h-full hidden md:flex items-center justify-center order-2 lg:-mt-16 xl:-mt-20">
+              <HeroVisual />
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -138,7 +169,7 @@ export default function Home() {
               className="flex items-center gap-2 text-brand-light/80 hover:text-white transition-colors"
               id="address-map-link"
             >
-              <FaMapMarkerAlt className="text-brand-accent shrink-0" />
+              <FaMapMarkerAlt className="text-brand-accent shrink-0" aria-hidden="true" focusable="false" />
               <span>Kyros Business Center, 404 &amp; 405, Sarthana Jakat Naka, Surat 395013</span>
             </a>
             <span className="hidden md:block text-brand-accent/30">|</span>
@@ -147,7 +178,7 @@ export default function Home() {
               className="flex items-center gap-2 text-brand-light/80 hover:text-white transition-colors"
               id="trust-strip-phone"
             >
-              <FaPhone className="text-brand-accent shrink-0" />
+              <FaPhone className="text-brand-accent shrink-0" aria-hidden="true" focusable="false" />
               <span>+91 97123 58689</span>
             </a>
             <span className="hidden md:block text-brand-accent/30">|</span>
@@ -158,7 +189,7 @@ export default function Home() {
               className="flex items-center gap-2 text-green-400 hover:text-green-300 font-bold transition-colors"
               id="trust-strip-whatsapp"
             >
-              <FaWhatsapp className="text-lg shrink-0" />
+              <FaWhatsapp className="text-lg shrink-0" aria-hidden="true" focusable="false" />
               <span>WhatsApp Us — Book a Free Demo</span>
             </a>
           </div>
@@ -166,42 +197,75 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white relative overflow-hidden">
-        <GeometricShapes hideBigHexagon={true} hideTriangle={true} />
+      <section id="features" className="py-20 lg:py-28 bg-[#FFFFFF] relative overflow-hidden">
+        
+        {/* Background Decorations matching the reference */}
+        <div className="absolute -bottom-37.5 -right-37.5 w-100 h-100 bg-[#FFFFFF]/40 rounded-full pointer-events-none blur-[2px]"></div>
+        
+        <GeometricShapes variant="why-choose-us" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-10 gsap-fade-up">
-            <h2 className="text-3xl font-extrabold text-brand-darkest mb-4">Why TARK AI is Surat&apos;s Best Choice for AI Education</h2>
-            <p className="text-lg text-brand-dark max-w-2xl mx-auto">
-              Specific credentials, not vague promises — here&apos;s exactly what separates TARK AI from other institutes in Surat and Gujarat.
+          
+          {/* Header Area */}
+          <div className="text-center max-w-5xl mx-auto mb-16 gsap-fade-up relative z-10">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+              <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
+                Why Choose Us
+              </div>
+              <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+              Why TarkAI is Surat&apos;s <span className="text-[#20A6A8]">Best Choice</span>
+            </h2>
+            <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
+              Specific credentials, not vague promises — here&apos;s exactly what separates<br className="hidden sm:block" /> TARK AI from other institutes in Surat and Gujarat.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 gsap-stagger">
+          {/* Feature Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 gsap-stagger mt-12 relative z-10">
             {[
               {
                 title: "IIIT Lucknow Faculty",
                 description: "Your instructors are co-founders holding M.Sc. degrees in AI, Machine Learning, and Climate Analytics from IIIT Lucknow — not just corporate trainers.",
-                icon: <FaChalkboardTeacher />
+                icon: <FaChalkboardTeacher className="w-6 h-6" aria-hidden="true" focusable="false" />
               },
               {
                 title: "Concept → Code → Case Studies",
                 description: "Our 'Why First, Then How' methodology builds deep engineering intuition. Small batches ensure every student gets personal attention from day one.",
-                icon: <FaLightbulb />
+                icon: <FaLightbulb className="w-6 h-6" aria-hidden="true" focusable="false" />
               },
               {
                 title: "1-Month Placement Ready Program",
                 description: "ATS resume, LinkedIn optimization, mock interviews, GitHub portfolio review, and career coaching — all included in major programs at no extra cost.",
-                icon: <FaRocket />
+                icon: <FaRocket className="w-6 h-6" aria-hidden="true" focusable="false" />
               }
-            ].map((feature, index) => (
-              <div key={index} className="group relative p-6 md:p-8 rounded-2xl transition-all duration-300 hover:bg-brand-lightest/50 border border-transparent hover:border-brand-accent/20 text-center">
-                <div className="w-20 h-20 mx-auto bg-brand-lightest rounded-full flex items-center justify-center text-4xl text-brand-accent mb-6 group-hover:scale-110 group-hover:bg-brand-accent group-hover:text-white transition-all duration-300 shadow-sm">
-                  {feature.icon}
+            ].map((feature, index) => {
+              const isActive = index === 1;
+              return (
+                <div 
+                  key={index} 
+                  className={`group relative bg-white border rounded-4xl p-8 sm:p-10 transition-all duration-300 overflow-hidden flex flex-col ${isActive ? 'border-[#20A6A8] shadow-[0_8px_30px_rgba(0,0,0,0.06)]' : 'border-[#0F1C1E]/20 hover:border-[#20A6A8] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]'}`}
+                >
+                  {/* Background glow on hover */}
+                  <div className={`absolute top-0 right-0 w-64 h-64 bg-linear-to-bl from-[#20A6A8]/10 to-transparent transition-opacity duration-500 rounded-bl-full pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}></div>
+                  <div className={`absolute inset-0 bg-linear-to-br from-[#20A6A8]/2 to-transparent transition-opacity duration-500 pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}></div>
+
+                  {/* Icon Container */}
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors duration-300 relative z-10 mb-8 border border-[#20A6A8]/10 ${isActive ? 'bg-[#20A6A8] text-white' : 'bg-[#20A6A8]/5 text-[#20A6A8] group-hover:bg-[#20A6A8] group-hover:text-white'}`}>
+                    {feature.icon}
+                  </div>
+                  
+                  {/* Text Content */}
+                  <h3 className={`text-xl sm:text-[22px] font-semibold mb-4 relative z-10 transition-colors duration-300 ${isActive ? 'text-[#20A6A8]' : 'text-[#0F1C1E] group-hover:text-[#20A6A8]'}`}>
+                    {feature.title}
+                  </h3>
+                  <p className="text-slate-500 text-[15px] sm:text-[16px] leading-[1.65] relative z-10">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-brand-darkest mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -209,94 +273,111 @@ export default function Home() {
       {/* Home Waypoints Journey */}
       <HomeWaypoints />
 
-      {/* Signature Programs Section */}
+      {/* Full Curriculum Highlight */}
       <SignaturePrograms />
 
-      {/* Why Now Section - Redesigned */}
-      <section id="why-now" className="py-20 bg-brand-darkest text-white relative overflow-hidden">
-        <GeometricShapes hideBigHexagon={true} hideTopLeftHexagon={true} />
-        {/* Background Glows */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-light/5 rounded-full blur-[100px] pointer-events-none"></div>
+      {/* Why Now Section - Light Theme Redesign */}
+      <section id="why-now" className="pt-8 md:pt-16 pb-24 bg-[#F8FCFC] relative overflow-hidden">
+        {/* Subtle Background Elements */}
+        <div className="absolute top-0 right-0 w-125 h-125 bg-[#20A6A8]/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+        <div className="absolute -bottom-20 -left-20 w-150 h-150 bg-[#20A6A8]/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+        
+        <GeometricShapes variant="why-now" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mb-20 gsap-fade-up">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
-              Why Now? <br />
-              <span className="text-brand-accent">The Intelligence Shift.</span>
+          
+          {/* Header */}
+          <div className="text-center max-w-5xl mx-auto mb-8 md:mb-20 gsap-fade-up">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+              <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
+                Why Now?
+              </div>
+              <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+              The Intelligence Shift is <span className="text-[#20A6A8]">Reshaping Work</span>
             </h2>
-            <p className="text-xl text-brand-light/70 leading-relaxed">
-              Industries are pivoting. The gap between &quot;AI-curious&quot; and &quot;AI-capable&quot; is where the biggest opportunities lie today. TarkAI bridges that gap.
+            <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
+              With AI transforming every industry and talent gaps widening, <br className="hidden sm:block" />now is the perfect time to build your technical edge.
             </p>
           </div>
 
-          <div className="space-y-6 gsap-stagger">
-            {[
-              {
-                id: "01",
-                title: "AI transforms every workflow",
-                description: "Companies now ship AI copilots and agentic tools across finance, healthcare, and design. Teams need builders who can translate business queries into intelligent systems."
-              },
-              {
-                id: "02",
-                title: "Data literacy is the new baseline",
-                description: "Leaders demand professionals who can clean, analyze, and narrate data fluidly. Those skills turn dashboards into decisions and experiments into revenue."
-              },
-              {
-                id: "03",
-                title: "Talent gaps are widening fast",
-                description: "Over 70% of employers report difficulty hiring AI & analytics talent. Programmatic upskilling with mentorship is the quickest route to the front of the queue."
-              }
-            ].map((item, index) => (
-              <div key={index} className="group relative bg-white/5 hover:bg-white/10 border-l-4 border-transparent hover:border-brand-accent transition-all duration-500 rounded-r-2xl p-6 md:p-10 flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center">
-                <div className="text-6xl font-black text-white/5 group-hover:text-brand-accent/20 transition-colors duration-500 font-mono">
-                  {item.id}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:translate-x-2 transition-transform duration-300">{item.title}</h3>
-                  <p className="text-lg text-brand-light/60 max-w-3xl group-hover:text-brand-light/90 transition-colors duration-300">{item.description}</p>
-                </div>
+          {/* Centered Cards Layout */}
+          <div className="relative max-w-4xl mx-auto">
+              <div className="flex flex-col gap-6 gsap-slide-up-stagger">
+                {[
+                  {
+                    id: "01",
+                    title: "AI transforms every workflow",
+                    description: "Companies now ship AI copilots and agentic tools across finance, healthcare, and design. Teams need builders who can translate business queries into intelligent systems.",
+                    icon: <FaMicrochip size={32} />
+                  },
+                  {
+                    id: "02",
+                    title: "Data literacy is the new baseline",
+                    description: "Leaders demand professionals who can clean, analyze, and narrate data fluently. Those skills turn dashboards into decisions and experiments into revenue.",
+                    icon: <FaChartLine size={32} />
+                  },
+                  {
+                    id: "03",
+                    title: "Talent gaps are widening fast",
+                    description: "Over 70% of employers report difficulty hiring AI & analytics talent. Programmatic upskilling with mentorship is the quickest route to the front of the queue.",
+                    icon: <FaUsers size={32} />
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="relative group">
+                    {/* Modern Card Design - All White */}
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 w-full flex flex-col hover:-translate-y-2 transition-all duration-500 overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_50px_rgba(32,166,168,0.1)]">
+                      
+                      {/* Decorative Background Blob on Hover */}
+                      <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700 bg-linear-to-br from-[#20A6A8]/10 to-transparent"></div>
+
+                      <div className="flex flex-col sm:flex-row gap-6 relative z-10">
+                        {/* Icon Block */}
+                        <div className="shrink-0 hidden md:block">
+                          <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-[#20A6A8] shadow-inner transition-transform duration-500 group-hover:scale-110 bg-linear-to-br from-[#20A6A8]/10 to-[#1B9FA1]/20">
+                            {item.icon}
+                          </div>
+                        </div>
+
+                        {/* Text Content */}
+                        <div className="flex flex-col">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="text-[#20A6A8] font-bold text-sm bg-[#20A6A8]/10 px-2.5 py-1 rounded-lg">{item.id}</span>
+                            <h3 className="text-xl sm:text-[22px] font-bold text-[#0F1C1E]">
+                              {item.title}
+                            </h3>
+                          </div>
+                          
+                          <p className="leading-[1.65] text-[15px] sm:text-[16px] text-slate-500">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
           </div>
+
         </div>
       </section>
+
+      {/* Placement Stories Showcase */}
+      <PlacementStoriesSection />
+
+      {/* Student Reels Section */}
+      <StudentReelsSection />
+
+      {/* Blog Section */}
+      <HomeBlogSection latestBlogs={latestBlogs} />
 
       {/* FAQ Section */}
       <FAQSection />
 
-      {/* CTA Section */}
-      <section className="py-20 bg-white text-brand-darkest relative overflow-hidden">
-        <GeometricShapes hideBigHexagon={true} />
-        <div className="max-w-4xl mx-auto px-4 text-center gsap-scale relative z-10">
-          <h2 className="text-3xl font-extrabold mb-3">Ready to Start Your AI Career in Surat?</h2>
-          <p className="text-xl text-brand-dark mb-2">
-            Talk to our mentors. Ask about programs, fees, batch dates, and placement support.
-          </p>
-          <p className="text-base text-brand-dark/60 mb-8">
-            TARK AI EdTech · Kyros Business Center, Sarthana Jakat Naka, Surat 395013
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://wa.me/919712358689?text=Hi%20TARK%20AI!%20I%27d%20like%20to%20book%20a%20free%20demo%20class."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-10 py-4 font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-darkest text-white border-2 border-brand-darkest hover:bg-brand-dark hover:border-brand-dark"
-              id="cta-whatsapp-demo"
-            >
-              <FaWhatsapp className="text-xl" />
-              Book a Free Demo Class
-            </a>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-10 py-4 font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-brand-accent text-white border-2 border-brand-accent hover:bg-brand-dark hover:border-brand-dark"
-              id="cta-contact"
-            >
-              Get in Touch
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Contact / CTA Section */}
+      <HomeContactSection />
 
       <script
         type="application/ld+json"

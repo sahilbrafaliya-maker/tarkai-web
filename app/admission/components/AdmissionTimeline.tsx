@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'motion/react';
+import GeometricShapes from '@/app/components/GeometricShapes';
 
 const steps = [
   {
@@ -31,15 +32,22 @@ export default function AdmissionTimeline() {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="py-20 bg-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="py-20 sm:py-28 bg-[#f8fafc] relative overflow-hidden">
+      
+      {/* Decorative Blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <GeometricShapes variant="your-journey" />
+        <div className="absolute top-[20%] right-[0%] w-[30%] h-[40%] rounded-full bg-teal-100/30 blur-[100px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          className="text-center mb-16 sm:mb-20"
         >
           <span className="text-[#00737a] font-bold uppercase tracking-widest text-xs mb-2 block">
             SEAMLESS ADMISSION PROCESS
@@ -53,32 +61,58 @@ export default function AdmissionTimeline() {
         </motion.div>
 
         {/* 4 Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15 }
+            }
+          }}
+        >
           {steps.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 25 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-[#f8fafc] border border-[#00737a]/20 hover:border-[#00737a] hover:bg-white rounded-2xl p-6 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+              }}
+              whileHover={{ y: -6 }}
+              className="group relative p-8 rounded-3xl bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,115,122,0.12)] hover:border-[#00737a]/30 transition-all duration-300 flex flex-col justify-between overflow-hidden text-left"
             >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-[#00737a]">
+              {/* Large Watermark Number */}
+              <div className="absolute -bottom-6 -right-6 text-[120px] font-black text-slate-50 group-hover:text-[#00737a]/5 transition-colors duration-500 select-none pointer-events-none leading-none z-0">
+                {item.step}
+              </div>
+
+              {/* Subtle Top Gradient Line */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-slate-200 to-transparent group-hover:via-[#00737a]/50 transition-colors duration-300 z-10" />
+
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-8">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-full bg-[#f8fafc] text-[#00737a] font-bold text-sm shadow-sm border border-slate-100 group-hover:bg-[#00737a] group-hover:text-white group-hover:border-[#00737a] transition-all">
                     {item.step}
                   </span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#00737a]/30 group-hover:bg-[#00737a] transition-colors" />
+                  
+                  {/* Dotted line indicator (only visible on large screens except the last item) */}
+                  {i < steps.length - 1 && (
+                    <div className="hidden lg:block absolute right-0 top-12 w-full h-0.5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiNjYmQ1ZTEiLz48L3N2Zz4=')] translate-x-1/2 opacity-50 z-0" />
+                  )}
                 </div>
-                <h3 className="text-lg font-bold text-[#0f172a] mb-2 leading-snug group-hover:text-[#00737a] transition-colors">
+                
+                <h3 className="text-lg font-bold text-[#0f172a] mb-3 leading-snug group-hover:text-[#00737a] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#475569] leading-relaxed font-normal">
+                <p className="text-sm text-[#475569] leading-relaxed font-normal">
                   {item.description}
                 </p>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>

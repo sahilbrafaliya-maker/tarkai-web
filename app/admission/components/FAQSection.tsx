@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
+import GeometricShapes from '@/app/components/GeometricShapes';
 
 const faqs = [
   {
@@ -50,30 +51,30 @@ function FAQItem({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className={`border rounded-2xl overflow-hidden transition-all duration-200 mb-3.5 ${
+      className={`border rounded-xl overflow-hidden transition-all duration-200 mb-2.5 ${
         isOpen
-          ? 'border-[#00737a] bg-white shadow-md'
+          ? 'border-[#00737a] bg-white shadow-sm'
           : 'border-[#00737a]/20 bg-[#f8fafc] hover:border-[#00737a]'
       }`}
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-5 sm:p-6 text-left transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between p-4 sm:px-5 sm:py-4 text-left transition-colors cursor-pointer"
         aria-expanded={isOpen}
       >
         <span
-          className={`font-bold text-base sm:text-lg leading-snug transition-colors ${
+          className={`font-bold text-[15px] sm:text-base pr-4 leading-snug transition-colors ${
             isOpen ? 'text-[#00737a]' : 'text-[#0f172a]'
           }`}
         >
           {faq.q}
         </span>
         <div
-          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 border border-[#00737a]/20 ${
+          className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 border border-[#00737a]/20 ${
             isOpen ? 'bg-[#00737a] text-white rotate-180' : 'bg-[#f8fafc] text-[#00737a]'
           }`}
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
           </svg>
         </div>
@@ -87,7 +88,7 @@ function FAQItem({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
-            <div className="px-5 sm:px-6 pb-6 pt-1 text-[#475569] text-sm sm:text-base leading-relaxed font-normal border-t border-slate-100">
+            <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-3 text-[#475569] text-sm sm:text-[15px] leading-relaxed font-normal border-t border-slate-100">
               {faq.a}
             </div>
           </motion.div>
@@ -99,12 +100,16 @@ function FAQItem({
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [showAll, setShowAll] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
+  const visibleFaqs = showAll ? faqs : faqs.slice(0, 5);
+
   return (
-    <section ref={ref} className="py-20 bg-[#f8fafc] relative" id="faq">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="py-20 bg-[#f8fafc] relative overflow-hidden" id="faq">
+      <GeometricShapes variant="contact" />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <motion.div
@@ -123,7 +128,7 @@ export default function FAQSection() {
 
         {/* FAQ List */}
         <div className="space-y-1">
-          {faqs.map((faq, i) => (
+          {visibleFaqs.map((faq, i) => (
             <FAQItem
               key={i}
               faq={faq}
@@ -134,35 +139,79 @@ export default function FAQSection() {
           ))}
         </div>
 
+        {/* Show More / Less Button */}
+        {faqs.length > 4 && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-8 flex justify-center"
+          >
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="px-6 py-2.5 rounded-xl border border-[#00737a] text-[#00737a] hover:bg-[#00737a] hover:text-white font-bold text-sm transition-all flex items-center gap-2 cursor-pointer shadow-sm hover:shadow-md"
+            >
+              <span>{showAll ? 'Show Less' : 'Show More FAQs'}</span>
+              <svg className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </motion.div>
+        )}
+
         {/* Bottom Contact Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 p-8 rounded-3xl bg-white border border-[#00737a]/20 shadow-sm text-center"
+          className="mt-20 relative max-w-4xl mx-auto"
         >
-          <h3 className="text-xl sm:text-2xl font-bold text-[#0f172a] mb-2">
-            Have Additional Questions?
-          </h3>
-          <p className="text-[#334155] text-sm max-w-md mx-auto mb-6 font-normal">
-            Our admissions counselors in Surat are available 9 AM – 7 PM to guide you on track selection, batch timings, and scholarships.
-          </p>
+          {/* Offset Background Shape matching the image */}
+          <div className="absolute inset-0 bg-[#00737a]/10 rounded-[30px] sm:rounded-[40px] -rotate-1 sm:-rotate-2 scale-[1.01] sm:scale-[1.02] z-0" />
+          
+          {/* Main Card */}
+          <div className="relative z-10 bg-white border border-[#00737a]/20 rounded-[30px] sm:rounded-[40px] px-6 sm:px-8 py-14 sm:py-20 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+            
+            {/* Top Left Dots Pattern */}
+            <div className="absolute top-6 left-6 sm:top-8 sm:left-8 grid grid-cols-4 gap-1.5 opacity-20 pointer-events-none">
+               {[...Array(12)].map((_, i) => (
+                 <div key={`tl-${i}`} className="w-1.5 h-1.5 rounded-full bg-[#00737a]" />
+               ))}
+            </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
-              href="https://wa.me/919712358689?text=Hi%20TarkAI!%20I%20have%20a%20question%20about%20admission."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
-            >
-              <span>Chat on WhatsApp</span>
-            </a>
-            <a
-              href="tel:+919712358689"
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#00737a] hover:bg-[#005a60] text-white font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
-            >
-              <span>Call Admissions Desk</span>
-            </a>
+            {/* Bottom Right Dots Pattern */}
+            <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 grid grid-cols-4 gap-1.5 opacity-20 pointer-events-none">
+               {[...Array(12)].map((_, i) => (
+                 <div key={`br-${i}`} className="w-1.5 h-1.5 rounded-full bg-[#00737a]" />
+               ))}
+            </div>
+
+            {/* Heading */}
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0f172a] mb-5 tracking-tight relative z-10">
+              Have Additional Questions?
+            </h3>
+            
+            {/* Subtitle */}
+            <p className="text-[#475569] text-[15px] sm:text-base max-w-2xl mx-auto mb-10 leading-relaxed font-normal relative z-10 px-4 sm:px-0">
+              Our admissions counselors in Surat are available 9 AM – 7 PM to guide you on track selection, batch timings, and scholarships.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-20">
+              <a
+                href="https://wa.me/919712358689?text=Hi%20TarkAI!%20I%20have%20a%20question%20about%20admission."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              >
+                <span>Chat on WhatsApp</span>
+              </a>
+              <a
+                href="tel:+919712358689"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#0f172a] hover:bg-[#1e293b] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              >
+                <span>Call Admissions Desk</span>
+              </a>
+            </div>
           </div>
         </motion.div>
 

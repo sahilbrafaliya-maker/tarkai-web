@@ -2,7 +2,16 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { FaEdit, FaTrash, FaPlus, FaLock, FaCalendarAlt, FaInstagram, FaLinkedin, FaTwitter, FaList, FaPen } from 'react-icons/fa';
+import { FaEdit } from "@react-icons/all-files/fa/FaEdit";
+import { FaTrash } from "@react-icons/all-files/fa/FaTrash";
+import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
+import { FaLock } from "@react-icons/all-files/fa/FaLock";
+import { FaCalendarAlt } from "@react-icons/all-files/fa/FaCalendarAlt";
+import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram";
+import { FaLinkedin } from "@react-icons/all-files/fa/FaLinkedin";
+import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
+import { FaList } from "@react-icons/all-files/fa/FaList";
+import { FaPen } from "@react-icons/all-files/fa/FaPen";
 import NextImage from 'next/image';
 
 interface BlogPost {
@@ -274,7 +283,7 @@ export default function AdminPage() {
                     <div className="flex justify-center mb-6 text-brand-accent">
                         <FaLock size={40} />
                     </div>
-                    <h1 className="text-2xl font-bold text-center text-brand-darkest mb-6">Admin Access</h1>
+                    <h1 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-center text-brand-darkest mb-6">Admin Access</h1>
                     <input
                         type="password"
                         value={password}
@@ -301,13 +310,13 @@ export default function AdminPage() {
             )}
 
             <div className="max-w-5xl mx-auto">
-                <h1 className="text-3xl font-bold text-brand-darkest mb-8">Content Manager</h1>
+                <h1 className="text-[28px] sm:text-[32px] font-bold text-brand-darkest mb-8">Content Manager</h1>
 
                 {/* ── Tabs ── */}
                 <div className="flex gap-2 mb-8 bg-white border border-gray-200 rounded-2xl p-1.5 w-fit shadow-sm">
                     <button
                         onClick={() => { setActiveTab('manager'); }}
-                        className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'manager'
+                        className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-[14px] font-bold transition-all ${activeTab === 'manager'
                             ? 'bg-brand-dark text-white shadow-md'
                             : 'text-gray-500 hover:text-brand-darkest'
                             }`}
@@ -316,7 +325,7 @@ export default function AdminPage() {
                     </button>
                     <button
                         onClick={() => { resetForm(); setActiveTab('form'); }}
-                        className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'form'
+                        className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-[14px] font-bold transition-all ${activeTab === 'form'
                             ? 'bg-brand-accent text-white shadow-md'
                             : 'text-gray-500 hover:text-brand-darkest'
                             }`}
@@ -349,7 +358,7 @@ export default function AdminPage() {
                             ) : blogs.length === 0 ? (
                                 <div className="text-center py-20">
                                     <div className="bg-white rounded-3xl p-10 max-w-2xl mx-auto border border-gray-200 border-dashed">
-                                        <h3 className="text-2xl font-bold text-gray-400 mb-2">No Posts Yet</h3>
+                                        <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-gray-400 mb-2">No Posts Yet</h3>
                                         <p className="text-gray-500 mb-6">Create your first blog post to get started.</p>
                                         <button
                                             onClick={() => { resetForm(); setActiveTab('form'); }}
@@ -387,11 +396,11 @@ export default function AdminPage() {
                         >
                             <form onSubmit={handleSave} className="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 flex flex-col gap-6">
                                 <div className="flex items-center justify-between">
-                                    <h2 className="text-xl font-bold text-brand-darkest">
+                                    <h2 className="text-[20px] font-bold text-brand-darkest">
                                         {editingId !== null ? 'Edit Post' : 'New Post'}
                                     </h2>
                                     {editingId !== null && (
-                                        <button type="button" onClick={() => { resetForm(); setActiveTab('manager'); }} className="text-sm text-gray-400 hover:text-gray-600 transition">
+                                        <button type="button" onClick={() => { resetForm(); setActiveTab('manager'); }} className="text-[14px] text-gray-400 hover:text-gray-600 transition">
                                             ✕ Cancel Edit
                                         </button>
                                     )}
@@ -485,7 +494,7 @@ export default function AdminPage() {
                                     </div>
                                     {markdownPreview ? (
                                         <div
-                                            className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 min-h-[180px] text-sm text-gray-700 leading-relaxed"
+                                            className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 min-h-45 text-sm text-gray-700 leading-relaxed"
                                             dangerouslySetInnerHTML={{ __html: simpleMarkdownToHtml(form.paragraph) }}
                                         />
                                     ) : (

@@ -1,123 +1,112 @@
-"use client";
-
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { FaCheck } from "@react-icons/all-files/fa/FaCheck";
+import { FiSearch, FiGrid, FiCode, FiZap } from "react-icons/fi";
 import GeometricShapes from "./GeometricShapes";
-import { FaGraduationCap, FaNetworkWired, FaRocket, FaUsers } from "react-icons/fa";
-
-gsap.registerPlugin(ScrollTrigger);
-
 
 export default function HomeWaypoints() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const triggerRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(() => {
-        const pin = gsap.fromTo(
-            sectionRef.current,
-            {
-                translateX: 0,
-            },
-            {
-                translateX: "-300vw",
-                ease: "none",
-                duration: 1,
-                scrollTrigger: {
-                    trigger: triggerRef.current,
-                    start: "top top",
-                    end: "2000 top",
-                    scrub: 0.6,
-                    pin: true,
-                },
-            }
-        );
-
-        return () => {
-            pin.kill();
-        };
-    }, { scope: triggerRef });
-
     const steps = [
         {
-            icon: <FaNetworkWired />,
+            icon: FiSearch,
             title: "Discover",
-            desc: "Explore AI-driven career paths tailored to your potential.",
-            color: "bg-blue-500"
+            desc: "We audit your current skills, goals, and industry demands to identify exactly which AI career path will create the most measurable impact for your future."
         },
         {
-            icon: <FaGraduationCap />,
+            icon: FiGrid,
             title: "Learn",
-            desc: "Master skills with our intelligent, adaptive curriculum.",
-            color: "bg-purple-500"
+            desc: "Our expert instructors design the right approach—hands-on coding, cloud tools, or AI integration—based on real-world projects and your actual learning constraints."
         },
         {
-            icon: <FaUsers />,
+            icon: FiCode,
             title: "Connect",
-            desc: "Join a community of builders and future leaders.",
-            color: "bg-emerald-500"
+            desc: "We build your network by pairing you with industry experts and simulating real workflows, ensuring you collaborate and build alongside the leaders of tomorrow."
         },
         {
-            icon: <FaRocket />,
+            icon: FiZap,
             title: "Launch",
-            desc: "Deploy your skills and accelerate your career.",
-            color: "bg-orange-500"
+            desc: "We deploy your talent directly into the industry with resume optimization, mock interviews, and strategic placement assistance to accelerate your career."
         },
     ];
 
     return (
-        <section className="overflow-hidden relative">
-            <GeometricShapes />
-            <div ref={triggerRef}>
-                <div className="absolute top-28 left-0 w-full text-center z-20 pointer-events-none">
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-darkest mb-4">
-                        Your Journey with TarkAI
-                    </h2>
-                    <p className="text-lg text-brand-dark max-w-2xl mx-auto px-4">
-                        A clear path from curiosity to mastery.
-                    </p>
-                </div>
-                <div
-                    ref={sectionRef}
-                    className="h-screen w-[400vw] pt-30 pb-10 flex flex-row relative"
-                >
-                    {steps.map((step, index) => (
-                        <div
-                            key={index}
-                            className="w-screen h-full flex flex-col justify-center items-center relative p-4 pt-20 md:pt-32"
-                        >
-                            {/* Background Number */}
-                            <div className={`absolute top-1/2 -translate-y-1/2 text-[8rem] md:text-[15rem] font-bold text-black/5 select-none z-0 ${index % 2 === 0 ? 'left-[20%]' : 'right-[20%]'} -translate-x-1/2`}>
-                                0{index + 1}
-                            </div>
-
-                            <div className="relative z-10 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-                                {/* Text Content */}
-                                <div className={`order-2 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2 text-right'}`}>
-                                    <span className="text-xl font-bold text-brand-accent tracking-widest uppercase mb-4 block">Step 0{index + 1}</span>
-                                    <h2 className="text-3xl md:text-5xl font-extrabold text-brand-darkest mb-4 leading-tight">
-                                        {step.title}
-                                    </h2>
-                                    <p className="text-xl md:text-2xl text-brand-dark leading-relaxed max-w-xl">
-                                        {step.desc}
-                                    </p>
-                                </div>
-
-                                {/* Visual Content (Card) */}
-                                <div className={`order-1 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1 flex justify-end'}`}>
-                                    <div className={`w-full max-w-xs mx-auto md:max-w-none md:mx-0 aspect-square md:w-72 md:h-72 ${step.color} rounded-3xl shadow-2xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-all duration-500`}>
-                                        <div className="text-white text-6xl md:text-8xl">
-                                            {step.icon}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <section className="py-20 lg:py-28 bg-[#EAF7F7] relative overflow-hidden" id="journey">
+            <GeometricShapes variant="your-journey" />
+       
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                {/* Section Header */}
+                <div className="text-center max-w-5xl mx-auto mb-16 gsap-fade-up">
+                    <div className="flex items-center justify-center gap-4 mb-6">
+                        <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+                        <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
+                            Your Journey
                         </div>
-                    ))}
+                        <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+                        Your Journey with <span className="text-[#20A6A8]">TarkAI</span>
+                    </h2>
+                    <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-3xl mx-auto">
+                        A clear path from curiosity to mastery. Discover how our structured curriculum takes you from fundamentals to advanced AI applications.
+                    </p>
                 </div>
             </div>
 
+            {/* Zigzag Timeline Layout */}
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-12">
+                <div className="flex flex-col gap-6 lg:gap-8 relative">
+
+                    {steps.map((step, index) => {
+                        const Icon = step.icon;
+                        const isEven = index % 2 === 0;
+
+                        return (
+                            <div key={index} className={`relative z-10 w-full lg:w-[60%] flex ${isEven ? 'self-start gsap-fade-right' : 'self-end gsap-fade-left'}`}>
+
+                                {/* SVG Connector for Left side cards (01, 03) */}
+                                {isEven && index < steps.length - 1 && (
+                                    <svg className="absolute hidden lg:block pointer-events-none -z-10 opacity-30" style={{ left: '100%', top: '50%', width: '160px', height: '140px' }} viewBox="0 0 160 140" fill="none">
+                                        <path d="M -10,0 L 130,0 Q 150,0 150,20 L 150,130" stroke="#20A6A8" strokeWidth="2" strokeDasharray="4 4" />
+                                        <path d="M 145,125 L 150,130 L 155,125" stroke="#20A6A8" strokeWidth="2" fill="none" />
+                                    </svg>
+                                )}
+
+                                {/* SVG Connector for Right side cards (02) */}
+                                {!isEven && index < steps.length - 1 && (
+                                    <svg className="absolute hidden lg:block pointer-events-none -z-10 opacity-30" style={{ right: '100%', top: '50%', width: '160px', height: '140px' }} viewBox="0 0 160 140" fill="none">
+                                        <path d="M 170,0 L 30,0 Q 10,0 10,20 L 10,130" stroke="#20A6A8" strokeWidth="2" strokeDasharray="4 4" />
+                                        <path d="M 5,125 L 10,130 L 15,125" stroke="#20A6A8" strokeWidth="2" fill="none" />
+                                    </svg>
+                                )}
+
+                                {/* Card */}
+                                <div className="bg-[#20A6A8]/10 w-full rounded-3xl p-5 lg:p-6 flex flex-row items-center gap-4 sm:gap-5 shadow-sm border border-[#20A6A8]/10 transition-colors duration-500">
+
+                                    {/* Left Vertical Pill */}
+                                    <div className="w-10 lg:w-11 min-h-24 lg:min-h-28 rounded-full bg-[#20A6A8] flex items-center justify-center shrink-0 shadow-inner">
+                                        <span className="-rotate-90 text-white font-mono font-bold text-[11px] lg:text-[12px] tracking-[0.2em] whitespace-nowrap">
+                                            0{index + 1}
+                                        </span>
+                                    </div>
+
+                                    {/* Right Content */}
+                                    <div className="flex flex-col flex-1 py-1">
+                                        <div className="flex items-center gap-2.5 mb-2">
+                                            <div className="text-[#20A6A8]">
+                                                <Icon size={18} strokeWidth={2.5} />
+                                            </div>
+                                            <h3 className="text-lg lg:text-[18px] font-bold text-[#0F1C1E]">
+                                                {step.title}
+                                            </h3>
+                                        </div>
+
+                                        <p className="text-[#4A5568] text-[13px] sm:text-[14px] leading-[1.6]">
+                                            {step.desc}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
         </section>
     );
 }

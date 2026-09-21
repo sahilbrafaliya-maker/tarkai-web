@@ -18,7 +18,7 @@ export default function Preloader() {
 
         const handleLoad = () => {
             // Add a small delay for smoother experience even on fast connections
-            setTimeout(() => setIsLoaded(true), 800);
+            setTimeout(() => setIsLoaded(true), 0);
         };
 
         // Check if already loaded
@@ -76,7 +76,7 @@ export default function Preloader() {
     return (
         <div
             ref={preloaderRef}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-brand-darkest text-white"
+            className="fixed inset-0 z-9999 flex items-center justify-center bg-brand-darkest text-white"
         >
             <div ref={logoRef} className="text-center">
                 {/* You can replace this text with your Logo Image for better branding */}

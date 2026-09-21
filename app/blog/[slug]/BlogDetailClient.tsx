@@ -6,7 +6,13 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion, AnimatePresence } from 'motion/react';
-import { FaArrowLeft, FaArrowRight, FaCalendarAlt, FaInstagram, FaLinkedin, FaTwitter, FaTimes } from 'react-icons/fa';
+import { FaArrowLeft } from "@react-icons/all-files/fa/FaArrowLeft";
+import { FaArrowRight } from "@react-icons/all-files/fa/FaArrowRight";
+import { FaCalendarAlt } from "@react-icons/all-files/fa/FaCalendarAlt";
+import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram";
+import { FaLinkedin } from "@react-icons/all-files/fa/FaLinkedin";
+import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
+import { FaTimes } from "@react-icons/all-files/fa/FaTimes";
 import GeometricShapes from '@/app/components/GeometricShapes';
 
 interface Blog {
@@ -134,7 +140,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                 {/* Back link */}
                 <Link
                     href="/blog"
-                    className="inline-flex items-center gap-2 text-[#1a6575] font-bold hover:text-brand-accent text-sm transition mb-8 group"
+                    className="inline-flex items-center gap-2 text-[#1a6575] font-bold hover:text-brand-accent text-[14px] sm:text-[15px] transition mb-8 group"
                 >
                     <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" size={11} />
                     Back to Blog
@@ -148,7 +154,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                         className="mb-10"
                     >
                         {/* Slider */}
-                        <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-lg bg-gray-100 h-[280px] sm:h-[420px]">
+                        <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-lg bg-gray-100 h-70 sm:h-105">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={slideIndex}
@@ -217,12 +223,12 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                 {/* Tag & Date row */}
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
                     {displayTag && (
-                        <span className="text-xs font-bold text-white bg-brand-accent px-3 py-1.5 rounded-full shadow-sm tracking-wide">
+                        <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-white bg-brand-accent px-3 py-1.5 rounded-full shadow-sm">
                             {displayTag}
                         </span>
                     )}
                     {blog.date && (
-                        <span className="flex items-center gap-1.5 text-sm text-gray-500">
+                        <span className="flex items-center gap-1.5 text-[14px] text-gray-500 font-medium">
                             <FaCalendarAlt className="text-brand-accent" size={11} />
                             {formatDate(blog.date)}
                         </span>
@@ -230,13 +236,13 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                 </div>
 
                 {/* Title */}
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-darkest leading-[1.15] mb-6">
+                <h1 className="text-[28px] sm:text-[36px] md:text-[42px] font-bold text-brand-darkest leading-[1.15] tracking-[-0.03em] mb-6">
                     {blog.title}
                 </h1>
 
                 {/* Description */}
                 {blog.description && (
-                    <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-10 border-l-4 border-brand-accent/30 pl-5">
+                    <p className="text-gray-600 text-[16px] sm:text-[18px] font-normal leading-[1.65] mb-10 border-l-4 border-brand-accent/30 pl-5">
                         {blog.description}
                     </p>
                 )}
@@ -252,13 +258,13 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                         <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             components={{
-                                h1: ({ children }) => <h1 className="text-xl sm:text-2xl font-extrabold text-brand-darkest mt-8 mb-3 leading-tight">{children}</h1>,
-                                h2: ({ children }) => <h2 className="text-lg sm:text-xl font-bold text-brand-darkest mt-7 mb-2 leading-snug">{children}</h2>,
-                                h3: ({ children }) => <h3 className="text-base sm:text-lg font-bold text-brand-dark mt-6 mb-2">{children}</h3>,
-                                p: ({ children }) => <p className="text-gray-700 leading-relaxed text-base">{children}</p>,
-                                ul: ({ children }) => <ul className="list-disc list-outside pl-6 mb-4 space-y-1 text-gray-700">{children}</ul>,
-                                ol: ({ children }) => <ol className="list-decimal list-outside pl-6 mb-4 space-y-1 text-gray-700">{children}</ol>,
-                                li: ({ children }) => <li className="text-gray-700 leading-relaxed marker:text-brand-accent">{children}</li>,
+                                h1: ({ children }) => <h1 className="text-[26px] sm:text-[32px] font-bold text-brand-darkest tracking-[-0.03em] leading-[1.15] mt-8 mb-3">{children}</h1>,
+                                h2: ({ children }) => <h2 className="text-[22px] sm:text-[26px] font-bold text-brand-darkest tracking-[-0.02em] leading-snug mt-7 mb-2">{children}</h2>,
+                                h3: ({ children }) => <h3 className="text-[18px] sm:text-[20px] font-semibold text-brand-dark mt-6 mb-2">{children}</h3>,
+                                p: ({ children }) => <p className="text-[16px] font-normal leading-[1.65] text-gray-700 mb-4">{children}</p>,
+                                ul: ({ children }) => <ul className="list-disc list-outside pl-6 mb-4 space-y-1.5 text-[16px] font-normal leading-[1.65] text-gray-700">{children}</ul>,
+                                ol: ({ children }) => <ol className="list-decimal list-outside pl-6 mb-4 space-y-1.5 text-[16px] font-normal leading-[1.65] text-gray-700">{children}</ol>,
+                                li: ({ children }) => <li className="text-gray-700 marker:text-brand-accent">{children}</li>,
                                 blockquote: ({ children }) => (
                                     <blockquote className="border-l-4 border-brand-accent/50 pl-4 my-4 text-gray-600 italic bg-brand-lightest/30 py-2 rounded-r-xl">
                                         {children}
@@ -294,7 +300,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                         transition={{ delay: 0.15 }}
                         className="mb-10"
                     >
-                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Follow &amp; Connect</h3>
+                        <h3 className="text-[13px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-4">Follow &amp; Connect</h3>
                         <div className="flex flex-wrap gap-2 md:gap-3">
                             {socialLinks.map(social => (
                                 <a
@@ -302,7 +308,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                                     href={social.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`inline-flex items-center gap-2 px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl border border-gray-200 bg-white text-xs md:text-sm font-semibold shadow-sm transition-all duration-200 ${social.style}`}
+                                    className={`inline-flex items-center gap-2 px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl border border-gray-200 bg-white text-[13px] md:text-[14px] font-semibold shadow-sm transition-all duration-200 ${social.style}`}
                                 >
                                     <span className="text-sm md:text-base">{social.icon}</span>
                                     {social.label}
@@ -318,8 +324,8 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
             {otherPosts.length > 0 && (
                 <section className="max-w-5xl mx-auto px-4 pb-24 relative z-10">
                     <div className="border-t border-gray-100 pt-12 mb-8 flex items-center gap-4">
-                        <h2 className="text-xl font-extrabold text-brand-darkest">More Posts</h2>
-                        <Link href="/blog" className="ml-auto text-sm font-semibold text-brand-accent hover:underline flex items-center gap-1">
+                        <h2 className="text-[22px] sm:text-[26px] font-bold tracking-[-0.02em] text-brand-darkest">More Posts</h2>
+                        <Link href="/blog" className="ml-auto text-[14px] font-bold text-brand-accent hover:underline flex items-center gap-1">
                             View all <FaArrowRight size={10} />
                         </Link>
                     </div>
@@ -341,9 +347,9 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                                             fill
                                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
                                         <div className="absolute bottom-0 inset-x-0 p-4">
-                                            <h3 className="text-white font-bold text-sm leading-snug line-clamp-2 group-hover:text-brand-lightest transition-colors">
+                                            <h3 className="text-white font-semibold text-[15px] sm:text-[16px] leading-snug line-clamp-2 group-hover:text-brand-lightest transition-colors">
                                                 {post.title}
                                             </h3>
                                         </div>

@@ -7,7 +7,8 @@ export const programs = [
         subtitle: "Full-Stack Artificial Intelligence Engineering",
         duration: "7 Months",
         color: "bg-blue-600",
-        image: "/AI_ML_Architect_Program.jfif",
+        image: "/AI_ML.png",
+        // image: "/AI_ML_Premium_v2.jpg",
         icon: <FaRobot />,
         description: [
             "A flagship 7-month immersion that builds rock-solid data foundations, levels up your model intuition, and ends with production-ready LLM and agentic systems.",
@@ -209,8 +210,8 @@ export const programs = [
         slug: "data-science-strategic-analytics",
         subtitle: "From Raw Data to Business Intelligence",
         duration: "7 Months",
-        color: "bg-purple-600",
-        image: "/Data_Science.jfif",
+        color: "bg-teal-600",
+        image: "/Data_Science_Premium.jpg",
         icon: <FaChartBar />,
         description: [
             "Transform into the data partner every leadership team craves—tell compelling stories with data, automate insight pipelines, and launch ML-powered decisions.",
@@ -369,8 +370,8 @@ export const programs = [
         slug: "future-founders-ai-foundation",
         subtitle: "Digital Literacy & Coding for the Next Generation",
         duration: "3 Months",
-        color: "bg-orange-500",
-        image: "/AI_Foundation.png",
+        color: "bg-purple-600",
+        image: "/Future_Founders_Generated_v2.jpg",
         icon: <FaLaptopCode />,
         description: [
             "A playful-yet-powerful launchpad for teens and first-time builders—learn digital fluency, code creatively, and demo AI ideas with confidence.",
@@ -475,7 +476,7 @@ export const programs = [
         subtitle: "Specialization in Carbon Markets & ESG Data",
         duration: "3 Months",
         color: "bg-green-600",
-        image: "/Climate_Analytics.jfif",
+        image: "/Climate_Analytics_Generated_v2.jpg",
         icon: <FaLeaf />,
         description: [
             "Blend climate science with data craftsmanship to decode carbon markets, verify emissions, and advise on ESG action plans.",

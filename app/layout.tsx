@@ -1,11 +1,13 @@
-
 import type { Metadata } from "next";
-import Script from "next/script";
+import dynamic from "next/dynamic";
+import { Manrope, Sora } from "next/font/google";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import ScrollProgressBar from "./components/ScrollProgressBar";
-import Preloader from "./components/Preloader";
 import ChunkLoadHandler from "./components/ChunkLoadHandler";
+import SmoothScrolling from "./components/SmoothScrolling";
+
+const Footer = dynamic(() => import("./components/Footer"));
+const FloatingCTA = dynamic(() => import("./components/FloatingCTA"));
 
 import "./globals.css";
 
@@ -238,6 +240,21 @@ const jsonLd = {
   ]
 };
 
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-manrope",
+  weight: ["400", "500", "600"],
+});
+
+const sora = Sora({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sora",
+  weight: ["600", "700"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -246,47 +263,21 @@ export default function RootLayout({
   return (
     <html lang="en-IN" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Lexend:wght@100..900&display=swap" rel="stylesheet" />
-        <Script
-          id="meta-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1750221586166366');
-fbq('track', 'PageView');`,
-          }}
-        />
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1750221586166366&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
       </head>
       <body
         suppressHydrationWarning
-        className={`antialiased bg-background text-foreground`}
+        className={`antialiased bg-background text-foreground ${manrope.variable} ${sora.variable}`}
       >
-        <ChunkLoadHandler />
-        <Preloader />
-
-
-        <Navbar />
-        <ScrollProgressBar />
-        {children}
-        <Footer />
+        <SmoothScrolling>
+          <ChunkLoadHandler />
+          <Navbar />
+          <ScrollProgressBar />
+          <main id="main-content">
+            {children}
+          </main>
+          <Footer />
+          <FloatingCTA />
+        </SmoothScrolling>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

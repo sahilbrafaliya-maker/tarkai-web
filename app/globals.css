@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "../node_modules/@tailwindcss/typography";
 
-
 :root {
     --background: #D4EEEE;
     --foreground: #0F1C1E;
@@ -24,7 +23,9 @@
     --color-brand-dark: var(--color-brand-dark);
     --color-brand-darkest: var(--color-brand-darkest);
 
-    --font-sans: "Lexend", sans-serif;
+    --font-sans: var(--font-manrope), sans-serif;
+    --font-manrope: var(--font-manrope), sans-serif;
+    --font-sora: var(--font-sora), sans-serif;
     --font-mono: "Courier New", monospace;
 
     --animate-blob: blob 7s infinite;
@@ -177,13 +178,29 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: var(--font-sora), sans-serif !important;
+}
+
+h1 {
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+}
+
+h2 {
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+}
+
+h3, h4 {
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-manrope), sans-serif !important;
+    line-height: 1.65;
 }
 
 @keyframes continuous-marquee {
@@ -204,4 +221,36 @@ body {
 
 .animate-continuous-marquee.is-paused {
     animation-play-state: paused;
+}
+
+/* =========================================
+   Custom Browser Scrollbar (Sleek Style)
+   ========================================= */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-brand-accent, #20A6A8);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-dark, #186474);
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-brand-accent, #20A6A8) transparent;
 }

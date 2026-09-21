@@ -281,8 +281,8 @@ export default function AdminPage() {
             <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f]">
                 <form onSubmit={handleAuth} className="bg-[#12121a] border border-white/10 rounded-2xl p-10 w-full max-w-md flex flex-col gap-5 shadow-2xl">
                     <div className="text-center mb-2">
-                        <h1 className="text-3xl font-bold text-white">Admin Panel</h1>
-                        <p className="text-white/50 text-sm mt-1">TarkAI Blog Management</p>
+                        <h1 className="text-[28px] sm:text-[32px] font-bold text-white">Admin Panel</h1>
+                        <p className="text-white/50 text-[14px] mt-1">TarkAI Blog Management</p>
                     </div>
                     <input
                         type="password"
@@ -311,7 +311,7 @@ export default function AdminPage() {
 
             {/* Header */}
             <div className="border-b border-white/10 px-6 py-5 flex items-center justify-between sticky top-0 bg-[#0a0a0f]/95 backdrop-blur z-40">
-                <h1 className="text-xl font-bold text-white">
+                <h1 className="text-[20px] sm:text-[22px] font-bold text-white">
                     <span className="text-violet-400">TarkAI</span> Blog Admin
                 </h1>
                 <button
@@ -328,7 +328,7 @@ export default function AdminPage() {
                 {showForm && (
                     <form onSubmit={handleSubmit} className="bg-[#12121a] border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
                         <div className="flex items-center justify-between mb-2">
-                            <h2 className="text-lg font-semibold text-white/90">
+                            <h2 className="text-[18px] sm:text-[20px] font-semibold text-white/90">
                                 {editingId !== null ? 'Edit Blog Post' : 'New Blog Post'}
                             </h2>
                             <button type="button" onClick={resetForm} className="text-white/40 hover:text-white text-sm transition">✕ Cancel</button>
@@ -397,7 +397,7 @@ export default function AdminPage() {
                                     type="date"
                                     value={form.date}
                                     onChange={e => setForm(f => ({ ...f, date: e.target.value }))}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-violet-500 transition [color-scheme:dark]"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-violet-500 transition scheme-dark"
                                 />
                             </div>
                             <div>
@@ -425,7 +425,7 @@ export default function AdminPage() {
                                 </button>
                             </div>
                             {markdownPreview ? (
-                                <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 min-h-[200px] prose prose-invert prose-sm max-w-none text-white/80 text-sm leading-relaxed"
+                                <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 min-h-50 prose prose-invert prose-sm max-w-none text-white/80 text-[14px] leading-relaxed"
                                     dangerouslySetInnerHTML={{ __html: simpleMarkdownToHtml(form.paragraph) }}
                                 />
                             ) : (
@@ -552,7 +552,7 @@ export default function AdminPage() {
                             {blogs.map(blog => (
                                 <div key={blog._id} className="bg-[#12121a] border border-white/10 rounded-2xl p-5 flex gap-5 items-start">
                                     {blog.coverImage && (
-                                        <div className="relative w-20 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                                        <div className="relative w-20 h-16 rounded-xl overflow-hidden shrink-0">
                                             <Image src={blog.coverImage} alt={blog.title} fill className="object-cover" />
                                         </div>
                                     )}
@@ -573,7 +573,7 @@ export default function AdminPage() {
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className="flex gap-2 flex-shrink-0">
+                                            <div className="flex gap-2 shrink-0">
                                                 <button
                                                     onClick={() => handleEdit(blog)}
                                                     className="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg transition"

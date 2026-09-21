@@ -85,7 +85,7 @@ export async function POST(request: Request) {
         // Email Content    
         const mailOptions = {
             from: process.env.EMAIL_USER, 
-            to: 'info@tarkaiedtech.com', 
+            to: process.env.EMAIL_USER, // Sending admin notification to the env email 
             replyTo: cleanEmail,
             subject: `[${inquiryLabel}] ${cleanProgram} - ${cleanName}`,
             text: `
@@ -108,13 +108,76 @@ Branch: ${cleanBranch}
                     <p style="font-size: 15px; margin: 10px 0;"><strong>Phone Number:</strong> <a href="tel:${cleanPhone}" style="color: #186474; text-decoration: none;">${cleanPhone}</a></p>
                     <p style="font-size: 15px; margin: 10px 0;"><strong>Selected Branch:</strong> ${cleanBranch}</p>
                     <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0;" />
-                    <p style="font-size: 12px; color: #64748b; text-align: center; margin-bottom: 0;">This inquiry was sent automatically from TARK AI EdTech programs page.</p>
+                    <p style="font-size: 12px; color: #64748b; text-align: center; margin-bottom: 0;">This inquiry was sent automatically from TarkAI EdTech programs page.</p>
                 </div>
             `,
         };
 
-        // Send Email
+        // Send Admin Notification Email
         await transporter.sendMail(mailOptions);
+
+        // If it's a brochure request, send the brochure to the user
+        if (type === 'brochure') {
+            const userMailOptions = {
+                from: `"TarkAI EdTech" <${process.env.EMAIL_USER}>`,
+                to: cleanEmail,
+                subject: `Your TarkAI EdTech Brochure - ${cleanProgram}`,
+                text: `
+Hi ${cleanName},
+
+Thank you for your interest in TarkAI EdTech!
+
+You can download the brochure for ${cleanProgram} using the link below:
+https://tarkaiedtech.com/TarkAI%20Edtech%20Brochure.pdf
+
+If you have any questions, feel free to reply to this email or contact us at +91 97123 58689.
+
+Best regards,
+TarkAI EdTech Team
+                `,
+                html: `
+                    <div style="font-family: Arial, sans-serif; padding: 30px; color: #333; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; text-align: center;">
+                        <h2 style="color: #186474; margin-top: 0;">Hi ${cleanName},</h2>
+                        <p style="font-size: 16px; margin: 15px 0;">Thank you for your interest in the <strong>${cleanProgram}</strong> program at TarkAI EdTech!</p>
+                        <p style="font-size: 15px; margin: 20px 0;">Click the button below to download your comprehensive program brochure:</p>
+                        <a href="https://tarkaiedtech.com/TarkAI%20Edtech%20Brochure.pdf" style="display: inline-block; padding: 12px 25px; background-color: #20A6A8; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin: 10px 0;">Download Brochure PDF</a>
+                        <p style="font-size: 14px; color: #666; margin-top: 25px;">If you have any questions, feel free to reply to this email or contact our admission team at <strong>+91 97123 58689</strong>.</p>
+                        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0;" />
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 0;">Best regards,<br>TarkAI EdTech Team</p>
+                    </div>
+                `,
+            };
+            await transporter.sendMail(userMailOptions);
+        } else if (type === 'enroll') {
+            const enrollMailOptions = {
+                from: `"TarkAI EdTech" <${process.env.EMAIL_USER}>`,
+                to: cleanEmail,
+                subject: `Application Received - ${cleanProgram} at TarkAI EdTech`,
+                text: `
+Hi ${cleanName},
+
+Thank you for applying to the ${cleanProgram} program at TarkAI EdTech!
+
+We have successfully received your enrollment request. Our admissions team will review your details and contact you shortly to guide you through the next steps.
+
+If you have any immediate questions, feel free to reply to this email or call us at +91 97123 58689.
+
+Best regards,
+TarkAI EdTech Team
+                `,
+                html: `
+                    <div style="font-family: Arial, sans-serif; padding: 30px; color: #333; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; text-align: center;">
+                        <h2 style="color: #186474; margin-top: 0;">Hi ${cleanName},</h2>
+                        <p style="font-size: 16px; margin: 15px 0;">Thank you for applying to the <strong>${cleanProgram}</strong> program at TarkAI EdTech!</p>
+                        <p style="font-size: 15px; margin: 20px 0;">We have successfully received your enrollment request. Our admissions team will review your application and contact you shortly to guide you through the next steps.</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 25px;">If you have any immediate questions, feel free to reply to this email or call us at <strong>+91 97123 58689</strong>.</p>
+                        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0;" />
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 0;">Best regards,<br>TarkAI EdTech Team</p>
+                    </div>
+                `,
+            };
+            await transporter.sendMail(enrollMailOptions);
+        }
 
         return NextResponse.json({ message: 'Inquiry processed successfully' }, { status: 200 });
     } catch (error) {

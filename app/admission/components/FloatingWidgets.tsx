@@ -14,7 +14,7 @@ function ExitIntentPopup({ onClose, onApply }: { onClose: () => void; onApply: (
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[9000] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
+      className="fixed inset-0 z-9000 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <motion.div
@@ -22,78 +22,98 @@ function ExitIntentPopup({ onClose, onApply }: { onClose: () => void; onApply: (
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 25 }}
         transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-        className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border border-white/20 relative"
+        className="bg-white rounded-3xl shadow-2xl w-full max-w-105 overflow-hidden border border-white/20 relative"
       >
         {/* Top Header with Dark Image & Gradient Overlay */}
-        <div className="relative h-52 w-full bg-[#0b171c] overflow-hidden p-6 flex items-end">
+        <div className="relative h-60 sm:h-64 w-full bg-[#0b171c] overflow-hidden p-5 flex items-end">
           <Image
-            src="/AI_ML_Architect_Program.jfif"
+            src="/students_demo_banner.jpg"
             alt="TarkAI Admission Program"
             fill
-            className="object-cover object-center opacity-70"
+            className="object-cover object-center opacity-85"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0b171c] via-[#0b171c]/60 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#0b171c] via-[#0b171c]/60 to-black/30" />
 
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/60 text-white/90 hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md"
+            className="absolute top-3 right-3 z-20 w-7 h-7 rounded-full bg-black/40 text-white/90 hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm"
             aria-label="Close popup"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
           {/* Logo & Headline */}
-          <div className="relative z-10 flex items-center gap-3.5 mb-1">
-            <div className="w-14 h-14 rounded-2xl bg-white p-2 shadow-xl border border-white/40 flex-shrink-0 flex items-center justify-center">
+          <div className="relative z-10 flex items-center gap-3 mb-0.5">
+            <div className="w-12 h-12 rounded-xl bg-white p-1.5 shadow-lg shrink-0 flex items-center justify-center">
               <Image
                 src="/Logo.png"
                 alt="TarkAI Logo"
-                width={42}
-                height={42}
+                width={36}
+                height={36}
                 className="object-contain"
               />
             </div>
             <div className="text-left">
-              <h3 className="text-xl sm:text-2xl font-black text-white leading-tight tracking-tight drop-shadow-sm">
+              <h3 className="text-lg sm:text-xl font-black text-white leading-tight tracking-tight drop-shadow-md">
                 Wait! Don&apos;t Miss Out
               </h3>
-              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full border border-emerald-500/50 bg-emerald-500/25 text-emerald-300 text-xs font-extrabold mt-1 shadow-2xs">
-                <span>Free 3-Day Demo Seat</span>
-                <span>🔥</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#00737a]/80 backdrop-blur-md border border-[#00737a] text-white text-[10px] font-bold mt-1 shadow-sm uppercase tracking-wider">
+                Free 3-Day Demo Seat 🔥
               </span>
             </div>
           </div>
         </div>
 
         {/* White Card Body */}
-        <div className="p-6 sm:p-8 text-center bg-white">
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0f1c24] mb-2 tracking-tight">
-            Apply for a <span className="text-[#2da5a3]">Free 3-Day Demo</span>
+        <div className="p-6 sm:p-7 text-center bg-white flex flex-col items-center">
+          <h2 className="text-[24px] sm:text-[28px] font-extrabold text-slate-800 mb-2 tracking-tight leading-tight">
+            Claim Your <span className="text-[#00737a]">Free Demo</span>
           </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mb-7 leading-relaxed font-normal max-w-xs mx-auto">
-            Experience world-class AI education before you decide. No payment, no commitment.
+          <p className="text-slate-500 text-sm sm:text-[15px] mb-5 leading-relaxed font-medium">
+            Experience world-class AI education risk-free. No credit card required, zero commitment.
           </p>
 
-          <div className="space-y-3">
+          <div className="flex flex-col gap-2.5 mb-7 w-full px-2 sm:px-4 text-left">
+             <div className="flex items-center gap-3">
+                <div className="shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
+                   <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span className="text-slate-700 text-[14px] sm:text-[15px] font-bold">Live Interactive AI Classes</span>
+             </div>
+             <div className="flex items-center gap-3">
+                <div className="shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
+                   <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span className="text-slate-700 text-[14px] sm:text-[15px] font-bold">Hands-on Practical Projects</span>
+             </div>
+             <div className="flex items-center gap-3">
+                <div className="shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
+                   <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span className="text-slate-700 text-[14px] sm:text-[15px] font-bold">1-on-1 Expert Mentorship</span>
+             </div>
+          </div>
+
+          <div className="w-full space-y-3">
             <button
               onClick={() => { onClose(); onApply(); }}
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#00737a] via-[#187578] to-[#2da5a3] hover:from-[#005c62] hover:to-[#00737a] text-white font-extrabold text-sm sm:text-base shadow-xl shadow-[#00737a]/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+              className="w-full py-2.5 sm:py-3 rounded-[10px] bg-linear-to-r from-[#00737a] to-[#187578] hover:from-[#005c62] hover:to-[#00737a] text-white font-bold text-[15px] sm:text-base shadow-md shadow-[#00737a]/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Yes! Apply for Free Demo</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
 
             <button
               onClick={onClose}
-              className="w-full py-2 text-slate-400 hover:text-slate-600 text-xs font-bold transition-colors cursor-pointer"
+              className="w-full py-1 text-slate-400 hover:text-slate-600 text-[12px] sm:text-[13px] font-semibold transition-colors cursor-pointer underline underline-offset-2 decoration-transparent hover:decoration-slate-300"
             >
-              No thanks, I&apos;ll miss this opportunity
+              No thanks, I'll pass on this opportunity
             </button>
           </div>
         </div>
@@ -108,8 +128,15 @@ export default function FloatingWidgets({ onApplyNow }: FloatingWidgetsProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Show sticky apply button after scrolling (and hide when form is visible on screen)
+  // Also trigger the popup after scrolling down 800px
   useEffect(() => {
     const handleScroll = () => {
+      // Trigger popup if scrolled past 800px and hasn't been shown yet
+      if (window.scrollY > 800 && !hasShownExit) {
+        setShowExitIntent(true);
+        setHasShownExit(true);
+      }
+
       const formEl = document.getElementById('admission-form-card');
       if (formEl) {
         const rect = formEl.getBoundingClientRect();
@@ -124,7 +151,7 @@ export default function FloatingWidgets({ onApplyNow }: FloatingWidgetsProps) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [hasShownExit]);
 
   // Exit intent detection
   useEffect(() => {
@@ -196,12 +223,12 @@ export default function FloatingWidgets({ onApplyNow }: FloatingWidgetsProps) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 80, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 250, damping: 25 }}
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-sm md:hidden"
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-100 w-[calc(100%-2rem)] max-w-sm md:hidden"
           >
             <button
               onClick={onApplyNow}
               id="sticky-mobile-apply-btn"
-              className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00737a] via-[#187578] to-[#2da5a3] hover:from-[#005c62] hover:to-[#00737a] text-white font-extrabold text-sm sm:text-base shadow-2xl shadow-[#00737a]/40 border border-white/30 active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer text-center"
+              className="w-full py-3.5 px-6 rounded-full bg-linear-to-r from-[#00737a] via-[#187578] to-[#2da5a3] hover:from-[#005c62] hover:to-[#00737a] text-white font-extrabold text-sm sm:text-base shadow-2xl shadow-[#00737a]/40 border border-white/30 active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer text-center"
             >
               <span>Book Free 3-Day Demo Seat</span>
               <svg className="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

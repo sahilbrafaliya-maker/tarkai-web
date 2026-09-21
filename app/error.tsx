@@ -2,7 +2,9 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { FaRedo, FaHome, FaExclamationTriangle } from 'react-icons/fa';
+import { FaRedo } from "@react-icons/all-files/fa/FaRedo";
+import { FaHome } from "@react-icons/all-files/fa/FaHome";
+import { FaExclamationTriangle } from "@react-icons/all-files/fa/FaExclamationTriangle";
 
 export default function Error({
   error,

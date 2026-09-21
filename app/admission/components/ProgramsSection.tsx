@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'motion/react';
+import GeometricShapes from '@/app/components/GeometricShapes';
 
 interface ProgramsProps {
   onEnroll: () => void;
@@ -12,7 +13,7 @@ const programs = [
     tag: 'FLAGSHIP TRACK',
     title: 'AI / ML Architect Program',
     description: 'Master full-stack AI engineering — build autonomous AI agents, fine-tune open-source LLMs, engineer multi-agent RAG systems, and manage MLOps pipelines.',
-    duration: '7 Months',
+    duration: '9 Months',
     mode: 'Blended (Surat Campus + Live Online)',
     highlights: [
       'LLM Fine-Tuning & Advanced Prompt Engineering',
@@ -25,7 +26,7 @@ const programs = [
     tag: 'HIGH DEMAND',
     title: 'Data Science & Strategic Analytics',
     description: 'Transform complex data into strategic business value. Master Python data engineering, statistical modeling, machine learning, and BI dashboarding.',
-    duration: '5 Months',
+    duration: '9 Months',
     mode: 'Blended (Surat Campus + Live Online)',
     highlights: [
       'Python, Pandas, NumPy & SQL Data Pipelines',
@@ -41,8 +42,9 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="py-20 bg-[#f8fafc] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="py-20 bg-[#f8fafc] relative overflow-hidden">
+      <GeometricShapes variant="curriculum" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <motion.div
@@ -99,7 +101,7 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
                   <p className="text-xs font-bold text-[#64748b] uppercase tracking-wider mb-2">Curriculum Highlights</p>
                   {program.highlights.map((h, j) => (
                     <div key={j} className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-[#1e293b]">
-                      <div className="w-4 h-4 rounded-full bg-[#f8fafc] text-[#00737a] border border-[#00737a]/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-4 h-4 rounded-full bg-[#f8fafc] text-[#00737a] border border-[#00737a]/20 flex items-center justify-center shrink-0">
                         <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>

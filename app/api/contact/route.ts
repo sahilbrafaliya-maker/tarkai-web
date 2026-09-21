@@ -8,17 +8,19 @@ export async function POST(request: Request) {
         const { firstName, lastName, email, mobile, program, message } = data;
 
         // Validation
-        if (!firstName || !lastName || !email || !mobile || !message) {
+        if (!email || !mobile || !message) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 }
             );
         }
 
-        const fullName = `${firstName} ${lastName}`.trim();
-        const nameVal = validateFullName(fullName);
-        if (!nameVal.isValid) {
-            return NextResponse.json({ error: nameVal.error }, { status: 400 });
+        const fullName = `${firstName || ''} ${lastName || ''}`.trim();
+        if (fullName) {
+            const nameVal = validateFullName(fullName);
+            if (!nameVal.isValid) {
+                return NextResponse.json({ error: nameVal.error }, { status: 400 });
+            }
         }
 
         const emailVal = validateEmailAddress(email);
@@ -33,19 +35,20 @@ export async function POST(request: Request) {
 
         // Configure Transporter (User's Gmail)
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
+            host: process.env.SMTP_HOST || 'smtp.gmail.com',
+            port: Number(process.env.SMTP_PORT) || 587,
+            secure: process.env.SMTP_PORT === '465',
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
+                user: process.env.EMAIL_USER || process.env.SMTP_USER,
+                pass: process.env.EMAIL_PASS || process.env.SMTP_PASS,
             },
         });
 
-        // Email Content    
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: 'info@tarkaiedtech.com',
+        // 1. Send Email to Admin
+        const adminEmail = process.env.NOTIFICATION_EMAIL || 'info@tarkaiedtech.com';
+        const adminMailOptions = {
+            from: process.env.EMAIL_USER || process.env.SMTP_USER,
+            to: adminEmail,
             replyTo: email,
             subject: `New Contact Form Submission: ${firstName} ${lastName}`,
             text: `
@@ -71,8 +74,37 @@ ${message}
             `,
         };
 
-        // Send Email
-        await transporter.sendMail(mailOptions);
+        await transporter.sendMail(adminMailOptions);
+
+        // 2. Send Auto-Reply to User
+        const userMailOptions = {
+            from: `"TarkAI Team" <${process.env.EMAIL_USER || process.env.SMTP_USER}>`,
+            to: email,
+            subject: `Thank you for contacting TarkAI, ${firstName}!`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                    <div style="background-color: #20A6A8; padding: 30px; text-align: center;">
+                        <h1 style="color: white; margin: 0; font-size: 24px;">Message Received!</h1>
+                    </div>
+                    <div style="padding: 30px; background-color: #ffffff;">
+                        <p style="font-size: 16px; color: #333; line-height: 1.6;">Hi ${firstName},</p>
+                        <p style="font-size: 16px; color: #555; line-height: 1.6;">
+                            Thank you for reaching out to us. We have received your message and our team will get back to you within 24 hours.
+                        </p>
+                        <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #20A6A8;">
+                            <p style="margin: 0; color: #64748b; font-size: 14px;"><strong>Your Message:</strong></p>
+                            <p style="margin: 10px 0 0 0; color: #334155; font-size: 15px; font-style: italic;">"${message}"</p>
+                        </div>
+                        <p style="font-size: 16px; color: #555; line-height: 1.6;">
+                            If you need immediate assistance, feel free to reply directly to this email or call us.
+                        </p>
+                        <p style="font-size: 16px; color: #333; margin-top: 30px;">Best regards,<br/><strong style="color: #20A6A8;">TarkAI Team</strong></p>
+                    </div>
+                </div>
+            `,
+        };
+
+        await transporter.sendMail(userMailOptions);
 
         return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
     } catch (error) {

@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars } from "@react-icons/all-files/fa/FaBars";
+import { FaTimes } from "@react-icons/all-files/fa/FaTimes";
 
 import { motion, AnimatePresence, Variants } from 'motion/react';
 
@@ -76,15 +77,15 @@ export default function Navbar() {
     };
 
     const navLinks = [
-        { name: 'Home', href: '/' },
         { name: 'Programs', href: '/programs' },
+        { name: 'Admissions', href: '/admission' },
         { name: 'Blogs', href: '/blog' },
         { name: 'Team', href: '/team' },
         { name: 'About', href: '/about' },
     ];
 
     return (
-        <nav className={`fixed left-0 right-0 z-50 transition-all duration-500 flex justify-center ${isVisible ? 'translate-y-0' : '-translate-y-[150%]'} ${isScrolled ? 'top-4' : 'top-0'}`}>
+        <nav className={`fixed left-0 right-0 z-50 transition-all duration-500 flex justify-center ${isVisible ? 'translate-y-0' : '-translate-y-[150%]'} ${isScrolled ? 'top-4' : 'top-0'} ${!isScrolled && !isHome ? 'bg-white shadow-sm' : ''}`}>
             <motion.div
                 initial={isHome ? "hidden" : "visible"}
                 animate="visible"
@@ -103,6 +104,7 @@ export default function Navbar() {
                             alt="TarkAI Logo"
                             width={140}
                             height={50}
+                            sizes="(max-width: 768px) 140px, 140px"
                             className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10' : 'h-16'}`}
                             priority
                             draggable={false}
@@ -120,7 +122,7 @@ export default function Navbar() {
                                 href={link.href}
                                 onMouseEnter={() => setHoveredLink(link.name)}
                                 onMouseLeave={() => setHoveredLink(null)}
-                                className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 z-10 ${isActive ? 'text-brand-darkest' : 'text-brand-dark hover:text-brand-darkest'
+                                className={`relative px-4 py-2 rounded-full text-[12px] sm:text-[13px] uppercase tracking-wide transition-colors duration-300 z-10 ${isActive ? 'font-semibold text-brand-darkest' : 'font-semibold text-brand-dark hover:text-brand-darkest'
                                     }`}
                             >
                                 {hoveredLink === link.name && (
@@ -145,7 +147,7 @@ export default function Navbar() {
 
                 {/* Contact Button - Right Aligned (Desktop) */}
                 <motion.div variants={itemVariants} className="hidden md:flex items-center">
-                    <Link href="/contact" className={`relative group overflow-hidden rounded-full font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-brand-accent/30 active:scale-95 ${isScrolled ? 'px-6 py-2 text-sm' : 'px-8 py-3'}`}>
+                    <Link href="/contact" className={`relative group overflow-hidden rounded-full font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-brand-accent/30 active:scale-95 ${isScrolled ? 'px-6 py-2 text-[15px]' : 'px-8 py-3 text-[16px]'}`}>
                         <span className="absolute inset-0 bg-linear-to-r from-brand-accent to-brand-dark transition-all duration-300 group-hover:scale-110"></span>
 
                         {/* Infinite Shimmer Wave */}
@@ -162,13 +164,16 @@ export default function Navbar() {
                 {/* Mobile Menu Button */}
                 <motion.div variants={itemVariants} className="flex items-center md:hidden">
                     <button
+                        suppressHydrationWarning
                         onClick={toggleMobileMenu}
                         className="text-brand-dark hover:text-brand-accent focus:outline-none p-2"
+                        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={isMobileMenuOpen}
                     >
                         {isMobileMenuOpen ? (
-                            <FaTimes className="w-6 h-6" />
+                            <FaTimes className="w-6 h-6" aria-hidden="true" focusable="false" />
                         ) : (
-                            <FaBars className="w-6 h-6" />
+                            <FaBars className="w-6 h-6" aria-hidden="true" focusable="false" />
                         )}
                     </button>
                 </motion.div>
@@ -192,9 +197,9 @@ export default function Navbar() {
                                         key={link.name}
                                         href={link.href}
                                         onClick={() => setIsMobileMenuOpen(false)}
-                                        className={`block w-full text-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${isActive
-                                            ? 'bg-brand-accent/10 text-brand-accent font-bold shadow-xs'
-                                            : 'text-brand-dark hover:bg-brand-accent/5 hover:text-brand-accent'
+                                        className={`block w-full text-center px-4 py-3 rounded-xl text-[16px] transition-all duration-200 ${isActive
+                                            ? 'font-semibold bg-brand-accent/10 text-brand-accent shadow-xs'
+                                            : 'font-medium text-brand-dark hover:font-semibold hover:bg-brand-lightest/50 hover:text-brand-accent'
                                             }`}
                                     >
                                         {link.name}

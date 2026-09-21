@@ -63,13 +63,13 @@ export function validateMobileNumber(phone: string): ValidationResult {
     return { isValid: false, error: 'Phone number is required' };
   }
   if (digitsOnly.length !== 10) {
-    return { isValid: false, error: 'Please enter a valid 10-digit mobile number' };
+    return { isValid: false, error: 'Invalid number' };
   }
   if (!/^[6-9]\d{9}$/.test(digitsOnly)) {
-    return { isValid: false, error: 'Mobile number must start with 6, 7, 8, or 9' };
+    return { isValid: false, error: 'Invalid number' };
   }
   if (DUMMY_PHONE_NUMBERS.has(digitsOnly)) {
-    return { isValid: false, error: 'Please enter a valid active mobile number' };
+    return { isValid: false, error: 'Invalid number' };
   }
 
   const counts: Record<string, number> = {};
@@ -77,7 +77,7 @@ export function validateMobileNumber(phone: string): ValidationResult {
     counts[char] = (counts[char] || 0) + 1;
   }
   if (Object.values(counts).some(count => count >= 7)) {
-    return { isValid: false, error: 'Please enter a genuine 10-digit phone number' };
+    return { isValid: false, error: 'Invalid number' };
   }
 
   return { isValid: true };

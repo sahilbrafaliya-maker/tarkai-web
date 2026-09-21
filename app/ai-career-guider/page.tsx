@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { FaBrain, FaChartLine, FaMapMarkedAlt } from "react-icons/fa";
+import { FaBrain } from "@react-icons/all-files/fa/FaBrain";
+import { FaChartLine } from "@react-icons/all-files/fa/FaChartLine";
+import { FaMapMarkedAlt } from "@react-icons/all-files/fa/FaMapMarkedAlt";
 
 export const metadata: Metadata = {
     title: "AI Career Guidance Portal | Intelligent Career Roadmaps – TARK AI",
@@ -17,17 +19,17 @@ export default function AICareerGuiderPage() {
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 bg-brand-lightest overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-brand-darkest mb-6 leading-tight animate-fade-in-up">
+                    <h1 className="text-[42px] sm:text-[48px] lg:text-[60px] font-bold leading-[1.15] tracking-[-0.03em] text-brand-darkest mb-6 animate-fade-in-up">
                         AI Career Guidance Portal <br />
                         <span className="text-brand-accent">for Your Future</span>
                     </h1>
-                    <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-10 animate-fade-in-up delay-100">
+                    <p className="text-[18px] sm:text-[20px] font-normal leading-[1.65] text-gray-700 max-w-3xl mx-auto mb-10 animate-fade-in-up delay-100">
                         Discover your potential with TARK AI's intelligent career assessment. Get a personalized roadmap tailored to your skills and aspirations.
                     </p>
                     <div className="animate-fade-in-up delay-200">
                         <Link
                             href="/contact"
-                            className="inline-block px-8 py-4 bg-brand-accent text-white font-bold rounded-xl shadow-lg hover:bg-brand-dark transition-all duration-300 transform hover:scale-105"
+                            className="inline-block px-8 py-4 bg-brand-accent text-white font-bold text-[16px] sm:text-[18px] rounded-xl shadow-lg hover:bg-brand-dark transition-all duration-300 transform hover:scale-105"
                         >
                             Start Your Assessment
                         </Link>
@@ -50,8 +52,8 @@ export default function AICareerGuiderPage() {
                             <div className="w-16 h-16 mx-auto bg-brand-lightest text-brand-accent rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 <FaBrain />
                             </div>
-                            <h3 className="text-2xl font-bold text-brand-darkest mb-4">Intelligent Assessment</h3>
-                            <p className="text-gray-600">
+                            <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Intelligent Assessment</h3>
+                            <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-gray-600">
                                 Our AI analyzes your interests, strengths, and goals to suggest the perfect career paths.
                             </p>
                         </div>
@@ -59,8 +61,8 @@ export default function AICareerGuiderPage() {
                             <div className="w-16 h-16 mx-auto bg-brand-lightest text-brand-accent rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 <FaMapMarkedAlt />
                             </div>
-                            <h3 className="text-2xl font-bold text-brand-darkest mb-4">Personalized Roadmap</h3>
-                            <p className="text-gray-600">
+                            <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Personalized Roadmap</h3>
+                            <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-gray-600">
                                 Get a step-by-step guide from zero to mastery in your chosen field, curated by experts.
                             </p>
                         </div>
@@ -68,8 +70,8 @@ export default function AICareerGuiderPage() {
                             <div className="w-16 h-16 mx-auto bg-brand-lightest text-brand-accent rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 <FaChartLine />
                             </div>
-                            <h3 className="text-2xl font-bold text-brand-darkest mb-4">Market Insights</h3>
-                            <p className="text-gray-600">
+                            <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Market Insights</h3>
+                            <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-gray-600">
                                 Stay ahead with real-time data on industry trends, salary benchmarks, and hiring demand.
                             </p>
                         </div>
@@ -80,13 +82,13 @@ export default function AICareerGuiderPage() {
             {/* CTA Section */}
             <section className="py-20 bg-brand-dark text-white text-center">
                 <div className="max-w-4xl mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-6">Ready to Design Your Future?</h2>
-                    <p className="text-lg text-brand-light/80 mb-10">
+                    <h2 className="text-[28px] sm:text-[36px] md:text-[42px] font-bold leading-[1.15] tracking-[-0.03em] mb-6">Ready to Design Your Future?</h2>
+                    <p className="text-[18px] sm:text-[20px] font-normal leading-[1.65] text-brand-light/80 mb-10">
                         Join thousands of students using TARK AI to navigate their careers with confidence.
                     </p>
                     <Link
                         href="/contact"
-                        className="inline-block px-10 py-4 bg-brand-accent text-white font-bold rounded-full hover:bg-white hover:text-brand-accent transition-all duration-300 shadow-lg"
+                        className="inline-block px-10 py-4 bg-brand-accent text-white font-bold text-[16px] sm:text-[18px] rounded-full hover:bg-white hover:text-brand-accent transition-all duration-300 shadow-lg"
                     >
                         Get Started Now
                     </Link>

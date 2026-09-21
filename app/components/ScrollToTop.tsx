@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { FaArrowUp } from 'react-icons/fa';
+import { FaArrowUp } from "@react-icons/all-files/fa/FaArrowUp";
 
 export default function ScrollToTop() {
     const [isVisible, setIsVisible] = useState(false);
@@ -33,6 +33,7 @@ export default function ScrollToTop() {
     return (
         <div className={`fixed bottom-8 right-8 z-50 transition-all duration-500 ease-in-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}>
             <button
+                suppressHydrationWarning
                 onClick={scrollToTop}
                 className="bg-brand-accent hover:bg-brand-accent/80 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2"
                 aria-label="Scroll to top"

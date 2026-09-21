@@ -1,106 +1,160 @@
 "use client";
 
 import Link from "next/link";
-import { FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaLinkedin } from "@react-icons/all-files/fa/FaLinkedin";
+import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram";
+import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp";
+import { FaGlobe } from "@react-icons/all-files/fa/FaGlobe";
+import { FaLightbulb } from "@react-icons/all-files/fa/FaLightbulb";
+import { FaUsers } from "@react-icons/all-files/fa/FaUsers";
+import { FaStar } from "@react-icons/all-files/fa/FaStar";
+import { FaYoutube } from "@react-icons/all-files/fa/FaYoutube";
+import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook";
+import { motion, type Variants } from "motion/react";
 import GeometricShapes from "./GeometricShapes";
 
 export default function Footer() {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+        }
+    };
+
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+    };
+
     return (
-        <footer className="relative bg-brand-darkest text-white overflow-hidden min-h-[60vh] flex flex-col justify-between">
+        <footer className="relative bg-[#021214] text-white overflow-hidden flex flex-col justify-between border-t border-white/5">
             {/* Background Decorations */}
             <GeometricShapes hideBigHexagon={true} hideTopLeftHexagon={true} />
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-light/5 rounded-full blur-[120px] pointer-events-none translate-y-1/3 -translate-x-1/3"></div>
+            <div className="absolute top-0 right-0 w-200 h-200 bg-brand-accent/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-150 h-150 bg-brand-accent/5 rounded-full blur-[150px] pointer-events-none translate-y-1/3 -translate-x-1/3"></div>
 
             {/* Main Content Area */}
-            <div className="flex-grow flex flex-col justify-center px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-                <div className="max-w-7xl mx-auto w-full">
+            <div className="grow flex flex-col justify-center px-8 sm:px-16 lg:px-24 relative z-10 py-16 sm:py-24">
+                <motion.div 
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    className="max-w-6xl mx-auto w-full"
+                >
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12">
+                        {/* Column 1: Brand & Features (Span 5) */}
+                        <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col items-start space-y-8">
+                            
+                            {/* Logo */}
+                            <div className="flex items-center gap-4 group">
+                               
+                                <div className="flex flex-col">
+                                    <h2 className="text-[32px] leading-none font-black tracking-tight text-white flex items-center">
+                                        Tark<span className="text-brand-accent drop-shadow-[0_0_8px_rgba(0,115,122,0.4)]">AI</span> <span className="ml-2 font-semibold tracking-normal text-[26px]">EdTech</span>
+                                    </h2>
+                                    <p className="text-[14px] mt-1 font-semibold text-white/90">Empowering the next generation with AI.</p>
+                                </div>
+                            </div>
 
-                    {/* Massive Header */}
-                    <div className="mb-20">
-                        <h2 className="text-[12vw] leading-[0.8] font-black tracking-tighter text-white/10 select-none">
-                            TARK AI
-                        </h2>
-                        <h2 className="text-4xl md:text-6xl font-bold mt-[-4vw] ml-2 md:ml-4 bg-gradient-to-r from-white to-white/50 bg-clip-text text-transparent">
-                            Architect Your Future.
-                        </h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
-                        {/* Column 1: CTA & Newsletter (Span 5) */}
-                        <div className="md:col-span-5 space-y-8">
-                            <p className="text-xl text-brand-light/80 max-w-md leading-relaxed">
+                            <p className="text-[14px] sm:text-[15px] font-normal leading-relaxed text-white/60 max-w-sm">
                                 Join the next generation of AI leaders. Get exclusive insights, roadmaps, and early access to our programs.
                             </p>
 
+                            <div className="w-10 h-0.5 bg-brand-accent rounded-full shadow-[0_0_10px_rgba(0,115,122,0.5)]" />
 
-                        </div>
+                            {/* Icons Grid */}
+                            <div className="flex items-center gap-6 pt-4">
+                                {[
+                                    { icon: <FaGlobe />, label: 'LEARN' },
+                                    { icon: <FaLightbulb />, label: 'BUILD' },
+                                    { icon: <FaUsers />, label: 'GROW' },
+                                    { icon: <FaStar />, label: 'SUCCESS' },
+                                ].map((item, i) => (
+                                    <div 
+                                        key={i} 
+                                        className="flex flex-col items-center gap-3 group"
+                                    >
+                                        <div className="w-12 h-12 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white group-hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300">
+                                            <span className="text-[20px]">{item.icon}</span>
+                                        </div>
+                                        <span className="text-[10px] font-bold tracking-widest text-white/80 group-hover:text-white transition-colors">{item.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
 
                         {/* Column 2: Navigation Links (Span 7) */}
-                        <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4">
+                        <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12 lg:gap-8 lg:pl-8 pt-2">
                             {/* Programs */}
-                            <div className="space-y-6">
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-brand-accent">Programs</h3>
-                                <ul className="space-y-4">
-                                    <li><Link 
-                                    href={"#"}
-                                    // href="/programs/ai-architect" 
-                                    className="text-gray-400 hover:text-white transition-colors">AI Architect</Link></li>
-                                    <li><Link
-                                    href={"#"}
-                                    // href="/programs/data-science" 
-                                    className="text-gray-400 hover:text-white transition-colors">Data Science</Link></li>
-                                    <li><Link
-                                    href={"#"}
-                                    // href="/programs/green-intel" 
-                                    className="text-gray-400 hover:text-white transition-colors">Green Intelligence</Link></li>
-                                    <li><Link 
-                                    href={"#"}
-                                    // href="/programs/future-founders" 
-                                    className="text-gray-400 hover:text-white transition-colors">Future Founders</Link></li>
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                <div>
+                                    <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-brand-accent mb-3">PROGRAMS</h3>
+                                    <div className="w-6 h-0.5 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(0,115,122,0.4)]" />
+                                </div>
+                                <ul className="space-y-4 text-[14px] font-medium">
+                                    <li><Link href="#" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">AI Architect</Link></li>
+                                    <li><Link href="#" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Data Science</Link></li>
+                                    <li><Link href="#" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Green Intelligence</Link></li>
+                                    <li><Link href="#" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Future Founders</Link></li>
                                 </ul>
-                            </div>
+                            </motion.div>
 
                             {/* Company */}
-                            <div className="space-y-6">
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-brand-accent">Company</h3>
-                                <ul className="space-y-4">
-                                    <li><Link href="/" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
-                                    <li><Link href="/programs" className="text-gray-400 hover:text-white transition-colors">Programs</Link></li>
-                                    <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors">Blogs</Link></li>
-                                    <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
-                                    <li><Link href="/team" className="text-gray-400 hover:text-white transition-colors">Our Team</Link></li>
-                                    <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                <div>
+                                    <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-brand-accent mb-3">COMPANY</h3>
+                                    <div className="w-6 h-0.5 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(0,115,122,0.4)]" />
+                                </div>
+                                <ul className="space-y-4 text-[14px] font-medium">
+                                    <li><Link href="/" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Home</Link></li>
+                                    <li><Link href="/programs" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Programs</Link></li>
+                                    <li><Link href="/blog" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Blogs</Link></li>
+                                    <li><Link href="/about" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">About Us</Link></li>
+                                    <li><Link href="/team" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Our Team</Link></li>
+                                    <li><Link href="/contact" className="text-white/60 hover:text-white hover:pl-1 transition-all duration-300">Contact</Link></li>
                                 </ul>
-                            </div>
+                            </motion.div>
 
-                            {/* Socials */}
-                            <div className="space-y-6">
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-brand-accent">Connect</h3>
-                                <div className="flex gap-4">
-                                    <a href="https://www.linkedin.com/company/111475196/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#0077b5] hover:scale-110 transition-all duration-300">
-                                        <FaLinkedin />
+                            {/* Connect */}
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                <div>
+                                    <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-brand-accent mb-3">CONNECT</h3>
+                                    <div className="w-6 h-0.5 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(0,115,122,0.4)]" />
+                                </div>
+                                <div className="flex flex-wrap gap-4">
+                                    <a href="https://www.linkedin.com/company/111475196/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="LinkedIn">
+                                        <FaLinkedin className="text-[16px]" />
                                     </a>
-                                    <a href="https://www.instagram.com/tarkaiedtech/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#E1306C] hover:scale-110 transition-all duration-300">
-                                        <FaInstagram />
+                                    <a href="https://www.instagram.com/tarkaiedtech/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="Instagram">
+                                        <FaInstagram className="text-[17px]" />
                                     </a>
-                                    <a href="https://wa.me/919712358689" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#25D366] hover:scale-110 transition-all duration-300">
-                                        <FaWhatsapp />
+                                    <a href="https://www.youtube.com/@TarkAIEdtech" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="YouTube">
+                                        <FaYoutube className="text-[17px]" />
+                                    </a>
+                                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="Facebook">
+                                        <FaFacebook className="text-[17px]" />
+                                    </a>
+                                    <a href="https://wa.me/919712358689" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="WhatsApp">
+                                        <FaWhatsapp className="text-[18px]" />
                                     </a>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
 
             {/* Bottom Bar */}
-            <div className="relative z-10 border-t border-white/10 bg-black/20 backdrop-blur-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-light/40">
-                    <p>&copy; {new Date().getFullYear()} TARK AI EdTech Pvt. Ltd. All rights reserved.</p>
-                    <div className="flex gap-8">
+            <div className="relative z-10 border-t border-white/5 py-6 bg-[#010a0c]">
+                <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] font-medium text-white/40">
+                    <p>&copy; {new Date().getFullYear()} TarkAI EdTech Pvt. Ltd. All rights reserved.</p>
+                    <div className="flex items-center gap-4 sm:gap-6">
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+                        <span className="w-px h-3 bg-white/10"></span>
                         <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+                        <span className="w-px h-3 bg-white/10"></span>
                         <Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link>
                     </div>
                 </div>

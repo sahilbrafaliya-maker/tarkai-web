@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
                   <p style="margin: 4px 0 0; font-size: 14px; color: #475569;">Program: ${cleanData.courseInterested}</p>
                 </div>
                 <p>Our admissions team will connect with you via WhatsApp / Call within 24 hours to confirm your demo batch schedule.</p>
-                <p style="margin-top: 24px;">Best regards,<br><strong>TarkAI Admissions Team</strong><br>Kyros Business Center, Sarthana Jakat Naka, Surat</p>
+               <p style="margin-top: 24px;">Best regards,<br><strong>TarkAI Admissions Team</strong><br>Kyros Business Center, Sarthana Jakat Naka, Surat</p>
               </div>
             </div>
           `,
