@@ -34,13 +34,14 @@ export async function POST(request: Request) {
         }
 
         // Configure Transporter (User's Gmail)
+        const smtpPort = parseInt((process.env.SMTP_PORT || '587').trim(), 10);
         const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || 'smtp.gmail.com',
-            port: Number(process.env.SMTP_PORT) || 587,
-            secure: process.env.SMTP_PORT === '465',
+            host: (process.env.SMTP_HOST || 'smtp.gmail.com').trim(),
+            port: smtpPort,
+            secure: smtpPort === 465, // Use true for 465, false for 587
             auth: {
-                user: process.env.EMAIL_USER || process.env.SMTP_USER,
-                pass: process.env.EMAIL_PASS || process.env.SMTP_PASS,
+                user: (process.env.EMAIL_USER || process.env.SMTP_USER || '').trim(),
+                pass: (process.env.EMAIL_PASS || process.env.SMTP_PASS || '').trim(),
             },
         });
 
