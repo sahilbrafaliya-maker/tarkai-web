@@ -71,7 +71,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                             <div className="w-12 h-px bg-[#20A6A8]/40"></div>
                         </div>
 
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.15] tracking-tight text-[#0F1C1E] mb-6">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
                             Discover Latest <span className="text-[#20A6A8]">Insights & News</span>
                         </h2>
                         

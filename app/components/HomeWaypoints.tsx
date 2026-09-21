@@ -40,7 +40,7 @@ export default function HomeWaypoints() {
                         </div>
                         <div className="w-8 h-px bg-[#20A6A8]/40"></div>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
                         Your Journey with <span className="text-[#20A6A8]">TarkAI</span>
                     </h2>
                     <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-3xl mx-auto">

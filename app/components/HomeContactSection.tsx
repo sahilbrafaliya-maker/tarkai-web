@@ -17,21 +17,23 @@ export default function HomeContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           
           <div className="max-w-2xl gsap-fade-up">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#20A6A8]/10 border border-[#20A6A8]/20 mb-6">
-              <div className="w-2 h-2 rounded-full bg-[#20A6A8] animate-pulse"></div>
-              <span className="text-[13px] font-semibold text-[#20A6A8] tracking-wide uppercase">Get In Touch</span>
+            <div className="flex items-center justify-start gap-4 mb-4">
+              <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+              <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
+                Get In Touch
+              </div>
             </div>
             
-            <h2 className="text-[32px] md:text-[45px] lg:text-[54px] font-bold text-[#0F1C1E] leading-[1.1] mb-6 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-4">
               Let's Build Your <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#20A6A8] to-[#157173]">AI Future</span> Together
             </h2>
             
-            <p className="text-[16px] md:text-[18px] font-normal leading-[1.7] text-slate-500 mb-10 md:mb-12">
+            <p className="text-[16px] md:text-[18px] font-normal leading-[1.7] text-slate-500 mb-8">
               Whether you're looking to start your AI journey, hire our graduates, or explore corporate training, our team is here to help you navigate the future of technology.
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {/* Info Item 1 */}
               <div className="flex items-start gap-5 p-5 md:p-6 bg-[#20A6A8]/5 rounded-3xl border border-[#20A6A8]/10 transition-colors duration-300 hover:bg-[#20A6A8]/10">
                 <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#20A6A8] text-xl shrink-0 shadow-sm border border-[#20A6A8]/10">

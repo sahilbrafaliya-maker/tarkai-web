@@ -21,18 +21,18 @@ export default function StudentReelsSection() {
       id: 1,
       name: "Denisha",
       thumbnail: "/reels/Denisha.jpeg",
-      videoUrl: "/reels/Denisha final.mp4",
+      videoUrl: "/reels/Denisha-final.mp4",
     },
     {
       id: 2,
       name: "Garvi",
       thumbnail: "/reels/Garvi.jpeg",
-      videoUrl: "/reels/Garvi final.mp4",
+      videoUrl: "/reels/Garvi-final.mp4",
     },
     {
       id: 3,
       name: "Riya",
-      thumbnail: "/reels/Riya Vaishanav.png",
+      thumbnail: "/reels/Riya-Vaishanav.png",
       videoUrl: "/reels/Riya.mp4",
     }
   ];
