@@ -16,24 +16,26 @@ export default function StudentReelsSection() {
   const [playingId, setPlayingId] = useState<number | null>(null);
   const [isHovered, setIsHovered] = useState(false);
 
+  const cloudinaryName = process.env.NEXT_PUBLIC_CLOUDINARY_NAME || "dqogtelop";
+
   const reels: ReelData[] = [
     {
       id: 1,
       name: "Denisha",
-      thumbnail: "/reels/Denisha.jpeg",
-      videoUrl: "/reels/Denisha-final.mp4",
+      thumbnail: `https://res.cloudinary.com/${cloudinaryName}/image/upload/v1789988596/tarkai_reels/Denisha.jpg`,
+      videoUrl: `https://res.cloudinary.com/${cloudinaryName}/video/upload/v1789988593/tarkai_reels/Denisha-final.mp4`,
     },
     {
       id: 2,
       name: "Garvi",
-      thumbnail: "/reels/Garvi.jpeg",
-      videoUrl: "/reels/Garvi-final.mp4",
+      thumbnail: `https://res.cloudinary.com/${cloudinaryName}/image/upload/v1789988610/tarkai_reels/Garvi.jpg`,
+      videoUrl: `https://res.cloudinary.com/${cloudinaryName}/video/upload/v1789988607/tarkai_reels/Garvi-final.mp4`,
     },
     {
       id: 3,
       name: "Riya",
-      thumbnail: "/reels/Riya-Vaishanav.png",
-      videoUrl: "/reels/Riya.mp4",
+      thumbnail: `https://res.cloudinary.com/${cloudinaryName}/image/upload/v1789988683/tarkai_reels/Riya.jpg`,
+      videoUrl: `https://res.cloudinary.com/${cloudinaryName}/video/upload/v1789988620/tarkai_reels/Riya.mp4`,
     }
   ];
 
