@@ -37,7 +37,7 @@ export default function AdmissionPageClient() {
       <BenefitsSection />
       <ProgramsSection onEnroll={scrollToForm} />
       <AdmissionTimeline />
-      <TestimonialsSection />
+      <TestimonialsSection limit={4} />
       <FAQSection />
       <FloatingWidgets onApplyNow={scrollToForm} />
     </main>

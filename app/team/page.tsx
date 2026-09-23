@@ -95,22 +95,6 @@ export default function TeamPage() {
                                     style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 25%)' }}
                                 />
 
-                                {/* Premium Floating Element */}
-                                <motion.div 
-                                    animate={{ y: [-8, 8, -8] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute top-2 -right-6 w-20 h-20 bg-white/80 backdrop-blur-xl border border-white rounded-full flex items-center justify-center shadow-[0_15px_35px_rgba(32,166,168,0.2)] z-20"
-                                >
-                                    <div className="w-12 h-12 rounded-full bg-linear-to-tr from-[#20A6A8] to-[#1E3A8A] shadow-[0_0_25px_rgba(32,166,168,0.4)] flex items-center justify-center overflow-hidden">
-                                        <Image src="/team_icon_1.png" alt="CEO Icon" width={36} height={36} className="drop-shadow-md object-contain" />
-                                    </div>
-                                    <motion.div 
-                                        animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
-                                        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                                        className="absolute inset-0 rounded-full border-2 border-[#20A6A8]/50"
-                                    />
-                                </motion.div>
-
                                 {/* Photo */}
                                 <div className="relative w-full h-full rounded-full overflow-hidden bg-white z-10 border-4 border-white shadow-[0_15px_40px_rgba(0,0,0,0.08)]">
                                     <Image
@@ -201,22 +185,6 @@ export default function TeamPage() {
                                     className="absolute -inset-6 border-[1.5px] border-dashed border-brand-accent/50 rounded-full z-0"
                                     style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 25%)' }}
                                 />
-
-                                {/* Premium Floating Element */}
-                                <motion.div 
-                                    animate={{ y: [8, -8, 8] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute top-10 -left-6 w-20 h-20 bg-white/80 backdrop-blur-xl border border-white rounded-full flex items-center justify-center shadow-[0_15px_35px_rgba(32,166,168,0.2)] z-20"
-                                >
-                                    <div className="w-12 h-12 rounded-full bg-linear-to-bl from-[#20A6A8] to-[#1E3A8A] shadow-[0_0_25px_rgba(32,166,168,0.4)] flex items-center justify-center overflow-hidden">
-                                        <Image src="/team_icon_2.png" alt="AI Icon" width={32} height={32} className="drop-shadow-md object-contain" />
-                                    </div>
-                                    <motion.div 
-                                        animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
-                                        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                                        className="absolute inset-0 rounded-full border-2 border-[#20A6A8]/50"
-                                    />
-                                </motion.div>
 
                                 {/* Photo */}
                                 <div className="relative w-full h-full rounded-full overflow-hidden bg-white z-10 border-4 border-white shadow-[0_15px_40px_rgba(0,0,0,0.08)]">

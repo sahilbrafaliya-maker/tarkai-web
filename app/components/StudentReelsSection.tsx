@@ -61,12 +61,16 @@ export default function StudentReelsSection() {
             Stories of Growth and <span className="text-[#20A6A8]">Career Transformation</span>
           </h2>
           <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-3xl mx-auto">
-            Discover how learners from different backgrounds are building practical AI skills, gaining confidence, and moving closer to their career goals through their journey with TARK AI.
+            Discover how learners from different backgrounds are building practical AI skills, gaining confidence, and moving closer to their career goals through their journey with TarkAI.
           </p>
         </div>
 
         {/* Reels Container: Right-to-Left Scrolling Marquee */}
-        <div className="relative w-full overflow-hidden mt-10 py-4">
+        <div className="relative w-full overflow-hidden mt-10 pt-4 pb-12">
+          {/* Fade edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-12 sm:w-24 bg-linear-to-r from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-12 sm:w-24 bg-linear-to-l from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
+          
           <div
             className="flex items-center w-max"
             style={{

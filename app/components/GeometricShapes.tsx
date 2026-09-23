@@ -8,7 +8,7 @@ interface GeometricShapesProps {
     hideBigHexagon?: boolean; // kept for backwards compatibility but handled in variants
     hideTriangle?: boolean;
     hideTopLeftHexagon?: boolean;
-    variant?: 'default' | 'light' | 'minimal' | 'why-choose-us' | 'your-journey' | 'curriculum' | 'why-now' | 'student-journeys' | 'contact' | 'page-background' | 'team-page' | 'about-page';
+    variant?: 'default' | 'light' | 'minimal' | 'why-choose-us' | 'your-journey' | 'curriculum' | 'why-now' | 'student-journeys' | 'contact' | 'page-background' | 'team-page' | 'about-page' | 'faq';
 }
 
 export default function GeometricShapes({
@@ -136,40 +136,32 @@ export default function GeometricShapes({
             {variant === 'student-journeys' && (
                 <>
                     <div className="geo-shape absolute top-[20%] left-[12%] opacity-20 text-brand-accent">
-                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 15L90 85H10L50 15Z" stroke="currentColor" strokeWidth="2" />
+                        <svg width="90" height="90" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="currentColor" strokeWidth="2" />
                         </svg>
                     </div>
-                    <div className="geo-shape absolute bottom-[20%] left-[10%] opacity-20 text-brand-dark">
-                        <div className="w-16 h-16 border border-current transform rotate-45"></div>
-                    </div>
-                    {/* Added icons */}
-                    <div className="geo-shape absolute top-[30%] right-[10%] opacity-15 text-brand-dark hidden md:block">
-                        <svg width="80" height="80" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="30" cy="30" r="28" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-                        </svg>
-                    </div>
+                    {/* Right side circle */}
                     <div className="geo-shape absolute bottom-[15%] right-[14%] opacity-20 text-brand-accent">
-                        <div className="w-14 h-14 border-2 border-current rounded-full"></div>
+                        <div className="w-16 h-16 border-2 border-current rounded-full"></div>
                     </div>
                 </>
             )}
 
-            {/* Contact TARK AI */}
+            {/* Contact TarkAI */}
             {variant === 'contact' && (
                 <>
                     {/* Left Side (3 Icons) */}
-                    <div className="geo-shape absolute top-[5%] left-[3%] opacity-20 text-brand-dark">
+                    <div className="geo-shape absolute -top-[2%] left-[3%] opacity-20 text-brand-dark">
                         <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M50 15L90 85H10L50 15Z" stroke="currentColor" strokeWidth="2" />
                         </svg>
                     </div>
-                    <div className="geo-shape absolute top-[45%] left-[3%] opacity-10 text-brand-accent hidden md:block">
+                    <div className="geo-shape absolute top-[35%] left-[3%] opacity-10 text-brand-accent hidden md:block">
                         <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z" stroke="currentColor" strokeWidth="2" />
                         </svg>
                     </div>
-                    <div className="geo-shape absolute bottom-[4%] left-[3%] opacity-25 text-brand-accent">
+                    <div className="geo-shape absolute bottom-[15%] left-[3%] opacity-25 text-brand-accent">
                         <svg width="100" height="100" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="30" cy="30" r="28" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
                         </svg>
@@ -224,7 +216,16 @@ export default function GeometricShapes({
                             <path d="M50 15L90 85H10L50 15Z" stroke="currentColor" strokeWidth="2" />
                         </svg>
                     </div>
-                    <div className="geo-shape absolute top-[25%] right-[5%] opacity-20 text-brand-dark">
+                    {/* Added 4-dot icon on left side */}
+                    <div className="geo-shape absolute top-[20%] left-[4%] opacity-15 text-brand-accent">
+                        <div className="grid grid-cols-2 gap-3">
+                            {[...Array(4)].map((_, i) => (
+                                <div key={i} className="w-3 h-3 bg-current rounded-full"></div>
+                            ))}
+                        </div>
+                    </div>
+                    {/* Shifted right circle higher */}
+                    <div className="geo-shape absolute top-[35%] right-[5%] opacity-20 text-brand-dark">
                         <div className="w-24 h-24 border-2 border-current rounded-full"></div>
                     </div>
                     <div className="geo-shape absolute top-[40%] left-[2%] opacity-15 text-brand-dark">
@@ -281,11 +282,28 @@ export default function GeometricShapes({
                 </>
             )}
 
+            
+            {/* FAQ Section */}
+            {variant === 'faq' && (
+                <>
+                    {/* Left side Circle */}
+                    <div className="geo-shape absolute top-[-3%] left-[2%] opacity-20 text-brand-accent">
+                        <div className="w-24 h-24 border-2 border-current rounded-full"></div>
+                    </div>
+                    {/* Right-bottom Hexagon (6 angle) - pushed further right */}
+                    <div className="geo-shape absolute bottom-[15%] right-[2%] opacity-20 text-brand-dark">
+                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                    </div>
+                </>
+            )}
+
             {/* Legacy Variants / Default */}
             {(variant === 'default' || variant === 'light' || variant === 'minimal') && (
                 <>
-                    <div className="geo-shape absolute top-[10%] left-[2%] opacity-20 text-brand-accent">
-                        <svg width="110" height="110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div className="geo-shape absolute top-[2%] left-[2%] opacity-20 text-brand-accent">
+                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="currentColor" strokeWidth="2" />
                         </svg>
                     </div>

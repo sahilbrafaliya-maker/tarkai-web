@@ -35,7 +35,7 @@ export default function HeroVisual() {
            <div className="w-8 h-8 rounded-full bg-brand-accent/10 flex items-center justify-center shrink-0">
              <FaGraduationCap className="text-brand-accent text-xl" />
            </div>
-           <span className="text-brand-darkest font-bold text-[13px] sm:text-sm">1-Month Placement Ready</span>
+           <span className="text-brand-darkest font-bold text-[13px] sm:text-sm">Exclusive Placement Support</span>
          </div>
       </div>
       

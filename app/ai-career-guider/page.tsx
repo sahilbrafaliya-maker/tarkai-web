@@ -24,7 +24,7 @@ export default function AICareerGuiderPage() {
                         <span className="text-brand-accent">for Your Future</span>
                     </h1>
                     <p className="text-[18px] sm:text-[20px] font-normal leading-[1.65] text-gray-700 max-w-3xl mx-auto mb-10 animate-fade-in-up delay-100">
-                        Discover your potential with TARK AI's intelligent career assessment. Get a personalized roadmap tailored to your skills and aspirations.
+                        Discover your potential with TarkAI's intelligent career assessment. Get a personalized roadmap tailored to your skills and aspirations.
                     </p>
                     <div className="animate-fade-in-up delay-200">
                         <Link
@@ -84,7 +84,7 @@ export default function AICareerGuiderPage() {
                 <div className="max-w-4xl mx-auto px-4">
                     <h2 className="text-[28px] sm:text-[36px] md:text-[42px] font-bold leading-[1.15] tracking-[-0.03em] mb-6">Ready to Design Your Future?</h2>
                     <p className="text-[18px] sm:text-[20px] font-normal leading-[1.65] text-brand-light/80 mb-10">
-                        Join thousands of students using TARK AI to navigate their careers with confidence.
+                        Join thousands of students using TarkAI to navigate their careers with confidence.
                     </p>
                     <Link
                         href="/contact"

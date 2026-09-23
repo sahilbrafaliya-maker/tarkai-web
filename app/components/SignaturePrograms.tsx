@@ -35,7 +35,7 @@ const programs = [
     highlights: ["Analytics storytelling", "Spark-powered ML pipelines", "Big Data Visualization", "Business Intelligence"],
     icon: <FaChalkboardTeacher />,
     color: "bg-[#20A6A8]",
-    image: "/Data_Science_Premium.jpg"
+    image: "/Data_Science.png"
   },
   {
     id: "future-founders",
@@ -46,7 +46,7 @@ const programs = [
     highlights: ["Creative coding sprints", "Responsible AI mindset", "Prototype Development", "Pitching & Strategy"],
     icon: <FaLightbulb />,
     color: "bg-[#20A6A8]",
-    image: "/Future_Founders_Generated_v2.jpg"
+    image: "/Future_Founder.png"
   },
   {
     id: "green-intel",
@@ -57,7 +57,7 @@ const programs = [
     highlights: ["Emission analytics", "Carbon market storytelling", "ESG Reporting", "Climate Modeling"],
     icon: <FaLeaf />,
     color: "bg-[#20A6A8]",
-    image: "/Climate_Analytics_Generated_v2.jpg"
+    image: "/Climate_Analytics.png"
   }
 ];
 
@@ -71,7 +71,7 @@ export default function SignaturePrograms() {
       <div className="relative">
         {/* Absolute wrapper that ends earlier, so the sticky header gets pushed up at the same time as the last card */}
         <div className="absolute inset-x-0 top-0 z-40 pointer-events-none" style={{ bottom: '500px' }}>
-          <div className="sticky top-0 pt-4 md:pt-6 lg:pt-8 pb-3 md:pb-4 bg-[#FFFFFF]/95 backdrop-blur-sm w-full border-b border-gray-50 shadow-[0_4px_20px_rgba(0,0,0,0.02)] pointer-events-auto">
+          <div className="relative top-0 pt-4 md:pt-6 lg:pt-8 pb-3 md:pb-4 bg-[#FFFFFF]/95 backdrop-blur-sm w-full border-b border-gray-50 shadow-[0_4px_20px_rgba(0,0,0,0.02)] pointer-events-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <div className="text-center max-w-5xl mx-auto gsap-fade-up">
                 <div className="flex items-center justify-center gap-4 mb-6">
@@ -96,7 +96,7 @@ export default function SignaturePrograms() {
           {programs.map((program, idx) => (
             <div 
               key={program.id}
-              className="sticky w-full mb-8 md:mb-10 flex justify-center [--card-top:200px] sm:[--card-top:220px] md:[--card-top:240px] lg:[--card-top:260px]"
+              className="sticky w-full mb-8 md:mb-10 flex justify-center [--card-top:20px] sm:[--card-top:40px] md:[--card-top:40px] lg:[--card-top:40px]"
               style={{ top: `calc(var(--card-top) + ${idx * 16}px)`, zIndex: 20 + idx }}
             >
               <ProgramCard program={program} idx={idx} />

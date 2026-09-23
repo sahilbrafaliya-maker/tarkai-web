@@ -42,6 +42,7 @@ export default function FAQSection() {
 
     // Form state
     const [question, setQuestion] = useState("");
+    const [mobile, setMobile] = useState("");
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [feedback, setFeedback] = useState("");
 
@@ -51,6 +52,13 @@ export default function FAQSection() {
 
     const handleQuestionSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        const mobileTrimmed = mobile.trim();
+        if (!mobileTrimmed || !/^[0-9]{10}$/.test(mobileTrimmed)) {
+            setStatus('error');
+            setFeedback('Please enter a valid mobile number.');
+            return;
+        }
 
         if (!question.trim()) {
             setStatus('error');
@@ -65,7 +73,7 @@ export default function FAQSection() {
             const res = await fetch('/api/faq-question', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question }),
+                body: JSON.stringify({ question, mobile: mobileTrimmed }),
             });
 
             const data = await res.json();
@@ -74,6 +82,7 @@ export default function FAQSection() {
                 setStatus('success');
                 setFeedback(data.message || 'Question sent! We will get back to you soon.');
                 setQuestion('');
+                setMobile('');
                 setTimeout(() => {
                     setFeedback('');
                     setStatus('idle');
@@ -90,7 +99,7 @@ export default function FAQSection() {
 
     return (
         <section id="faq" className="pt-10 pb-16 md:py-24 bg-[#F7FBFB] relative overflow-hidden">
-            <GeometricShapes hideTopLeftHexagon={true} variant="light" />
+            <GeometricShapes variant="faq" />
             {/* Background Details */}
             <div className="absolute top-0 left-0 w-125 h-125 bg-[#1B9FA1]/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
 
@@ -123,6 +132,17 @@ export default function FAQSection() {
                             </p>
 
                             <form onSubmit={handleQuestionSubmit} className="relative flex flex-col gap-4">
+                                <div className="relative flex items-center w-full bg-white border border-[#E2E8F0] rounded-full p-1 focus-within:border-[#1D9C9A] focus-within:ring-1 focus-within:ring-[#1D9C9A] transition-all shadow-sm">
+                                    <input
+                                        suppressHydrationWarning
+                                        type="tel"
+                                        value={mobile}
+                                        onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                        placeholder="Enter your Mobile Number"
+                                        className="w-full bg-transparent border-none focus:outline-none px-4 py-2 text-sm text-[#0D1C2E] placeholder-[#94A3B8]"
+                                        disabled={status === 'loading'}
+                                    />
+                                </div>
                                 <div className="relative flex items-center w-full bg-white border border-[#E2E8F0] rounded-full p-1 focus-within:border-[#1D9C9A] focus-within:ring-1 focus-within:ring-[#1D9C9A] transition-all shadow-sm">
                                     <input
                                         suppressHydrationWarning

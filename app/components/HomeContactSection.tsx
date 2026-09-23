@@ -11,7 +11,7 @@ const HomeContactForm = dynamic(() => import("./HomeContactForm"), { ssr: false 
 
 export default function HomeContactSection() {
   return (
-    <section id="contact" className="py-20 md:py-32 bg-white relative overflow-hidden">
+    <section id="contact" className="pt-12 md:pt-16 pb-20 md:pb-32 bg-white relative overflow-hidden">
       <GeometricShapes />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">

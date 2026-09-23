@@ -211,7 +211,7 @@ export const programs = [
         subtitle: "From Raw Data to Business Intelligence",
         duration: "7 Months",
         color: "bg-teal-600",
-        image: "/Data_Science_Premium.jpg",
+        image: "/Data_Science.png",
         icon: <FaChartBar />,
         description: [
             "Transform into the data partner every leadership team craves—tell compelling stories with data, automate insight pipelines, and launch ML-powered decisions.",
@@ -371,7 +371,7 @@ export const programs = [
         subtitle: "Digital Literacy & Coding for the Next Generation",
         duration: "3 Months",
         color: "bg-purple-600",
-        image: "/Future_Founders_Generated_v2.jpg",
+        image: "/Future_Founder.png",
         icon: <FaLaptopCode />,
         description: [
             "A playful-yet-powerful launchpad for teens and first-time builders—learn digital fluency, code creatively, and demo AI ideas with confidence.",
@@ -476,7 +476,7 @@ export const programs = [
         subtitle: "Specialization in Carbon Markets & ESG Data",
         duration: "3 Months",
         color: "bg-green-600",
-        image: "/Climate_Analytics_Generated_v2.jpg",
+        image: "/Climate_Analytics.png",
         icon: <FaLeaf />,
         description: [
             "Blend climate science with data craftsmanship to decode carbon markets, verify emissions, and advise on ESG action plans.",

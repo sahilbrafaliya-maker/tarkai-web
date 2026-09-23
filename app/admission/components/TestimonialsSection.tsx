@@ -42,9 +42,71 @@ const testimonials = [
     text: 'TarkAI is by far Surat\'s most advanced AI institute. The focus on live project building and career readiness gave me immense confidence. The faculty goes above and beyond to ensure we master generative AI tools.',
     tag: 'AI / ML Architect',
   },
+  {
+    name: 'Rudram Nakarani',
+    role: 'AI / ML Foundation Student',
+    initials: 'RN',
+    rating: 5,
+    location: 'Surat',
+    text: 'What I liked most about TarkAI is that we don’t just sit and study theory. We actually work on projects and understand how AI is used in real applications. The mentors are always there when we get stuck.',
+    tag: 'AI / ML Foundation',
+  },
+  {
+    name: 'Yash Ribadiya',
+    role: 'AI / ML Foundation Student',
+    initials: 'YR',
+    rating: 5,
+    location: 'Surat',
+    text: 'The learning experience has been really practical. Topics that initially looked difficult became much easier once we started implementing them ourselves. The project work has also helped me become more confident with AI tools.',
+    tag: 'AI / ML Foundation',
+  },
+  {
+    name: 'Nency Rana',
+    role: 'AI / ML Foundation Student',
+    initials: 'NR',
+    rating: 5,
+    location: 'Surat',
+    text: 'I was a little confused about where to start with AI and Machine Learning. The structured learning path at TarkAI made things much clearer for me. I especially enjoy the hands-on sessions and working on real projects.',
+    tag: 'AI / ML Foundation',
+  },
+  {
+    name: 'Khenil Rafaliya',
+    role: 'AI / ML Foundation Student',
+    initials: 'KR',
+    rating: 5,
+    location: 'Surat',
+    text: 'The best part for me is the practical approach. We learn a concept and then actually build something with it. The mentors explain things patiently and help whenever we have doubts.',
+    tag: 'AI / ML Foundation',
+  },
+  {
+    name: 'Meet Korat',
+    role: 'AI / ML Architect Student',
+    initials: 'MK',
+    rating: 5,
+    location: 'Surat',
+    text: 'Before joining TarkAI, I mostly knew AI from a theoretical perspective. Here, I’ve learned how to turn those concepts into working projects. The regular guidance and project-based learning have made a big difference.',
+    tag: 'AI / ML Architect',
+  },
+  {
+    name: 'Aadi Sonani',
+    role: 'AI / ML Architect Student',
+    initials: 'AS',
+    rating: 5,
+    location: 'Surat',
+    text: 'TarkAI has given me a much better understanding of AI and Machine Learning. I really like that the sessions are focused on practical skills instead of only presentations. Building projects has made learning much more interesting.',
+    tag: 'AI / ML Architect',
+  }
 ];
 
-export default function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  badge?: string;
+  title?: React.ReactNode;
+  subtitle?: string;
+  limit?: number;
+}
+
+export default function TestimonialsSection({ badge, title, subtitle, limit }: TestimonialsSectionProps) {
+  const displayTestimonials = limit ? testimonials.slice(0, limit) : testimonials;
   const [current, setCurrent] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
 
@@ -53,7 +115,7 @@ export default function TestimonialsSection() {
   useEffect(() => {
     if (!autoplay) return;
     timer.current = setInterval(() => {
-      setCurrent(prev => (prev + 1) % testimonials.length);
+      setCurrent(prev => (prev + 1) % displayTestimonials.length);
     }, 4500);
     return () => { if (timer.current) clearInterval(timer.current); };
   }, [autoplay, current]);
@@ -71,25 +133,29 @@ export default function TestimonialsSection() {
 
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="text-[#00737a] font-bold uppercase tracking-widest text-xs mb-2 block">
-            STUDENT SUCCESS STORIES
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight">
-            Proven Outcomes from <span className="text-[#00737a]">TarkAI Alumni</span>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-12 h-px bg-[#20A6A8]/40"></div>
+            <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal tracking-widest">
+              {badge || 'Student Success Stories'}
+            </div>
+            <div className="w-12 h-px bg-[#20A6A8]/40"></div>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-4">
+            {title || <>Proven Outcomes from <span className="text-[#20A6A8]">TarkAI Alumni</span></>}
           </h2>
-          <p className="text-base sm:text-lg text-[#334155] max-w-2xl mx-auto mt-3 font-normal leading-relaxed">
-            Discover how our students transformed their skills and launched high-growth tech careers.
+          <p className="text-[16px] sm:text-[18px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
+            {subtitle || 'Discover how our students transformed their skills and launched high-growth tech careers.'}
           </p>
         </div>
 
         {/* Coverflow Carousel */}
         <div className="relative h-105 sm:h-95 w-full max-w-5xl mx-auto flex items-center justify-center">
           <AnimatePresence initial={false}>
-            {testimonials.map((testimonial, index) => {
+            {displayTestimonials.map((testimonial, index) => {
               // Calculate offset relative to current
               let offset = index - current;
-              if (offset < -1) offset += testimonials.length;
-              if (offset > 1) offset -= testimonials.length;
+              if (offset < -1) offset += displayTestimonials.length;
+              if (offset > 1) offset -= displayTestimonials.length;
 
               // Hide cards that are not immediately adjacent
               const isVisible = offset === 0 || offset === 1 || offset === -1;
@@ -110,7 +176,7 @@ export default function TestimonialsSection() {
                 >
                   <div className="p-8 sm:p-10 flex-1 flex flex-col min-h-75">
                     <div className="flex items-center justify-between mb-6">
-                      <span className="px-2.5 py-1 rounded-full bg-[#f8fafc] border border-[#00737a]/20 text-[#00737a] text-[10px] font-bold uppercase tracking-widest">
+                      <span className="px-2.5 py-1 rounded-full bg-[#20A6A8]/10 border border-[#20A6A8]/20 text-[#20A6A8] text-[10px] font-bold uppercase tracking-widest">
                         {testimonial.tag}
                       </span>
                       <div className="flex gap-0.5">
@@ -128,11 +194,11 @@ export default function TestimonialsSection() {
                   </div>
 
                   <div className="bg-[#f8fafc] px-8 sm:px-10 py-5 border-t border-slate-100 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#00737a] text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-[#20A6A8] text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">
                       {testimonial.initials}
                     </div>
                     <div>
-                      <h4 className="font-bold text-[#1e293b] text-sm">{testimonial.name}</h4>
+                      <h4 className="font-bold text-[#0F1C1E] text-sm">{testimonial.name}</h4>
                       <div className="text-slate-500 text-[11px] font-medium mt-0.5">{testimonial.role} • {testimonial.location}</div>
                     </div>
                   </div>
@@ -145,12 +211,13 @@ export default function TestimonialsSection() {
         {/* Navigation Controls */}
         <div className="flex items-center justify-center gap-6 mt-12 sm:mt-16">
           <div className="flex gap-2 items-center">
-            {testimonials.map((_, i) => (
+            {displayTestimonials.map((_, i) => (
               <button
                 key={i}
                 onClick={() => go(i)}
-                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === current ? 'w-6 bg-[#00a3ad]' : 'w-2 bg-slate-300 hover:bg-slate-400'}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === current ? 'w-6 bg-[#20A6A8]' : 'w-2 bg-slate-300 hover:bg-slate-400'}`}
                 aria-label={`Go to slide ${i + 1}`}
+                suppressHydrationWarning
               />
             ))}
           </div>

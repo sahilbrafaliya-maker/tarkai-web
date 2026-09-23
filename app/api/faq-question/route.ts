@@ -4,11 +4,11 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { question } = body;
+        const { question, mobile } = body;
 
         // Basic Validation
-        if (!question) {
-            return NextResponse.json({ error: 'Question is required.' }, { status: 400 });
+        if (!question || !mobile) {
+            return NextResponse.json({ error: 'Question and Mobile number are required.' }, { status: 400 });
         }
 
         // Configure Nodemailer Transporter
@@ -27,13 +27,14 @@ export async function POST(request: Request) {
             from: process.env.EMAIL_USER,
             to: process.env.EMAIL_USER,
             subject: `New FAQ Question Submitted`,
-            text: `Question:\n${question}`,
+            text: `Mobile: ${mobile}\nQuestion:\n${question}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
                     <div style="background-color: #1B9FA1; color: white; padding: 20px; text-align: center;">
                         <h2 style="margin: 0;">New FAQ Question</h2>
                     </div>
                     <div style="padding: 20px;">
+                        <p><strong>Mobile Number:</strong> ${mobile}</p>
                         <p><strong>Question:</strong></p>
                         <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 10px; font-size: 16px;">
                             ${question.replace(/\n/g, '<br>')}

@@ -2,9 +2,17 @@
 
 import { useEffect, useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
+import { usePathname } from 'next/navigation';
 
 export default function SmoothScrolling({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<any>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (lenisRef.current?.lenis) {
+      lenisRef.current.lenis.scrollTo(0, { immediate: true });
+    }
+  }, [pathname]);
 
   useEffect(() => {
     let gsapRef: any = null;

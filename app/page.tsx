@@ -22,6 +22,8 @@ const StudentReelsSection = dynamic(() => import("./components/StudentReelsSecti
 const FAQSection = dynamic(() => import("./components/FAQSection"));
 const HomeContactSection = dynamic(() => import("./components/HomeContactSection"));
 const PlacementStoriesSection = dynamic(() => import("./components/PlacementStoriesSection"));
+const TestimonialsSection = dynamic(() => import("./admission/components/TestimonialsSection"));
+const HomeAnnouncementPopup = dynamic(() => import("./components/HomeAnnouncementPopup"));
 import HomeBlogSection from "./components/HomeBlogSection";
 
 import dbConnect from "@/lib/mongodb";
@@ -101,6 +103,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <HomeAnnouncementPopup />
       {/* Old Hero Section */}
       <section className="relative bg-linear-to-b from-white to-[#E8F8F8] min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-10 md:pb-18 lg:pb-26">
         
@@ -218,7 +221,7 @@ export default async function Home() {
               Why TarkAI is Surat&apos;s <span className="text-[#20A6A8]">Best Choice</span>
             </h2>
             <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
-              Specific credentials, not vague promises — here&apos;s exactly what separates<br className="hidden sm:block" /> TARK AI from other institutes in Surat and Gujarat.
+              Specific credentials, not vague promises — here&apos;s exactly what separates<br className="hidden sm:block" /> TarkAI from other institutes in Surat and Gujarat.
             </p>
           </div>
 
@@ -372,6 +375,11 @@ export default async function Home() {
 
       {/* Blog Section */}
       <HomeBlogSection latestBlogs={latestBlogs} />
+
+      {/* Student Success Stories */}
+      <TestimonialsSection 
+        title={<>What Our Students Say About <span className="text-[#20A6A8]">Their Learning</span></>}
+      />
 
       {/* FAQ Section */}
       <FAQSection />

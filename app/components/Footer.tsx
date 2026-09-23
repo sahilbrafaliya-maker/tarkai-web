@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FaLinkedin } from "@react-icons/all-files/fa/FaLinkedin";
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram";
 import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp";
@@ -45,24 +46,20 @@ export default function Footer() {
                 >
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12">
                         {/* Column 1: Brand & Features (Span 5) */}
-                        <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col items-start space-y-8">
+                        <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col items-start space-y-8 -mt-4">
                             
-                            {/* Logo */}
-                            <div className="flex items-center gap-4 group">
-                               
-                                <div className="flex flex-col">
-                                    <h2 className="text-[32px] leading-none font-black tracking-tight text-white flex items-center">
-                                        Tark<span className="text-brand-accent drop-shadow-[0_0_8px_rgba(0,115,122,0.4)]">AI</span> <span className="ml-2 font-semibold tracking-normal text-[26px]">EdTech</span>
-                                    </h2>
-                                    <p className="text-[14px] mt-1 font-semibold text-white/90">Empowering the next generation with AI.</p>
-                                </div>
+                            <div className="flex flex-col gap-1">
+                                {/* Logo */}
+                                <Link href="/" className="inline-block -ml-2">
+                                    <Image src="/footer-logo.png" alt="TarkAI EdTech Logo" width={300} height={140} className="w-auto h-24 md:h-28 object-contain object-left brightness-0 invert opacity-90" priority />
+                                </Link>
+
+                                <p className="text-[14px] sm:text-[15px] font-normal leading-relaxed text-white/60 max-w-sm">
+                                    Join the next generation of AI leaders. Get exclusive insights, roadmaps, and early access to our programs.
+                                </p>
                             </div>
 
-                            <p className="text-[14px] sm:text-[15px] font-normal leading-relaxed text-white/60 max-w-sm">
-                                Join the next generation of AI leaders. Get exclusive insights, roadmaps, and early access to our programs.
-                            </p>
-
-                            <div className="w-10 h-0.5 bg-brand-accent rounded-full shadow-[0_0_10px_rgba(0,115,122,0.5)]" />
+                            {/* <div className="w-10 h-0.5 bg-brand-accent rounded-full shadow-[0_0_10px_rgba(0,115,122,0.5)]" /> */}
 
                             {/* Icons Grid */}
                             <div className="flex items-center gap-6 pt-4">
@@ -133,7 +130,7 @@ export default function Footer() {
                                     <a href="https://www.youtube.com/@TarkAIEdtech" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="YouTube">
                                         <FaYoutube className="text-[17px]" />
                                     </a>
-                                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="Facebook">
+                                    <a href="https://www.facebook.com/tarkaiedtech" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="Facebook">
                                         <FaFacebook className="text-[17px]" />
                                     </a>
                                     <a href="https://wa.me/919712358689" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-brand-accent/30 bg-brand-accent/5 flex items-center justify-center text-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-[0_0_15px_rgba(0,115,122,0.5)] transition-all duration-300" aria-label="WhatsApp">
