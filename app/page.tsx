@@ -23,7 +23,7 @@ const FAQSection = dynamic(() => import("./components/FAQSection"));
 const HomeContactSection = dynamic(() => import("./components/HomeContactSection"));
 const PlacementStoriesSection = dynamic(() => import("./components/PlacementStoriesSection"));
 const TestimonialsSection = dynamic(() => import("./admission/components/TestimonialsSection"));
-const HomeAnnouncementPopup = dynamic(() => import("./components/HomeAnnouncementPopup"));
+const DiwaliOfferPopup = dynamic(() => import("./components/DiwaliOfferPopup"));
 import HomeBlogSection from "./components/HomeBlogSection";
 
 import dbConnect from "@/lib/mongodb";
@@ -103,7 +103,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HomeAnnouncementPopup />
+      <DiwaliOfferPopup />
       {/* Old Hero Section */}
       <section className="relative bg-linear-to-b from-white to-[#E8F8F8] min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-10 md:pb-18 lg:pb-26">
         
