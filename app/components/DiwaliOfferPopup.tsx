@@ -304,12 +304,6 @@ export default function DiwaliOfferPopup() {
                             🪔
                           </div>
 
-                          {/* Status Badge */}
-                          {/* <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 border border-emerald-200 shadow-xs">
-                            <FaCheckCircle className="text-emerald-600" size={11} />
-                            <span>10% Offer Activated!</span>
-                          </div> */}
-
                           {/* Headline */}
                           <h3 className="text-base xs:text-lg sm:text-2xl font-black text-[#073D44] tracking-tight leading-tight mb-1 sm:mb-1.5">
                             Check Your Inbox!
