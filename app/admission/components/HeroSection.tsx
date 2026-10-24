@@ -132,8 +132,8 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
                 },
                 {
                   id: '04',
-                  title: 'Hosted by Sahil',
-                  desc: 'Founder & CEO of TarkAI EdTech PVT LTD',
+                  title: 'Founder-Led Mentorship',
+                  desc: 'Direct live guidance from the Founder & Leadership of TarkAI EdTech',
                 }
               ].map((card, i) => (
                 <motion.div
@@ -142,7 +142,7 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
                   }}
-                  className="flex flex-col p-6 sm:p-8 rounded-3xl bg-white border border-[#00737a]/30 shadow-[0_20px_40px_rgba(0,115,122,0.12)] relative overflow-hidden"
+                  className="flex flex-col p-6 sm:p-8 rounded-3xl bg-white border border-[#00737a]/25 shadow-[0_12px_36px_rgba(0,115,122,0.08)] hover:shadow-[0_20px_45px_rgba(0,115,122,0.14)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
                 >
                   {/* Watermark Number */}
                   <div className="absolute -bottom-4 -right-4 text-[100px] font-black text-[#00737a]/3 select-none pointer-events-none leading-none">

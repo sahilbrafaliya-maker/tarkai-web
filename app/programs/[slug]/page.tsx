@@ -8,6 +8,8 @@ import { FaUserTie } from "@react-icons/all-files/fa/FaUserTie";
 import { FaCode } from "@react-icons/all-files/fa/FaCode";
 import { FaBullseye } from "@react-icons/all-files/fa/FaBullseye";
 import { FaCalendarAlt } from "@react-icons/all-files/fa/FaCalendarAlt";
+import { FaTag } from "@react-icons/all-files/fa/FaTag";
+import { FaLayerGroup } from "@react-icons/all-files/fa/FaLayerGroup";
 
 export async function generateStaticParams() {
     return programs.map((program) => ({
@@ -153,10 +155,20 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
                     <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 items-center justify-between">
                         {/* Left Side Content */}
                         <div className="flex-1 max-w-3xl">
-                            <div className="flex items-center gap-4 mb-6">
+                            <div className="flex flex-wrap items-center gap-3 mb-6">
                                 <span className={`inline-block px-4 py-1.5 rounded-full text-white text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-brand-accent`}>
                                     {program.duration}
                                 </span>
+                                {(program as any).level && (
+                                    <span className="inline-block px-4 py-1.5 rounded-full text-white text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-white/10 border border-white/20">
+                                        Level: {(program as any).level}
+                                    </span>
+                                )}
+                                {(program as any).fee && (
+                                    <span className="inline-block px-4 py-1.5 rounded-full text-brand-accent text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-brand-accent/20 border border-brand-accent/40">
+                                        Fee: {(program as any).fee}
+                                    </span>
+                                )}
                             </div>
                             
                             <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.03em] text-white mb-4">
@@ -234,6 +246,24 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
                                             </div>
                                             <span className="text-[15px] font-bold text-white">Yes</span>
                                         </div>
+                                        {(program as any).level && (
+                                            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                                                <div className="flex items-center gap-3 text-gray-400">
+                                                    <FaLayerGroup className="text-lg" />
+                                                    <span className="text-[15px] font-medium tracking-wide">Level</span>
+                                                </div>
+                                                <span className="text-[15px] font-bold text-white">{(program as any).level}</span>
+                                            </div>
+                                        )}
+                                        {(program as any).fee && (
+                                            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                                                <div className="flex items-center gap-3 text-gray-400">
+                                                    <FaTag className="text-lg" />
+                                                    <span className="text-[15px] font-medium tracking-wide">Fee</span>
+                                                </div>
+                                                <span className="text-[15px] font-bold text-brand-accent">{(program as any).fee}</span>
+                                            </div>
+                                        )}
                                     </div>
 
                                     <Link
@@ -242,6 +272,17 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
                                     >
                                         Apply Now &rarr;
                                     </Link>
+
+                                    <a
+                                        href={encodeURI((program as any).brochure || '/TarkAI Edtech Brochure.pdf')}
+                                        download
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-3 block w-full text-center text-[15px] bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold py-3.5 rounded-xl transition-all duration-300 relative z-10 flex items-center justify-center gap-2 group/brochure"
+                                    >
+                                        <span>Download Brochure</span>
+                                        <svg className="w-4 h-4 opacity-70 group-hover/brochure:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    </a>
                                 </div>
                             </div>
                         </div>

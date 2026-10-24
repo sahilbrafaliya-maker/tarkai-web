@@ -28,9 +28,10 @@ interface ProgramModalProps {
     onClose: () => void;
     modalType: 'brochure' | 'enroll';
     activeProgramTitle: string;
+    activeBrochureUrl?: string;
 }
 
-export default function ProgramModal({ isOpen, onClose, modalType, activeProgramTitle }: ProgramModalProps) {
+export default function ProgramModal({ isOpen, onClose, modalType, activeProgramTitle, activeBrochureUrl }: ProgramModalProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -64,6 +65,7 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                     branch: 'N/A',
                     program: activeProgramTitle,
                     type: modalType,
+                    brochureUrl: activeBrochureUrl,
                 }),
             });
 
@@ -73,11 +75,23 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                 throw new Error(resData.error || 'Failed to submit enquiry.');
             }
 
+            // If it's a brochure request, immediately trigger the download in browser
+            if (modalType === 'brochure') {
+                const brochureLink = activeBrochureUrl || resData.brochureUrl || '/TarkAI Edtech Brochure.pdf';
+                const link = document.createElement('a');
+                link.href = encodeURI(brochureLink);
+                link.download = decodeURIComponent(brochureLink.split('/').pop() || 'brochure.pdf');
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
             // Success case
             setToastMessage({
                 type: 'success',
                 text: modalType === 'brochure'
-                    ? `Brochure sent successfully! Please check your email (${data.email.trim().toLowerCase()}) for the PDF.`
+                    ? `Brochure downloaded! We also sent a copy to your email (${data.email.trim().toLowerCase()}).`
                     : 'Enrolment request submitted! Our team will contact you shortly.'
             });
 

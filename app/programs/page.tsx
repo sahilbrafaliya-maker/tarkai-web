@@ -20,10 +20,12 @@ export default function ProgramsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState<'brochure' | 'enroll'>('brochure');
     const [activeProgramTitle, setActiveProgramTitle] = useState('');
+    const [activeBrochureUrl, setActiveBrochureUrl] = useState<string | undefined>(undefined);
 
-    const handleOpenModal = (type: 'brochure' | 'enroll', programTitle: string) => {
+    const handleOpenModal = (type: 'brochure' | 'enroll', programTitle: string, brochureUrl?: string) => {
         setModalType(type);
         setActiveProgramTitle(programTitle);
+        setActiveBrochureUrl(brochureUrl);
         setIsModalOpen(true);
     };
 
@@ -104,10 +106,16 @@ export default function ProgramsPage() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: 0.4 }}
-                                    className="absolute -bottom-6 -right-6 sm:bottom-auto sm:top-10 sm:-right-10 px-6 py-4 rounded-2xl bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white z-20 flex flex-col items-center sm:items-start group-hover/section:-translate-y-2 transition-transform duration-500"
+                                    className="absolute -bottom-6 -right-6 sm:bottom-auto sm:top-10 sm:-right-10 px-6 py-4 rounded-2xl bg-white shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-gray-100 z-20 flex flex-col items-start group-hover/section:-translate-y-2 transition-transform duration-500 min-w-[145px]"
                                 >
-                                    <span className="text-[11px] uppercase tracking-widest text-gray-400 font-bold mb-0.5">Duration</span>
-                                    <span className="text-[18px] font-black bg-clip-text text-transparent bg-linear-to-r from-brand-darkest to-brand-accent">{program.duration}</span>
+                                    <span className="text-[11px] uppercase tracking-wider text-gray-400 font-bold mb-0.5">Duration</span>
+                                    <span className="text-[18px] font-black text-brand-darkest tracking-tight">{program.duration}</span>
+                                    {(program as any).fee && (
+                                        <div className="mt-2.5 pt-2.5 border-t border-gray-100 flex flex-col items-start w-full">
+                                            <span className="text-[11px] uppercase tracking-wider text-gray-400 font-bold mb-0.5">Fee</span>
+                                            <span className="text-[17px] font-black text-brand-accent tracking-tight">{(program as any).fee}</span>
+                                        </div>
+                                    )}
                                 </motion.div>
                             </motion.div>
 
@@ -169,7 +177,7 @@ export default function ProgramsPage() {
                                         Enroll Now
                                     </button>
                                     <button
-                                        onClick={() => handleOpenModal('brochure', program.title)}
+                                        onClick={() => handleOpenModal('brochure', program.title, (program as any).brochure)}
                                         className="px-8 py-3.5 bg-white border border-gray-200 text-brand-darkest text-[15px] font-semibold rounded-xl hover:border-brand-accent hover:text-brand-accent transition-all duration-300 flex items-center gap-2 hover:-translate-y-0.5 shadow-sm hover:shadow-md active:scale-95 group/btn cursor-pointer"
                                     >
                                         Download Brochure
@@ -201,6 +209,7 @@ export default function ProgramsPage() {
                 onClose={handleCloseModal}
                 modalType={modalType}
                 activeProgramTitle={activeProgramTitle}
+                activeBrochureUrl={activeBrochureUrl}
             />
         </div>
     );

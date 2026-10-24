@@ -38,7 +38,7 @@ export default function ProgramOverview() {
                             }}
                         >
                             {programs.map((prog, idx) => {
-                                const duration = prog.slug.includes('ai-ml') || prog.slug.includes('data-science') ? '6 Months' : '3 Months';
+                                const duration = (prog as any).duration || (prog.slug.includes('ai-ml') || prog.slug.includes('data-science') ? '6 Months' : '3 Months');
                                 const modulesCount = prog.roadmap?.length || (prog.slug.includes('ai-ml') ? 12 : prog.slug.includes('data-science') ? 11 : 8);
 
                                 return (
@@ -84,6 +84,11 @@ export default function ProgramOverview() {
                                                         <FiBookOpen className="text-brand-accent w-3 h-3 md:w-3.5 md:h-3.5" />
                                                         <span className="text-[11px] md:text-[12px] font-bold text-brand-darkest">{modulesCount} Modules</span>
                                                     </div>
+                                                    {(prog as any).fee && (
+                                                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-lightest/60 rounded-full border border-brand-accent/20">
+                                                            <span className="text-[11px] md:text-[12px] font-bold text-brand-accent">{(prog as any).fee}</span>
+                                                        </div>
+                                                    )}
                                                     <div className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-lightest/40 rounded-full border border-brand-accent/10">
                                                         <FiCheckCircle className="text-brand-accent w-3 h-3 md:w-3.5 md:h-3.5" />
                                                         <span className="text-[11px] md:text-[12px] font-bold text-brand-darkest">Founder-led Mentorship</span>

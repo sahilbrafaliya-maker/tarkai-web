@@ -458,12 +458,12 @@ export default function AdmissionForm() {
                             {[
                               {
                                 value: 'AI/ML Architect Program',
-                                label: 'AI / ML Architect Program (7 Months)',
+                                label: 'AI / ML Architect Program (9 Months)',
                                 desc: 'LLMs, Autonomous AI Agents, RAG & MLOps',
                               },
                               {
                                 value: 'Data Science & Analytics',
-                                label: 'Data Science & Strategic Analytics (5 Months)',
+                                label: 'Data Science & Strategic Analytics (9 Months)',
                                 desc: 'Python, ML models, SQL & BI Executive Dashboards',
                               },
                             ].map((opt) => (

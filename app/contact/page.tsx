@@ -24,6 +24,7 @@ import SuccessModal from '../components/SuccessModal';
 import GeometricShapes from "../components/GeometricShapes";
 import BackgroundText from "../components/BackgroundText";
 import PageHeader from "../components/PageHeader";
+import { programs as programsData } from "@/data/programsData";
 
 const ContactSchema = z.object({
     firstName: z.string().optional(),
@@ -36,10 +37,7 @@ const ContactSchema = z.object({
 type ContactFormData = z.infer<typeof ContactSchema>;
 
 const programs = [
-    { id: "ai-architect", name: "AI / ML Architect Program" },
-    { id: "data-science", name: "Data Science & Strategic Analytics" },
-    { id: "future-founders", name: "Future Founders – AI Foundation" },
-    { id: "green-intelligence", name: "Green Intelligence – Climate Analytics" },
+    ...programsData.map(p => ({ id: p.slug, name: p.title })),
     { id: "other", name: "Other Inquiry" }
 ];
 
@@ -208,9 +206,11 @@ export default function ContactPage() {
                         {/* Decorative Background for Form */}
                         <div className="absolute inset-0 bg-linear-to-br from-brand-accent/20 via-brand-lightest to-transparent rounded-[2.5rem] transform rotate-1 scale-[1.02] -z-10 blur-[2px] opacity-70"></div>
                         
-                        <div className="bg-white rounded-[2.5rem] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-gray-100 relative overflow-hidden group">
-                            {/* Inside decor */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-brand-lightest to-transparent rounded-full -mr-20 -mt-20 blur-3xl transition-transform duration-700 group-hover:scale-110"></div>
+                        <div className="bg-white rounded-[2.5rem] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-gray-100 relative group">
+                            {/* Inside decor - isolated overflow so floating dropdown is never clipped */}
+                            <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden pointer-events-none">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-brand-lightest to-transparent rounded-full -mr-20 -mt-20 blur-3xl transition-transform duration-700 group-hover:scale-110"></div>
+                            </div>
                             
                             <div className="relative z-10">
                                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -320,22 +320,27 @@ export default function ContactPage() {
                                     </button>
 
                                     {/* Dropdown Menu */}
-                                    <div className={`absolute z-50 left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-300 origin-top transform ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}`}>
-                                        <div className="max-h-64 overflow-y-auto py-2 custom-scrollbar">
-                                            {programs.map((program) => (
-                                                <div
-                                                    key={program.id}
-                                                    onClick={() => {
-                                                        setSelectedProgram(program.id);
-                                                        setIsOpen(false);
-                                                    }}
-                                                    className={`px-5 py-3 cursor-pointer flex items-center justify-between transition-colors duration-200 ${selectedProgram === program.id ? 'bg-brand-accent/5 text-brand-accent font-semibold' : 'text-gray-700 hover:bg-gray-50'}`}
-                                                >
-                                                    <span>{program.name}</span>
-                                                    {selectedProgram === program.id && <FaCheck className="text-[13px] sm:text-[14px]" />}
-                                                </div>
-                                            ))}
-                                        </div>
+                                    <div 
+                                        onWheel={(e) => e.stopPropagation()}
+                                        className={`absolute z-50 left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 max-h-64 sm:max-h-72 overflow-y-auto overscroll-contain py-2 transition-all duration-200 ${isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
+                                        style={{ 
+                                            scrollbarWidth: 'thin',
+                                            scrollbarColor: 'var(--color-brand-accent, #20A6A8) #f8fafc'
+                                        }}
+                                    >
+                                        {programs.map((program) => (
+                                            <div
+                                                key={program.id}
+                                                onClick={() => {
+                                                    setSelectedProgram(program.id);
+                                                    setIsOpen(false);
+                                                }}
+                                                className={`px-5 py-3 cursor-pointer flex items-center justify-between transition-colors duration-200 ${selectedProgram === program.id ? 'bg-brand-accent/5 text-brand-accent font-semibold' : 'text-gray-700 hover:bg-gray-50'}`}
+                                            >
+                                                <span>{program.name}</span>
+                                                {selectedProgram === program.id && <FaCheck className="text-[13px] sm:text-[14px]" />}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
