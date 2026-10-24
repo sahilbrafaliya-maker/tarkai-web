@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import AdmissionPageClient from '@/app/admission/AdmissionPageClient';
 
 export const metadata: Metadata = {
-  title: 'AI & Data Science Admission 2026-27 | Apply Free 3-Day Demo | TARK AI EdTech',
+  title: 'AI & Data Science Admissions 2026',
   description:
     'Apply to TARK AI EdTech\'s flagship AI/ML Architect & Data Science programs in Surat, Gujarat. Learn LLMs, Agentic AI & RAG from IIIT Lucknow mentors. 95% placement support. Reserve your free 3-day demo seat today!',
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   creator: 'TARK AI EdTech Private Limited',
   publisher: 'TARK AI EdTech Private Limited',
   openGraph: {
-    title: 'AI & Data Science Admission 2026-27 | TARK AI EdTech Surat',
+    title: 'AI & Data Science Admissions 2026 | TARK AI',
     description:
       'Join 1000+ students building future-ready AI careers. Apply for AI/ML Architect Program or Data Science & Strategic Analytics. IIIT Lucknow alumni mentors. 95% placement record.',
     url: 'https://tarkaiedtech.com/admission',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI & Data Science Admission 2026-27 | TARK AI EdTech',
+    title: 'AI & Data Science Admissions 2026 | TARK AI',
     description:
       'Apply to India\'s premier AI institute in Surat. IIIT Lucknow mentors, live LLM projects, free 3-day demo.',
     images: ['https://tarkaiedtech.com/AI_ML_Architect_Program.jfif'],

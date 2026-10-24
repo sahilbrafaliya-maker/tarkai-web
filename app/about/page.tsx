@@ -10,7 +10,7 @@ import GeometricShapes from '../components/GeometricShapes';
 import CallToActionVideo from '../components/CallToActionVideo';
 
 export const metadata: Metadata = {
-    title: "About TARK AI | Leading AI EdTech Company in India",
+    title: "About Us | Leading AI Institute in Surat",
     description: "TARK AI EdTech Private Limited democratizes access to intelligent career guidance. Learn how we prepare learners for the future of work.",
     alternates: {
         canonical: "https://tarkaiedtech.com/about",

@@ -1,4 +1,25 @@
 import React from 'react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Cookie Policy',
+    description: 'Learn about how TARK AI EdTech uses cookies and similar technologies to improve your experience on our website.',
+    alternates: {
+        canonical: 'https://tarkaiedtech.com/cookies',
+    },
+    openGraph: {
+        title: 'Cookie Policy | TARK AI',
+        description: 'Learn about how TARK AI EdTech uses cookies and similar technologies.',
+        url: 'https://tarkaiedtech.com/cookies',
+        siteName: 'TARK AI EdTech',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary',
+        title: 'Cookie Policy | TARK AI',
+        description: 'Learn about how TARK AI EdTech uses cookies and similar technologies.',
+    },
+};
 
 const CookiesPage = () => {
     return (

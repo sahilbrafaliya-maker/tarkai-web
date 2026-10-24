@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: {
-        default: 'AI Career Insights & Blog | TARK AI EdTech Surat',
-        template: '%s | TARK AI Blog'
+        default: 'AI Career Insights & Blog | TARK AI',
+        template: '%s | TARK AI'
     },
     description: 'AI career guides, Data Science tutorials, and industry insights from TARK AI EdTech — Surat\'s leading AI institute. Tips for students & professionals in Gujarat.',
     keywords: [

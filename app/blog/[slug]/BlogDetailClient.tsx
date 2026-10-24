@@ -125,7 +125,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                         >
                             <Image
                                 src={lightboxImg}
-                                alt="Full view"
+                                alt={blog.title ? `${blog.title} - Enlarged View` : "Enlarged Blog Image"}
                                 width={1400}
                                 height={900}
                                 className="object-contain rounded-2xl max-h-[85vh] w-auto mx-auto shadow-2xl"
@@ -165,18 +165,16 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                                     className="absolute inset-0"
                                 >
                                     <Link href={`/blog/${blog.slug}`} className="block w-full h-full relative overflow-hidden">
-                                         {/* Blurred background to prevent empty borders */}
-                                         <Image
-                                             src={blog.images[slideIndex]}
-                                             alt=""
-                                             fill
-                                             className="object-cover blur-md opacity-25 scale-105 pointer-events-none"
-                                             draggable={false}
+                                         {/* Blurred background to prevent empty borders (CSS background to avoid empty alt text) */}
+                                         <div
+                                             className="absolute inset-0 bg-cover bg-center blur-md opacity-25 scale-105 pointer-events-none"
+                                             style={{ backgroundImage: `url(${blog.images[slideIndex]})` }}
+                                             aria-hidden="true"
                                          />
                                          {/* Crisp contained foreground image */}
                                          <Image
                                              src={blog.images[slideIndex]}
-                                             alt={`Gallery image ${slideIndex + 1}`}
+                                             alt={`${blog.title} - Image ${slideIndex + 1}`}
                                              fill
                                              className="object-contain cursor-zoom-in relative z-10"
                                              priority
@@ -282,7 +280,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                                 img: ({ src, alt }) => (
                                     <span className="block my-4">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={src} alt={alt} className="rounded-2xl max-w-full shadow-md" />
+                                        <img src={src} alt={alt || blog.title || "Blog illustration"} className="rounded-2xl max-w-full shadow-md" />
                                     </span>
                                 ),
                             }}
@@ -300,7 +298,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                         transition={{ delay: 0.15 }}
                         className="mb-10"
                     >
-                        <h3 className="text-[13px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-4">Follow &amp; Connect</h3>
+                        <p className="text-[13px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-4">Follow &amp; Connect</p>
                         <div className="flex flex-wrap gap-2 md:gap-3">
                             {socialLinks.map(social => (
                                 <a
@@ -343,7 +341,7 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                                     <Link href={`/blog/${post.slug || post.id}`} className="group block relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style={{ height: '220px' }}>
                                         <Image
                                             src={imageUrl}
-                                            alt={post.title}
+                                            alt={post.title || "TARK AI Related Article"}
                                             fill
                                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                                         />

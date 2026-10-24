@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "AI & ML Courses in Surat | Best Data Science Programs – TARK AI",
+    title: "AI & Data Science Courses in Surat",
     description: "Explore AI/ML, Data Science, Climate Analytics & Foundation programs in Surat. IIIT Lucknow faculty, small batches, placement support. Book a free demo today.",
     keywords: [
         // Tier 2 local program
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         canonical: "https://tarkaiedtech.com/programs",
     },
     openGraph: {
-        title: "AI & ML Courses in Surat | Best Data Science Programs – TARK AI",
+        title: "AI & Data Science Courses in Surat | TARK AI",
         description: "Explore AI/ML, Data Science, Climate Analytics & Foundation programs in Surat. IIIT Lucknow faculty, small batches, placement support.",
         url: "https://tarkaiedtech.com/programs",
         type: "website",

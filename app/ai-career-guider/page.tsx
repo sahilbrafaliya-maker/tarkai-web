@@ -5,7 +5,7 @@ import { FaChartLine } from "@react-icons/all-files/fa/FaChartLine";
 import { FaMapMarkedAlt } from "@react-icons/all-files/fa/FaMapMarkedAlt";
 
 export const metadata: Metadata = {
-    title: "AI Career Guidance Portal | Intelligent Career Roadmaps – TARK AI",
+    title: "AI Career Guidance Portal & Roadmaps",
     description: "AI Career Guidance Portal for Future Careers. Get personalized AI-powered career roadmaps, intelligent skill mapping, and career path recommendations.",
     keywords: ["AI Career Guidance Portal", "AI Career Assessment", "AI Career Roadmap", "Intelligent Career Guidance", "AI Skill Mapping"],
     alternates: {
@@ -52,7 +52,7 @@ export default function AICareerGuiderPage() {
                             <div className="w-16 h-16 mx-auto bg-brand-lightest text-brand-accent rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 <FaBrain />
                             </div>
-                            <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Intelligent Assessment</h3>
+                            <h2 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Intelligent Assessment</h2>
                             <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-gray-600">
                                 Our AI analyzes your interests, strengths, and goals to suggest the perfect career paths.
                             </p>
@@ -61,7 +61,7 @@ export default function AICareerGuiderPage() {
                             <div className="w-16 h-16 mx-auto bg-brand-lightest text-brand-accent rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 <FaMapMarkedAlt />
                             </div>
-                            <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Personalized Roadmap</h3>
+                            <h2 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Personalized Roadmap</h2>
                             <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-gray-600">
                                 Get a step-by-step guide from zero to mastery in your chosen field, curated by experts.
                             </p>
@@ -70,7 +70,7 @@ export default function AICareerGuiderPage() {
                             <div className="w-16 h-16 mx-auto bg-brand-lightest text-brand-accent rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 <FaChartLine />
                             </div>
-                            <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Market Insights</h3>
+                            <h2 className="text-[22px] sm:text-[24px] lg:text-[26px] font-bold text-brand-darkest mb-4">Market Insights</h2>
                             <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-gray-600">
                                 Stay ahead with real-time data on industry trends, salary benchmarks, and hiring demand.
                             </p>

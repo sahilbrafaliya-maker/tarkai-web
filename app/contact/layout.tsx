@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Contact TARK AI Surat | Book a Free AI Demo Class | Enroll Now",
+    title: "Contact Us & Book Free Demo Class",
     description: "Book a free demo class or inquire about AI & Data Science courses at TARK AI Surat. Call or WhatsApp +91-9712358689. Kyros Business Center, Sarthana Jakat Naka.",
     keywords: [
         "Contact TARK AI Surat", "Book AI demo class Surat",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         canonical: "https://tarkaiedtech.com/contact",
     },
     openGraph: {
-        title: "Contact TARK AI Surat | Book a Free AI Demo Class | Enroll Now",
+        title: "Contact Us & Book Free Demo Class | TARK AI",
         description: "Book a free demo class or inquire about AI & Data Science courses at TARK AI Surat. Call or WhatsApp +91-9712358689.",
         url: "https://tarkaiedtech.com/contact",
         type: "website",

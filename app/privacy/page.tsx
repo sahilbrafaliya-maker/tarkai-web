@@ -1,4 +1,25 @@
 import React from 'react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Privacy Policy',
+    description: 'Read the privacy policy of TARK AI EdTech Private Limited. Understand how we collect, use, and protect your personal information.',
+    alternates: {
+        canonical: 'https://tarkaiedtech.com/privacy',
+    },
+    openGraph: {
+        title: 'Privacy Policy | TARK AI',
+        description: 'Read the privacy policy of TARK AI EdTech Private Limited.',
+        url: 'https://tarkaiedtech.com/privacy',
+        siteName: 'TARK AI EdTech',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary',
+        title: 'Privacy Policy | TARK AI',
+        description: 'Read the privacy policy of TARK AI EdTech Private Limited.',
+    },
+};
 
 const PrivacyPage = () => {
     return (

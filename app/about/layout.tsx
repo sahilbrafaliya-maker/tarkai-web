@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "About TARK AI | AI Institute in Surat, Gujarat – IIIT Lucknow Faculty",
+    title: "About Us | AI Institute in Surat",
     description: "TARK AI EdTech Surat — co-founders hold M.Sc. in AI & ML from IIIT Lucknow. Small-batch, mentor-led AI programs with real-world projects & placement support.",
     keywords: [
         "About TARK AI Surat", "AI EdTech Company Surat Gujarat",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         canonical: "https://tarkaiedtech.com/about",
     },
     openGraph: {
-        title: "About TARK AI | AI Institute in Surat, Gujarat – IIIT Lucknow Faculty",
+        title: "About Us | Top AI Institute in Surat | TARK AI",
         description: "TARK AI EdTech Surat — co-founders hold M.Sc. in AI & ML from IIIT Lucknow. Small-batch, mentor-led AI programs with real-world projects & placement support.",
         url: "https://tarkaiedtech.com/about",
         type: "website",

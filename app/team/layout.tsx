@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Meet Our Team | TARK AI EdTech Leadership",
+    title: "Meet Our Team & Leadership",
     description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics from IIIT Lucknow.",
     keywords: [
         "TARK AI Team",

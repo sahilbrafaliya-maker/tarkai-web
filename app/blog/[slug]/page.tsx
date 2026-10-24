@@ -9,6 +9,35 @@ export const revalidate = 0;
 
 type Params = Promise<{ slug: string }>;
 
+const blogSeoTitles: Record<string, string> = {
+    'tark-ai-edtech-signs-mou-with-vnsgu-department-of-statistics-to-advance-ai-data-science-machine-learning-education':
+        'TARK AI Signs MoU with VNSGU for AI & Data Science',
+    'ai-course-fees-duration-surat-gujarat':
+        'AI Course Fees & Duration in Surat (2026) | TARK AI',
+    'how-to-become-ai-engineer-surat':
+        'How to Become an AI Engineer in Surat | TARK AI',
+    'best-ai-institute-in-surat-checklist':
+        'Best AI Institute in Surat: 8 Things to Check | TARK AI',
+    'the-tech-reality-check-career-current-market-ai-future':
+        'The Tech Reality Check: Careers & AI Future | TARK AI',
+    'how-ai-ml-engineers-will-be-hired-in-the-next-3-years':
+        'How AI & ML Engineers Will Be Hired | TARK AI',
+    'green-data-revolution-ai-statistics-carbon-markets':
+        'Green Data Revolution: AI & Carbon Markets | TARK AI',
+};
+
+function getOptimizedBlogTitle(title: string, slug?: string): string {
+    if (slug && blogSeoTitles[slug]) {
+        return blogSeoTitles[slug];
+    }
+    const cleanTitle = title.trim();
+    if (cleanTitle.length <= 44) {
+        return `${cleanTitle} | TARK AI`;
+    }
+    const truncated = cleanTitle.slice(0, 41).replace(/\s+\S*$/, '');
+    return `${truncated} | TARK AI`;
+}
+
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
     const { slug } = await params;
     try {
@@ -18,16 +47,19 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
         const imageUrl = blog.coverImage || blog.image || 'https://tarkaiedtech.com/Logo.png';
         const pageUrl = `https://tarkaiedtech.com/blog/${slug}`;
+        const seoTitle = getOptimizedBlogTitle(blog.title, slug);
 
         return {
-            title: `${blog.title} | TARK AI Blog`,
+            title: {
+                absolute: seoTitle,
+            },
             description: blog.description || `Read "${blog.title}" on TARK AI EdTech. Learn about the frontier of Artificial Intelligence and Data Science.`,
             keywords: [blog.title, blog.tag || 'AI Trends', 'TARK AI Blog', 'AI Insights'],
             alternates: {
                 canonical: pageUrl,
             },
             openGraph: {
-                title: `${blog.title} | TARK AI Blog`,
+                title: seoTitle,
                 description: blog.description,
                 url: pageUrl,
                 siteName: 'TARK AI EdTech',
@@ -42,7 +74,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
             },
             twitter: {
                 card: 'summary_large_image',
-                title: `${blog.title} | TARK AI Blog`,
+                title: seoTitle,
                 description: blog.description,
                 images: [imageUrl.startsWith('http') ? imageUrl : `https://tarkaiedtech.com${imageUrl}`],
             }

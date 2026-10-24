@@ -556,7 +556,7 @@ export default function AdminPage() {
                                             <div className="flex flex-wrap gap-2">
                                                 {existingImages.map((url, i) => (
                                                     <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden group">
-                                                        <NextImage src={url} alt="" fill className="object-cover" />
+                                                        <NextImage src={url} alt={`Gallery image thumbnail ${i + 1}`} fill className="object-cover" />
                                                         <button
                                                             type="button"
                                                             onClick={() => setExistingImages(p => p.filter((_, idx) => idx !== i))}
@@ -572,7 +572,7 @@ export default function AdminPage() {
                                         <div className="mb-3 flex flex-wrap gap-2">
                                             {galleryPreviews.map((url, i) => (
                                                 <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden group">
-                                                    <NextImage src={url} alt="" fill className="object-cover" />
+                                                    <NextImage src={url} alt={`Upload preview thumbnail ${i + 1}`} fill className="object-cover" />
                                                     <button
                                                         type="button"
                                                         onClick={() => {

@@ -1,4 +1,25 @@
 import React from 'react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Terms of Service',
+    description: 'Read the Terms of Service for TARK AI EdTech Private Limited, outlining the guidelines, admissions policies, and acceptable use of our platform.',
+    alternates: {
+        canonical: 'https://tarkaiedtech.com/terms',
+    },
+    openGraph: {
+        title: 'Terms of Service | TARK AI',
+        description: 'Read the Terms of Service for TARK AI EdTech Private Limited.',
+        url: 'https://tarkaiedtech.com/terms',
+        siteName: 'TARK AI EdTech',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary',
+        title: 'Terms of Service | TARK AI',
+        description: 'Read the Terms of Service for TARK AI EdTech Private Limited.',
+    },
+};
 
 const TermsPage = () => {
     return (

@@ -21,14 +21,68 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     
     if (!program) {
         return {
-            title: 'Program Not Found'
-        }
+            title: 'Program Not Found | TARK AI',
+            description: 'The requested program could not be found.',
+        };
     }
 
+    const pageUrl = `https://tarkaiedtech.com/programs/${program.slug}`;
+    const imageUrl = program.image
+        ? (program.image.startsWith('http') ? program.image : `https://tarkaiedtech.com${program.image}`)
+        : 'https://tarkaiedtech.com/Logo.png';
+    const pageTitle = `${program.title} | TARK AI EdTech`;
+    const pageDescription = program.description[0];
+
     return {
-        title: `${program.title} | Tark AI`,
-        description: program.description[0],
-    }
+        title: pageTitle,
+        description: pageDescription,
+        keywords: [
+            program.title,
+            `${program.title} Surat`,
+            `${program.title} Gujarat`,
+            program.subtitle,
+            "AI Course Surat",
+            "Data Science Program Surat",
+            "Machine Learning Course Gujarat",
+            "TARK AI Programs"
+        ],
+        alternates: {
+            canonical: pageUrl,
+        },
+        openGraph: {
+            title: pageTitle,
+            description: pageDescription,
+            url: pageUrl,
+            siteName: "TARK AI EdTech",
+            type: "website",
+            images: [
+                {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: program.title,
+                }
+            ],
+            locale: "en_IN",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: pageTitle,
+            description: pageDescription,
+            images: [imageUrl],
+        },
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-video-preview': -1,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+            },
+        },
+    };
 }
 
 export default async function ProgramPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -45,14 +99,15 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
       "@type": "Course",
       "name": program.title,
       "description": program.description[0],
+      "url": `https://tarkaiedtech.com/programs/${program.slug}`,
       "provider": {
-        "@type": "Organization",
-        "name": "Tark AI",
+        "@type": "EducationalOrganization",
+        "name": "TARK AI EdTech Private Limited",
         "sameAs": "https://tarkaiedtech.com"
       },
       "hasCourseInstance": {
         "@type": "CourseInstance",
-        "courseMode": "online",
+        "courseMode": "Blended",
         "courseWorkload": program.duration
       }
     };

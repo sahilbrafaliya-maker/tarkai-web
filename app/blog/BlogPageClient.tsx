@@ -122,18 +122,16 @@ function BlogCard({ post, index }: { post: BlogPost, index: number }) {
 
                     {/* Image */}
                     <div className="relative h-52 overflow-hidden shrink-0 bg-gray-50/50">
-                        {/* Blurred background image to prevent empty spaces */}
-                        <Image
-                            src={imageUrl}
-                            alt=""
-                            fill
-                            className="object-cover blur-md opacity-25 scale-105 pointer-events-none"
-                            draggable={false}
+                        {/* Blurred background image to prevent empty spaces (CSS background to avoid empty alt text) */}
+                        <div
+                            className="absolute inset-0 bg-cover bg-center blur-md opacity-25 scale-105 pointer-events-none"
+                            style={{ backgroundImage: `url(${imageUrl})` }}
+                            aria-hidden="true"
                         />
                         {/* Crisp contained foreground image */}
                         <Image
                             src={imageUrl}
-                            alt={post.title}
+                            alt={post.title || "TARK AI Blog Article"}
                             fill
                             className="object-contain transition-transform duration-700 group-hover:scale-105 relative z-10"
                             draggable={false}

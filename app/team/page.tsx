@@ -117,7 +117,7 @@ export default function TeamPage() {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
                                 <span className="text-[#1E3A8A] font-bold text-sm tracking-wide mb-2 block">Founder & CEO</span>
-                                <h3 className="text-[#1F2937] text-4xl lg:text-[44px] font-extrabold mb-6 tracking-tight">Sahil Rafaliya</h3>
+                                <h2 className="text-[#1F2937] text-4xl lg:text-[44px] font-extrabold mb-6 tracking-tight">Sahil Rafaliya</h2>
                                 
                                 <p className="text-gray-700 text-[16px] leading-[1.8] mb-4 text-justify">
                                     Sahil Rafaliya is a <b className="text-gray-900 font-bold">Data science professional</b> with a strong specialization in <b className="text-gray-900 font-bold">Climate Technology</b> and <b className="text-gray-900 font-bold">AI-driven analytics</b>. He holds an <b className="text-gray-900 font-bold">M.Sc. in Data Science (Climate Data Analytics specialization)</b> from <b className="text-gray-900 font-bold">Indian Institute of Information Technology, Lucknow</b>.
@@ -147,7 +147,7 @@ export default function TeamPage() {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
                                 <span className="text-[#1E3A8A] font-bold text-sm tracking-wide mb-2 block">Co-Founder & EVP</span>
-                                <h3 className="text-[#1F2937] text-4xl lg:text-[44px] font-extrabold mb-6 tracking-tight">Kashish Nagar</h3>
+                                <h2 className="text-[#1F2937] text-4xl lg:text-[44px] font-extrabold mb-6 tracking-tight">Kashish Nagar</h2>
                                 
                                 <p className="text-gray-700 text-[16px] leading-[1.8] mb-4 text-justify">
                                     Kashish Nagar is an <b className="text-gray-900 font-bold">AI and Machine Learning specialist</b> with a strong
@@ -255,7 +255,7 @@ export default function TeamPage() {
                                     {/* Content */}
                                     <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end h-full text-white">
                                         <div className={`transform transition-all duration-500 ${isHovered ? 'translate-y-0' : 'translate-y-[calc(100%-80px)]'}`}>
-                                            <h4 className="text-[22px] sm:text-[24px] lg:text-[26px] font-semibold leading-tight tracking-[-0.02em] mb-1">{member.name}</h4>
+                                            <h3 className="text-[22px] sm:text-[24px] lg:text-[26px] font-semibold leading-tight tracking-[-0.02em] mb-1">{member.name}</h3>
                                             <p className="text-[13px] sm:text-[14px] font-semibold text-brand-accent uppercase tracking-[0.12em] mb-4">{member.role}</p>
 
                                             <div className={`transition-all duration-500 delay-100 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
