@@ -856,7 +856,7 @@ export const programs = [
         level: "Foundation",
         fee: "₹7,000",
         color: "bg-cyan-600",
-        image: "/SQL + DBMS_ Modern Database Workspace.png",
+        image: "/SQL_+_DBMS_Modern_Database_Workspace.png",
         brochure: "/TarkAI Edtech Brochure.pdf",
         icon: <FaDatabase />,
         description: [
@@ -1184,7 +1184,7 @@ export const programs = [
         level: "Advanced AI",
         fee: "₹30,000 – ₹45,000",
         color: "bg-purple-600",
-        image: "/Generative AI & LLMs Workspace.png",
+        image: "/Generative_AI_&_LLMs_Workspace.png",
         brochure: "/TarkAI Edtech Brochure.pdf",
         icon: <FaBrain />,
         description: [
@@ -1294,7 +1294,7 @@ export const programs = [
         level: "Advanced AI",
         fee: "₹30,000 – ₹45,000",
         color: "bg-teal-600",
-        image: "/AI Agents & Automation Workspace.png",
+        image: "/AI_Agents_&_Automation_Workspace.png",
         brochure: "/TarkAI Edtech Brochure.pdf",
         icon: <FaProjectDiagram />,
         description: [
