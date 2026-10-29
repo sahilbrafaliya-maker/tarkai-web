@@ -156,7 +156,8 @@ export default function PlacementStoriesSection() {
                     >
                         <div 
                             ref={scrollRef} 
-                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto py-3 sm:py-4 custom-scrollbar-hide touch-auto overscroll-x-contain"
+                            data-lenis-prevent="true"
+                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto py-3 sm:py-4 custom-scrollbar-hide touch-pan-x overscroll-x-contain [&::-webkit-scrollbar]:hidden"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                             onTouchStart={handleTouchStart}
                             onTouchEnd={handleTouchEnd}

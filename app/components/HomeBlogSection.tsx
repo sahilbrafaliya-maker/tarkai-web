@@ -53,9 +53,9 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
             if (!isHovered && !isTouchingRef.current && scrollRef.current) {
                 if (time - lastTime >= 18) {
                     const el = scrollRef.current;
-                    const maxScroll = el.scrollWidth - el.clientWidth;
-                    if (maxScroll > 0) {
-                        if (el.scrollLeft >= maxScroll - 2) {
+                    const halfScroll = el.scrollWidth / 2;
+                    if (halfScroll > 0) {
+                        if (el.scrollLeft >= halfScroll) {
                             el.scrollLeft = 0;
                         } else {
                             el.scrollLeft += 1;
@@ -210,15 +210,16 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                         )}
                     </div>
 
-                    {/* Right Column (Auto-Scroll) */}
-                    <div className="lg:w-2/3 overflow-hidden relative pt-4 lg:pt-0">
+                    {/* Right Column (Auto-Scroll on Desktop, Touch-Swipeable on Mobile) */}
+                    <div className="w-full max-w-full min-w-0 lg:w-2/3 overflow-hidden relative pt-4 lg:pt-0">
                         {/* Fade edges */}
                         <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-16 bg-linear-to-r from-[#EAF7F7] to-transparent z-10 pointer-events-none" />
                         <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-16 bg-linear-to-l from-[#EAF7F7] to-transparent z-10 pointer-events-none" />
                         
                         <div 
                             ref={scrollRef}
-                            className="flex overflow-x-auto lg:overflow-hidden items-center h-full w-full touch-auto overscroll-x-contain custom-scrollbar-hide"
+                            data-lenis-prevent="true"
+                            className="flex overflow-x-auto lg:overflow-hidden items-center h-full w-full max-w-full touch-pan-x overscroll-x-contain custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
@@ -226,12 +227,8 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                             onTouchEnd={handleTouchEnd}
                         >
                             <div 
-                                className="flex gap-4 sm:gap-6 shrink-0 w-max"
+                                className="flex gap-4 sm:gap-6 shrink-0 w-max lg:animate-[scroll-marquee-left_25s_linear_infinite]"
                                 style={{
-                                    animationName: isMobile ? 'none' : 'scroll-marquee-left',
-                                    animationDuration: '25s',
-                                    animationTimingFunction: 'linear',
-                                    animationIterationCount: 'infinite',
                                     animationPlayState: isHovered ? 'paused' : 'running'
                                 }}
                             >

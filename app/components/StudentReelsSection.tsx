@@ -62,9 +62,9 @@ export default function StudentReelsSection() {
       if (!isHovered && !isTouchingRef.current && playingId === null && scrollRef.current) {
         if (time - lastTime >= 18) {
           const el = scrollRef.current;
-          const maxScroll = el.scrollWidth - el.clientWidth;
-          if (maxScroll > 0) {
-            if (el.scrollLeft >= maxScroll - 2) {
+          const halfScroll = el.scrollWidth / 2;
+          if (halfScroll > 0) {
+            if (el.scrollLeft >= halfScroll) {
               el.scrollLeft = 0;
             } else {
               el.scrollLeft += 1;
@@ -131,7 +131,8 @@ export default function StudentReelsSection() {
         {/* Reels Container: Right-to-Left Scrolling Marquee on Desktop, Smooth Touch Scroll on Mobile */}
         <div 
           ref={scrollRef}
-          className="relative w-full overflow-x-auto md:overflow-hidden mt-4 sm:mt-10 pt-2 sm:pt-4 pb-10 sm:pb-8 lg:pb-12 touch-auto overscroll-x-contain custom-scrollbar-hide"
+          data-lenis-prevent="true"
+          className="relative w-full max-w-full overflow-x-auto md:overflow-hidden mt-4 sm:mt-10 pt-2 sm:pt-4 pb-10 sm:pb-8 lg:pb-12 touch-pan-x overscroll-x-contain custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
@@ -143,12 +144,8 @@ export default function StudentReelsSection() {
           <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-24 bg-linear-to-l from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
           
           <div
-            className="flex items-center w-max"
+            className="flex items-center w-max md:animate-[scroll-marquee-reverse_20s_linear_infinite]"
             style={{
-              animationName: isMobile ? 'none' : 'scroll-marquee-reverse',
-              animationDuration: '20s',
-              animationTimingFunction: 'linear',
-              animationIterationCount: 'infinite',
               animationPlayState: isHovered || playingId !== null ? 'paused' : 'running'
             }}
           >
