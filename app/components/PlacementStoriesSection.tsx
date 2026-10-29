@@ -17,6 +17,8 @@ export default function PlacementStoriesSection() {
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const [isHovered, setIsHovered] = useState(false);
+    const isTouchInteracting = useRef(false);
+    const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     // Create a large array for a true "infinite" loop illusion
     const displayImages = Array(6).fill(images).flat(); // 24 images
@@ -37,6 +39,25 @@ export default function PlacementStoriesSection() {
         }
     };
 
+    const handleTouchStart = () => {
+        isTouchInteracting.current = true;
+        setIsHovered(true);
+        if (resumeTimeoutRef.current) {
+            clearTimeout(resumeTimeoutRef.current);
+            resumeTimeoutRef.current = null;
+        }
+    };
+
+    const handleTouchEnd = () => {
+        isTouchInteracting.current = false;
+        if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+        resumeTimeoutRef.current = setTimeout(() => {
+            if (!isTouchInteracting.current) {
+                setIsHovered(false);
+            }
+        }, 2500);
+    };
+
     // Continuous Auto-scroll logic (Right to Left) with cached layout metrics
     useEffect(() => {
         let animationFrameId: number;
@@ -55,7 +76,7 @@ export default function PlacementStoriesSection() {
         window.addEventListener('resize', updateMetrics);
         
         const playScroll = (time: number) => {
-            if (!isHovered && scrollRef.current) {
+            if (!isHovered && !isTouchInteracting.current && scrollRef.current) {
                 if (time - lastTime >= 16) {
                     if (!cachedScrollWidth) updateMetrics();
                     const currentScroll = scrollRef.current.scrollLeft;
@@ -78,6 +99,7 @@ export default function PlacementStoriesSection() {
         return () => {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             window.removeEventListener('resize', updateMetrics);
+            if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         };
     }, [isHovered]);
 
@@ -112,8 +134,8 @@ export default function PlacementStoriesSection() {
                     className="relative w-full overflow-visible mt-5 sm:mt-10 py-2 sm:py-4 group"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
-                    onTouchStart={() => setIsHovered(true)}
-                    onTouchEnd={() => setIsHovered(false)}
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
                 >
                     {/* Left Arrow */}
                     <button 
@@ -134,8 +156,10 @@ export default function PlacementStoriesSection() {
                     >
                         <div 
                             ref={scrollRef} 
-                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto py-3 sm:py-4 custom-scrollbar-hide touch-pan-y overscroll-x-contain"
-                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto py-3 sm:py-4 custom-scrollbar-hide touch-auto overscroll-x-contain"
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+                            onTouchStart={handleTouchStart}
+                            onTouchEnd={handleTouchEnd}
                         >
                             {displayImages.map((src, idx) => (
                                 <div

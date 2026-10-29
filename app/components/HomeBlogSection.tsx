@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaCalendarAlt } from "@react-icons/all-files/fa/FaCalendarAlt";
@@ -29,6 +29,69 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
     const [isHovered, setIsHovered] = useState(false);
     const [fetchedBlogs, setFetchedBlogs] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(!latestBlogs || latestBlogs.length === 0);
+    const [isMobile, setIsMobile] = useState(false);
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const isTouchingRef = useRef(false);
+    const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 1024);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Continuous auto-scroll on mobile when not interacting
+    useEffect(() => {
+        if (!isMobile) return;
+        let animationFrameId: number;
+        let lastTime = performance.now();
+
+        const playScroll = (time: number) => {
+            if (!isHovered && !isTouchingRef.current && scrollRef.current) {
+                if (time - lastTime >= 18) {
+                    const el = scrollRef.current;
+                    const maxScroll = el.scrollWidth - el.clientWidth;
+                    if (maxScroll > 0) {
+                        if (el.scrollLeft >= maxScroll - 2) {
+                            el.scrollLeft = 0;
+                        } else {
+                            el.scrollLeft += 1;
+                        }
+                    }
+                    lastTime = time;
+                }
+            }
+            animationFrameId = requestAnimationFrame(playScroll);
+        };
+
+        animationFrameId = requestAnimationFrame(playScroll);
+        return () => {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+        };
+    }, [isMobile, isHovered]);
+
+    const handleTouchStart = () => {
+        isTouchingRef.current = true;
+        setIsHovered(true);
+        if (resumeTimeoutRef.current) {
+            clearTimeout(resumeTimeoutRef.current);
+            resumeTimeoutRef.current = null;
+        }
+    };
+
+    const handleTouchEnd = () => {
+        isTouchingRef.current = false;
+        if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+        resumeTimeoutRef.current = setTimeout(() => {
+            if (!isTouchingRef.current) {
+                setIsHovered(false);
+            }
+        }, 2500);
+    };
 
     useEffect(() => {
         if (!latestBlogs || latestBlogs.length === 0) {
@@ -154,16 +217,21 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                         <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-16 bg-linear-to-l from-[#EAF7F7] to-transparent z-10 pointer-events-none" />
                         
                         <div 
-                            className="flex overflow-hidden items-center h-full w-full"
+                            ref={scrollRef}
+                            className="flex overflow-x-auto lg:overflow-hidden items-center h-full w-full touch-auto overscroll-x-contain custom-scrollbar-hide"
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
-                            onTouchStart={() => setIsHovered(true)}
-                            onTouchEnd={() => setIsHovered(false)}
+                            onTouchStart={handleTouchStart}
+                            onTouchEnd={handleTouchEnd}
                         >
                             <div 
-                                className="flex gap-6 shrink-0 w-max"
+                                className="flex gap-4 sm:gap-6 shrink-0 w-max"
                                 style={{
-                                    animation: 'scroll-marquee-left 25s linear infinite',
+                                    animationName: isMobile ? 'none' : 'scroll-marquee-left',
+                                    animationDuration: '25s',
+                                    animationTimingFunction: 'linear',
+                                    animationIterationCount: 'infinite',
                                     animationPlayState: isHovered ? 'paused' : 'running'
                                 }}
                             >
