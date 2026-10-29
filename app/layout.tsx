@@ -5,10 +5,12 @@ import Navbar from "./components/Navbar";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 import ChunkLoadHandler from "./components/ChunkLoadHandler";
 import SmoothScrolling from "./components/SmoothScrolling";
+import KeyboardNavigation from "./components/KeyboardNavigation";
 
 const Footer = dynamic(() => import("./components/Footer"));
 const FloatingCTA = dynamic(() => import("./components/FloatingCTA"));
 
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 
@@ -268,6 +270,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`antialiased bg-background text-foreground ${manrope.variable} ${sora.variable}`}
       >
+        <KeyboardNavigation />
         <SmoothScrolling>
           <ChunkLoadHandler />
           <Navbar />

@@ -1,38 +1,33 @@
 import { FaCheck } from "@react-icons/all-files/fa/FaCheck";
-import { FiSearch, FiGrid, FiCode, FiZap } from "react-icons/fi";
 import GeometricShapes from "./GeometricShapes";
 
 export default function HomeWaypoints() {
     const steps = [
         {
-            icon: FiSearch,
             title: "Discover",
             desc: "We audit your current skills, goals, and industry demands to identify exactly which AI career path will create the most measurable impact for your future."
         },
         {
-            icon: FiGrid,
             title: "Learn",
             desc: "Our expert instructors design the right approach—hands-on coding, cloud tools, or AI integration—based on real-world projects and your actual learning constraints."
         },
         {
-            icon: FiCode,
             title: "Connect",
             desc: "We build your network by pairing you with industry experts and simulating real workflows, ensuring you collaborate and build alongside the leaders of tomorrow."
         },
         {
-            icon: FiZap,
             title: "Launch",
             desc: "We deploy your talent directly into the industry with resume optimization, mock interviews, and strategic placement assistance to accelerate your career."
         },
     ];
 
     return (
-                <section className="py-20 lg:py-28 bg-[#EAF7F7] relative overflow-hidden" id="journey">
+        <section className="py-12 sm:py-20 lg:py-28 bg-[#EAF7F7] relative overflow-hidden" id="journey">
             <GeometricShapes variant="your-journey" />
        
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Section Header */}
-                <div className="text-center max-w-5xl mx-auto mb-16 gsap-fade-up">
+                <div className="text-center max-w-5xl mx-auto mb-6 sm:mb-16 gsap-fade-up">
                     <div className="flex items-center justify-center gap-4 mb-6">
                         <div className="w-8 h-px bg-[#20A6A8]/40"></div>
                         <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
@@ -50,11 +45,10 @@ export default function HomeWaypoints() {
             </div>
 
             {/* Zigzag Timeline Layout */}
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-12">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-4 sm:mt-12">
                 <div className="flex flex-col gap-6 lg:gap-8 relative">
 
                     {steps.map((step, index) => {
-                        const Icon = step.icon;
                         const isEven = index % 2 === 0;
 
                         return (
@@ -88,14 +82,9 @@ export default function HomeWaypoints() {
 
                                     {/* Right Content */}
                                     <div className="flex flex-col flex-1 py-1">
-                                        <div className="flex items-center gap-2.5 mb-2">
-                                            <div className="text-[#20A6A8]">
-                                                <Icon size={18} strokeWidth={2.5} />
-                                            </div>
-                                            <h3 className="text-lg lg:text-[18px] font-bold text-[#0F1C1E]">
-                                                {step.title}
-                                            </h3>
-                                        </div>
+                                        <h3 className="text-lg lg:text-[18px] font-bold text-[#0F1C1E] mb-2">
+                                            {step.title}
+                                        </h3>
 
                                         <p className="text-[#4A5568] text-[13px] sm:text-[14px] leading-[1.6]">
                                             {step.desc}

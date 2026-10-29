@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import { FaTimes } from "@react-icons/all-files/fa/FaTimes";
@@ -34,6 +34,19 @@ interface ProgramModalProps {
 export default function ProgramModal({ isOpen, onClose, modalType, activeProgramTitle, activeBrochureUrl }: ProgramModalProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                onClose();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
 
     const {
         register,
@@ -113,7 +126,7 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+        <div data-lenis-prevent role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -128,7 +141,7 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                     {/* Close Button */}
                     <button
                         onClick={onClose}
-                        className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:text-[#0F1C1E] hover:bg-gray-100 border border-gray-100 transition-all cursor-pointer z-20"
+                        aria-label="Close modal" className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:text-[#0F1C1E] hover:bg-gray-100 border border-gray-100 transition-all cursor-pointer z-20"
                     >
                         <FaTimes size={14} />
                     </button>
@@ -178,18 +191,18 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                     </div>
 
                     {/* Right Form Panel */}
-                    <div className="w-full md:w-1/2 p-8 md:p-10 relative z-10">
+                    <div className="w-full md:w-1/2 p-5 sm:p-8 md:p-10 relative z-10">
                         {/* Title Header */}
-                        <div className="mb-8 relative z-10">
+                        <div className="mb-4 sm:mb-8 relative z-10">
                             <div className="inline-block px-3 py-1.5 rounded-full bg-[#E8F8F8] border border-[#20A6A8]/20 mb-4 md:hidden">
                                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#20A6A8]">
                                     {modalType === 'brochure' ? 'Download' : 'Join Now'}
                                 </span>
                             </div>
-                            <h2 className="text-[26px] font-bold leading-tight tracking-[-0.03em] text-[#0F1C1E]">
+                            <h2 className="text-[20px] sm:text-[26px] font-bold leading-tight tracking-[-0.03em] text-[#0F1C1E]">
                                 {modalType === 'brochure' ? 'Get Brochure' : 'Enroll Now'}
                             </h2>
-                            <p className="text-[14px] font-medium text-gray-500 mt-2 leading-relaxed">
+                            <p className="text-[13px] sm:text-[14px] font-medium text-gray-500 mt-1.5 sm:mt-2 leading-relaxed">
                                 You&apos;re applying for <span className="font-bold text-[#20A6A8]">{activeProgramTitle}</span>
                             </p>
                         </div>
@@ -204,7 +217,7 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                                     type="text"
                                     placeholder="Enter your full name"
                                     {...register("name")}
-                                    className={`w-full h-14 px-5 rounded-xl border bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] placeholder-slate-400 focus:outline-none focus:ring-4 transition-all duration-300 text-[15px] font-medium ${errors.name ? 'border-red-400 text-red-600 focus:border-red-400 focus:ring-red-400/20' : 'text-slate-800 border-slate-200 hover:border-[#20A6A8]/40 focus:border-[#20A6A8] focus:ring-[#20A6A8]/15'
+                                    className={`w-full h-11 sm:h-14 px-4 sm:px-5 rounded-lg sm:rounded-xl border bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] placeholder-slate-400 focus:outline-none focus:ring-4 transition-all duration-300 text-[13px] sm:text-[15px] font-medium ${errors.name ? 'border-red-400 text-red-600 focus:border-red-400 focus:ring-red-400/20' : 'text-slate-800 border-slate-200 hover:border-[#20A6A8]/40 focus:border-[#20A6A8] focus:ring-[#20A6A8]/15'
                                         }`}
                                 />
                                 {errors.name && (
@@ -222,7 +235,7 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                                     type="email"
                                     placeholder="Enter your email address"
                                     {...register("email")}
-                                    className={`w-full h-14 px-5 rounded-xl border bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] placeholder-slate-400 focus:outline-none focus:ring-4 transition-all duration-300 text-[15px] font-medium ${errors.email ? 'border-red-400 text-red-600 focus:border-red-400 focus:ring-red-400/20' : 'text-slate-800 border-slate-200 hover:border-[#20A6A8]/40 focus:border-[#20A6A8] focus:ring-[#20A6A8]/15'
+                                    className={`w-full h-11 sm:h-14 px-4 sm:px-5 rounded-lg sm:rounded-xl border bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] placeholder-slate-400 focus:outline-none focus:ring-4 transition-all duration-300 text-[13px] sm:text-[15px] font-medium ${errors.email ? 'border-red-400 text-red-600 focus:border-red-400 focus:ring-red-400/20' : 'text-slate-800 border-slate-200 hover:border-[#20A6A8]/40 focus:border-[#20A6A8] focus:ring-[#20A6A8]/15'
                                         }`}
                                 />
                                 {errors.email && (
@@ -244,7 +257,7 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                                     onInput={(e) => {
                                         e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '').slice(0, 10);
                                     }}
-                                    className={`w-full h-14 px-5 rounded-xl border bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] placeholder-slate-400 focus:outline-none focus:ring-4 transition-all duration-300 text-[15px] font-medium tracking-wide ${errors.phone ? 'border-red-400 text-red-600 focus:border-red-400 focus:ring-red-400/20' : 'text-slate-800 border-slate-200 hover:border-[#20A6A8]/40 focus:border-[#20A6A8] focus:ring-[#20A6A8]/15'
+                                    className={`w-full h-11 sm:h-14 px-4 sm:px-5 rounded-lg sm:rounded-xl border bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] placeholder-slate-400 focus:outline-none focus:ring-4 transition-all duration-300 text-[13px] sm:text-[15px] font-medium tracking-wide ${errors.phone ? 'border-red-400 text-red-600 focus:border-red-400 focus:ring-red-400/20' : 'text-slate-800 border-slate-200 hover:border-[#20A6A8]/40 focus:border-[#20A6A8] focus:ring-[#20A6A8]/15'
                                         }`}
                                 />
                                 {errors.phone && (
@@ -272,7 +285,7 @@ export default function ProgramModal({ isOpen, onClose, modalType, activeProgram
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full h-14 mt-6 relative overflow-hidden rounded-xl bg-[#20A6A8] text-white font-bold transition-all shadow-[0_8px_25px_-8px_rgba(32,166,168,0.5)] hover:shadow-[0_12px_30px_-10px_rgba(32,166,168,0.7)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100"
+                                className="w-full h-11 sm:h-14 mt-4 sm:mt-6 relative overflow-hidden rounded-lg sm:rounded-xl bg-[#20A6A8] text-white font-bold transition-all shadow-[0_8px_25px_-8px_rgba(32,166,168,0.5)] hover:shadow-[0_12px_30px_-10px_rgba(32,166,168,0.7)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100 text-[14px] sm:text-[16px]"
                             >
                                 <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></div>
                                 <div className="relative z-10 flex items-center justify-center gap-3 px-6 h-full">

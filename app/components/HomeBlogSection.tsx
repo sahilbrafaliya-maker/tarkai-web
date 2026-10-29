@@ -54,16 +54,16 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
     const scrollBlogs = displayBlogs.slice(1);
 
     return (
-        <section className="pt-12 pb-20 lg:pt-16 lg:pb-28 bg-[#EAF7F7] relative z-20 overflow-hidden">
+        <section className="pt-8 pb-10 sm:pt-12 sm:pb-20 lg:pt-16 lg:pb-28 bg-[#EAF7F7] relative z-20 overflow-hidden">
             <GeometricShapes />
             <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
                 
                 {/* Header Container */}
-                <div className="relative mb-16 max-w-full mx-auto flex flex-col items-center">
+                <div className="relative mb-6 sm:mb-12 lg:mb-16 max-w-full mx-auto flex flex-col items-center">
                     
                     {/* Centered Content */}
                     <div className="text-center max-w-4xl mx-auto flex flex-col items-center">
-                        <div className="flex items-center justify-center gap-4 mb-6">
+                        <div className="flex items-center justify-center gap-4 mb-4 sm:mb-6">
                             <div className="w-12 h-px bg-[#20A6A8]/40"></div>
                             <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal tracking-wide">
                                 Latest Updates
@@ -71,7 +71,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                             <div className="w-12 h-px bg-[#20A6A8]/40"></div>
                         </div>
 
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-3 sm:mb-6">
                             Discover Latest <span className="text-[#20A6A8]">Insights & News</span>
                         </h2>
                         
@@ -91,7 +91,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                     </div>
 
                     {/* Right-aligned Link (Mobile/Tablet fallback - placed below text) */}
-                    <div className="lg:hidden mt-6 flex justify-end w-full px-4">
+                    <div className="lg:hidden mt-3 sm:mt-6 flex justify-end w-full px-4">
                         <Link href="/blog" className="text-[#20A6A8] hover:text-[#188082] text-sm font-semibold transition-colors duration-300 group flex items-center gap-1.5">
                             View all articles 
                             <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -101,12 +101,12 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                     </div>
                 </div>
 
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full items-stretch">
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 w-full items-stretch">
                     
                     {/* Left Column (Featured Blog) */}
                     <div className="lg:w-1/3 flex flex-col justify-start z-30">
                         {featuredPost && (
-                            <Link href={`/blog/${featuredPost.slug || featuredPost.id}`} className="block h-115 w-full group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500 border border-white/50">
+                            <Link href={`/blog/${featuredPost.slug || featuredPost.id}`} className="block h-92 sm:h-115 w-full group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500 border border-white/50">
                                 {/* Background Image */}
                                 <Image
                                     src={featuredPost.coverImage || featuredPost.image || '/Logo.png'}
@@ -128,7 +128,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                                 </div>
                                 
                                 {/* Content on top */}
-                                <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col gap-2 z-30">
+                                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8 flex flex-col gap-2 z-30">
                                     <h3 className="text-xl sm:text-2xl font-bold text-white leading-snug transition-colors duration-300">
                                         {featuredPost.title}
                                     </h3>
@@ -170,7 +170,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                                 {[0, 1].map((setIndex) => (
                                     <div key={setIndex} className="flex gap-6 shrink-0">
                                         {scrollBlogs.map((post) => (
-                                            <div key={`${setIndex}-${post.id}`} className="w-75 sm:w-87.5 shrink-0 h-110 flex">
+                                            <div key={`${setIndex}-${post.id}`} className="w-68 sm:w-87.5 shrink-0 h-96 sm:h-110 flex">
                                                 <BlogCard post={post} />
                                             </div>
                                         ))}

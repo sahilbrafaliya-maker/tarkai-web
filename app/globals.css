@@ -254,3 +254,40 @@ body {
     scrollbar-width: thin;
     scrollbar-color: var(--color-brand-accent, #20A6A8) transparent;
 }
+
+.card-hover-wave {
+    -webkit-clip-path: circle(0% at 100% 0%);
+    clip-path: circle(0% at 100% 0%);
+    transition: clip-path 0.8s cubic-bezier(0.25, 1, 0.5, 1), -webkit-clip-path 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: clip-path;
+}
+
+.group:hover .card-hover-wave,
+.group:active .card-hover-wave,
+.group:focus-visible .card-hover-wave {
+    -webkit-clip-path: circle(160% at 100% 0%);
+    clip-path: circle(160% at 100% 0%);
+}
+
+/* Mobile responsive view: Why TarkAI is Surat's Best Choice section cards */
+@media (max-width: 767px), (hover: none) {
+    .why-tarkai-card .card-hover-wave {
+        transition: clip-path 0.5s cubic-bezier(0.25, 1, 0.5, 1), -webkit-clip-path 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .why-tarkai-card:hover .card-hover-wave,
+    .why-tarkai-card:active .card-hover-wave,
+    .why-tarkai-card:focus-visible .card-hover-wave {
+        -webkit-clip-path: circle(160% at 100% 0%);
+        clip-path: circle(160% at 100% 0%);
+    }
+
+    .why-tarkai-card:hover h3,
+    .why-tarkai-card:hover p,
+    .why-tarkai-card:active h3,
+    .why-tarkai-card:active p,
+    .why-tarkai-card:focus-visible h3,
+    .why-tarkai-card:focus-visible p {
+        color: #FFFFFF !important;
+    }
+}

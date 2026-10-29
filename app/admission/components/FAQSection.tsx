@@ -59,11 +59,11 @@ function FAQItem({
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-4 sm:px-5 sm:py-4 text-left transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between p-3 sm:px-5 sm:py-4 text-left transition-colors cursor-pointer"
         aria-expanded={isOpen}
       >
         <span
-          className={`font-bold text-[15px] sm:text-base pr-4 leading-snug transition-colors ${
+          className={`font-bold text-[13px] sm:text-base pr-4 leading-snug transition-colors ${
             isOpen ? 'text-[#00737a]' : 'text-[#0f172a]'
           }`}
         >
@@ -88,7 +88,7 @@ function FAQItem({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
-            <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-3 text-[#475569] text-sm sm:text-[15px] leading-relaxed font-normal border-t border-slate-100">
+            <div className="px-3 sm:px-5 pb-3 sm:pb-5 pt-2 sm:pt-3 text-[#475569] text-xs sm:text-[15px] leading-relaxed font-normal border-t border-slate-100">
               {faq.a}
             </div>
           </motion.div>
@@ -107,7 +107,7 @@ export default function FAQSection() {
   const visibleFaqs = showAll ? faqs : faqs.slice(0, 5);
 
   return (
-    <section ref={ref} className="py-20 bg-[#f8fafc] relative overflow-hidden" id="faq">
+    <section ref={ref} className="py-8 sm:py-20 bg-[#f8fafc] relative overflow-hidden" id="faq">
       <GeometricShapes variant="contact" />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -116,12 +116,12 @@ export default function FAQSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          className="text-center mb-5 sm:mb-14"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight mb-1.5 sm:mb-4">
             Frequently Asked <span className="text-[#00737a]">Questions</span>
           </h2>
-          <p className="text-base sm:text-lg text-[#334155] max-w-xl mx-auto font-normal">
+          <p className="text-xs sm:text-base text-[#334155] max-w-xl mx-auto font-normal">
             Everything you need to know about joining and attending the free live demo &amp; full programs.
           </p>
         </motion.div>

@@ -127,29 +127,29 @@ export default function TestimonialsSection({ badge, title, subtitle, limit }: T
   };
 
   return (
-    <section className="py-20 sm:py-28 bg-white relative overflow-hidden" aria-label="Student Success Stories">
+    <section className="py-8 sm:py-20 lg:py-28 bg-white relative overflow-hidden" aria-label="Student Success Stories">
       <GeometricShapes variant="student-journeys" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <div className="flex items-center justify-center gap-4 mb-6">
+        <div className="text-center mb-4 sm:mb-14">
+          <div className="flex items-center justify-center gap-4 mb-2 sm:mb-6">
             <div className="w-12 h-px bg-[#20A6A8]/40"></div>
             <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal tracking-widest">
               {badge || 'Student Success Stories'}
             </div>
             <div className="w-12 h-px bg-[#20A6A8]/40"></div>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-1.5 sm:mb-4">
             {title || <>Proven Outcomes from <span className="text-[#20A6A8]">TarkAI Alumni</span></>}
           </h2>
-          <p className="text-[16px] sm:text-[18px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
+          <p className="text-[13px] sm:text-[18px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
             {subtitle || 'Discover how our students transformed their skills and launched high-growth tech careers.'}
           </p>
         </div>
 
         {/* Coverflow Carousel */}
-        <div className="relative h-105 sm:h-95 w-full max-w-5xl mx-auto flex items-center justify-center">
+        <div className="relative h-85 sm:h-95 w-full max-w-5xl mx-auto flex items-center justify-center">
           <AnimatePresence initial={false}>
             {displayTestimonials.map((testimonial, index) => {
               // Calculate offset relative to current
@@ -172,10 +172,10 @@ export default function TestimonialsSection({ badge, title, subtitle, limit }: T
                     zIndex: offset === 0 ? 30 : 10,
                   }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className={`absolute w-70 sm:w-85 rounded-3xl bg-white shadow-[0_15px_40px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col pointer-events-${offset === 0 ? 'auto' : 'none'}`}
+                  className={`absolute w-72 sm:w-85 rounded-2xl sm:rounded-3xl bg-white shadow-[0_15px_40px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col pointer-events-${offset === 0 ? 'auto' : 'none'}`}
                 >
-                  <div className="p-8 sm:p-10 flex-1 flex flex-col min-h-75">
-                    <div className="flex items-center justify-between mb-6">
+                  <div className="p-4 sm:p-10 flex-1 flex flex-col min-h-50 sm:min-h-75">
+                    <div className="flex items-center justify-between mb-2.5 sm:mb-6">
                       <span className="px-2.5 py-1 rounded-full bg-[#20A6A8]/10 border border-[#20A6A8]/20 text-[#20A6A8] text-[10px] font-bold uppercase tracking-widest">
                         {testimonial.tag}
                       </span>
@@ -188,12 +188,12 @@ export default function TestimonialsSection({ badge, title, subtitle, limit }: T
                       </div>
                     </div>
 
-                    <p className="text-[14px] sm:text-[15px] font-medium text-[#475569] leading-relaxed flex-1">
+                    <p className="text-[13px] sm:text-[15px] font-medium text-[#475569] leading-relaxed flex-1">
                       {testimonial.text}
                     </p>
                   </div>
 
-                  <div className="bg-[#f8fafc] px-8 sm:px-10 py-5 border-t border-slate-100 flex items-center gap-3">
+                  <div className="bg-[#f8fafc] px-4 sm:px-10 py-2.5 sm:py-5 border-t border-slate-100 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-[#20A6A8] text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">
                       {testimonial.initials}
                     </div>
@@ -209,7 +209,7 @@ export default function TestimonialsSection({ badge, title, subtitle, limit }: T
         </div>
 
         {/* Navigation Controls */}
-        <div className="flex items-center justify-center gap-6 mt-12 sm:mt-16">
+        <div className="flex items-center justify-center gap-6 mt-6 sm:mt-16">
           <div className="flex gap-2 items-center">
             {displayTestimonials.map((_, i) => (
               <button

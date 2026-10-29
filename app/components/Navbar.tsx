@@ -50,6 +50,19 @@ export default function Navbar() {
         }
     }, [lastScrollY]);
 
+    useEffect(() => {
+        if (!isMobileMenuOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsMobileMenuOpen(false);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isMobileMenuOpen]);
+
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -90,9 +103,9 @@ export default function Navbar() {
                 initial={isHome ? "hidden" : "visible"}
                 animate="visible"
                 variants={containerVariants}
-                className={`flex justify-between items-center relative transition-all duration-500 ease-in-out px-6 ${isScrolled
-                    ? 'w-[95%] max-w-5xl h-16 rounded-full bg-brand-lightest/80 backdrop-blur-xl shadow-lg shadow-brand-dark/5'
-                    : 'w-full max-w-7xl h-24 bg-transparent'
+                className={`flex justify-between items-center relative transition-all duration-500 ease-in-out px-4 sm:px-6 ${isScrolled
+                    ? 'w-[95%] max-w-5xl h-14 sm:h-16 rounded-full bg-brand-lightest/80 backdrop-blur-xl shadow-lg shadow-brand-dark/5'
+                    : 'w-full max-w-7xl h-16 sm:h-20 md:h-24 bg-transparent'
                     }`}
             >
 
@@ -105,7 +118,7 @@ export default function Navbar() {
                             width={140}
                             height={50}
                             sizes="(max-width: 768px) 140px, 140px"
-                            className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10' : 'h-16'}`}
+                            className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-8 sm:h-10' : 'h-10 sm:h-14 md:h-16'}`}
                             priority
                             draggable={false}
                         />
@@ -171,9 +184,9 @@ export default function Navbar() {
                         aria-expanded={isMobileMenuOpen}
                     >
                         {isMobileMenuOpen ? (
-                            <FaTimes className="w-6 h-6" aria-hidden="true" focusable="false" />
+                            <FaTimes className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" focusable="false" />
                         ) : (
-                            <FaBars className="w-6 h-6" aria-hidden="true" focusable="false" />
+                            <FaBars className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" focusable="false" />
                         )}
                     </button>
                 </motion.div>
@@ -187,9 +200,9 @@ export default function Navbar() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className={`md:hidden absolute left-0 right-0 mx-4 mt-2 overflow-hidden rounded-2xl bg-brand-lightest/95 backdrop-blur-md border border-brand-accent/20 shadow-xl z-40 ${isScrolled ? 'top-20' : 'top-24'}`}
+                        className={`md:hidden absolute left-0 right-0 mx-3 sm:mx-4 mt-2 overflow-hidden rounded-2xl bg-brand-lightest/95 backdrop-blur-md border border-brand-accent/20 shadow-xl z-40 ${isScrolled ? 'top-16 sm:top-20' : 'top-18 sm:top-22 md:top-24'}`}
                     >
-                        <div className="flex flex-col p-4 space-y-2">
+                        <div className="flex flex-col p-3 sm:p-4 space-y-1.5 sm:space-y-2">
                             {navLinks.map((link) => {
                                 const isActive = pathname === link.href;
                                 return (
@@ -197,7 +210,7 @@ export default function Navbar() {
                                         key={link.name}
                                         href={link.href}
                                         onClick={() => setIsMobileMenuOpen(false)}
-                                        className={`block w-full text-center px-4 py-3 rounded-xl text-[16px] transition-all duration-200 ${isActive
+                                        className={`block w-full text-center px-3 py-2 sm:px-4 sm:py-3 rounded-xl text-[14px] sm:text-[16px] transition-all duration-200 ${isActive
                                             ? 'font-semibold bg-brand-accent/10 text-brand-accent shadow-xs'
                                             : 'font-medium text-brand-dark hover:font-semibold hover:bg-brand-lightest/50 hover:text-brand-accent'
                                             }`}
@@ -209,9 +222,9 @@ export default function Navbar() {
                             <Link
                                 href="/contact"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="mt-4 w-full flex justify-center"
+                                className="mt-2.5 sm:mt-4 w-full flex justify-center"
                             >
-                                <div className="relative group overflow-hidden px-8 py-3 rounded-full font-bold text-white shadow-xl transition-all duration-300 active:scale-95 w-full text-center">
+                                <div className="relative group overflow-hidden px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-bold text-white shadow-xl transition-all duration-300 active:scale-95 w-full text-center text-[14px] sm:text-[16px]">
                                     <span className="absolute inset-0 bg-linear-to-r from-brand-accent to-brand-dark"></span>
                                     <span className="relative flex items-center justify-center gap-2 z-20">
                                         Book Demo

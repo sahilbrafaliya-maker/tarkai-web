@@ -73,7 +73,7 @@ export default function BenefitsSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="py-20 sm:py-28 bg-white relative overflow-hidden" aria-label="Why choose TarkAI">
+    <section ref={ref} className="py-8 sm:py-28 bg-white relative overflow-hidden" aria-label="Why choose TarkAI">
       
       {/* Premium Background Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -89,21 +89,21 @@ export default function BenefitsSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-16 sm:mb-20"
+          className="text-center mb-5 sm:mb-20"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight">
               Why You Should Choose <span className="text-[#00737a]">TarkAI</span>
             </h2>
           </div>
-          <p className="text-base sm:text-lg text-[#334155] max-w-2xl mx-auto mt-3 font-normal leading-relaxed">
+          <p className="text-xs sm:text-base text-[#334155] max-w-2xl mx-auto mt-2 sm:mt-3 font-normal leading-relaxed">
             Specific credentials and hands-on learning — here&apos;s what separates TarkAI from standard training programs.
           </p>
         </motion.div>
 
         {/* 3-Column Premium Card Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={{
@@ -122,10 +122,10 @@ export default function BenefitsSection() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
               }}
               whileHover={{ y: -6 }}
-              className="group flex flex-col p-8 rounded-3xl bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,115,122,0.12)] hover:border-[#00737a]/30 transition-all duration-300 relative overflow-hidden text-left"
+              className="group flex flex-col p-3.5 sm:p-8 rounded-xl sm:rounded-3xl bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,115,122,0.12)] hover:border-[#00737a]/30 transition-all duration-300 relative overflow-hidden text-left"
             >
               {/* Large Watermark Number */}
-              <div className="absolute -bottom-6 -right-6 text-[120px] font-black text-slate-50 group-hover:text-[#00737a]/3 transition-colors duration-500 select-none pointer-events-none leading-none z-0">
+              <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 text-[80px] sm:text-[120px] font-black text-slate-50 group-hover:text-[#00737a]/3 transition-colors duration-500 select-none pointer-events-none leading-none z-0">
                 {benefit.id}
               </div>
 
@@ -134,14 +134,14 @@ export default function BenefitsSection() {
 
               <div className="relative z-10 flex-1">
                 {/* Icon Container */}
-                <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-[#00737a] mb-6 group-hover:bg-[#00737a] group-hover:text-white transition-colors duration-300 shadow-sm border border-slate-100">
+                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-slate-50 flex items-center justify-center text-[#00737a] mb-2.5 sm:mb-6 group-hover:bg-[#00737a] group-hover:text-white transition-colors duration-300 shadow-sm border border-slate-100">
                   {benefit.icon}
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-bold text-[#0f172a] mb-3 group-hover:text-[#00737a] transition-colors">
+                <h3 className="text-base sm:text-xl font-bold text-[#0f172a] mb-1.5 sm:mb-3 group-hover:text-[#00737a] transition-colors">
                   {benefit.title}
                 </h3>
-                <p className="text-sm sm:text-base font-normal text-[#475569] leading-relaxed">
+                <p className="text-xs sm:text-base font-normal text-[#475569] leading-relaxed">
                   {benefit.description}
                 </p>
               </div>

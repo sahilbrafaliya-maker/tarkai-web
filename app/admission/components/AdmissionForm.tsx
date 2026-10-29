@@ -322,17 +322,17 @@ export default function AdmissionForm() {
     >
       <div>
         {/* Form Card Header */}
-        <div className="p-5 sm:p-8 pb-5 border-b border-slate-100 bg-white">
-          <h2 className="text-xl sm:text-2xl font-bold text-[#0f172a] tracking-tight mb-1">
+        <div className="p-4 sm:p-8 pb-3 sm:pb-5 border-b border-slate-100 bg-white">
+          <h2 className="text-lg sm:text-2xl font-bold text-[#0f172a] tracking-tight mb-1">
             Book Your Free Demo
           </h2>
-          <p className="text-sm font-normal text-[#475569]">
+          <p className="text-xs sm:text-sm font-normal text-[#475569]">
             Fill in your details below to reserve your 3-day demo seat.
           </p>
         </div>
 
         {/* Form Content */}
-        <div className="p-4 sm:p-8">
+        <div className="p-3.5 sm:p-8">
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div

@@ -3,9 +3,6 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 import HeroVisual from "./components/HeroVisual";
-import { FaChalkboardTeacher } from "@react-icons/all-files/fa/FaChalkboardTeacher";
-import { FaLightbulb } from "@react-icons/all-files/fa/FaLightbulb";
-import { FaRocket } from "@react-icons/all-files/fa/FaRocket";
 import { FaMapMarkerAlt } from "@react-icons/all-files/fa/FaMapMarkerAlt";
 import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp";
 import { FaPhone } from "@react-icons/all-files/fa/FaPhone";
@@ -200,75 +197,194 @@ export default async function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 lg:py-28 bg-[#FFFFFF] relative overflow-hidden">
-        
-        {/* Background Decorations matching the reference */}
-        <div className="absolute -bottom-37.5 -right-37.5 w-100 h-100 bg-[#FFFFFF]/40 rounded-full pointer-events-none blur-[2px]"></div>
-        
+      <section id="features" className="py-16 md:py-20 lg:py-24 bg-[#FFFFFF] relative overflow-hidden">
         <GeometricShapes variant="why-choose-us" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
-          {/* Header Area */}
-          <div className="text-center max-w-5xl mx-auto mb-16 gsap-fade-up relative z-10">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+          {/* Section Header */}
+          <div className="text-center max-w-5xl mx-auto mb-12 sm:mb-14 gsap-fade-up relative z-10">
+            <div className="flex items-center justify-center gap-4 mb-5">
+              <div className="w-8 h-px bg-[#20A6A8]/40" />
               <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
                 Why Choose Us
               </div>
-              <div className="w-8 h-px bg-[#20A6A8]/40"></div>
+              <div className="w-8 h-px bg-[#20A6A8]/40" />
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-5">
               Why TarkAI is Surat&apos;s <span className="text-[#20A6A8]">Best Choice</span>
             </h2>
             <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
-              Specific credentials, not vague promises — here&apos;s exactly what separates<br className="hidden sm:block" /> TarkAI from other institutes in Surat and Gujarat.
+              Specific credentials, not vague promises — here&apos;s exactly what separates
+              <br className="hidden sm:block" /> TarkAI from other institutes in Surat and Gujarat.
             </p>
           </div>
 
           {/* Feature Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 gsap-stagger mt-12 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 gsap-stagger mt-8 sm:mt-10 relative z-10 w-full">
             {[
               {
                 title: "IIIT Lucknow Faculty",
-                description: "Your instructors are co-founders holding M.Sc. degrees in AI, Machine Learning, and Climate Analytics from IIIT Lucknow — not just corporate trainers.",
-                icon: <FaChalkboardTeacher className="w-6 h-6" aria-hidden="true" focusable="false" />
+                description:
+                  "Your instructors are co-founders holding M.Sc. degrees in AI, Machine Learning, and Climate Analytics from IIIT Lucknow — not just corporate trainers.",
+                href: "/team",
+                icon: (
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 flex items-center justify-center">
+                    <svg
+                      width="44"
+                      height="44"
+                      viewBox="0 0 48 48"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Glowing amber radiant rays */}
+                      <line x1="24" y1="3" x2="24" y2="7" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="9" y1="9" x2="12" y2="12" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="39" y1="9" x2="36" y2="12" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="3" y1="23" x2="7" y2="23" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="45" y1="23" x2="41" y2="23" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
+                      {/* Translucent Bulb body */}
+                      <path
+                        d="M16 23C16 18.5817 19.5817 15 24 15C28.4183 15 32 18.5817 32 23C32 26.1325 30.1983 28.8447 27.5911 30.1557C26.6042 30.652 26 31.6628 26 32.7639V34H22V32.7639C22 31.6628 21.3958 30.652 20.4089 30.1557C17.8017 28.8447 16 26.1325 16 23Z"
+                        fill="white"
+                        fillOpacity="0.95"
+                        stroke="#2DA5A3"
+                        strokeWidth="1.75"
+                      />
+                      {/* Bulb base with warm amber finish */}
+                      <rect x="20" y="35" width="8" height="3" rx="1.5" fill="#F59E0B" />
+                      <rect x="21" y="39" width="6" height="2" rx="1" fill="#F59E0B" opacity="0.8" />
+                    </svg>
+                  </div>
+                ),
               },
               {
                 title: "Concept → Code → Case Studies",
-                description: "Our 'Why First, Then How' methodology builds deep engineering intuition. Small batches ensure every student gets personal attention from day one.",
-                icon: <FaLightbulb className="w-6 h-6" aria-hidden="true" focusable="false" />
+                description:
+                  "Our 'Why First, Then How' methodology builds deep engineering intuition. Small batches ensure every student gets personal attention from day one.",
+                href: "/programs",
+                icon: (
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 flex items-center justify-center">
+                    <svg
+                      width="44"
+                      height="44"
+                      viewBox="0 0 48 48"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Metallic Precision Dial Base */}
+                      <circle cx="24" cy="24" r="18" fill="url(#dialGradient)" stroke="#94A3B8" strokeWidth="1.5" />
+                      {/* Inner Dial Track */}
+                      <circle cx="24" cy="24" r="12" fill="#334155" fillOpacity="0.35" />
+                      <circle cx="24" cy="24" r="7" fill="#E2E8F0" />
+                      {/* Signature Vibrant Magenta/Pink Arc */}
+                      <path
+                        d="M24 6 A 18 18 0 0 1 42 24"
+                        stroke="#F43F5E"
+                        strokeWidth="4.5"
+                        strokeLinecap="round"
+                      />
+                      <defs>
+                        <linearGradient id="dialGradient" x1="10" y1="10" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                          <stop stopColor="#F1F5F9" />
+                          <stop offset="0.5" stopColor="#CBD5E1" />
+                          <stop offset="1" stopColor="#94A3B8" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                ),
               },
               {
                 title: "1-Month Placement Ready Program",
-                description: "ATS resume, LinkedIn optimization, mock interviews, GitHub portfolio review, and career coaching — all included in major programs at no extra cost.",
-                icon: <FaRocket className="w-6 h-6" aria-hidden="true" focusable="false" />
-              }
-            ].map((feature, index) => {
-              const isActive = index === 1;
-              return (
-                <div 
-                  key={index} 
-                  className={`group relative bg-white border rounded-4xl p-8 sm:p-10 transition-all duration-300 overflow-hidden flex flex-col ${isActive ? 'border-[#20A6A8] shadow-[0_8px_30px_rgba(0,0,0,0.06)]' : 'border-[#0F1C1E]/20 hover:border-[#20A6A8] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]'}`}
-                >
-                  {/* Background glow on hover */}
-                  <div className={`absolute top-0 right-0 w-64 h-64 bg-linear-to-bl from-[#20A6A8]/10 to-transparent transition-opacity duration-500 rounded-bl-full pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}></div>
-                  <div className={`absolute inset-0 bg-linear-to-br from-[#20A6A8]/2 to-transparent transition-opacity duration-500 pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}></div>
-
-                  {/* Icon Container */}
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors duration-300 relative z-10 mb-8 border border-[#20A6A8]/10 ${isActive ? 'bg-[#20A6A8] text-white' : 'bg-[#20A6A8]/5 text-[#20A6A8] group-hover:bg-[#20A6A8] group-hover:text-white'}`}>
-                    {feature.icon}
+                description:
+                  "ATS resume, LinkedIn optimization, mock interviews, GitHub portfolio review, and career coaching — all included in major programs at no extra cost.",
+                href: "/programs",
+                icon: (
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 flex items-center justify-center">
+                    <svg
+                      width="44"
+                      height="44"
+                      viewBox="0 0 48 48"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* 3 Rising Bar Pillars */}
+                      <rect x="8" y="27" width="7" height="15" rx="3.5" fill="#CBD5E1" fillOpacity="0.85" />
+                      <rect x="18" y="19" width="7" height="23" rx="3.5" fill="#94A3B8" fillOpacity="0.85" />
+                      <rect x="28" y="13" width="7" height="29" rx="3.5" fill="#64748B" fillOpacity="0.85" />
+                      {/* Vibrant Emerald/Mint Green Rising Arrow */}
+                      <path
+                        d="M12 25L23 15L33 9M33 9H25M33 9V17"
+                        stroke="#10B981"
+                        strokeWidth="3.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </div>
-                  
-                  {/* Text Content */}
-                  <h3 className={`text-xl sm:text-[22px] font-semibold mb-4 relative z-10 transition-colors duration-300 ${isActive ? 'text-[#20A6A8]' : 'text-[#0F1C1E] group-hover:text-[#20A6A8]'}`}>
+                ),
+              },
+            ].map((feature, index) => (
+              <Link
+                key={index}
+                href={feature.href}
+                className="why-tarkai-card group relative rounded-[28px] sm:rounded-4xl p-6 sm:p-7 lg:p-8 flex flex-col justify-between min-h-75 sm:min-h-80 lg:min-h-85 cursor-pointer overflow-hidden
+                  bg-[#EAF7F7]
+                  shadow-[0_4px_20px_rgba(24,100,116,0.06)] hover:shadow-[0_20px_40px_-12px_rgba(24,100,116,0.28)]
+                  transition-shadow duration-700 ease-in-out
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#20A6A8]"
+              >
+                {/* Smooth Hover Gradient Wave (Spreading from top-right corner to bottom-left) */}
+                <div
+                  className="absolute inset-0 bg-linear-to-b from-[#186474] to-[#114E5B] card-hover-wave pointer-events-none"
+                  aria-hidden="true"
+                />
+
+                {/* Inverted Corner Cutout SVG matching the notched contour */}
+                <svg
+                  className="absolute -top-px -right-px w-26 h-26 sm:w-28 sm:h-28 pointer-events-none z-10"
+                  viewBox="0 0 100 100"
+                  fill="#FFFFFF"
+                  aria-hidden="true"
+                >
+                  <path d="M 100 0 L 0 0 A 20 20 0 0 1 20 20 L 20 60 A 20 20 0 0 0 40 80 L 80 80 A 20 20 0 0 1 100 100 L 100 0 Z" />
+                </svg>
+
+                {/* Top-Right Circular Arrow Button */}
+                <div
+                  className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-13.5 h-13.5 sm:w-14 sm:h-14 lg:w-15 lg:h-15 rounded-full bg-[#EAF7F7] group-hover:bg-[#FFFFFF] flex items-center justify-center text-[#186474] z-20 shadow-xs transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:shadow-md"
+                  aria-hidden="true"
+                >
+                  <svg
+                    className="w-5.5 h-5.5 sm:w-6 sm:h-6 lg:w-6.5 lg:h-6.5 transition-transform duration-700 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </div>
+
+                {/* Top Left Icon Container */}
+                <div className={`relative z-10 transition-transform duration-700 ease-in-out group-hover:scale-105 ${index === 0 ? 'mb-5 sm:mb-6' : 'mb-6 sm:mb-7'}`}>
+                  {feature.icon}
+                </div>
+
+                {/* Title and Description */}
+                <div className="relative z-10 flex flex-col justify-start grow">
+                  <h3 className="text-xl sm:text-[22px] lg:text-[24px] font-bold tracking-tight mb-2.5 sm:mb-3 text-[#0F1C1E] group-hover:text-white group-active:text-white transition-colors duration-700 ease-in-out leading-snug">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-500 text-[15px] sm:text-[16px] leading-[1.65] relative z-10">
+                  <p className="text-[#4D666D] group-hover:text-white group-active:text-white text-[14.5px] sm:text-[15px] lg:text-[15.5px] leading-[1.65] transition-colors duration-700 ease-in-out">
                     {feature.description}
                   </p>
                 </div>
-              );
-            })}
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -280,7 +396,7 @@ export default async function Home() {
       <SignaturePrograms />
 
       {/* Why Now Section - Light Theme Redesign */}
-      <section id="why-now" className="pt-8 md:pt-16 pb-24 bg-[#F8FCFC] relative overflow-hidden">
+      <section id="why-now" className="pt-6 sm:pt-8 md:pt-16 pb-12 sm:pb-16 md:pb-24 bg-[#F8FCFC] relative overflow-hidden">
         {/* Subtle Background Elements */}
         <div className="absolute top-0 right-0 w-125 h-125 bg-[#20A6A8]/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
         <div className="absolute -bottom-20 -left-20 w-150 h-150 bg-[#20A6A8]/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
@@ -290,40 +406,37 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           {/* Header */}
-          <div className="text-center max-w-5xl mx-auto mb-8 md:mb-20 gsap-fade-up">
-            <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="text-center max-w-5xl mx-auto mb-6 sm:mb-8 md:mb-20 gsap-fade-up">
+            <div className="flex items-center justify-center gap-4 mb-4 sm:mb-6">
               <div className="w-8 h-px bg-[#20A6A8]/40"></div>
               <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
                 Why Now?
               </div>
               <div className="w-8 h-px bg-[#20A6A8]/40"></div>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-3 sm:mb-6">
               The Intelligence Shift is <span className="text-[#20A6A8]">Reshaping Work</span>
             </h2>
-            <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
+            <p className="text-[14.5px] sm:text-[16px] font-normal leading-[1.6] sm:leading-[1.65] text-slate-500 max-w-2xl mx-auto">
               With AI transforming every industry and talent gaps widening, <br className="hidden sm:block" />now is the perfect time to build your technical edge.
             </p>
           </div>
 
           {/* Centered Cards Layout */}
           <div className="relative max-w-4xl mx-auto">
-              <div className="flex flex-col gap-6 gsap-slide-up-stagger">
+              <div className="flex flex-col gap-4 sm:gap-6 gsap-slide-up-stagger">
                 {[
                   {
-                    id: "01",
                     title: "AI transforms every workflow",
                     description: "Companies now ship AI copilots and agentic tools across finance, healthcare, and design. Teams need builders who can translate business queries into intelligent systems.",
                     icon: <FaMicrochip size={32} />
                   },
                   {
-                    id: "02",
                     title: "Data literacy is the new baseline",
                     description: "Leaders demand professionals who can clean, analyze, and narrate data fluently. Those skills turn dashboards into decisions and experiments into revenue.",
                     icon: <FaChartLine size={32} />
                   },
                   {
-                    id: "03",
                     title: "Talent gaps are widening fast",
                     description: "Over 70% of employers report difficulty hiring AI & analytics talent. Programmatic upskilling with mentorship is the quickest route to the front of the queue.",
                     icon: <FaUsers size={32} />
@@ -331,12 +444,12 @@ export default async function Home() {
                 ].map((item, index) => (
                   <div key={index} className="relative group">
                     {/* Modern Card Design - All White */}
-                    <div className="bg-white rounded-3xl p-6 sm:p-8 w-full flex flex-col hover:-translate-y-2 transition-all duration-500 overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_50px_rgba(32,166,168,0.1)]">
+                    <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 w-full flex flex-col hover:-translate-y-2 transition-all duration-500 overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_50px_rgba(32,166,168,0.1)]">
                       
                       {/* Decorative Background Blob on Hover */}
                       <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700 bg-linear-to-br from-[#20A6A8]/10 to-transparent"></div>
 
-                      <div className="flex flex-col sm:flex-row gap-6 relative z-10">
+                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 relative z-10">
                         {/* Icon Block */}
                         <div className="shrink-0 hidden md:block">
                           <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-[#20A6A8] shadow-inner transition-transform duration-500 group-hover:scale-110 bg-linear-to-br from-[#20A6A8]/10 to-[#1B9FA1]/20">
@@ -346,14 +459,11 @@ export default async function Home() {
 
                         {/* Text Content */}
                         <div className="flex flex-col">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-[#20A6A8] font-bold text-sm bg-[#20A6A8]/10 px-2.5 py-1 rounded-lg">{item.id}</span>
-                            <h3 className="text-xl sm:text-[22px] font-bold text-[#0F1C1E]">
-                              {item.title}
-                            </h3>
-                          </div>
+                          <h3 className="text-lg sm:text-[22px] font-bold text-[#0F1C1E] mb-1.5 sm:mb-2">
+                            {item.title}
+                          </h3>
                           
-                          <p className="leading-[1.65] text-[15px] sm:text-[16px] text-slate-500">
+                          <p className="leading-[1.6] sm:leading-[1.65] text-[14px] sm:text-[16px] text-slate-500">
                             {item.description}
                           </p>
                         </div>

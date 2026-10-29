@@ -7,20 +7,20 @@ import { programs } from "@/data/programsData";
 
 export default function ProgramOverview() {
     return (
-        <section className="bg-white py-10 lg:py-12 relative z-20 border-t border-gray-50 overflow-hidden">
+        <section className="bg-white py-4 sm:py-10 lg:py-12 relative z-20 border-t border-gray-50 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-                <div className="text-center mb-8 md:mb-10">
-                    <h2 className="text-[28px] sm:text-[36px] font-black leading-tight text-brand-darkest tracking-tight">
+                <div className="text-center mb-3 sm:mb-8 md:mb-10">
+                    <h2 className="text-[22px] sm:text-[36px] font-black leading-tight text-brand-darkest tracking-tight">
                         Your AI Career <span className="text-brand-accent">Starts Here</span>
                     </h2>
-                    <p className="text-gray-500 text-[15px] mt-3 font-medium max-w-2xl mx-auto">
+                    <p className="text-gray-500 text-[13px] sm:text-[15px] mt-2 sm:mt-3 font-medium max-w-2xl mx-auto">
                         Explore specialized programs, discover your area of interest, and choose the learning path that fits your career aspirations.
                     </p>
                 </div>
             </div>
             
             {/* Infinite Marquee Slider */}
-            <div className="w-full relative flex whitespace-nowrap overflow-hidden py-4">
+            <div className="w-full relative flex whitespace-nowrap overflow-hidden py-2 sm:py-4">
                 {/* Fade masks for the left and right edges */}
                 <div className="absolute top-0 left-0 w-16 md:w-32 h-full bg-linear-to-r from-white to-transparent z-10 pointer-events-none"></div>
                 <div className="absolute top-0 right-0 w-16 md:w-32 h-full bg-linear-to-l from-white to-transparent z-10 pointer-events-none"></div>
@@ -44,7 +44,7 @@ export default function ProgramOverview() {
                                 return (
                                     <div 
                                         key={idx} 
-                                        className="group relative overflow-hidden p-5 lg:p-6 rounded-3xl cursor-default flex flex-col bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-accent/20 transition-all duration-300 w-70 md:w-80 h-auto whitespace-normal shrink-0"
+                                        className="group relative overflow-hidden p-3.5 sm:p-5 lg:p-6 rounded-2xl sm:rounded-3xl cursor-default flex flex-col bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-accent/20 transition-all duration-300 w-65 sm:w-72 md:w-80 h-auto whitespace-normal shrink-0"
                                     >
                                         {/* Active Gradient Glow */}
                                         <div className="absolute inset-0 bg-linear-to-br from-transparent via-transparent to-brand-lightest/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -55,7 +55,7 @@ export default function ProgramOverview() {
                                             {/* Top Section */}
                                             <div className="shrink-0 flex items-start justify-between">
                                                 <div>
-                                                    <h3 className="text-[18px] lg:text-[20px] font-extrabold leading-snug text-brand-darkest mt-1">
+                                                    <h3 className="text-[16px] sm:text-[18px] lg:text-[20px] font-extrabold leading-snug text-brand-darkest mt-1">
                                                         {prog.title}
                                                     </h3>
                                                 </div>
@@ -68,7 +68,7 @@ export default function ProgramOverview() {
                                                         <div className="text-brand-accent mt-0.5 shrink-0 flex items-center justify-center text-[15px]">
                                                             {prog.icon}
                                                         </div>
-                                                        <p className="text-[13px] lg:text-[14px] font-medium text-gray-700 leading-snug">
+                                                        <p className="text-[12px] sm:text-[13px] lg:text-[14px] font-medium text-gray-700 leading-snug">
                                                             {prog.subtitle}
                                                         </p>
                                                     </div>

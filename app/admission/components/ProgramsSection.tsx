@@ -42,7 +42,7 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="py-20 bg-[#f8fafc] relative overflow-hidden">
+    <section ref={ref} className="py-8 sm:py-20 bg-[#f8fafc] relative overflow-hidden">
       <GeometricShapes variant="curriculum" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -51,28 +51,28 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          className="text-center mb-5 sm:mb-14"
         >
           <span className="text-[#00737a] font-bold uppercase tracking-widest text-xs mb-2 block">
             CURATED SPECIALIZATIONS
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight">
             Master High-Impact <span className="text-[#00737a]">AI &amp; Data Tracks</span>
           </h2>
-          <p className="text-base sm:text-lg text-[#334155] max-w-2xl mx-auto mt-3 font-normal leading-relaxed">
+          <p className="text-xs sm:text-base text-[#334155] max-w-2xl mx-auto mt-2 sm:mt-3 font-normal leading-relaxed">
             Flagship career programs tailored for students, graduates, and working professionals seeking high-growth roles.
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
           {programs.map((program, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 25 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: i * 0.12 }}
-              className="bg-white border border-[#00737a]/20 rounded-3xl p-6 sm:p-8 shadow-xs hover:shadow-xl hover:border-[#00737a] transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white border border-[#00737a]/20 rounded-xl sm:rounded-3xl p-3.5 sm:p-8 shadow-xs hover:shadow-xl hover:border-[#00737a] transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 {/* Tag */}
@@ -89,15 +89,15 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
                 </div>
 
                 {/* Title & Description */}
-                <h3 className="text-xl sm:text-2xl font-bold text-[#0f172a] mb-2 leading-tight">
+                <h3 className="text-lg sm:text-2xl font-bold text-[#0f172a] mb-1.5 sm:mb-2 leading-tight">
                   {program.title}
                 </h3>
-                <p className="text-sm text-[#475569] leading-relaxed mb-6 font-normal">
+                <p className="text-xs sm:text-sm text-[#475569] leading-relaxed mb-4 sm:mb-6 font-normal">
                   {program.description}
                 </p>
 
                 {/* Highlights */}
-                <div className="space-y-2.5 mb-6 pt-4 border-t border-slate-100">
+                <div className="space-y-2 sm:space-y-2.5 mb-4 sm:mb-6 pt-3 sm:pt-4 border-t border-slate-100">
                   <p className="text-xs font-bold text-[#64748b] uppercase tracking-wider mb-2">Curriculum Highlights</p>
                   {program.highlights.map((h, j) => (
                     <div key={j} className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-[#1e293b]">
@@ -116,7 +116,7 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
               <button
                 onClick={onEnroll}
                 id={`enroll-${program.title.toLowerCase().replace(/\s+/g, '-').substring(0, 20)}`}
-                className="w-full py-3.5 rounded-xl bg-[#00737a] hover:bg-[#005a60] text-white font-bold text-sm shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 mt-4 cursor-pointer"
+                className="w-full py-2.5 sm:py-3.5 rounded-xl bg-[#00737a] hover:bg-[#005a60] text-white font-bold text-xs sm:text-sm shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 mt-2 sm:mt-4 cursor-pointer"
               >
                 <span>Apply for Free 3-Day Demo</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

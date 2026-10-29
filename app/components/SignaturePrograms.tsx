@@ -153,7 +153,7 @@ const ProgramCard = ({ program, idx }: any) => {
       </div>
 
       {/* Image - 50% split with 4/3 aspect ratio */}
-      <div className="relative group z-10 w-full flex items-center justify-center">
+      <div className="hidden md:flex relative group z-10 w-full items-center justify-center">
         <Link href={`/programs#${program.id}`} className="block w-full overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5 transform transition-all duration-700 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(32,166,168,0.2)] aspect-4/3 relative">
           <Image
             src={program.image}

@@ -98,36 +98,36 @@ export default function FAQSection() {
     };
 
     return (
-        <section id="faq" className="pt-10 pb-16 md:py-24 bg-[#F7FBFB] relative overflow-hidden">
+        <section id="faq" className="pt-8 pb-10 sm:pt-10 sm:pb-16 md:py-24 bg-[#F7FBFB] relative overflow-hidden">
             <GeometricShapes variant="faq" />
             {/* Background Details */}
             <div className="absolute top-0 left-0 w-125 h-125 bg-[#1B9FA1]/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-start">
 
                     {/* Left Column */}
                     <div className="lg:col-span-5">
-                        <div className="flex items-center justify-start gap-4 mb-6">
+                        <div className="flex items-center justify-start gap-4 mb-4 sm:mb-6">
                             <div className="w-8 h-px bg-[#1B9FA1]/40"></div>
                             <div className="px-5 py-1.5 rounded-full bg-[#1B9FA1]/10 text-[#1B9FA1] border border-[#1B9FA1]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
                                 Frequently Asked Questions
                             </div>
                             <div className="w-8 h-px bg-[#1B9FA1]/40"></div>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#10233A] mb-4">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#10233A] mb-2.5 sm:mb-4">
                             Everything You Need to Know About <span className="text-[#1B9FA1]">Your AI Journey</span>
                         </h2>
-                        <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 mb-8 max-w-2xl">
+                        <p className="text-[14.5px] sm:text-[16px] font-normal leading-[1.6] sm:leading-[1.65] text-slate-500 mb-5 sm:mb-8 max-w-2xl">
                             Find clear answers about our AI programs, learning experience, and placement support at TarkAI.
                         </p>
 
                         {/* Ask Question Card */}
-                        <div className="bg-[#F8FBFC] border border-[#E2E8F0] rounded-2xl p-8 shadow-sm">
-                            <h3 className="text-xl sm:text-2xl font-semibold leading-tight tracking-[-0.02em] text-[#1A365D] mb-4">
+                        <div className="bg-[#F8FBFC] border border-[#E2E8F0] rounded-2xl p-5 sm:p-8 shadow-sm">
+                            <h3 className="text-xl sm:text-2xl font-semibold leading-tight tracking-[-0.02em] text-[#1A365D] mb-2 sm:mb-4">
                                 Still have questions?
                             </h3>
-                            <p className="text-[#64748B] text-sm sm:text-[15px] font-normal leading-[1.6] mb-6">
+                            <p className="text-[#64748B] text-sm sm:text-[15px] font-normal leading-[1.6] mb-4 sm:mb-6">
                                 Can&apos;t find the answers to your Questions? Drop your Question here and we will get to you as soon as possible!
                             </p>
 
@@ -184,7 +184,7 @@ export default function FAQSection() {
 
                     {/* Right Column (Accordion) */}
                     <div className="lg:col-span-7">
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                             {faqs.map((faq, index) => {
                                 const isOpen = activeIndex === index;
                                 return (
@@ -198,10 +198,10 @@ export default function FAQSection() {
                                         <button
                                             suppressHydrationWarning
                                             onClick={() => toggleAccordion(index)}
-                                            className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer"
+                                            className="w-full px-4 sm:px-6 py-3.5 sm:py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer"
                                             aria-expanded={isOpen}
                                         >
-                                            <span className={`text-base sm:text-lg font-semibold leading-[1.4] pr-4`}>
+                                            <span className={`text-[15px] sm:text-lg font-semibold leading-[1.4] pr-4`}>
                                                 {faq.question}
                                             </span>
                                             <FaChevronDown
@@ -212,8 +212,8 @@ export default function FAQSection() {
                                         </button>
 
                                         <div
-                                            className={`transition-all duration-300 ease-in-out px-6 ${isOpen
-                                                    ? 'max-h-125 opacity-100 pb-6'
+                                            className={`transition-all duration-300 ease-in-out px-4 sm:px-6 ${isOpen
+                                                    ? 'max-h-125 opacity-100 pb-4 sm:pb-6'
                                                     : 'max-h-0 opacity-0 pb-0'
                                                 }`}
                                         >

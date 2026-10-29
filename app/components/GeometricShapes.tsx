@@ -9,10 +9,12 @@ interface GeometricShapesProps {
     hideTriangle?: boolean;
     hideTopLeftHexagon?: boolean;
     variant?: 'default' | 'light' | 'minimal' | 'why-choose-us' | 'your-journey' | 'curriculum' | 'why-now' | 'student-journeys' | 'contact' | 'page-background' | 'team-page' | 'about-page' | 'faq';
+    className?: string;
 }
 
 export default function GeometricShapes({
-    variant = 'default'
+    variant = 'default',
+    className = ''
 }: GeometricShapesProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [mounted, setMounted] = useState(false);
@@ -46,10 +48,10 @@ export default function GeometricShapes({
 
     }, { scope: containerRef, dependencies: [mounted, variant] });
 
-    if (!mounted) return <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none z-0" />;
+    if (!mounted) return <div ref={containerRef} className={`hidden md:block absolute inset-0 overflow-hidden pointer-events-none z-0 ${className}`} />;
 
     return (
-        <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div ref={containerRef} className={`hidden md:block absolute inset-0 overflow-hidden pointer-events-none z-0 ${className}`}>
 
             {/* Why Choose Us */}
             {variant === 'why-choose-us' && (
@@ -59,11 +61,8 @@ export default function GeometricShapes({
                             <path d="M50 15L90 85H10L50 15Z" stroke="currentColor" strokeWidth="2" />
                         </svg>
                     </div>
-                    <div className="geo-shape absolute bottom-[20%] right-[8%] opacity-20 text-brand-dark">
-                        <div className="w-28 h-28 border-2 border-current rounded-full"></div>
-                    </div>
                     {/* Added icons */}
-                    <div className="geo-shape absolute top-[10%] right-[10%] opacity-15 text-brand-accent hidden md:block">
+                    <div className="geo-shape absolute top-[10%] right-[3%] opacity-15 text-brand-accent hidden md:block">
                         <div className="w-16 h-16 border-2 border-current transform rotate-45"></div>
                     </div>
                     <div className="geo-shape absolute bottom-[10%] left-[10%] opacity-15 text-brand-dark">
@@ -77,12 +76,12 @@ export default function GeometricShapes({
             {/* Your Journey */}
             {variant === 'your-journey' && (
                 <>
-                    <div className="geo-shape absolute top-[10%] left-[10%] opacity-20 text-brand-accent">
+                    <div className="geo-shape absolute top-[10%] left-[10%] opacity-20 text-brand-accent hidden md:block">
                         <svg width="110" height="110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="currentColor" strokeWidth="2" />
                         </svg>
                     </div>
-                    <div className="geo-shape absolute top-[40%] right-[8%] opacity-20 text-brand-accent">
+                    <div className="geo-shape absolute top-[40%] right-[8%] opacity-20 text-brand-accent hidden md:block">
                         <div className="w-24 h-24 border-2 border-current rounded-lg transform rotate-12"></div>
                     </div>
                 </>

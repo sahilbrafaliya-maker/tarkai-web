@@ -19,7 +19,7 @@ export default function PlacementStoriesSection() {
     const [isHovered, setIsHovered] = useState(false);
 
     // Create a large array for a true "infinite" loop illusion
-    const displayImages = Array(20).fill(images).flat(); // 80 images
+    const displayImages = Array(6).fill(images).flat(); // 24 images
 
     // On load, start from the middle so the user can immediately click left infinitely
     useEffect(() => {
@@ -37,23 +37,35 @@ export default function PlacementStoriesSection() {
         }
     };
 
-    // Continuous Auto-scroll logic (Right to Left)
+    // Continuous Auto-scroll logic (Right to Left) with cached layout metrics
     useEffect(() => {
         let animationFrameId: number;
         let lastTime = performance.now();
+        let cachedScrollWidth = 0;
+        let cachedClientWidth = 0;
+
+        const updateMetrics = () => {
+            if (scrollRef.current) {
+                cachedScrollWidth = scrollRef.current.scrollWidth;
+                cachedClientWidth = scrollRef.current.clientWidth;
+            }
+        };
+
+        updateMetrics();
+        window.addEventListener('resize', updateMetrics);
         
         const playScroll = (time: number) => {
             if (!isHovered && scrollRef.current) {
-                // Throttle to roughly 60fps
                 if (time - lastTime >= 16) {
-                    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+                    if (!cachedScrollWidth) updateMetrics();
+                    const currentScroll = scrollRef.current.scrollLeft;
                     
-                    // If we somehow reach the extreme ends, reset to the middle seamlessly
-                    if (scrollLeft + clientWidth >= scrollWidth - 200 || scrollLeft <= 200) {
-                        scrollRef.current.scrollLeft = scrollWidth / 2;
+                    // If we reach the extreme ends, reset to the middle seamlessly
+                    if (currentScroll + cachedClientWidth >= cachedScrollWidth - 200 || currentScroll <= 200) {
+                        scrollRef.current.scrollLeft = cachedScrollWidth / 2;
                     } else {
-                        // Continuous slow scroll
-                        scrollRef.current.scrollLeft += 1;
+                        // Continuous smooth scroll without forcing reflow every frame
+                        scrollRef.current.scrollLeft = currentScroll + 1;
                     }
                     lastTime = time;
                 }
@@ -65,11 +77,12 @@ export default function PlacementStoriesSection() {
         
         return () => {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            window.removeEventListener('resize', updateMetrics);
         };
     }, [isHovered]);
 
     return (
-        <section className="pt-6 md:pt-12 pb-10 lg:pt-16 lg:pb-12 bg-[#F8FCFC] relative overflow-hidden">
+        <section className="pt-4 sm:pt-6 md:pt-12 pb-6 sm:pb-10 lg:pt-16 lg:pb-12 bg-[#F8FCFC] relative overflow-hidden">
             {/* Geometric animated shapes */}
             <GeometricShapes variant="default" />
             
@@ -78,25 +91,25 @@ export default function PlacementStoriesSection() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header Area */}
-                <div className="text-center max-w-5xl mx-auto mb-8 md:mb-16 relative z-10">
-                    <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="text-center max-w-5xl mx-auto mb-5 sm:mb-8 md:mb-16 relative z-10">
+                    <div className="flex items-center justify-center gap-4 mb-4 sm:mb-6">
                         <div className="w-8 h-px bg-[#20A6A8]/40"></div>
                         <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
                             Certificate Ceremony
                         </div>
                         <div className="w-8 h-px bg-[#20A6A8]/40"></div>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
-                        Celebrating Our <span className="text-[#20A6A8]">Learners' Achievements</span>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-3 sm:mb-6">
+                        Celebrating Our <span className="text-[#20A6A8]">Learners&apos; Achievements</span>
                     </h2>
-                    <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-2xl mx-auto">
+                    <p className="text-[14.5px] sm:text-[16px] font-normal leading-[1.6] sm:leading-[1.65] text-slate-500 max-w-2xl mx-auto">
                         Honoring the hard work and dedication of our students as they successfully complete their programs and receive their certifications.
                     </p>
                 </div>
 
                 {/* Marquee Area with Arrows and Blur Mask */}
                 <div 
-                    className="relative w-full overflow-visible mt-10 py-4 group"
+                    className="relative w-full overflow-visible mt-5 sm:mt-10 py-2 sm:py-4 group"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     onTouchStart={() => setIsHovered(true)}
@@ -121,13 +134,13 @@ export default function PlacementStoriesSection() {
                     >
                         <div 
                             ref={scrollRef} 
-                            className="flex items-center gap-6 md:gap-8 px-4 overflow-x-auto py-4 custom-scrollbar-hide"
+                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto py-3 sm:py-4 custom-scrollbar-hide touch-pan-y overscroll-x-contain"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                         >
                             {displayImages.map((src, idx) => (
                                 <div
                                     key={idx}
-                                    className="relative w-60 h-80 sm:w-65 sm:h-90 md:w-70 md:h-95 shrink-0 rounded-2xl border border-gray-200 bg-white overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-[#20A6A8]/50 hover:shadow-lg"
+                                    className="relative w-52 h-72 sm:w-65 sm:h-90 md:w-70 md:h-95 shrink-0 rounded-2xl border border-gray-200 bg-white overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-[#20A6A8]/50 hover:shadow-lg"
                                 >
                                     <Image
                                         src={src}
@@ -155,10 +168,10 @@ export default function PlacementStoriesSection() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-10 text-center">
+                <div className="mt-6 sm:mt-10 text-center">
                     <Link
                         href="/programs"
-                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-brand-accent hover:bg-[#1B9FA1] text-white text-[16px] font-semibold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1"
+                        className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-brand-accent hover:bg-[#1B9FA1] text-white text-[15px] sm:text-[16px] font-semibold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1"
                     >
                         Explore Our Programs
                         <span aria-hidden="true">→</span>

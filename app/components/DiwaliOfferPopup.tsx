@@ -114,7 +114,7 @@ export default function DiwaliOfferPopup() {
     <>
       <AnimatePresence>
         {isVisible && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-0 sm:inset-auto sm:right-0 sm:top-[36%] sm:-translate-y-1/2 pointer-events-none">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-0 sm:bottom-auto sm:left-auto sm:right-0 sm:top-[36%] sm:-translate-y-1/2 pointer-events-none">
             {/* Soft Ambient Backdrop on Mobile only - tap outside to dismiss */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -135,12 +135,12 @@ export default function DiwaliOfferPopup() {
                 stiffness: 190,
                 mass: 0.9,
               }}
-              className="relative pointer-events-auto select-none w-full max-w-[340px] xs:max-w-[360px] sm:max-w-none sm:w-auto"
+              className="relative pointer-events-auto select-none w-full max-w-85 xs:max-w-[360px] sm:max-w-none sm:w-auto"
               style={{ willChange: "transform, opacity" }}
             >
               {/* Unified Banner Container */}
               <div className="relative flex items-center pr-0 select-none">
-                
+
                 {/* Overlapping Rangoli Graphic:
                     - Mobile: Centered at top of card, fully visible, rotating crest
                     - Desktop: Anchored on the left side, vertically centered
@@ -149,7 +149,7 @@ export default function DiwaliOfferPopup() {
                   initial={{ scale: 0.75, rotate: -30, opacity: 0 }}
                   animate={{ scale: 1, rotate: 0, opacity: 1 }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                  className="absolute -top-11 xs:-top-13 left-1/2 -translate-x-1/2 w-[88px] h-[88px] xs:w-[100px] xs:h-[100px] sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0 sm:left-auto sm:-left-[180px] md:-left-[200px] lg:-left-[210px] z-20 sm:w-[360px] sm:h-[360px] md:w-[400px] md:h-[400px] lg:w-[420px] lg:h-[420px] pointer-events-none select-none flex items-center justify-center"
+                  className="absolute -top-11 xs:-top-13 left-1/2 -translate-x-1/2 w-22 h-22 xs:w-[100px] xs:h-[100px] sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0 sm:-left-45 md:-left-50 lg:-left-52.5 z-20 sm:w-90 sm:h-90 md:w-100 md:h-100 lg:w-105 lg:h-105 pointer-events-none select-none flex items-center justify-center"
                 >
                   {/* Continuous smooth ambient rotation */}
                   <motion.div
@@ -168,20 +168,20 @@ export default function DiwaliOfferPopup() {
                   </motion.div>
 
                   {/* Soft ambient aura glow behind the rangoli */}
-                  <div className="absolute inset-2 sm:inset-6 rounded-full bg-gradient-to-r from-amber-400/25 via-teal-500/15 to-pink-500/20 blur-lg sm:blur-3xl pointer-events-none -z-10 animate-pulse" />
+                  <div className="absolute inset-2 sm:inset-6 rounded-full bg-linear-to-r from-amber-400/25 via-teal-500/15 to-pink-500/20 blur-lg sm:blur-3xl pointer-events-none -z-10 animate-pulse" />
                 </motion.div>
 
                 {/* Luxury Warm Ivory & Champagne Card Body */}
-                <div 
-                  className="relative w-full sm:w-[470px] md:w-[520px] lg:w-[550px] min-h-[310px] sm:min-h-[360px] flex items-center rounded-3xl sm:rounded-l-[3.5rem] sm:rounded-r-none pt-12 xs:pt-14 pb-5 px-5 xs:px-6 sm:pl-[185px] md:pl-[205px] lg:pl-[220px] sm:pr-7 sm:py-7 border border-[#D4AF37]/50 sm:border-y sm:border-l sm:border-r-0 shadow-[0_16px_45px_rgba(0,48,56,0.32),0_4px_16px_rgba(212,175,55,0.2)] sm:shadow-[-10px_14px_35px_-6px_rgba(0,48,56,0.22),-4px_0_20px_rgba(212,175,55,0.16)] select-text"
+                <div
+                  className="relative w-full sm:w-117.5 md:w-130 lg:w-137.5 min-h-77.5 sm:min-h-90 flex items-center rounded-3xl sm:rounded-l-[3.5rem] sm:rounded-r-none pt-12 xs:pt-14 pb-5 px-5 xs:px-6 sm:pl-46.25 md:pl-51.25 lg:pl-55 sm:pr-7 sm:py-7 border border-[#D4AF37]/50 sm:border-y sm:border-l sm:border-r-0 shadow-[0_16px_45px_rgba(0,48,56,0.32),0_4px_16px_rgba(212,175,55,0.2)] sm:shadow-[-10px_14px_35px_-6px_rgba(0,48,56,0.22),-4px_0_20px_rgba(212,175,55,0.16)] select-text"
                   style={{
                     background: "linear-gradient(135deg, #FFFDF9 0%, #FAF5EB 50%, #F5ECDB 100%)",
                   }}
                 >
                   {/* Festive Sparkle Elements */}
                   <span className="absolute top-3.5 right-11 sm:top-5 sm:right-10 text-[#D4AF37] opacity-60 text-[10px] sm:text-xs pointer-events-none select-none animate-pulse">✦</span>
-                  <span className="absolute top-4 left-4 sm:left-[190px] md:left-[215px] text-[#D4AF37] opacity-60 text-[10px] sm:text-xs pointer-events-none select-none animate-pulse">✦</span>
-                  <span className="absolute bottom-3 left-4 sm:left-[200px] md:left-[225px] text-[#D4AF37] opacity-50 text-[9px] sm:text-[11px] pointer-events-none select-none">✦</span>
+                  <span className="absolute top-4 left-4 sm:left-47.5 md:left-53.75 text-[#D4AF37] opacity-60 text-[10px] sm:text-xs pointer-events-none select-none animate-pulse">✦</span>
+                  <span className="absolute bottom-3 left-4 sm:left-50 md:left-56.25 text-[#D4AF37] opacity-50 text-[9px] sm:text-[11px] pointer-events-none select-none">✦</span>
 
                   {/* Close Button - Clean Dark Teal 'X' */}
                   <button
@@ -233,9 +233,9 @@ export default function DiwaliOfferPopup() {
 
                           {/* Small Golden Ornament Divider */}
                           <div className="flex items-center justify-center gap-1.5 sm:gap-2.5 my-1 sm:my-1.5 w-full">
-                            <div className="w-8 sm:w-14 h-px bg-gradient-to-r from-transparent to-[#C59B27]/60" />
+                            <div className="w-8 sm:w-14 h-px bg-linear-to-r from-transparent to-[#C59B27]/60" />
                             <span className="text-[11px] sm:text-sm">🪔</span>
-                            <div className="w-8 sm:w-14 h-px bg-gradient-to-l from-transparent to-[#C59B27]/60" />
+                            <div className="w-8 sm:w-14 h-px bg-linear-to-l from-transparent to-[#C59B27]/60" />
                           </div>
 
                           {/* Subtitle */}
@@ -244,7 +244,7 @@ export default function DiwaliOfferPopup() {
                           </p>
 
                           {/* Email Form */}
-                          <form onSubmit={handleSubmit} className="w-full max-w-[270px] sm:max-w-[285px] space-y-2 sm:space-y-2.5">
+                          <form onSubmit={handleSubmit} className="w-full max-w-67.5 sm:max-w-71.25 space-y-2 sm:space-y-2.5">
                             <div>
                               <input
                                 type="email"
@@ -271,8 +271,8 @@ export default function DiwaliOfferPopup() {
                               disabled={isSubmitting}
                               className="group relative w-full bg-[#3D0B37] hover:bg-[#2A0526] active:scale-[0.98] text-white font-extrabold text-xs sm:text-sm py-2.5 px-4 sm:px-5 rounded-xl shadow-[0_4px_16px_rgba(61,11,55,0.32)] transition-all duration-200 cursor-pointer overflow-hidden flex items-center justify-center gap-2"
                             >
-                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-                              
+                              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
+
                               <span className="relative z-10 tracking-wide font-extrabold flex items-center gap-2">
                                 {isSubmitting ? (
                                   <>
@@ -297,7 +297,7 @@ export default function DiwaliOfferPopup() {
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.94 }}
                           transition={{ duration: 0.28 }}
-                          className="w-full max-w-[270px] sm:max-w-[300px] flex flex-col items-center text-center py-1 sm:py-2"
+                          className="w-full max-w-67.5 sm:max-w-75 flex flex-col items-center text-center py-1 sm:py-2"
                         >
                           {/* Festive Diya */}
                           <div className="text-2xl xs:text-3xl sm:text-4xl mb-0.5 sm:mb-1 animate-bounce [animation-duration:2.5s]">
@@ -315,7 +315,7 @@ export default function DiwaliOfferPopup() {
                           </p>
 
                           {/* Highlighted Email Box */}
-                          <div 
+                          <div
                             title={submittedEmail}
                             className="w-full bg-white/95 border border-[#D4AF37]/50 rounded-xl py-2 px-3 text-[#073D44] font-bold text-xs sm:text-sm tracking-wide shadow-xs truncate text-center mb-1.5 sm:mb-2"
                           >
@@ -329,7 +329,7 @@ export default function DiwaliOfferPopup() {
                           {/* Primary Action Button */}
                           <Link
                             href="/programs"
-                            className="group inline-flex items-center justify-center gap-2 w-full py-2.5 px-5 rounded-full bg-gradient-to-r from-[#006D77] to-[#073D44] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-[0_4px_16px_rgba(0,109,119,0.32)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer mb-2"
+                            className="group inline-flex items-center justify-center gap-2 w-full py-2.5 px-5 rounded-full bg-linear-to-r from-[#006D77] to-[#073D44] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-[0_4px_16px_rgba(0,109,119,0.32)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer mb-2"
                           >
                             <span>Explore Courses</span>
                             <FaArrowRight size={11} className="group-hover:translate-x-1 transition-transform" />
@@ -375,7 +375,7 @@ export default function DiwaliOfferPopup() {
           aria-label="Re-open Diwali Offer"
         >
           {/* Subtle light shimmer wave on hover */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none rounded-l-full" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none rounded-l-full" />
 
           {/* High-res crisp rotating rangoli graphic */}
           <div className="w-5 h-5 sm:w-6 sm:h-6 relative shrink-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
@@ -394,7 +394,7 @@ export default function DiwaliOfferPopup() {
             <span className="font-sans font-extrabold tracking-tight text-[#073D44] text-xs sm:text-sm">
               Diwali
             </span>
-            <span className="bg-gradient-to-r from-[#D4AF37]/25 to-[#E5A93C]/30 text-[#8B6508] border border-[#D4AF37]/50 px-1.5 py-0.5 rounded-md font-black text-[10px] sm:text-[11px] tracking-wide">
+            <span className="bg-linear-to-r from-[#D4AF37]/25 to-[#E5A93C]/30 text-[#8B6508] border border-[#D4AF37]/50 px-1.5 py-0.5 rounded-md font-black text-[10px] sm:text-[11px] tracking-wide">
               10% OFF
             </span>
           </div>

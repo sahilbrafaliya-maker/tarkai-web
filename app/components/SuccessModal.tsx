@@ -61,7 +61,20 @@ export default function SuccessModal({
         setMounted(true);
     }, []);
 
-    // Auto-close after 5 seconds if there are no complex children (like the Admission Form)
+        // Auto-close after 5 seconds if there are no complex children (like the Admission Form)
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                onClose();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
+
     useEffect(() => {
         if (isOpen && !children) {
             const timer = setTimeout(() => {
@@ -76,7 +89,7 @@ export default function SuccessModal({
     return createPortal(
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-100 flex items-center justify-center px-4 sm:px-6 pointer-events-auto">
+                <div role="dialog" aria-modal="true" className="fixed inset-0 z-100 flex items-center justify-center px-4 sm:px-6 pointer-events-auto">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}

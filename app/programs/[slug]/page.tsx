@@ -1,5 +1,5 @@
 import { programs } from "@/data/programsData";
-import RoadmapViewer from "@/components/RoadmapViewer";
+import RoadmapViewer, { CompleteJourney } from "@/components/RoadmapViewer";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -125,7 +125,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
     };
 
     return (
-        <div className="bg-white min-h-screen pb-20">
+        <div className="bg-white min-h-screen">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
@@ -136,7 +136,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
             />
 
             {/* Dark Premium Hero Section */}
-            <div className="relative pt-28 pb-16 lg:pt-36 lg:pb-20 overflow-hidden bg-brand-darkest text-white">
+            <div className="relative pt-16 pb-8 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-20 overflow-hidden bg-brand-darkest text-white">
                 {/* Amazing Premium Glow Background */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-brand-accent/20 via-brand-darkest to-brand-darkest z-0"></div>
                 <div className="absolute top-0 right-0 w-150 h-150 bg-brand-accent/15 rounded-full blur-[100px] -mr-40 -mt-40 z-0 pointer-events-none"></div>
@@ -145,130 +145,129 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     {/* Back Link */}
-                    <div className="mb-10 md:mb-12">
-                        <Link href="/programs" className="inline-flex items-center text-[13px] sm:text-[14px] font-semibold text-gray-300 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-5 py-2.5 rounded-full border border-white/10 backdrop-blur-md">
+                    <div className="mb-3.5 sm:mb-10 md:mb-12">
+                        <Link href="/programs" className="inline-flex items-center text-[12px] sm:text-[14px] font-semibold text-gray-300 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full border border-white/10 backdrop-blur-md">
                             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
                             Back to Programs
                         </Link>
                     </div>
 
-                    <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 items-center justify-between">
+                    <div className="flex flex-col lg:flex-row gap-6 sm:gap-12 lg:gap-8 items-center justify-between">
                         {/* Left Side Content */}
                         <div className="flex-1 max-w-3xl">
-                            <div className="flex flex-wrap items-center gap-3 mb-6">
-                                <span className={`inline-block px-4 py-1.5 rounded-full text-white text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-brand-accent`}>
-                                    {program.duration}
-                                </span>
-                                {(program as any).level && (
-                                    <span className="inline-block px-4 py-1.5 rounded-full text-white text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-white/10 border border-white/20">
-                                        Level: {(program as any).level}
-                                    </span>
-                                )}
-                                {(program as any).fee && (
-                                    <span className="inline-block px-4 py-1.5 rounded-full text-brand-accent text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-brand-accent/20 border border-brand-accent/40">
-                                        Fee: {(program as any).fee}
-                                    </span>
-                                )}
-                            </div>
+                            {((program as any).level || (program as any).fee) && (
+                                <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-6">
+                                    {(program as any).level && (
+                                        <span className="inline-block px-4 py-1.5 rounded-full text-white text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-white/10 border border-white/20">
+                                            Level: {(program as any).level}
+                                        </span>
+                                    )}
+                                    {(program as any).fee && (
+                                        <span className="inline-block px-4 py-1.5 rounded-full text-brand-accent text-[12px] font-bold tracking-widest uppercase shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-brand-accent/20 border border-brand-accent/40">
+                                            Fee: {(program as any).fee}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
                             
-                            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.03em] text-white mb-4">
+                            <h1 className="text-2xl sm:text-4xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.03em] text-white mb-2 sm:mb-4">
                                 {program.title}
                             </h1>
-                            <h2 className="text-[20px] sm:text-[24px] lg:text-[28px] font-semibold leading-snug tracking-[-0.01em] text-transparent bg-clip-text bg-linear-to-r from-brand-accent to-teal-200 mb-8 max-w-2xl">
+                            <h2 className="text-[16px] sm:text-[20px] lg:text-[28px] font-semibold leading-snug tracking-[-0.01em] text-transparent bg-clip-text bg-linear-to-r from-brand-accent to-teal-200 mb-3 sm:mb-8 max-w-2xl">
                                 {program.subtitle}
                             </h2>
                             
-                            <div className="space-y-4 max-w-2xl mb-12">
+                            <div className="space-y-2.5 sm:space-y-4 max-w-2xl mb-4 sm:mb-12">
                                 {program.description.map((desc, i) => (
-                                    <p key={i} className="text-[15px] sm:text-[16px] leading-[1.7] text-gray-300">
+                                    <p key={i} className="text-[13px] sm:text-[16px] leading-[1.65] sm:leading-[1.7] text-gray-300">
                                         {desc}
                                     </p>
                                 ))}
                             </div>
 
                             {/* 4 Feature Pills */}
-                            <div className="flex flex-wrap gap-4 mt-8">
+                            <div className="flex flex-wrap gap-2.5 sm:gap-4 mt-3.5 sm:mt-8">
                                 {[
-                                    { icon: <FaBook className="text-brand-accent text-lg"/>, text: `${program.roadmap.length} Modules` },
-                                    { icon: <FaUserTie className="text-brand-accent text-lg"/>, text: "Live Mentorship" },
-                                    { icon: <FaCode className="text-brand-accent text-lg"/>, text: "Real Projects" },
-                                    { icon: <FaBullseye className="text-brand-accent text-lg"/>, text: "Industry Ready" },
+                                    { icon: <FaBook className="text-brand-accent text-[15px] sm:text-lg"/>, text: `${program.roadmap.length} Modules` },
+                                    { icon: <FaUserTie className="text-brand-accent text-[15px] sm:text-lg"/>, text: "Live Mentorship" },
+                                    { icon: <FaCode className="text-brand-accent text-[15px] sm:text-lg"/>, text: "Real Projects" },
+                                    { icon: <FaBullseye className="text-brand-accent text-[15px] sm:text-lg"/>, text: "Industry Ready" },
                                 ].map((pill, idx) => (
-                                    <div key={idx} className="flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-lg transition-transform hover:-translate-y-1 duration-300">
+                                    <div key={idx} className="flex items-center gap-2 sm:gap-2.5 px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-lg transition-transform hover:-translate-y-1 duration-300">
                                         {pill.icon}
-                                        <span className="text-[13px] sm:text-[14px] font-semibold text-white tracking-wide">{pill.text}</span>
+                                        <span className="text-[12px] sm:text-[14px] font-semibold text-white tracking-wide">{pill.text}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         {/* Right Side Glassmorphic Card */}
-                        <div className="w-full lg:w-105 relative mt-12 lg:mt-0 shrink-0">
+                        <div className="w-full max-w-sm sm:max-w-md mx-auto lg:mx-0 lg:max-w-none lg:w-84 xl:w-88 relative mt-6 sm:mt-10 lg:mt-0 shrink-0">
                             {/* Premium Glowing Card */}
-                            <div className="relative rounded-[2.5rem] p-px bg-linear-to-b from-brand-accent/60 to-white/10 shadow-[0_0_80px_-15px_rgba(32,166,168,0.4)]">
-                                <div className="bg-brand-darkest/90 backdrop-blur-3xl rounded-[calc(2.5rem-1px)] p-8 sm:p-10 relative overflow-hidden border border-white/5">
+                            <div className="relative rounded-2xl sm:rounded-3xl p-px bg-linear-to-b from-brand-accent/60 to-white/10 shadow-[0_0_60px_-15px_rgba(32,166,168,0.35)]">
+                                <div className="bg-brand-darkest/90 backdrop-blur-3xl rounded-[calc(1rem-1px)] sm:rounded-[calc(1.5rem-1px)] p-4 sm:p-6 lg:p-7 relative overflow-hidden border border-white/5">
                                     {/* Card Background Glow */}
-                                    <div className="absolute top-0 right-0 w-40 h-40 bg-brand-accent/20 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-                                    <div className="absolute bottom-0 left-0 w-40 h-40 bg-brand-dark/20 rounded-full blur-3xl -ml-10 -mb-10 pointer-events-none"></div>
+                                    <div className="absolute top-0 right-0 w-36 h-36 bg-brand-accent/20 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                                    <div className="absolute bottom-0 left-0 w-36 h-36 bg-brand-dark/20 rounded-full blur-3xl -ml-10 -mb-10 pointer-events-none"></div>
                                     
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl text-white mb-8 shadow-lg bg-linear-to-br from-brand-accent to-brand-dark relative z-10`}>
+                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-lg sm:text-xl text-white mb-2.5 sm:mb-4 shadow-md bg-linear-to-br from-brand-accent to-brand-dark relative z-10`}>
                                         {program.icon}
                                     </div>
 
-                                    <h3 className="text-[24px] sm:text-[28px] font-bold leading-tight tracking-[-0.02em] text-white mb-8 relative z-10">Program Details</h3>
+                                    <h3 className="text-[18px] sm:text-[22px] font-bold leading-tight tracking-tight text-white mb-3 sm:mb-4 relative z-10">Program Details</h3>
 
-                                    <div className="space-y-6 mb-10 relative z-10">
-                                        <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                                            <div className="flex items-center gap-3 text-gray-400">
-                                                <FaCalendarAlt className="text-lg" />
-                                                <span className="text-[15px] font-medium tracking-wide">Duration</span>
+                                    <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5 relative z-10">
+                                        <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-white/10">
+                                            <div className="flex items-center gap-2.5 text-gray-400">
+                                                <FaCalendarAlt className="text-[15px] sm:text-base" />
+                                                <span className="text-[13px] sm:text-[14px] font-medium tracking-wide">Duration</span>
                                             </div>
-                                            <span className="text-[15px] font-bold text-white">{program.duration}</span>
+                                            <span className="text-[13px] sm:text-[14px] font-bold text-white">{program.duration}</span>
                                         </div>
-                                        <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                                            <div className="flex items-center gap-3 text-gray-400">
-                                                <FaBook className="text-lg" />
-                                                <span className="text-[15px] font-medium tracking-wide">Modules</span>
+                                        <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-white/10">
+                                            <div className="flex items-center gap-2.5 text-gray-400">
+                                                <FaBook className="text-[15px] sm:text-base" />
+                                                <span className="text-[13px] sm:text-[14px] font-medium tracking-wide">Modules</span>
                                             </div>
-                                            <span className="text-[15px] font-bold text-white">{program.roadmap.length} Modules</span>
+                                            <span className="text-[13px] sm:text-[14px] font-bold text-white">{program.roadmap.length} Modules</span>
                                         </div>
-                                        <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                                            <div className="flex items-center gap-3 text-gray-400">
-                                                <FaUserTie className="text-lg" />
-                                                <span className="text-[15px] font-medium tracking-wide">Mentorship</span>
+                                        <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-white/10">
+                                            <div className="flex items-center gap-2.5 text-gray-400">
+                                                <FaUserTie className="text-[15px] sm:text-base" />
+                                                <span className="text-[13px] sm:text-[14px] font-medium tracking-wide">Mentorship</span>
                                             </div>
-                                            <span className="text-[15px] font-bold text-white">Included</span>
+                                            <span className="text-[13px] sm:text-[14px] font-bold text-white">Included</span>
                                         </div>
-                                        <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                                            <div className="flex items-center gap-3 text-gray-400">
-                                                <FaCode className="text-lg" />
-                                                <span className="text-[15px] font-medium tracking-wide">Real-world Projects</span>
+                                        <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-white/10">
+                                            <div className="flex items-center gap-2.5 text-gray-400">
+                                                <FaCode className="text-[15px] sm:text-base" />
+                                                <span className="text-[13px] sm:text-[14px] font-medium tracking-wide">Real-world Projects</span>
                                             </div>
-                                            <span className="text-[15px] font-bold text-white">Yes</span>
+                                            <span className="text-[13px] sm:text-[14px] font-bold text-white">Yes</span>
                                         </div>
                                         {(program as any).level && (
-                                            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                                                <div className="flex items-center gap-3 text-gray-400">
-                                                    <FaLayerGroup className="text-lg" />
-                                                    <span className="text-[15px] font-medium tracking-wide">Level</span>
+                                            <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-white/10">
+                                                <div className="flex items-center gap-2.5 text-gray-400">
+                                                    <FaLayerGroup className="text-[15px] sm:text-base" />
+                                                    <span className="text-[13px] sm:text-[14px] font-medium tracking-wide">Level</span>
                                                 </div>
-                                                <span className="text-[15px] font-bold text-white">{(program as any).level}</span>
+                                                <span className="text-[13px] sm:text-[14px] font-bold text-white">{(program as any).level}</span>
                                             </div>
                                         )}
                                         {(program as any).fee && (
-                                            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                                                <div className="flex items-center gap-3 text-gray-400">
-                                                    <FaTag className="text-lg" />
-                                                    <span className="text-[15px] font-medium tracking-wide">Fee</span>
+                                            <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-white/10">
+                                                <div className="flex items-center gap-2.5 text-gray-400">
+                                                    <FaTag className="text-[15px] sm:text-base" />
+                                                    <span className="text-[13px] sm:text-[14px] font-medium tracking-wide">Fee</span>
                                                 </div>
-                                                <span className="text-[15px] font-bold text-brand-accent">{(program as any).fee}</span>
+                                                <span className="text-[13px] sm:text-[14px] font-bold text-brand-accent">{(program as any).fee}</span>
                                             </div>
                                         )}
                                     </div>
 
                                     <Link
                                         href="/contact"
-                                        className="block w-full text-center text-[16px] bg-linear-to-r from-brand-accent to-brand-dark text-white font-bold py-4 rounded-xl hover:shadow-[0_8px_25px_-8px_rgba(32,166,168,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative z-10"
+                                        className="block w-full text-center text-[13px] sm:text-[14px] bg-linear-to-r from-brand-accent to-brand-dark text-white font-bold py-2.5 sm:py-3 rounded-xl hover:shadow-[0_8px_25px_-8px_rgba(32,166,168,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative z-10"
                                     >
                                         Apply Now &rarr;
                                     </Link>
@@ -278,7 +277,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
                                         download
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="mt-3 block w-full text-center text-[15px] bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold py-3.5 rounded-xl transition-all duration-300 relative z-10 flex items-center justify-center gap-2 group/brochure"
+                                        className="mt-2.5 w-full text-center text-[12px] sm:text-[13px] bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold py-2 sm:py-2.5 rounded-xl transition-all duration-300 relative z-10 flex items-center justify-center gap-2 group/brochure"
                                     >
                                         <span>Download Brochure</span>
                                         <svg className="w-4 h-4 opacity-70 group-hover/brochure:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
@@ -291,14 +290,19 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Main Content Body */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sm:mt-10">
                 <div className="flex flex-col">
                     {/* Content Side (Full Width) */}
-                    <div className="w-full space-y-16">
-                        <RoadmapViewer roadmap={program.roadmap} benefits={program.benefits} />
+                    <div className="w-full">
+                        <RoadmapViewer roadmap={program.roadmap} />
                     </div>
                 </div>
             </div>
+
+            {/* The Complete Journey Section */}
+            {program.benefits && (
+                <CompleteJourney benefits={program.benefits} />
+            )}
         </div>
     );
 }

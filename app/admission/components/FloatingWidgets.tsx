@@ -25,7 +25,7 @@ function ExitIntentPopup({ onClose, onApply }: { onClose: () => void; onApply: (
         className="bg-white rounded-3xl shadow-2xl w-full max-w-105 overflow-hidden border border-white/20 relative"
       >
         {/* Top Header with Dark Image & Gradient Overlay */}
-        <div className="relative h-60 sm:h-64 w-full bg-[#0b171c] overflow-hidden p-5 flex items-end">
+        <div className="relative h-44 sm:h-64 w-full bg-[#0b171c] overflow-hidden p-4 sm:p-5 flex items-end">
           <Image
             src="/students_demo_banner.jpg"
             alt="TarkAI Admission Program"
@@ -69,11 +69,11 @@ function ExitIntentPopup({ onClose, onApply }: { onClose: () => void; onApply: (
         </div>
 
         {/* White Card Body */}
-        <div className="p-6 sm:p-7 text-center bg-white flex flex-col items-center">
-          <h2 className="text-[24px] sm:text-[28px] font-extrabold text-slate-800 mb-2 tracking-tight leading-tight">
+        <div className="p-4 sm:p-7 text-center bg-white flex flex-col items-center">
+          <h2 className="text-[20px] sm:text-[28px] font-extrabold text-slate-800 mb-1.5 sm:mb-2 tracking-tight leading-tight">
             Claim Your <span className="text-[#00737a]">Free Demo</span>
           </h2>
-          <p className="text-slate-500 text-sm sm:text-[15px] mb-5 leading-relaxed font-medium">
+          <p className="text-slate-500 text-xs sm:text-[15px] mb-3.5 sm:mb-5 leading-relaxed font-medium">
             Experience world-class AI education risk-free. No credit card required, zero commitment.
           </p>
 
@@ -228,7 +228,7 @@ export default function FloatingWidgets({ onApplyNow }: FloatingWidgetsProps) {
             <button
               onClick={onApplyNow}
               id="sticky-mobile-apply-btn"
-              className="w-full py-3.5 px-6 rounded-full bg-linear-to-r from-[#00737a] via-[#187578] to-[#2da5a3] hover:from-[#005c62] hover:to-[#00737a] text-white font-extrabold text-sm sm:text-base shadow-2xl shadow-[#00737a]/40 border border-white/30 active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer text-center"
+              className="w-full py-2.5 px-4 rounded-full bg-linear-to-r from-[#00737a] via-[#187578] to-[#2da5a3] hover:from-[#005c62] hover:to-[#00737a] text-white font-bold text-xs sm:text-base shadow-2xl shadow-[#00737a]/40 border border-white/30 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer text-center"
             >
               <span>Book Free 3-Day Demo Seat</span>
               <svg className="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

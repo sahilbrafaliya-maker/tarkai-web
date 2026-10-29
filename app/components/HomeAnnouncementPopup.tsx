@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { FaTimes } from "@react-icons/all-files/fa/FaTimes";
 import { FaEnvelope } from "@react-icons/all-files/fa/FaEnvelope";
 import { FaPhoneAlt } from "@react-icons/all-files/fa/FaPhoneAlt";
-import { FaMapMarkerAlt } from "@react-icons/all-files/fa/FaMapMarkerAlt";
 
 export default function HomeAnnouncementPopup() {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,12 +23,25 @@ export default function HomeAnnouncementPopup() {
         }
     }, []);
 
+        useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsOpen(false);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+                <div role="dialog" aria-modal="true" className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -38,7 +50,7 @@ export default function HomeAnnouncementPopup() {
                         className="relative max-w-3xl w-full mx-auto rounded-4xl sm:rounded-[2.5rem] p-px bg-linear-to-br from-[#20A6A8]/60 via-white/40 to-[#20A6A8]/30 shadow-[0_0_80px_-15px_rgba(32,166,168,0.4)] max-h-[95vh] flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="bg-white/95 backdrop-blur-3xl rounded-[calc(2rem-1px)] sm:rounded-[calc(2.5rem-1px)] relative overflow-y-auto overflow-x-hidden flex flex-col md:flex-row flex-1 custom-scrollbar">
+                        <div className="bg-white/95 backdrop-blur-3xl rounded-[calc(2rem-1px)] sm:rounded-[calc(2.5rem-1px)] relative overflow-y-auto overflow-x-hidden data-lenis-prevent flex flex-col md:flex-row flex-1 custom-scrollbar">
                             
                             {/* Close Button */}
                             <button

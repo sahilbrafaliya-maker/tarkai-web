@@ -48,7 +48,7 @@ function CountUp({ target, suffix, duration = 2000 }: { target: number; suffix: 
 
 export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
   return (
-    <section className="relative min-h-max flex flex-col items-center justify-center overflow-hidden pt-12 sm:pt-20 pb-16 sm:pb-24 bg-[#f8fafc]" aria-label="Admission info and form section">
+    <section className="relative min-h-max flex flex-col items-center justify-center overflow-hidden pt-4 sm:pt-20 pb-6 sm:pb-24 bg-[#f8fafc]" aria-label="Admission info and form section">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-teal-200/20 blur-[120px]" />
@@ -62,28 +62,28 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 mb-12 sm:mb-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6 mb-4 sm:mb-20"
         >
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="relative p-5 sm:p-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,115,122,0.08)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
+              className="relative p-3 sm:p-6 rounded-xl sm:rounded-2xl bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,115,122,0.08)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
             >
               {/* Subtle hover gradient background */}
               <div className="absolute inset-0 bg-linear-to-br from-[#00737a]/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="relative z-10 text-center">
-                <div className="text-3xl sm:text-4xl font-extrabold text-[#00737a] transition-all duration-300 mb-1">
+                <div className="text-2xl sm:text-4xl font-extrabold text-[#00737a] transition-all duration-300 mb-1">
                   <CountUp target={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-sm font-extrabold text-[#0f172a] uppercase tracking-wide mt-2">{stat.label}</div>
+                <div className="text-[11px] sm:text-sm font-extrabold text-[#0f172a] uppercase tracking-wide mt-1 sm:mt-2">{stat.label}</div>
               </div>
             </div>
           ))}
         </motion.div>
 
         {/* Main Grid Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-10 lg:gap-14 items-start">
 
           {/* ── Left Column: Demo Journey ── */}
           <motion.div
@@ -91,11 +91,11 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="lg:col-span-7 text-left space-y-6 sm:space-y-8 w-full"
+            className="lg:col-span-7 text-left space-y-3 sm:space-y-8 w-full"
           >
             <div className="flex items-center gap-3 mb-2 sm:mb-0">
               {/* <div className="w-8 h-1 bg-[#00737a] rounded-full" /> */}
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0f172a] tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-bold text-[#0f172a] tracking-tight">
                 Your 3-Day Demo Journey
               </h2>
             </div>
@@ -112,7 +112,7 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
                   transition: { staggerChildren: 0.15, delayChildren: 0.4 }
                 }
               }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 pt-8 sm:pt-12"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 pt-2 sm:pt-12"
             >
               {[
                 {
@@ -142,10 +142,10 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
                   }}
-                  className="flex flex-col p-6 sm:p-8 rounded-3xl bg-white border border-[#00737a]/25 shadow-[0_12px_36px_rgba(0,115,122,0.08)] hover:shadow-[0_20px_45px_rgba(0,115,122,0.14)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                  className="flex flex-col p-3.5 sm:p-8 rounded-xl sm:rounded-3xl bg-white border border-[#00737a]/25 shadow-[0_12px_36px_rgba(0,115,122,0.08)] hover:shadow-[0_20px_45px_rgba(0,115,122,0.14)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
                 >
                   {/* Watermark Number */}
-                  <div className="absolute -bottom-4 -right-4 text-[100px] font-black text-[#00737a]/3 select-none pointer-events-none leading-none">
+                  <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[100px] font-black text-[#00737a]/3 select-none pointer-events-none leading-none">
                     {card.id}
                   </div>
 
@@ -153,13 +153,13 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
                   <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-[#00737a]/50 to-transparent" />
 
                   <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-4">
                       <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#00737a] text-white font-bold text-xs">
                         {card.id}
                       </span>
-                      <h3 className="text-lg sm:text-xl font-bold text-[#0f172a] tracking-tight">{card.title}</h3>
+                      <h3 className="text-base sm:text-xl font-bold text-[#0f172a] tracking-tight">{card.title}</h3>
                     </div>
-                    <p className="text-sm sm:text-base font-normal text-[#475569] leading-relaxed">{card.desc}</p>
+                    <p className="text-xs sm:text-base font-normal text-[#475569] leading-relaxed">{card.desc}</p>
                   </div>
                 </motion.div>
               ))}

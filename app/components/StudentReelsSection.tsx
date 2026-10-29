@@ -40,7 +40,7 @@ export default function StudentReelsSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#EAF7F7] relative overflow-hidden">
+    <section className="py-10 sm:py-16 lg:py-28 bg-[#EAF7F7] relative overflow-hidden">
       <GeometricShapes variant="student-journeys" />
       {/* Background Soft Glows */}
       <div className="absolute top-0 right-0 w-150 h-150 bg-[#20A6A8]/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
@@ -49,24 +49,24 @@ export default function StudentReelsSection() {
       <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header matching TARK AI Theme */}
-        <div className="text-center max-w-5xl mx-auto mb-16 gsap-fade-up">
-          <div className="flex items-center justify-center gap-4 mb-6">
+        <div className="text-center max-w-5xl mx-auto mb-6 sm:mb-12 lg:mb-16 gsap-fade-up">
+          <div className="flex items-center justify-center gap-4 mb-4 sm:mb-6">
             <div className="w-8 h-px bg-[#20A6A8]/40"></div>
             <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-sm font-medium">
               Student Journeys
             </div>
             <div className="w-8 h-px bg-[#20A6A8]/40"></div>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-[#0F1C1E] mb-3 sm:mb-6">
             Stories of Growth and <span className="text-[#20A6A8]">Career Transformation</span>
           </h2>
-          <p className="text-[15px] sm:text-[16px] font-normal leading-[1.65] text-slate-500 max-w-3xl mx-auto">
+          <p className="text-[14.5px] sm:text-[16px] font-normal leading-[1.6] sm:leading-[1.65] text-slate-500 max-w-3xl mx-auto">
             Discover how learners from different backgrounds are building practical AI skills, gaining confidence, and moving closer to their career goals through their journey with TarkAI.
           </p>
         </div>
 
         {/* Reels Container: Right-to-Left Scrolling Marquee */}
-        <div className="relative w-full overflow-hidden mt-10 pt-4 pb-12">
+        <div className="relative w-full overflow-hidden mt-4 sm:mt-10 pt-2 sm:pt-4 pb-4 sm:pb-8 lg:pb-12">
           {/* Fade edges */}
           <div className="absolute top-0 bottom-0 left-0 w-12 sm:w-24 bg-linear-to-r from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
           <div className="absolute top-0 bottom-0 right-0 w-12 sm:w-24 bg-linear-to-l from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
@@ -83,9 +83,9 @@ export default function StudentReelsSection() {
             onTouchEnd={() => setIsHovered(false)}
           >
             {[0, 1].map((setIndex) => (
-              <div key={setIndex} className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-3 sm:px-4 lg:px-6">
+              <div key={setIndex} className="flex items-center gap-4 sm:gap-8 lg:gap-12 px-3 sm:px-4 lg:px-6">
                 {reels.map((reel) => (
-                  <div key={`${setIndex}-${reel.id}`} className="relative group cursor-pointer shrink-0 w-65 sm:w-72 lg:w-85" onClick={() => setPlayingId(reel.id)}>
+                  <div key={`${setIndex}-${reel.id}`} className="relative group cursor-pointer shrink-0 w-56 sm:w-72 lg:w-85" onClick={() => setPlayingId(reel.id)}>
                     <div 
                       className="relative aspect-9/16 bg-black rounded-4xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(45,165,163,0.2)] border border-[#E2E8F0] transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_30px_60px_-15px_rgba(45,165,163,0.3)]"
                     >
