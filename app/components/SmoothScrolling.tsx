@@ -144,6 +144,7 @@ export default function SmoothScrolling({ children }: { children: ReactNode }) {
         touchMultiplier: 1.0,
         syncTouch: false,
         autoResize: true,
+        prevent: (node) => node instanceof HTMLElement && node.hasAttribute?.("data-lenis-prevent"),
       }}
     >
       <LenisManager />

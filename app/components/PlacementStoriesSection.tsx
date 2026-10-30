@@ -16,7 +16,9 @@ export default function PlacementStoriesSection() {
     ];
 
     const scrollRef = useRef<HTMLDivElement>(null);
-    const [isHovered, setIsHovered] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+    const isHoveredRef = useRef(false);
+    const isVisibleRef = useRef(true);
     const isTouchInteracting = useRef(false);
     const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -30,6 +32,19 @@ export default function PlacementStoriesSection() {
         }
     }, []);
 
+    // Only run continuous auto-scroll when section is in viewport
+    useEffect(() => {
+        if (!sectionRef.current) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isVisibleRef.current = entry.isIntersecting;
+            },
+            { threshold: 0.05 }
+        );
+        observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
+
     const scroll = (direction: 'left' | 'right') => {
         if (scrollRef.current) {
             const { current } = scrollRef;
@@ -41,7 +56,7 @@ export default function PlacementStoriesSection() {
 
     const handleTouchStart = () => {
         isTouchInteracting.current = true;
-        setIsHovered(true);
+        isHoveredRef.current = true;
         if (resumeTimeoutRef.current) {
             clearTimeout(resumeTimeoutRef.current);
             resumeTimeoutRef.current = null;
@@ -53,7 +68,7 @@ export default function PlacementStoriesSection() {
         if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         resumeTimeoutRef.current = setTimeout(() => {
             if (!isTouchInteracting.current) {
-                setIsHovered(false);
+                isHoveredRef.current = false;
             }
         }, 2500);
     };
@@ -76,7 +91,7 @@ export default function PlacementStoriesSection() {
         window.addEventListener('resize', updateMetrics);
         
         const playScroll = (time: number) => {
-            if (!isHovered && !isTouchInteracting.current && scrollRef.current) {
+            if (isVisibleRef.current && !isHoveredRef.current && !isTouchInteracting.current && scrollRef.current) {
                 if (time - lastTime >= 16) {
                     if (!cachedScrollWidth) updateMetrics();
                     const currentScroll = scrollRef.current.scrollLeft;
@@ -101,10 +116,10 @@ export default function PlacementStoriesSection() {
             window.removeEventListener('resize', updateMetrics);
             if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         };
-    }, [isHovered]);
+    }, []);
 
     return (
-        <section className="pt-4 sm:pt-6 md:pt-12 pb-6 sm:pb-10 lg:pt-16 lg:pb-12 bg-[#F8FCFC] relative overflow-hidden">
+        <section ref={sectionRef} className="pt-4 sm:pt-6 md:pt-12 pb-6 sm:pb-10 lg:pt-16 lg:pb-12 bg-[#F8FCFC] relative overflow-hidden">
             {/* Geometric animated shapes */}
             <GeometricShapes variant="default" />
             
@@ -132,8 +147,8 @@ export default function PlacementStoriesSection() {
                 {/* Marquee Area with Arrows and Blur Mask */}
                 <div 
                     className="relative w-full overflow-visible mt-5 sm:mt-10 py-2 sm:py-4 group"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
+                    onMouseEnter={() => { isHoveredRef.current = true; }}
+                    onMouseLeave={() => { isHoveredRef.current = false; }}
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                 >
@@ -156,8 +171,7 @@ export default function PlacementStoriesSection() {
                     >
                         <div 
                             ref={scrollRef} 
-                            data-lenis-prevent="true"
-                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto py-3 sm:py-4 custom-scrollbar-hide touch-pan-x overscroll-x-contain [&::-webkit-scrollbar]:hidden"
+                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto overflow-y-hidden py-3 sm:py-4 custom-scrollbar-hide touch-pan-y overscroll-x-auto [&::-webkit-scrollbar]:hidden"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                             onTouchStart={handleTouchStart}
                             onTouchEnd={handleTouchEnd}

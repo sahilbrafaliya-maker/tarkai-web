@@ -26,7 +26,9 @@ interface HomeBlogSectionProps {
 }
 
 export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
-    const [isHovered, setIsHovered] = useState(false);
+    const isHoveredRef = useRef(false);
+    const isVisibleRef = useRef(true);
+    const sectionRef = useRef<HTMLElement>(null);
     const [fetchedBlogs, setFetchedBlogs] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(!latestBlogs || latestBlogs.length === 0);
     const [isMobile, setIsMobile] = useState(false);
@@ -42,6 +44,18 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
+    // Only run mobile auto-scroll when section is in viewport
+    useEffect(() => {
+        if (!sectionRef.current) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isVisibleRef.current = entry.isIntersecting;
+            },
+            { threshold: 0.05 }
+        );
+        observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
 
     // Continuous auto-scroll on mobile when not interacting
     useEffect(() => {
@@ -50,7 +64,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
         let lastTime = performance.now();
 
         const playScroll = (time: number) => {
-            if (!isHovered && !isTouchingRef.current && scrollRef.current) {
+            if (isVisibleRef.current && !isHoveredRef.current && !isTouchingRef.current && scrollRef.current) {
                 if (time - lastTime >= 18) {
                     const el = scrollRef.current;
                     const halfScroll = el.scrollWidth / 2;
@@ -72,11 +86,11 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         };
-    }, [isMobile, isHovered]);
+    }, [isMobile]);
 
     const handleTouchStart = () => {
         isTouchingRef.current = true;
-        setIsHovered(true);
+        isHoveredRef.current = true;
         if (resumeTimeoutRef.current) {
             clearTimeout(resumeTimeoutRef.current);
             resumeTimeoutRef.current = null;
@@ -88,7 +102,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
         if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         resumeTimeoutRef.current = setTimeout(() => {
             if (!isTouchingRef.current) {
-                setIsHovered(false);
+                isHoveredRef.current = false;
             }
         }, 2500);
     };
@@ -117,7 +131,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
     const scrollBlogs = displayBlogs.slice(1);
 
     return (
-        <section className="pt-8 pb-10 sm:pt-12 sm:pb-20 lg:pt-16 lg:pb-28 bg-[#EAF7F7] relative z-20 overflow-hidden">
+        <section ref={sectionRef} className="pt-8 pb-10 sm:pt-12 sm:pb-20 lg:pt-16 lg:pb-28 bg-[#EAF7F7] relative z-20 overflow-hidden">
             <GeometricShapes />
             <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
                 
@@ -218,19 +232,16 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                         
                         <div 
                             ref={scrollRef}
-                            data-lenis-prevent="true"
-                            className="flex overflow-x-auto lg:overflow-hidden items-center h-full w-full max-w-full touch-pan-x overscroll-x-contain custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
+                            className="flex overflow-x-auto overflow-y-hidden lg:overflow-hidden items-center h-full w-full max-w-full touch-pan-y overscroll-x-auto custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
+                            onMouseEnter={() => { isHoveredRef.current = true; }}
+                            onMouseLeave={() => { isHoveredRef.current = false; }}
                             onTouchStart={handleTouchStart}
                             onTouchEnd={handleTouchEnd}
                         >
                             <div 
-                                className="flex gap-4 sm:gap-6 shrink-0 w-max lg:animate-[scroll-marquee-left_25s_linear_infinite]"
-                                style={{
-                                    animationPlayState: isHovered ? 'paused' : 'running'
-                                }}
+                                className="flex gap-4 sm:gap-6 shrink-0 w-max lg:animate-[scroll-marquee-left_25s_linear_infinite] hover:[animation-play-state:paused]"
+                                
                             >
                                 {[0, 1].map((setIndex) => (
                                     <div key={setIndex} className="flex gap-6 shrink-0">

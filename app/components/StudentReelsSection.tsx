@@ -14,9 +14,11 @@ interface ReelData {
 
 export default function StudentReelsSection() {
   const [playingId, setPlayingId] = useState<number | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const isHoveredRef = useRef(false);
+  const isVisibleRef = useRef(true);
   const [isMobile, setIsMobile] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const isTouchingRef = useRef(false);
   const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -52,6 +54,19 @@ export default function StudentReelsSection() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Only run mobile auto-scroll when section is in viewport
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   // Continuous auto-scroll on mobile when not interacting
   useEffect(() => {
     if (!isMobile) return;
@@ -59,7 +74,7 @@ export default function StudentReelsSection() {
     let lastTime = performance.now();
 
     const playScroll = (time: number) => {
-      if (!isHovered && !isTouchingRef.current && playingId === null && scrollRef.current) {
+      if (isVisibleRef.current && !isHoveredRef.current && !isTouchingRef.current && playingId === null && scrollRef.current) {
         if (time - lastTime >= 18) {
           const el = scrollRef.current;
           const halfScroll = el.scrollWidth / 2;
@@ -81,11 +96,11 @@ export default function StudentReelsSection() {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     };
-  }, [isMobile, isHovered, playingId]);
+  }, [isMobile, playingId]);
 
   const handleTouchStart = () => {
     isTouchingRef.current = true;
-    setIsHovered(true);
+    isHoveredRef.current = true;
     if (resumeTimeoutRef.current) {
       clearTimeout(resumeTimeoutRef.current);
       resumeTimeoutRef.current = null;
@@ -97,13 +112,13 @@ export default function StudentReelsSection() {
     if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = setTimeout(() => {
       if (!isTouchingRef.current) {
-        setIsHovered(false);
+        isHoveredRef.current = false;
       }
     }, 2500);
   };
 
   return (
-    <section className="py-10 sm:py-16 lg:py-28 bg-[#EAF7F7] relative overflow-hidden">
+    <section ref={sectionRef} className="py-10 sm:py-16 lg:py-28 bg-[#EAF7F7] relative overflow-hidden">
       <GeometricShapes variant="student-journeys" />
       {/* Background Soft Glows */}
       <div className="absolute top-0 right-0 w-150 h-150 bg-[#20A6A8]/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
@@ -131,28 +146,27 @@ export default function StudentReelsSection() {
         {/* Reels Container: Right-to-Left Scrolling Marquee on Desktop, Smooth Touch Scroll on Mobile */}
         <div 
           ref={scrollRef}
-          data-lenis-prevent="true"
-          className="relative w-full max-w-full overflow-x-auto md:overflow-hidden mt-4 sm:mt-10 pt-2 sm:pt-4 pb-10 sm:pb-8 lg:pb-12 touch-pan-x overscroll-x-contain custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
+          className="relative w-full max-w-full overflow-x-auto overflow-y-hidden md:overflow-hidden mt-4 sm:mt-10 pt-2 sm:pt-4 pb-8 sm:pb-8 lg:pb-12 touch-pan-y overscroll-x-auto custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => { isHoveredRef.current = true; }}
+          onMouseLeave={() => { isHoveredRef.current = false; }}
         >
           {/* Fade edges */}
           <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-24 bg-linear-to-r from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
           <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-24 bg-linear-to-l from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
           
           <div
-            className="flex items-center w-max md:animate-[scroll-marquee-reverse_20s_linear_infinite]"
+            className="flex items-center w-max md:animate-[scroll-marquee-reverse_20s_linear_infinite] hover:[animation-play-state:paused]"
             style={{
-              animationPlayState: isHovered || playingId !== null ? 'paused' : 'running'
+              animationPlayState: playingId !== null ? 'paused' : undefined
             }}
           >
             {[0, 1].map((setIndex) => (
-              <div key={setIndex} className="flex items-center gap-4 sm:gap-8 lg:gap-12 px-3 sm:px-4 lg:px-6 pb-6 sm:pb-0">
+              <div key={setIndex} className="flex items-center gap-4 sm:gap-8 lg:gap-12 px-3 sm:px-4 lg:px-6">
                 {reels.map((reel) => (
-                  <div key={`${setIndex}-${reel.id}`} className="relative group cursor-pointer shrink-0 w-56 sm:w-72 lg:w-85" onClick={() => setPlayingId(reel.id)}>
+                  <div key={`${setIndex}-${reel.id}`} className="relative group cursor-pointer shrink-0 w-56 sm:w-72 lg:w-85 pb-6 sm:pb-0" onClick={() => setPlayingId(reel.id)}>
                     <div 
                       className="relative aspect-9/16 bg-black rounded-4xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(45,165,163,0.2)] border border-[#E2E8F0] transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_30px_60px_-15px_rgba(45,165,163,0.3)]"
                     >
@@ -188,7 +202,7 @@ export default function StudentReelsSection() {
                     </div>
 
                     {playingId !== reel.id && (
-                      <div className="absolute -bottom-4 sm:-bottom-5 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between pointer-events-none transition-transform duration-500 group-hover:-translate-y-2 z-10">
+                      <div className="absolute bottom-1 sm:-bottom-5 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between pointer-events-none transition-transform duration-500 group-hover:-translate-y-2 z-10">
                         <div className="bg-white/95 backdrop-blur-md px-4 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-md border border-[#E2E8F0] text-[#0D1C2E] font-bold text-sm sm:text-[15px] tracking-wide">
                           {reel.name}
                         </div>
