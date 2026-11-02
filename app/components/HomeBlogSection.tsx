@@ -57,20 +57,45 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
         return () => observer.disconnect();
     }, []);
 
+    // On load on mobile, start from middle to enable swiping both directions
+    useEffect(() => {
+        if (!scrollRef.current || !isMobile) return;
+        const setInitialPos = () => {
+            if (scrollRef.current) {
+                const oneSet = scrollRef.current.scrollWidth / 4;
+                if (oneSet > 0 && scrollRef.current.scrollLeft === 0) {
+                    scrollRef.current.scrollLeft = oneSet;
+                }
+            }
+        };
+        setInitialPos();
+        const timer = setTimeout(setInitialPos, 300);
+        return () => clearTimeout(timer);
+    }, [isMobile]);
+
     // Continuous auto-scroll on mobile when not interacting
     useEffect(() => {
         if (!isMobile) return;
         let animationFrameId: number;
         let lastTime = performance.now();
+        let cachedOneSet = 0;
+
+        const updateMetrics = () => {
+            if (scrollRef.current) {
+                cachedOneSet = scrollRef.current.scrollWidth / 4;
+            }
+        };
+        updateMetrics();
+        window.addEventListener('resize', updateMetrics);
 
         const playScroll = (time: number) => {
-            if (isVisibleRef.current && !isHoveredRef.current && !isTouchingRef.current && scrollRef.current) {
-                if (time - lastTime >= 18) {
+            if (isVisibleRef.current && !isTouchingRef.current && !isHoveredRef.current && scrollRef.current) {
+                if (time - lastTime >= 16) {
+                    if (!cachedOneSet) updateMetrics();
                     const el = scrollRef.current;
-                    const halfScroll = el.scrollWidth / 2;
-                    if (halfScroll > 0) {
-                        if (el.scrollLeft >= halfScroll) {
-                            el.scrollLeft = 0;
+                    if (cachedOneSet > 0) {
+                        if (el.scrollLeft >= cachedOneSet * 2) {
+                            el.scrollLeft -= cachedOneSet;
                         } else {
                             el.scrollLeft += 1;
                         }
@@ -84,6 +109,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
         animationFrameId = requestAnimationFrame(playScroll);
         return () => {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            window.removeEventListener('resize', updateMetrics);
             if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         };
     }, [isMobile]);
@@ -91,6 +117,9 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
     const handleTouchStart = () => {
         isTouchingRef.current = true;
         isHoveredRef.current = true;
+        if (scrollRef.current) {
+            scrollRef.current.style.scrollSnapType = 'x mandatory';
+        }
         if (resumeTimeoutRef.current) {
             clearTimeout(resumeTimeoutRef.current);
             resumeTimeoutRef.current = null;
@@ -102,9 +131,25 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
         if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         resumeTimeoutRef.current = setTimeout(() => {
             if (!isTouchingRef.current) {
+                if (scrollRef.current) {
+                    scrollRef.current.style.scrollSnapType = 'none';
+                }
                 isHoveredRef.current = false;
             }
-        }, 2500);
+        }, 2000);
+    };
+
+    const handleScroll = () => {
+        if (!scrollRef.current || !isMobile) return;
+        const el = scrollRef.current;
+        const oneSet = el.scrollWidth / 4;
+        if (oneSet > 0) {
+            if (el.scrollLeft >= oneSet * 3) {
+                el.scrollLeft -= oneSet;
+            } else if (el.scrollLeft <= 50) {
+                el.scrollLeft += oneSet;
+            }
+        }
     };
 
     useEffect(() => {
@@ -189,7 +234,7 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                                     src={featuredPost.coverImage || featuredPost.image || '/Logo.png'}
                                     alt={featuredPost.title || "TARK AI Featured Article"}
                                     fill
-                                    className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:blur-[3px]"
+                                    className="object-cover transition-all duration-700 lg:group-hover:scale-105 lg:group-hover:blur-[3px]"
                                 />
                                 {/* Dark Gradient Overlay */}
                                 <div className="absolute inset-0 bg-linear-to-t from-[#0F1C1E] via-[#0F1C1E]/40 to-transparent pointer-events-none z-10 transition-opacity duration-300"></div>
@@ -227,26 +272,28 @@ export default function HomeBlogSection({ latestBlogs }: HomeBlogSectionProps) {
                     {/* Right Column (Auto-Scroll on Desktop, Touch-Swipeable on Mobile) */}
                     <div className="w-full max-w-full min-w-0 lg:w-2/3 overflow-hidden relative pt-4 lg:pt-0">
                         {/* Fade edges */}
-                        <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-16 bg-linear-to-r from-[#EAF7F7] to-transparent z-10 pointer-events-none" />
-                        <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-16 bg-linear-to-l from-[#EAF7F7] to-transparent z-10 pointer-events-none" />
+                        <div className="hidden lg:block absolute top-0 bottom-0 left-0 w-8 sm:w-16 bg-linear-to-r from-[#EAF7F7] to-transparent z-10 pointer-events-none" />
+                        <div className="hidden lg:block absolute top-0 bottom-0 right-0 w-8 sm:w-16 bg-linear-to-l from-[#EAF7F7] to-transparent z-10 pointer-events-none" />
                         
                         <div 
                             ref={scrollRef}
-                            className="flex overflow-x-auto overflow-y-hidden lg:overflow-hidden items-center h-full w-full max-w-full touch-pan-y overscroll-x-auto custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
+                            onScroll={handleScroll}
+                            className="flex overflow-x-auto overflow-y-hidden lg:overflow-hidden items-center h-full w-full max-w-full touch-auto overscroll-x-contain sm:overscroll-x-auto custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
-                            onMouseEnter={() => { isHoveredRef.current = true; }}
-                            onMouseLeave={() => { isHoveredRef.current = false; }}
+                            onMouseEnter={() => { if (!isMobile) isHoveredRef.current = true; }}
+                            onMouseLeave={() => { if (!isMobile) isHoveredRef.current = false; }}
                             onTouchStart={handleTouchStart}
                             onTouchEnd={handleTouchEnd}
+                            onTouchCancel={handleTouchEnd}
                         >
                             <div 
                                 className="flex gap-4 sm:gap-6 shrink-0 w-max lg:animate-[scroll-marquee-left_25s_linear_infinite] hover:[animation-play-state:paused]"
                                 
                             >
-                                {[0, 1].map((setIndex) => (
+                                {[0, 1, 2, 3].map((setIndex) => (
                                     <div key={setIndex} className="flex gap-6 shrink-0">
                                         {scrollBlogs.map((post) => (
-                                            <div key={`${setIndex}-${post.id}`} className="w-68 sm:w-87.5 shrink-0 h-96 sm:h-110 flex">
+                                            <div key={`${setIndex}-${post.id}`} className="w-68 sm:w-87.5 shrink-0 h-96 sm:h-110 flex snap-start sm:snap-align-none transform-[translateZ(0)]">
                                                 <BlogCard post={post} />
                                             </div>
                                         ))}
@@ -278,16 +325,10 @@ function BlogCard({ post }: { post: BlogPost }) {
     return (
         <div className="group w-full h-full flex flex-col cursor-pointer">
             <Link href={`/blog/${post.slug || post.id}`} className="block h-full flex-1">
-                <div className="bg-white/60 backdrop-blur-md rounded-xl shadow-sm overflow-hidden flex flex-col h-full relative border border-gray-100">
+                <div className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full relative border border-gray-100">
 
                     {/* Image */}
                     <div className="relative h-52 overflow-hidden shrink-0 bg-gray-50/50">
-                        {/* Blurred background image to prevent empty spaces (CSS background to avoid empty alt text) */}
-                        <div
-                            className="absolute inset-0 bg-cover bg-center blur-md opacity-25 scale-105 pointer-events-none"
-                            style={{ backgroundImage: `url(${imageUrl})` }}
-                            aria-hidden="true"
-                        />
                         {/* Crisp contained foreground image */}
                         <Image
                             src={imageUrl}
@@ -298,7 +339,7 @@ function BlogCard({ post }: { post: BlogPost }) {
                         />
 
                         {/* Hover Overlay with Read Article */}
-                        <div className="absolute inset-0 bg-[#0F1C1E]/70 backdrop-blur-[2px] z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="hidden lg:flex absolute inset-0 bg-[#0F1C1E]/70 backdrop-blur-[2px] z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 items-center justify-center">
                             <div className="inline-flex items-center gap-2 text-white font-semibold text-[13px] translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                 Read Article 
                                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

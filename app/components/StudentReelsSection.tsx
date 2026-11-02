@@ -13,7 +13,7 @@ interface ReelData {
 }
 
 export default function StudentReelsSection() {
-  const [playingId, setPlayingId] = useState<number | null>(null);
+  const [playingKey, setPlayingKey] = useState<string | null>(null);
   const isHoveredRef = useRef(false);
   const isVisibleRef = useRef(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -60,6 +60,9 @@ export default function StudentReelsSection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
+        if (!entry.isIntersecting) {
+          setPlayingKey(null);
+        }
       },
       { threshold: 0.05 }
     );
@@ -67,20 +70,45 @@ export default function StudentReelsSection() {
     return () => observer.disconnect();
   }, []);
 
+  // On load on mobile, start from set 1 to enable infinite swiping in both directions
+  useEffect(() => {
+    if (!scrollRef.current || !isMobile) return;
+    const setInitialPos = () => {
+      if (scrollRef.current) {
+        const oneSet = scrollRef.current.scrollWidth / 4;
+        if (oneSet > 0 && scrollRef.current.scrollLeft === 0) {
+          scrollRef.current.scrollLeft = oneSet;
+        }
+      }
+    };
+    setInitialPos();
+    const timer = setTimeout(setInitialPos, 300);
+    return () => clearTimeout(timer);
+  }, [isMobile]);
+
   // Continuous auto-scroll on mobile when not interacting
   useEffect(() => {
     if (!isMobile) return;
     let animationFrameId: number;
     let lastTime = performance.now();
+    let cachedOneSet = 0;
+
+    const updateMetrics = () => {
+      if (scrollRef.current) {
+        cachedOneSet = scrollRef.current.scrollWidth / 4;
+      }
+    };
+    updateMetrics();
+    window.addEventListener('resize', updateMetrics);
 
     const playScroll = (time: number) => {
-      if (isVisibleRef.current && !isHoveredRef.current && !isTouchingRef.current && playingId === null && scrollRef.current) {
-        if (time - lastTime >= 18) {
+      if (isVisibleRef.current && !isTouchingRef.current && !isHoveredRef.current && playingKey === null && scrollRef.current) {
+        if (time - lastTime >= 16) {
+          if (!cachedOneSet) updateMetrics();
           const el = scrollRef.current;
-          const halfScroll = el.scrollWidth / 2;
-          if (halfScroll > 0) {
-            if (el.scrollLeft >= halfScroll) {
-              el.scrollLeft = 0;
+          if (cachedOneSet > 0) {
+            if (el.scrollLeft >= cachedOneSet * 2) {
+              el.scrollLeft -= cachedOneSet;
             } else {
               el.scrollLeft += 1;
             }
@@ -94,13 +122,17 @@ export default function StudentReelsSection() {
     animationFrameId = requestAnimationFrame(playScroll);
     return () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', updateMetrics);
       if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     };
-  }, [isMobile, playingId]);
+  }, [isMobile, playingKey]);
 
   const handleTouchStart = () => {
     isTouchingRef.current = true;
     isHoveredRef.current = true;
+    if (scrollRef.current) {
+      scrollRef.current.style.scrollSnapType = 'x mandatory';
+    }
     if (resumeTimeoutRef.current) {
       clearTimeout(resumeTimeoutRef.current);
       resumeTimeoutRef.current = null;
@@ -112,9 +144,26 @@ export default function StudentReelsSection() {
     if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = setTimeout(() => {
       if (!isTouchingRef.current) {
+        if (scrollRef.current) {
+          scrollRef.current.style.scrollSnapType = 'none';
+        }
         isHoveredRef.current = false;
       }
-    }, 2500);
+    }, 2000);
+  };
+
+  const handleScroll = () => {
+    if (!scrollRef.current || !isMobile) return;
+    const el = scrollRef.current;
+    const oneSet = el.scrollWidth / 4;
+    if (oneSet > 0) {
+      // Seamless infinite wrapping on user manual swipes
+      if (el.scrollLeft >= oneSet * 3) {
+        el.scrollLeft -= oneSet;
+      } else if (el.scrollLeft <= 50) {
+        el.scrollLeft += oneSet;
+      }
+    }
   };
 
   return (
@@ -146,73 +195,96 @@ export default function StudentReelsSection() {
         {/* Reels Container: Right-to-Left Scrolling Marquee on Desktop, Smooth Touch Scroll on Mobile */}
         <div 
           ref={scrollRef}
-          className="relative w-full max-w-full overflow-x-auto overflow-y-hidden md:overflow-hidden mt-4 sm:mt-10 pt-2 sm:pt-4 pb-8 sm:pb-8 lg:pb-12 touch-pan-y overscroll-x-auto custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
+          onScroll={handleScroll}
+          className="relative w-full max-w-full overflow-x-auto overflow-y-hidden md:overflow-hidden mt-4 sm:mt-10 pt-2 sm:pt-4 pb-8 sm:pb-8 lg:pb-12 touch-auto overscroll-x-contain sm:overscroll-x-auto custom-scrollbar-hide [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          onMouseEnter={() => { isHoveredRef.current = true; }}
-          onMouseLeave={() => { isHoveredRef.current = false; }}
+          onTouchCancel={handleTouchEnd}
+          onMouseEnter={() => { if (!isMobile) isHoveredRef.current = true; }}
+          onMouseLeave={() => { if (!isMobile) isHoveredRef.current = false; }}
         >
-          {/* Fade edges */}
-          <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-24 bg-linear-to-r from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
-          <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-24 bg-linear-to-l from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
+          {/* Fade edges only on desktop to prevent mobile edge white artifacts */}
+          <div className="hidden md:block absolute top-0 bottom-0 left-0 w-8 sm:w-24 bg-linear-to-r from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
+          <div className="hidden md:block absolute top-0 bottom-0 right-0 w-8 sm:w-24 bg-linear-to-l from-[#EAF7F7] to-transparent z-20 pointer-events-none" />
           
           <div
             className="flex items-center w-max md:animate-[scroll-marquee-reverse_20s_linear_infinite] hover:[animation-play-state:paused]"
             style={{
-              animationPlayState: playingId !== null ? 'paused' : undefined
+              animationPlayState: playingKey !== null ? 'paused' : undefined
             }}
           >
-            {[0, 1].map((setIndex) => (
+            {[0, 1, 2, 3].map((setIndex) => (
               <div key={setIndex} className="flex items-center gap-4 sm:gap-8 lg:gap-12 px-3 sm:px-4 lg:px-6">
-                {reels.map((reel) => (
-                  <div key={`${setIndex}-${reel.id}`} className="relative group cursor-pointer shrink-0 w-56 sm:w-72 lg:w-85 pb-6 sm:pb-0" onClick={() => setPlayingId(reel.id)}>
+                {reels.map((reel) => {
+                  const cardKey = `${setIndex}-${reel.id}`;
+                  const isCurrentPlaying = playingKey === cardKey;
+
+                  return (
                     <div 
-                      className="relative aspect-9/16 bg-black rounded-4xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(45,165,163,0.2)] border border-[#E2E8F0] transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_30px_60px_-15px_rgba(45,165,163,0.3)]"
+                      key={cardKey} 
+                      className="relative group cursor-pointer shrink-0 w-56 sm:w-72 lg:w-85 pb-6 sm:pb-0 snap-start sm:snap-align-none transform-[translateZ(0)]" 
+                      onClick={() => {
+                        if (isCurrentPlaying) {
+                          setPlayingKey(null);
+                        } else {
+                          // Pause any other video in the document
+                          if (typeof document !== 'undefined') {
+                            document.querySelectorAll('video').forEach((v) => {
+                              try { v.pause(); } catch (_) {}
+                            });
+                          }
+                          setPlayingKey(cardKey);
+                        }
+                      }}
                     >
-                      {playingId === reel.id ? (
-                        <video 
-                          src={reel.videoUrl} 
-                          autoPlay 
-                          playsInline
-                          loop
-                          className="w-full h-full object-cover"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const videoElement = e.target as HTMLVideoElement;
-                            if (videoElement.paused) {
-                              videoElement.play();
-                            } else {
-                              videoElement.pause();
-                              setPlayingId(null);
-                            }
-                          }}
-                        />
-                      ) : (
-                        <>
-                          <Image 
-                            src={reel.thumbnail} 
-                            alt={`${reel.name}'s Journey`} 
-                            fill 
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      <div 
+                        className="relative aspect-9/16 bg-black rounded-4xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(45,165,163,0.2)] border border-[#E2E8F0] transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_30px_60px_-15px_rgba(45,165,163,0.3)]"
+                      >
+                        {isCurrentPlaying ? (
+                          <video 
+                            src={reel.videoUrl} 
+                            autoPlay 
+                            playsInline
+                            onEnded={() => setPlayingKey(null)}
+                            className="w-full h-full object-cover"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const videoElement = e.target as HTMLVideoElement;
+                              if (videoElement.paused) {
+                                videoElement.play();
+                              } else {
+                                videoElement.pause();
+                                setPlayingKey(null);
+                              }
+                            }}
                           />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
-                        </>
+                        ) : (
+                          <>
+                            <Image 
+                              src={reel.thumbnail} 
+                              alt={`${reel.name}'s Journey`} 
+                              fill 
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+                          </>
+                        )}
+                      </div>
+
+                      {!isCurrentPlaying && (
+                        <div className="absolute bottom-1 sm:-bottom-5 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between pointer-events-none transition-transform duration-500 group-hover:-translate-y-2 z-10">
+                          <div className="bg-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-md border border-[#E2E8F0] text-[#0D1C2E] font-bold text-sm sm:text-[15px] tracking-wide">
+                            {reel.name}
+                          </div>
+                          <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#20A6A8] border-3 sm:border-4 border-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 shrink-0">
+                            <FaPlay className="text-white ml-0.5 sm:ml-1 text-[13px] sm:text-[16px]" />
+                          </div>
+                        </div>
                       )}
                     </div>
-
-                    {playingId !== reel.id && (
-                      <div className="absolute bottom-1 sm:-bottom-5 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between pointer-events-none transition-transform duration-500 group-hover:-translate-y-2 z-10">
-                        <div className="bg-white/95 backdrop-blur-md px-4 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-md border border-[#E2E8F0] text-[#0D1C2E] font-bold text-sm sm:text-[15px] tracking-wide">
-                          {reel.name}
-                        </div>
-                        <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#20A6A8] border-3 sm:border-4 border-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 shrink-0">
-                          <FaPlay className="text-white ml-0.5 sm:ml-1 text-[13px] sm:text-[16px]" />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ))}
           </div>

@@ -57,6 +57,9 @@ export default function PlacementStoriesSection() {
     const handleTouchStart = () => {
         isTouchInteracting.current = true;
         isHoveredRef.current = true;
+        if (scrollRef.current) {
+            scrollRef.current.style.scrollSnapType = 'x mandatory';
+        }
         if (resumeTimeoutRef.current) {
             clearTimeout(resumeTimeoutRef.current);
             resumeTimeoutRef.current = null;
@@ -68,9 +71,24 @@ export default function PlacementStoriesSection() {
         if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
         resumeTimeoutRef.current = setTimeout(() => {
             if (!isTouchInteracting.current) {
+                if (scrollRef.current) {
+                    scrollRef.current.style.scrollSnapType = 'none';
+                }
                 isHoveredRef.current = false;
             }
         }, 2500);
+    };
+
+    const handleScroll = () => {
+        if (!scrollRef.current) return;
+        const el = scrollRef.current;
+        const clientWidth = el.clientWidth;
+        const scrollWidth = el.scrollWidth;
+        if (scrollWidth > clientWidth) {
+            if (el.scrollLeft + clientWidth >= scrollWidth - 200 || el.scrollLeft <= 200) {
+                el.scrollLeft = scrollWidth / 2;
+            }
+        }
     };
 
     // Continuous Auto-scroll logic (Right to Left) with cached layout metrics
@@ -171,7 +189,8 @@ export default function PlacementStoriesSection() {
                     >
                         <div 
                             ref={scrollRef} 
-                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto overflow-y-hidden py-3 sm:py-4 custom-scrollbar-hide touch-pan-y overscroll-x-auto [&::-webkit-scrollbar]:hidden"
+                            onScroll={handleScroll}
+                            className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 overflow-x-auto overflow-y-hidden py-3 sm:py-4 custom-scrollbar-hide touch-auto overscroll-x-contain sm:overscroll-x-auto [&::-webkit-scrollbar]:hidden"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                             onTouchStart={handleTouchStart}
                             onTouchEnd={handleTouchEnd}
@@ -179,7 +198,7 @@ export default function PlacementStoriesSection() {
                             {displayImages.map((src, idx) => (
                                 <div
                                     key={idx}
-                                    className="relative w-52 h-72 sm:w-65 sm:h-90 md:w-70 md:h-95 shrink-0 rounded-2xl border border-gray-200 bg-white overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-[#20A6A8]/50 hover:shadow-lg"
+                                    className="relative w-52 h-72 sm:w-65 sm:h-90 md:w-70 md:h-95 shrink-0 rounded-2xl border border-gray-200 bg-white overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-[#20A6A8]/50 hover:shadow-lg snap-start sm:snap-align-none"
                                 >
                                     <Image
                                         src={src}
