@@ -117,7 +117,7 @@ const teamJsonLd = {
             "item": {
               "@type": "Person",
               "name": "Kashish Nagar",
-              "jobTitle": "Co-Founder & EVP",
+              "jobTitle": "Co-Founder & Precedent",
               "worksFor": {
                 "@type": "EducationalOrganization",
                 "@id": "https://tarkaiedtech.com/#organization",

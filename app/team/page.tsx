@@ -146,7 +146,7 @@ export default function TeamPage() {
                                 viewport={{ once: true, margin: "-100px" }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
-                                <span className="text-[#1E3A8A] font-bold text-sm tracking-wide mb-2 block">Co-Founder & EVP</span>
+                                <span className="text-[#1E3A8A] font-bold text-sm tracking-wide mb-2 block">Co-Founder & Precedent</span>
                                 <h2 className="text-[#1F2937] text-4xl lg:text-[44px] font-extrabold mb-6 tracking-tight">Kashish Nagar</h2>
                                 
                                 <p className="text-gray-700 text-[16px] leading-[1.8] mb-4 text-justify">
