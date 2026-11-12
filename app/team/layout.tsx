@@ -1,51 +1,51 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Meet Our Team & Leadership",
+  title: "Meet Our Team & Leadership",
+  description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics from IIIT Lucknow.",
+  keywords: [
+    "TARK AI Team",
+    "AI EdTech Leadership Surat",
+    "AI Education Experts Gujarat",
+    "IIIT Lucknow AI Alumni",
+    "TarkAI Founders"
+  ],
+  alternates: {
+    canonical: "https://tarkaiedtech.com/team",
+  },
+  openGraph: {
+    title: "Meet Our Team | TARK AI EdTech Leadership",
     description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics from IIIT Lucknow.",
-    keywords: [
-        "TARK AI Team",
-        "AI EdTech Leadership Surat",
-        "AI Education Experts Gujarat",
-        "IIIT Lucknow AI Alumni",
-        "TarkAI Founders"
+    url: "https://tarkaiedtech.com/team",
+    siteName: "TARK AI EdTech",
+    images: [
+      {
+        url: "https://tarkaiedtech.com/Logo.png",
+        width: 1200,
+        height: 630,
+        alt: "TARK AI EdTech Leadership Team",
+      },
     ],
-    alternates: {
-        canonical: "https://tarkaiedtech.com/team",
+    type: "website",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Meet Our Team | TARK AI EdTech Leadership",
+    description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics from IIIT Lucknow.",
+    images: ["https://tarkaiedtech.com/Logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
-    openGraph: {
-        title: "Meet Our Team | TARK AI EdTech Leadership",
-        description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics from IIIT Lucknow.",
-        url: "https://tarkaiedtech.com/team",
-        siteName: "TARK AI EdTech",
-        images: [
-            {
-                url: "https://tarkaiedtech.com/Logo.png",
-                width: 1200,
-                height: 630,
-                alt: "TARK AI EdTech Leadership Team",
-            },
-        ],
-        type: "website",
-        locale: "en_IN",
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: "Meet Our Team | TARK AI EdTech Leadership",
-        description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics from IIIT Lucknow.",
-        images: ["https://tarkaiedtech.com/Logo.png"],
-    },
-    robots: {
-        index: true,
-        follow: true,
-        googleBot: {
-            index: true,
-            follow: true,
-            "max-video-preview": -1,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-        },
-    },
+  },
 };
 
 const teamJsonLd = {
@@ -117,7 +117,7 @@ const teamJsonLd = {
             "item": {
               "@type": "Person",
               "name": "Kashish Nagar",
-              "jobTitle": "Co-Founder & Precedent",
+              "jobTitle": "Co-Founder & president",
               "worksFor": {
                 "@type": "EducationalOrganization",
                 "@id": "https://tarkaiedtech.com/#organization",
@@ -225,17 +225,17 @@ const teamJsonLd = {
 };
 
 export default function TeamLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(teamJsonLd) }}
-            />
-            {children}
-        </>
-    );
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(teamJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }

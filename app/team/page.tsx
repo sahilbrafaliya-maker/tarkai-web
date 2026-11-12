@@ -7,10 +7,10 @@ import { motion } from 'motion/react';
 import BackgroundText from '../components/BackgroundText';
 import PageHeader from '../components/PageHeader';
 import dynamic from 'next/dynamic';
-import { FaChartLine } from "@react-icons/all-files/fa/FaChartLine";
-import { FaBrain } from "@react-icons/all-files/fa/FaBrain";
-import { FaNetworkWired } from "@react-icons/all-files/fa/FaNetworkWired";
-import { FaMicrochip } from "@react-icons/all-files/fa/FaMicrochip";
+// import { FaChartLine } from "@react-icons/all-files/fa/FaChartLine";
+// import { FaBrain } from "@react-icons/all-files/fa/FaBrain";
+// import { FaNetworkWired } from "@react-icons/all-files/fa/FaNetworkWired";
+// import { FaMicrochip } from "@react-icons/all-files/fa/FaMicrochip";
 
 const GeometricShapes = dynamic(() => import('../components/GeometricShapes'));
 
@@ -55,9 +55,9 @@ export default function TeamPage() {
     return (
         <div className="bg-white min-h-screen pb-20 relative overflow-hidden">
             <GeometricShapes hideTopLeftHexagon={true} hideTriangle={true} variant="team-page" />
-            <PageHeader 
+            <PageHeader
                 badge="OUR TEAM"
-                title={<>Visionaries Behind the Future<br/><span className="text-[#20A6A8]">of AI & Education</span></>}
+                title={<>Visionaries Behind the Future<br /><span className="text-[#20A6A8]">of AI & Education</span></>}
                 description="The passionate minds shaping the future of education through AI-driven innovation."
             />
 
@@ -73,7 +73,7 @@ export default function TeamPage() {
                     <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-20 relative z-10">
                         {/* Image Left */}
                         <div className="w-full md:w-5/12 flex justify-center relative order-1">
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-100px" }}
@@ -81,14 +81,14 @@ export default function TeamPage() {
                                 className="relative w-75 h-75 md:w-87.5 md:h-87.5"
                             >
                                 {/* Animated Background Glow */}
-                                <motion.div 
+                                <motion.div
                                     animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.7, 0.4] }}
                                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                                     className="absolute -inset-4 bg-brand-lightest rounded-full blur-2xl z-0"
                                 />
 
                                 {/* Spinning Dashed Border */}
-                                <motion.div 
+                                <motion.div
                                     animate={{ rotate: 360 }}
                                     transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                                     className="absolute -inset-6 border-[1.5px] border-dashed border-brand-accent/50 rounded-full z-0"
@@ -118,16 +118,16 @@ export default function TeamPage() {
                             >
                                 <span className="text-[#1E3A8A] font-bold text-sm tracking-wide mb-2 block">Founder & CEO</span>
                                 <h2 className="text-[#1F2937] text-4xl lg:text-[44px] font-extrabold mb-6 tracking-tight">Sahil Rafaliya</h2>
-                                
+
                                 <p className="text-gray-700 text-[16px] leading-[1.8] mb-4 text-justify">
                                     Sahil Rafaliya is a <b className="text-gray-900 font-bold">Data science professional</b> with a strong specialization in <b className="text-gray-900 font-bold">Climate Technology</b> and <b className="text-gray-900 font-bold">AI-driven analytics</b>. He holds an <b className="text-gray-900 font-bold">M.Sc. in Data Science (Climate Data Analytics specialization)</b> from <b className="text-gray-900 font-bold">Indian Institute of Information Technology, Lucknow</b>.
                                 </p>
                                 <p className="text-gray-700 text-[16px] leading-[1.8] mb-6 text-justify">
                                     <i className="font-semibold text-[#1F2937]">"With core expertise in <b className="text-gray-900 font-bold">Data Science, AI/ML, and Climate Tech</b>, he brings a rare
-                                    blend of technology and sustainability-focused insight to education. Sahil is
-                                    also the <b className="text-gray-900 font-bold">founder of TrustCarbon and ForITus Solutions</b>, reflecting his
-                                    entrepreneurial mindset and commitment to building impactful,
-                                    future-oriented solutions."</i>
+                                        blend of technology and sustainability-focused insight to education. Sahil is
+                                        also the <b className="text-gray-900 font-bold">founder of TrustCarbon and ForITus Solutions</b>, reflecting his
+                                        entrepreneurial mindset and commitment to building impactful,
+                                        future-oriented solutions."</i>
                                 </p>
                             </motion.div>
                         </div>
@@ -146,14 +146,14 @@ export default function TeamPage() {
                                 viewport={{ once: true, margin: "-100px" }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
-                                <span className="text-[#1E3A8A] font-bold text-sm tracking-wide mb-2 block">Co-Founder & Precedent</span>
+                                <span className="text-[#1E3A8A] font-bold text-sm tracking-wide mb-2 block">Co-Founder & president</span>
                                 <h2 className="text-[#1F2937] text-4xl lg:text-[44px] font-extrabold mb-6 tracking-tight">Kashish Nagar</h2>
-                                
+
                                 <p className="text-gray-700 text-[16px] leading-[1.8] mb-4 text-justify">
                                     Kashish Nagar is an <b className="text-gray-900 font-bold">AI and Machine Learning specialist</b> with a strong
                                     academic and mentoring background. She holds an <b className="text-gray-900 font-bold">M.Sc. in Artificial
-                                    Intelligence & Machine Learning</b> from <b className="text-gray-900 font-bold">Indian Institute of Information
-                                    Technology, Lucknow</b>.
+                                        Intelligence & Machine Learning</b> from <b className="text-gray-900 font-bold">Indian Institute of Information
+                                            Technology, Lucknow</b>.
                                 </p>
                                 <p className="text-gray-700 text-[16px] leading-[1.8] mb-6 text-justify">
                                     <i className="font-semibold text-[#1F2937]">"Her core expertise spans <b className="text-gray-900 font-bold">Data Science, AI/ML, MLOps, and Teaching & Mentorship</b>, with a strong focus on building industry-aligned, production-ready skillsets. She is also a <b className="text-gray-900 font-bold">Co-Founder of ForITus Solutions</b>, contributing to product development, technical architecture, and academic direction."</i>
@@ -164,7 +164,7 @@ export default function TeamPage() {
 
                         {/* Image Right */}
                         <div className="w-full md:w-5/12 flex justify-center relative order-1 md:order-2">
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-100px" }}
@@ -172,14 +172,14 @@ export default function TeamPage() {
                                 className="relative w-75 h-75 md:w-87.5 md:h-87.5"
                             >
                                 {/* Animated Background Glow */}
-                                <motion.div 
+                                <motion.div
                                     animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.7, 0.4] }}
                                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                                     className="absolute -inset-4 bg-brand-lightest rounded-full blur-2xl z-0"
                                 />
 
                                 {/* Spinning Dashed Border */}
-                                <motion.div 
+                                <motion.div
                                     animate={{ rotate: -360 }}
                                     transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                                     className="absolute -inset-6 border-[1.5px] border-dashed border-brand-accent/50 rounded-full z-0"
