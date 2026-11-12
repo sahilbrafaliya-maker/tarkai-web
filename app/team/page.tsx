@@ -109,7 +109,7 @@ export default function TeamPage() {
                             </div>
                             <div className="">
                                 <h3 className="text-2xl font-bold text-brand-darkest w-full text-center">Kashish Nagar</h3>
-                                <p className="text-brand-accent font-bold uppercase tracking-wider text-sm mt-1 w-full text-center">Co-Founder & EVP</p>
+                                <p className="text-brand-accent font-bold uppercase tracking-wider text-sm mt-1 w-full text-center">Co-Founder & president</p>
                             </div>
                         </div>
                         <div className="md:w-5/8 order-2 space-y-6 text-left">

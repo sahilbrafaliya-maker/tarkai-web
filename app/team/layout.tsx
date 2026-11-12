@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Meet Our Team | TARK AI EdTech Leadership",
-    description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics.",
-    keywords: ["TARK AI Team", "AI EdTech Leadership", "AI Education Experts"],
-    alternates: {
-        canonical: "https://tarkaiedtech.com/team",
-    },
+  title: "Meet Our Team | TARK AI EdTech Leadership",
+  description: "Meet the TARK AI EdTech leadership team. Experts in AI/ML, Data Science, and Climate Analytics.",
+  keywords: ["TARK AI Team", "AI EdTech Leadership", "AI Education Experts"],
+  alternates: {
+    canonical: "https://tarkaiedtech.com/team",
+  },
 };
 
 const teamJsonLd = {
@@ -67,7 +67,7 @@ const teamJsonLd = {
           {
             "@type": "Person",
             "name": "Kashish Nagar",
-            "jobTitle": "Co-Founder & EVP",
+            "jobTitle": "Co-Founder & president",
             "worksFor": {
               "@type": "Organization",
               "name": "TARK AI EdTech Private Limited",
@@ -135,17 +135,17 @@ const teamJsonLd = {
 };
 
 export default function TeamLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(teamJsonLd) }}
-            />
-            {children}
-        </>
-    );
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(teamJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }
