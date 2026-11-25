@@ -49,7 +49,7 @@ export default function PlacementStoriesSection() {
         if (scrollRef.current) {
             const { current } = scrollRef;
             // Scroll by one image width + gap
-            const scrollAmount = current.clientWidth > 768 ? 320 : 260; 
+            const scrollAmount = current.clientWidth > 768 ? 320 : 260;
             current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
         }
     };
@@ -128,7 +128,7 @@ export default function PlacementStoriesSection() {
         };
 
         animationFrameId = requestAnimationFrame(playScroll);
-        
+
         return () => {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             window.removeEventListener('resize', updateMetrics);
@@ -140,7 +140,7 @@ export default function PlacementStoriesSection() {
         <section ref={sectionRef} className="pt-4 sm:pt-6 md:pt-12 pb-6 sm:pb-10 lg:pt-16 lg:pb-12 bg-[#F8FCFC] relative overflow-hidden">
             {/* Geometric animated shapes */}
             <GeometricShapes variant="default" />
-            
+
             {/* Subtle background glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-full bg-[#20A6A8]/5 blur-[120px] pointer-events-none z-0"></div>
 
@@ -171,8 +171,8 @@ export default function PlacementStoriesSection() {
                     onTouchEnd={handleTouchEnd}
                 >
                     {/* Left Arrow */}
-                    <button 
-                        onClick={() => scroll('left')} 
+                    <button
+                        onClick={() => scroll('left')}
                         className="absolute -left-2 md:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-100 shadow-xl flex items-center justify-center text-[#20A6A8] hover:bg-[#20A6A8] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 disabled:opacity-0 focus:outline-none"
                         aria-label="Scroll left"
                     >
@@ -180,7 +180,7 @@ export default function PlacementStoriesSection() {
                     </button>
 
                     {/* Scroll Container with Mask */}
-                    <div 
+                    <div
                         className="w-full overflow-hidden"
                         style={{
                             WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
@@ -216,8 +216,8 @@ export default function PlacementStoriesSection() {
                     </div>
 
                     {/* Right Arrow */}
-                    <button 
-                        onClick={() => scroll('right')} 
+                    <button
+                        onClick={() => scroll('right')}
                         className="absolute -right-2 md:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-100 shadow-xl flex items-center justify-center text-[#20A6A8] hover:bg-[#20A6A8] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 focus:outline-none"
                         aria-label="Scroll right"
                     >

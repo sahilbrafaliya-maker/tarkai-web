@@ -20,7 +20,6 @@ const FAQSection = dynamic(() => import("./components/FAQSection"));
 const HomeContactSection = dynamic(() => import("./components/HomeContactSection"));
 const PlacementStoriesSection = dynamic(() => import("./components/PlacementStoriesSection"));
 const TestimonialsSection = dynamic(() => import("./admission/components/TestimonialsSection"));
-const DiwaliOfferPopup = dynamic(() => import("./components/DiwaliOfferPopup"));
 import HomeBlogSection from "./components/HomeBlogSection";
 
 import dbConnect from "@/lib/mongodb";
@@ -91,29 +90,28 @@ const homeFaqJsonLd = {
 export default async function Home() {
   let latestBlogs: any[] = [];
   try {
-      await dbConnect();
-      const blogs = await Blog.find({}).sort({ date: -1 }).limit(4).lean();
-      latestBlogs = JSON.parse(JSON.stringify(blogs));
+    await dbConnect();
+    const blogs = await Blog.find({}).sort({ date: -1 }).limit(4).lean();
+    latestBlogs = JSON.parse(JSON.stringify(blogs));
   } catch (error) {
-      console.error('Failed to pre-render home blogs server-side:', error);
+    console.error('Failed to pre-render home blogs server-side:', error);
   }
 
   return (
     <div className="flex flex-col min-h-screen">
-      <DiwaliOfferPopup />
       {/* Old Hero Section */}
       <section className="relative bg-linear-to-b from-white to-[#E8F8F8] min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-10 md:pb-18 lg:pb-26">
-        
+
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(45,165,163,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(45,165,163,0.03)_1px,transparent_1px)] bg-size-[30px_30px] mask-[linear-gradient(to_right,black_0%,black_45%,transparent_55%)]" />
-          
+
           <div className="absolute top-0 right-10 w-100 h-100 bg-brand-light rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
           <div className="absolute -bottom-10 -left-10 w-100 h-100 bg-brand-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob [animation-delay:2s]"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[48%_52%] gap-8 lg:gap-0 items-center">
-            
+
             <div className="text-left flex flex-col justify-center max-w-2xl mx-auto md:mx-0 w-full z-10 order-1 mt-4 lg:mt-12 xl:mt-16">
               <p className="text-[13px] sm:text-[14px] font-semibold uppercase tracking-[0.12em] text-brand-accent mb-4 animate-slide-up">
                 Surat's Premier AI & ML Institute
@@ -124,7 +122,7 @@ export default async function Home() {
               <p className="text-[16px] sm:text-[18px] font-normal text-brand-dark/90 leading-[1.65] max-w-140 mb-6 animate-slide-up animate-delay-200">
                 AI & ML courses in Surat taught by IIIT Lucknow M.Sc. graduates. Small batches, hands-on projects, and a 1-Month Placement Ready Program included.
               </p>
-              
+
               <div className="flex items-start gap-3 mb-8 animate-slide-up animate-delay-300">
                 <span className="text-brand-dark font-medium text-[14px] sm:text-[15px] leading-[1.6] max-w-md">Serving students & professionals across Surat, Gujarat — Foundation to Advanced AI tracks available.</span>
               </div>
@@ -400,11 +398,11 @@ export default async function Home() {
         {/* Subtle Background Elements */}
         <div className="absolute top-0 right-0 w-125 h-125 bg-[#20A6A8]/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
         <div className="absolute -bottom-20 -left-20 w-150 h-150 bg-[#20A6A8]/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
-        
+
         <GeometricShapes variant="why-now" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
+
           {/* Header */}
           <div className="text-center max-w-5xl mx-auto mb-6 sm:mb-8 md:mb-20 gsap-fade-up">
             <div className="flex items-center justify-center gap-4 mb-4 sm:mb-6">
@@ -470,8 +468,8 @@ export default async function Home() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+              ))}
+            </div>
           </div>
 
         </div>
@@ -487,7 +485,7 @@ export default async function Home() {
       <HomeBlogSection latestBlogs={latestBlogs} />
 
       {/* Student Success Stories */}
-      <TestimonialsSection 
+      <TestimonialsSection
         title={<>What Our Students Say About <span className="text-[#20A6A8]">Their Learning</span></>}
       />
 

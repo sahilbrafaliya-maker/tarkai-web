@@ -281,7 +281,7 @@ export default function GeometricShapes({
                 </>
             )}
 
-            
+
             {/* FAQ Section */}
             {variant === 'faq' && (
                 <>
