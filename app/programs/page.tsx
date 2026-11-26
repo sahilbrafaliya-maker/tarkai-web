@@ -88,7 +88,7 @@ export default function ProgramsPage() {
                             </h3>
                         </div>
 
-                        {largerPrograms.map((program, index) => {
+                        {largerPrograms.map((program) => {
                             const shortId = program.slug
                                 .replace(/-program$/, '')
                                 .replace(/-strategic-analytics$/, '')
@@ -116,14 +116,6 @@ export default function ProgramsPage() {
                                         )}
                                         {/* Subtle overlay */}
                                         <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/10 to-transparent pointer-events-none" />
-
-                                        {/* Top Badges */}
-                                        <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-10 flex items-center gap-2">
-                                            <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] sm:text-xs font-bold text-brand-darkest uppercase tracking-wider shadow-xs border border-white/60 flex items-center gap-1.5">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
-                                                Program {String(index + 1).padStart(2, '0')}
-                                            </span>
-                                        </div>
 
                                         {/* Top Right Duration Pill */}
                                         <div className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-10">
@@ -204,7 +196,7 @@ export default function ProgramsPage() {
                             </h3>
                         </div>
 
-                        {smallerPrograms.map((program, index) => {
+                        {smallerPrograms.map((program) => {
                             const shortId = program.slug
                                 .replace(/-program$/, '')
                                 .replace(/-strategic-analytics$/, '')
@@ -230,11 +222,6 @@ export default function ProgramsPage() {
                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 220px, 208px"
                                             />
                                         )}
-                                        <div className="absolute top-2 left-2 z-10">
-                                            <span className="px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-xs text-[10px] font-bold text-brand-darkest uppercase shadow-xs border border-white/60">
-                                                {String(index + largerPrograms.length + 1).padStart(2, '0')}
-                                            </span>
-                                        </div>
                                     </div>
 
                                     {/* Text Content on Right with reduced padding */}

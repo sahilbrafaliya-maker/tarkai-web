@@ -42,6 +42,28 @@ export async function PUT(request: Request, { params }: { params: Params }) {
             return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
         }
 
+        // Normalize and validate slug if provided
+        if (typeof updatedData.slug === 'string') {
+            const normalizedSlug = updatedData.slug
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)+/g, '');
+
+            if (normalizedSlug) {
+                const duplicate = await Blog.findOne({ slug: normalizedSlug, id: { $ne: parseInt(id) } });
+                if (duplicate) {
+                    return NextResponse.json(
+                        { error: 'A blog post with this URL slug already exists. Please use a different slug.' },
+                        { status: 400 }
+                    );
+                }
+                updatedData.slug = normalizedSlug;
+            } else {
+                delete updatedData.slug;
+            }
+        }
+
         // Delete old coverImage if it changed
         if (updatedData.coverImage && updatedData.coverImage !== existingBlog.coverImage) {
             await deleteCloudinaryImage(existingBlog.coverImage);
@@ -53,7 +75,8 @@ export async function PUT(request: Request, { params }: { params: Params }) {
         });
 
         revalidatePath('/blog');
-        if (blog?.slug) revalidatePath(`/blog/${blog.slug}`);
+        if (existingBlog.slug) revalidatePath(`/blog/${existingBlog.slug}`);
+        if (blog?.slug && blog.slug !== existingBlog.slug) revalidatePath(`/blog/${blog.slug}`);
 
         return NextResponse.json(blog);
     } catch (error) {

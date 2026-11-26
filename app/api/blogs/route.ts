@@ -31,13 +31,21 @@ export async function POST(request: Request) {
         const lastBlog = await Blog.findOne().sort({ id: -1 });
         const newId = lastBlog ? lastBlog.id + 1 : 1;
 
-        // Generate slug from title if not present
-        let slug = newBlog.slug;
-        if (!slug && newBlog.title) {
-            slug = newBlog.title
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)+/g, '');
+        // Generate or normalize slug
+        const rawSlug = newBlog.slug?.trim() || newBlog.title || '';
+        const slug = rawSlug
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '');
+
+        if (slug) {
+            const existingSlug = await Blog.findOne({ slug });
+            if (existingSlug) {
+                return NextResponse.json(
+                    { error: 'A blog post with this URL slug already exists. Please use a different slug.' },
+                    { status: 400 }
+                );
+            }
         }
 
         const blogData = { ...newBlog, id: newId, slug };

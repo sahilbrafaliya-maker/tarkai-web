@@ -46,27 +46,35 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         if (!blog) return {};
 
         const imageUrl = blog.coverImage || blog.image || 'https://tarkaiedtech.com/Logo.png';
+        const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `https://tarkaiedtech.com${imageUrl}`;
         const pageUrl = `https://tarkaiedtech.com/blog/${slug}`;
-        const seoTitle = getOptimizedBlogTitle(blog.title, slug);
+        const seoTitle = blog.seoTitle?.trim() || getOptimizedBlogTitle(blog.title, slug);
+        const seoDescription = blog.seoDescription?.trim() || blog.description || `Read "${blog.title}" on TARK AI EdTech. Learn about the frontier of Artificial Intelligence and Data Science.`;
+        const seoKeywords = Array.isArray(blog.seoKeywords) && blog.seoKeywords.length > 0
+            ? blog.seoKeywords
+            : [blog.title, blog.tag || 'AI Trends', 'TARK AI Blog', 'AI Insights'];
+        const canonical = blog.canonicalUrl?.trim() || pageUrl;
+        const imageAlt = blog.coverImageAlt?.trim() || blog.title;
 
         return {
             title: {
                 absolute: seoTitle,
             },
-            description: blog.description || `Read "${blog.title}" on TARK AI EdTech. Learn about the frontier of Artificial Intelligence and Data Science.`,
-            keywords: [blog.title, blog.tag || 'AI Trends', 'TARK AI Blog', 'AI Insights'],
+            description: seoDescription,
+            keywords: seoKeywords,
             alternates: {
-                canonical: pageUrl,
+                canonical,
             },
+            ...(blog.noIndex ? { robots: { index: false, follow: false } } : {}),
             openGraph: {
                 title: seoTitle,
-                description: blog.description,
+                description: seoDescription,
                 url: pageUrl,
                 siteName: 'TARK AI EdTech',
                 images: [
                     {
-                        url: imageUrl.startsWith('http') ? imageUrl : `https://tarkaiedtech.com${imageUrl}`,
-                        alt: blog.title,
+                        url: fullImageUrl,
+                        alt: imageAlt,
                     }
                 ],
                 type: 'article',
@@ -75,8 +83,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
             twitter: {
                 card: 'summary_large_image',
                 title: seoTitle,
-                description: blog.description,
-                images: [imageUrl.startsWith('http') ? imageUrl : `https://tarkaiedtech.com${imageUrl}`],
+                description: seoDescription,
+                images: [fullImageUrl],
             }
         };
     } catch (e) {
@@ -142,7 +150,7 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
         "@type": "Article",
         "@id": `https://tarkaiedtech.com/blog/${slug}/#article`,
         "headline": blogData.title,
-        "description": blogData.description || `Read insights on ${blogData.title} from TARK AI EdTech, Surat's leading AI institute.`,
+        "description": blogData.seoDescription?.trim() || blogData.description || `Read insights on ${blogData.title} from TARK AI EdTech, Surat's leading AI institute.`,
         "url": `https://tarkaiedtech.com/blog/${slug}`,
         "inLanguage": "en-IN",
         "datePublished": blogData.date ? new Date(blogData.date).toISOString() : new Date().toISOString(),
@@ -150,9 +158,11 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
         "image": {
             "@type": "ImageObject",
             "url": fullImageUrl,
-            "caption": blogData.title
+            "caption": blogData.coverImageAlt?.trim() || blogData.title
         },
-        "keywords": blogData.tag ? [blogData.tag, "AI EdTech Surat", "TARK AI Blog"] : ["AI Insights", "AI EdTech Surat", "TARK AI Blog"],
+        "keywords": Array.isArray(blogData.seoKeywords) && blogData.seoKeywords.length > 0
+            ? blogData.seoKeywords
+            : (blogData.tag ? [blogData.tag, "AI EdTech Surat", "TARK AI Blog"] : ["AI Insights", "AI EdTech Surat", "TARK AI Blog"]),
         "author": {
             "@type": "Organization",
             "@id": "https://tarkaiedtech.com/#organization",

@@ -13,6 +13,7 @@ import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
 import { FaList } from "@react-icons/all-files/fa/FaList";
 import { FaPen } from "@react-icons/all-files/fa/FaPen";
 import NextImage from 'next/image';
+import MarkdownRenderer from '@/app/components/MarkdownRenderer';
 
 interface BlogPost {
     _id?: string;
@@ -22,29 +23,54 @@ interface BlogPost {
     tag: string;
     date: string;
     coverImage: string;
+    coverImageAlt?: string;
     description: string;
     paragraph: string;
     instagram: string;
     linkedin: string;
     twitter: string;
     images: string[];
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: string[];
+    canonicalUrl?: string;
+    noIndex?: boolean;
     // legacy
     category?: string;
     image?: string;
     color?: string;
 }
 
+const toSlug = (value: string) =>
+    value
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+
+const normalizeUrl = (value: string) => {
+    const trimmed = value.trim();
+    if (!trimmed) return '';
+    return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+};
+
 const emptyForm = {
     title: '',
+    slug: '',
     tag: '',
     date: new Date().toISOString().split('T')[0],
     coverImage: '',
+    coverImageAlt: '',
     description: '',
     paragraph: '',
     instagram: '',
     linkedin: '',
     twitter: '',
     images: [] as string[],
+    seoTitle: '',
+    seoDescription: '',
+    seoKeywords: '',
+    canonicalUrl: '',
+    noIndex: false,
 };
 
 const compressImage = async (file: File, maxWidth = 1200, maxHeight = 675, quality = 0.8): Promise<File> => {
@@ -99,7 +125,7 @@ export default function AdminPage() {
 
     const [form, setForm] = useState<typeof emptyForm>(emptyForm);
     const [editingId, setEditingId] = useState<number | null>(null);
-    const [editingSlug, setEditingSlug] = useState<string>('');
+    const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [markdownPreview, setMarkdownPreview] = useState(false);
 
@@ -178,7 +204,7 @@ export default function AdminPage() {
     const resetForm = () => {
         setForm(emptyForm);
         setEditingId(null);
-        setEditingSlug('');
+        setIsSlugManuallyEdited(false);
         setCoverFile(null);
         setCoverPreview('');
         setGalleryFiles([]);
@@ -188,20 +214,28 @@ export default function AdminPage() {
     };
 
     const startEdit = (blog: BlogPost) => {
+        const existingSlug = blog.slug || toSlug(blog.title || '');
         setForm({
             title: blog.title || '',
+            slug: existingSlug,
             tag: blog.tag || blog.category || '',
             date: blog.date || '',
             coverImage: blog.coverImage || blog.image || '',
+            coverImageAlt: blog.coverImageAlt || '',
             description: blog.description || '',
             paragraph: blog.paragraph || '',
             instagram: blog.instagram || '',
             linkedin: blog.linkedin || '',
             twitter: blog.twitter || '',
             images: [],
+            seoTitle: blog.seoTitle || '',
+            seoDescription: blog.seoDescription || '',
+            seoKeywords: Array.isArray(blog.seoKeywords) ? blog.seoKeywords.join(', ') : '',
+            canonicalUrl: blog.canonicalUrl || '',
+            noIndex: Boolean(blog.noIndex),
         });
         setEditingId(blog.id);
-        setEditingSlug(blog.slug || '');
+        setIsSlugManuallyEdited(true);
         setCoverFile(null);
         setCoverPreview('');
         setExistingImages(blog.images || []);
@@ -244,12 +278,23 @@ export default function AdminPage() {
             }
 
             const allImages = [...existingImages, ...newGalleryUrls];
-            const slug = editingSlug || form.title
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)+/g, '');
+            const slug = toSlug(form.slug || form.title);
+            const parsedKeywords = form.seoKeywords
+                .split(',')
+                .map(k => k.trim())
+                .filter(Boolean);
 
-            const payload = { ...form, coverImage: coverImageUrl, images: allImages, slug };
+            const payload = {
+                ...form,
+                instagram: normalizeUrl(form.instagram),
+                linkedin: normalizeUrl(form.linkedin),
+                twitter: normalizeUrl(form.twitter),
+                canonicalUrl: normalizeUrl(form.canonicalUrl),
+                coverImage: coverImageUrl,
+                images: allImages,
+                slug,
+                seoKeywords: parsedKeywords,
+            };
             const method = editingId !== null ? 'PUT' : 'POST';
             const url = editingId !== null ? `/api/blogs/${editingId}` : '/api/blogs';
 
@@ -437,10 +482,57 @@ export default function AdminPage() {
                                     <input
                                         required
                                         value={form.title}
-                                        onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+                                        onChange={e => {
+                                            const title = e.target.value;
+                                            setForm(f => ({
+                                                ...f,
+                                                title,
+                                                slug: !isSlugManuallyEdited ? toSlug(title) : f.slug,
+                                            }));
+                                        }}
                                         placeholder="Blog post title"
                                         className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent/50 outline-none"
                                     />
+                                </div>
+
+                                {/* URL Slug */}
+                                <div>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <label className="block text-sm font-bold text-gray-700">URL Slug</label>
+                                        {isSlugManuallyEdited && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setIsSlugManuallyEdited(false);
+                                                    setForm(f => ({ ...f, slug: toSlug(f.title) }));
+                                                }}
+                                                className="text-xs text-brand-accent hover:text-brand-dark font-medium transition"
+                                            >
+                                                ↻ Auto-generate from title
+                                            </button>
+                                        )}
+                                    </div>
+                                    <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-brand-accent/50 bg-white">
+                                        <span className="px-3 py-3 bg-gray-50 border-r border-gray-200 text-xs sm:text-sm text-gray-400 font-mono shrink-0">
+                                            /blog/
+                                        </span>
+                                        <input
+                                            value={form.slug}
+                                            onChange={e => {
+                                                setIsSlugManuallyEdited(true);
+                                                setForm(f => ({
+                                                    ...f,
+                                                    slug: e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+                                                }));
+                                            }}
+                                            onBlur={() => setForm(f => ({ ...f, slug: toSlug(f.slug) }))}
+                                            placeholder="how-to-become-ai-engineer-2027"
+                                            className="w-full p-3 outline-none font-mono text-sm text-gray-700"
+                                        />
+                                    </div>
+                                    <p className="text-xs text-gray-400 mt-1.5 font-mono truncate">
+                                        Preview: https://tarkaiedtech.com/blog/{toSlug(form.slug || form.title) || 'your-post-slug'}
+                                    </p>
                                 </div>
 
                                 {/* Description */}
@@ -493,10 +585,12 @@ export default function AdminPage() {
                                         </button>
                                     </div>
                                     {markdownPreview ? (
-                                        <div
-                                            className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 min-h-45 text-sm text-gray-700 leading-relaxed"
-                                            dangerouslySetInnerHTML={{ __html: simpleMarkdownToHtml(form.paragraph) }}
-                                        />
+                                        <div className="w-full p-5 sm:p-6 border border-gray-200 rounded-xl bg-white min-h-45 overflow-x-auto">
+                                            <MarkdownRenderer
+                                                content={form.paragraph}
+                                                imageAltFallback={form.coverImageAlt || form.title || "Blog illustration"}
+                                            />
+                                        </div>
                                     ) : (
                                         <textarea
                                             rows={9}
@@ -506,7 +600,7 @@ export default function AdminPage() {
                                             className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent/50 outline-none resize-none font-mono text-sm"
                                         />
                                     )}
-                                    <p className="text-gray-400 text-xs mt-1.5">Supports Markdown: headings, bold, italic, lists, inline code</p>
+                                    <p className="text-gray-400 text-xs mt-1.5">Supports full GitHub-Flavored Markdown: headings, bold, italic, lists, blockquotes, tables, links, code blocks</p>
                                 </div>
 
                                 {/* Social URLs */}
@@ -516,30 +610,33 @@ export default function AdminPage() {
                                         <div className="flex items-center gap-3">
                                             <FaInstagram className="text-pink-500 text-xl shrink-0" />
                                             <input
-                                                type="url"
+                                                type="text"
+                                                inputMode="url"
                                                 value={form.instagram}
                                                 onChange={e => setForm(f => ({ ...f, instagram: e.target.value }))}
-                                                placeholder="Instagram URL"
+                                                placeholder="Instagram URL (e.g. https://instagram.com/...)"
                                                 className="flex-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-200 outline-none text-sm"
                                             />
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <FaLinkedin className="text-blue-600 text-xl shrink-0" />
                                             <input
-                                                type="url"
+                                                type="text"
+                                                inputMode="url"
                                                 value={form.linkedin}
                                                 onChange={e => setForm(f => ({ ...f, linkedin: e.target.value }))}
-                                                placeholder="LinkedIn URL"
+                                                placeholder="LinkedIn URL (e.g. https://linkedin.com/...)"
                                                 className="flex-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-200 outline-none text-sm"
                                             />
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <FaTwitter className="text-sky-500 text-xl shrink-0" />
                                             <input
-                                                type="url"
+                                                type="text"
+                                                inputMode="url"
                                                 value={form.twitter}
                                                 onChange={e => setForm(f => ({ ...f, twitter: e.target.value }))}
-                                                placeholder="Twitter / X URL"
+                                                placeholder="Twitter / X URL (e.g. https://x.com/...)"
                                                 className="flex-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-sky-200 outline-none text-sm"
                                             />
                                         </div>
@@ -594,6 +691,118 @@ export default function AdminPage() {
                                         + Add Images
                                     </button>
                                     <input ref={galleryInputRef} type="file" accept="image/*" multiple onChange={handleGalleryChange} className="hidden" />
+                                </div>
+
+                                {/* SEO & Search Settings */}
+                                <div className="border border-gray-200 rounded-2xl p-6 bg-gray-50/60 flex flex-col gap-5">
+                                    <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                                        <div>
+                                            <h3 className="text-base font-bold text-brand-darkest">SEO &amp; Search Settings</h3>
+                                            <p className="text-xs text-gray-400 mt-0.5">Optional overrides — defaults to post title, description &amp; tag if left blank.</p>
+                                        </div>
+                                        <label className="flex items-center gap-2 text-xs font-medium text-gray-600 cursor-pointer select-none">
+                                            <input
+                                                type="checkbox"
+                                                checked={form.noIndex}
+                                                onChange={e => setForm(f => ({ ...f, noIndex: e.target.checked }))}
+                                                className="rounded border-gray-300 text-brand-accent focus:ring-brand-accent"
+                                            />
+                                            Hide from Google (noindex)
+                                        </label>
+                                    </div>
+
+                                    {/* Meta Title */}
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <label className="text-sm font-bold text-gray-700">SEO Meta Title</label>
+                                            <span className={`text-xs font-medium ${form.seoTitle.length > 60 ? 'text-amber-600' : 'text-gray-400'}`}>
+                                                {form.seoTitle.length} / 60 recommended
+                                            </span>
+                                        </div>
+                                        <input
+                                            value={form.seoTitle}
+                                            onChange={e => setForm(f => ({ ...f, seoTitle: e.target.value }))}
+                                            placeholder={form.title ? `${form.title.slice(0, 48)} | TARK AI` : 'Custom title for Google search results'}
+                                            className="w-full p-3 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-brand-accent/50 outline-none text-sm"
+                                        />
+                                    </div>
+
+                                    {/* Meta Description */}
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <label className="text-sm font-bold text-gray-700">SEO Meta Description</label>
+                                            <span className={`text-xs font-medium ${form.seoDescription.length > 160 ? 'text-amber-600' : 'text-gray-400'}`}>
+                                                {form.seoDescription.length} / 160 recommended
+                                            </span>
+                                        </div>
+                                        <textarea
+                                            rows={2}
+                                            value={form.seoDescription}
+                                            onChange={e => setForm(f => ({ ...f, seoDescription: e.target.value }))}
+                                            placeholder={form.description || 'Compelling summary for Google search snippet (120–160 characters)'}
+                                            className="w-full p-3 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-brand-accent/50 outline-none resize-none text-sm"
+                                        />
+                                    </div>
+
+                                    {/* SEO Keywords / Tags */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-gray-700 mb-1.5">
+                                            SEO Keywords / Tags <span className="text-gray-400 font-normal">(comma-separated)</span>
+                                        </label>
+                                        <input
+                                            value={form.seoKeywords}
+                                            onChange={e => setForm(f => ({ ...f, seoKeywords: e.target.value }))}
+                                            placeholder="e.g. AI engineer roadmap, AI career India, machine learning 2027"
+                                            className="w-full p-3 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-brand-accent/50 outline-none text-sm"
+                                        />
+                                        {form.seoKeywords.trim() && (
+                                            <div className="flex flex-wrap gap-1.5 mt-2">
+                                                {form.seoKeywords.split(',').map(k => k.trim()).filter(Boolean).map((kw, idx) => (
+                                                    <span key={idx} className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-accent/10 text-brand-dark border border-brand-accent/20">
+                                                        {kw}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Cover Image Alt & Canonical URL */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-bold text-gray-700 mb-1.5">Cover Image Alt Text</label>
+                                            <input
+                                                value={form.coverImageAlt}
+                                                onChange={e => setForm(f => ({ ...f, coverImageAlt: e.target.value }))}
+                                                placeholder={form.title || 'Descriptive alt text for cover image'}
+                                                className="w-full p-3 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-brand-accent/50 outline-none text-sm"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-bold text-gray-700 mb-1.5">Canonical URL <span className="text-gray-400 font-normal">(optional)</span></label>
+                                            <input
+                                                type="text"
+                                                inputMode="url"
+                                                value={form.canonicalUrl}
+                                                onChange={e => setForm(f => ({ ...f, canonicalUrl: e.target.value }))}
+                                                placeholder={`https://tarkaiedtech.com/blog/${toSlug(form.slug || form.title) || 'your-slug'}`}
+                                                className="w-full p-3 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-brand-accent/50 outline-none text-sm font-mono"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Live Google SERP Preview */}
+                                    <div className="bg-white border border-gray-200 rounded-xl p-4">
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2">Google Search Preview</p>
+                                        <p className="text-xs text-[#202124] truncate font-mono">
+                                            {form.canonicalUrl.trim() || `https://tarkaiedtech.com/blog/${toSlug(form.slug || form.title) || 'your-post-slug'}`}
+                                        </p>
+                                        <p className="text-[#1a0dab] text-base font-medium leading-snug truncate mt-0.5">
+                                            {form.seoTitle.trim() || (form.title ? `${form.title} | TARK AI` : 'Your Blog Post Title | TARK AI')}
+                                        </p>
+                                        <p className="text-xs text-[#4d5156] line-clamp-2 mt-1">
+                                            {form.seoDescription.trim() || form.description.trim() || 'Your blog meta description will appear here in Google search results.'}
+                                        </p>
+                                    </div>
                                 </div>
 
                                 {/* Submit */}
@@ -698,19 +907,4 @@ function AdminBlogCard({ blog, onEdit, onDelete }: { blog: BlogPost, onEdit: (b:
             </div>
         </motion.div>
     );
-}
-
-function simpleMarkdownToHtml(md: string) {
-    if (!md) return '<p style="color:#aaa">Nothing to preview yet...</p>';
-    return md
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/^### (.+)$/gm, '<h3 style="font-weight:700;font-size:1rem;margin:12px 0 4px">$1</h3>')
-        .replace(/^## (.+)$/gm, '<h2 style="font-weight:700;font-size:1.1rem;margin:16px 0 6px">$1</h2>')
-        .replace(/^# (.+)$/gm, '<h1 style="font-weight:800;font-size:1.25rem;margin:20px 0 8px">$1</h1>')
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.+?)\*/g, '<em>$1</em>')
-        .replace(/`(.+?)`/g, '<code style="background:#f0f0f0;border-radius:3px;padding:0 4px;font-size:0.8rem">$1</code>')
-        .replace(/^- (.+)$/gm, '<li style="margin-left:16px;list-style:disc">$1</li>')
-        .replace(/\n{2,}/g, '</p><p style="margin-bottom:8px">')
-        .replace(/\n/g, '<br/>');
 }

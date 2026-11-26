@@ -3,8 +3,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import MarkdownRenderer from '@/app/components/MarkdownRenderer';
 import { motion, AnimatePresence } from 'motion/react';
 import { FaArrowLeft } from "@react-icons/all-files/fa/FaArrowLeft";
 import { FaArrowRight } from "@react-icons/all-files/fa/FaArrowRight";
@@ -253,40 +252,10 @@ export default function BlogDetailClient({ blog, otherPosts }: BlogDetailClientP
                         transition={{ delay: 0.1 }}
                         className="mb-10"
                     >
-                        <ReactMarkdown
-                            remarkPlugins={[remarkGfm]}
-                            components={{
-                                h1: ({ children }) => <h1 className="text-[26px] sm:text-[32px] font-bold text-brand-darkest tracking-[-0.03em] leading-[1.15] mt-8 mb-3">{children}</h1>,
-                                h2: ({ children }) => <h2 className="text-[22px] sm:text-[26px] font-bold text-brand-darkest tracking-[-0.02em] leading-snug mt-7 mb-2">{children}</h2>,
-                                h3: ({ children }) => <h3 className="text-[18px] sm:text-[20px] font-semibold text-brand-dark mt-6 mb-2">{children}</h3>,
-                                p: ({ children }) => <p className="text-[16px] font-normal leading-[1.65] text-gray-700 mb-4">{children}</p>,
-                                ul: ({ children }) => <ul className="list-disc list-outside pl-6 mb-4 space-y-1.5 text-[16px] font-normal leading-[1.65] text-gray-700">{children}</ul>,
-                                ol: ({ children }) => <ol className="list-decimal list-outside pl-6 mb-4 space-y-1.5 text-[16px] font-normal leading-[1.65] text-gray-700">{children}</ol>,
-                                li: ({ children }) => <li className="text-gray-700 marker:text-brand-accent">{children}</li>,
-                                blockquote: ({ children }) => (
-                                    <blockquote className="border-l-4 border-brand-accent/50 pl-4 my-4 text-gray-600 italic bg-brand-lightest/30 py-2 rounded-r-xl">
-                                        {children}
-                                    </blockquote>
-                                ),
-                                code: ({ inline, children }: any) =>
-                                    inline
-                                        ? <code className="bg-brand-lightest text-brand-accent text-sm px-1.5 py-0.5 rounded font-mono">{children}</code>
-                                        : <code className="block bg-gray-50 border border-gray-200 text-gray-800 text-sm p-4 rounded-2xl overflow-x-auto font-mono mb-4 whitespace-pre">{children}</code>,
-                                pre: ({ children }) => <pre className="mb-4 rounded-2xl overflow-hidden">{children}</pre>,
-                                a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline font-medium">{children}</a>,
-                                hr: () => <hr className="border-gray-200 my-6" />,
-                                strong: ({ children }) => <strong className="font-bold text-brand-darkest">{children}</strong>,
-                                em: ({ children }) => <em className="italic text-gray-600">{children}</em>,
-                                img: ({ src, alt }) => (
-                                    <span className="block my-4">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={src} alt={alt || blog.title || "Blog illustration"} className="rounded-2xl max-w-full shadow-md" />
-                                    </span>
-                                ),
-                            }}
-                        >
-                            {blog.paragraph}
-                        </ReactMarkdown>
+                        <MarkdownRenderer
+                            content={blog.paragraph}
+                            imageAltFallback={blog.title || "Blog illustration"}
+                        />
                     </motion.div>
                 )}
 
