@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'motion/react';
+import React from 'react';
 import GeometricShapes from '@/app/components/GeometricShapes';
 
 const benefits = [
@@ -69,11 +68,8 @@ const benefits = [
 ];
 
 export default function BenefitsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-
   return (
-    <section ref={ref} className="py-8 sm:py-28 bg-white relative overflow-hidden" aria-label="Why choose TarkAI">
+    <section className="py-8 sm:py-28 bg-white relative overflow-hidden" aria-label="Why choose TarkAI">
       
       {/* Premium Background Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -85,12 +81,7 @@ export default function BenefitsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-5 sm:mb-20"
-        >
+        <div className="text-center mb-5 sm:mb-20">
           <div className="flex items-center justify-center gap-3 mb-4">
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0f172a] tracking-tight">
               Why You Should Choose <span className="text-[#00737a]">TarkAI</span>
@@ -99,30 +90,14 @@ export default function BenefitsSection() {
           <p className="text-xs sm:text-base text-[#334155] max-w-2xl mx-auto mt-2 sm:mt-3 font-normal leading-relaxed">
             Specific credentials and hands-on learning — here&apos;s what separates TarkAI from standard training programs.
           </p>
-        </motion.div>
+        </div>
 
         {/* 3-Column Premium Card Grid */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.15 }
-            }
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
           {benefits.map((benefit, i) => (
-            <motion.div
+            <div
               key={i}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-              }}
-              whileHover={{ y: -6 }}
-              className="group flex flex-col p-3.5 sm:p-8 rounded-xl sm:rounded-3xl bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,115,122,0.12)] hover:border-[#00737a]/30 transition-all duration-300 relative overflow-hidden text-left"
+              className="group flex flex-col p-3.5 sm:p-8 rounded-xl sm:rounded-3xl bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,115,122,0.12)] hover:border-[#00737a]/30 hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden text-left"
             >
               {/* Large Watermark Number */}
               <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 text-[80px] sm:text-[120px] font-black text-slate-50 group-hover:text-[#00737a]/3 transition-colors duration-500 select-none pointer-events-none leading-none z-0">
@@ -145,9 +120,9 @@ export default function BenefitsSection() {
                   {benefit.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
       </div>
     </section>

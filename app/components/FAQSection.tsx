@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { FaChevronDown } from "@react-icons/all-files/fa/FaChevronDown";
 import { FaArrowRight } from "@react-icons/all-files/fa/FaArrowRight";
 import { FaExclamationCircle } from "@react-icons/all-files/fa/FaExclamationCircle";
@@ -15,6 +16,8 @@ interface FAQItem {
 }
 
 export default function FAQSection() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(containerRef, { once: true, margin: "-60px" });
     const [activeIndex, setActiveIndex] = useState<number | null>(0); // Default first item open
 
     const faqs: FAQItem[] = [
@@ -104,10 +107,15 @@ export default function FAQSection() {
             <div className="absolute top-0 left-0 w-125 h-125 bg-[#1B9FA1]/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-start">
+                <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-start">
 
                     {/* Left Column */}
-                    <div className="lg:col-span-5">
+                    <motion.div
+                        initial={{ opacity: 0, x: -60 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
+                        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-5"
+                    >
                         <div className="flex items-center justify-start gap-4 mb-4 sm:mb-6">
                             <div className="w-8 h-px bg-[#1B9FA1]/40"></div>
                             <div className="px-5 py-1.5 rounded-full bg-[#1B9FA1]/10 text-[#1B9FA1] border border-[#1B9FA1]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
@@ -180,10 +188,15 @@ export default function FAQSection() {
                                 )}
                             </form>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Right Column (Accordion) */}
-                    <div className="lg:col-span-7">
+                    <motion.div
+                        initial={{ opacity: 0, x: 60 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
+                        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-7"
+                    >
                         <div className="space-y-3 sm:space-y-4">
                             {faqs.map((faq, index) => {
                                 const isOpen = activeIndex === index;
@@ -225,7 +238,7 @@ export default function FAQSection() {
                                 );
                             })}
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>

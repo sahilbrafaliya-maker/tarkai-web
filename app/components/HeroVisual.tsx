@@ -5,10 +5,10 @@ import { FaGraduationCap } from "@react-icons/all-files/fa/FaGraduationCap";
 
 export default function HeroVisual() {
   return (
-    <div className="relative hidden md:flex w-full h-full min-h-100 sm:min-h-125 lg:min-h-150 xl:min-h-162.5 items-end justify-center lg:justify-end pointer-events-none animate-slide-up z-0">
+    <div className="relative hidden md:flex w-full h-full min-h-100 sm:min-h-125 lg:min-h-150 xl:min-h-162.5 items-end justify-center lg:justify-end pointer-events-none z-0">
       
       {/* Primary Visual: Students (White background removed via mix-blend) */}
-      <div className="relative z-10 w-[110%] sm:w-full lg:w-[125%] xl:w-[145%] lg:-ml-12 xl:-ml-16 mt-10 lg:mt-0 transition-transform duration-700 ease-out animate-fade-in flex items-end scale-110 lg:scale-[1.15] xl:scale-[1.2] origin-bottom">
+      <div className="relative z-10 w-[110%] sm:w-full lg:w-[125%] xl:w-[145%] lg:-ml-12 xl:-ml-16 mt-10 lg:mt-0 transition-transform duration-700 ease-out flex items-end scale-110 lg:scale-[1.15] xl:scale-[1.2] origin-bottom">
          <Image 
             src="/images/hero-students-clean.png" 
             alt="TARK AI Students" 

@@ -20,6 +20,18 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
+    // Reset navbar state immediately on page navigation
+    useEffect(() => {
+        setIsVisible(true);
+        setHoveredLink(null);
+        setIsMobileMenuOpen(false);
+        if (typeof window !== 'undefined') {
+            const currentScrollY = window.scrollY;
+            setIsScrolled(currentScrollY > 20);
+            setLastScrollY(currentScrollY);
+        }
+    }, [pathname]);
+
     useEffect(() => {
         const controlNavbar = () => {
             if (typeof window !== 'undefined') {
@@ -126,13 +138,17 @@ export default function Navbar() {
                 </motion.div>
 
                 {/* Navigation Links - Centered (Desktop) */}
-                <div className={`hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2 ${isScrolled ? 'gap-1' : 'gap-2'}`}>
+                <motion.div
+                    layoutRoot
+                    className={`hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2 ${isScrolled ? 'gap-1' : 'gap-2'}`}
+                >
                     {navLinks.map((link) => {
                         const isActive = pathname === link.href;
                         return (
                             <Link
                                 key={link.name}
                                 href={link.href}
+                                onClick={() => setHoveredLink(null)}
                                 onMouseEnter={() => setHoveredLink(link.name)}
                                 onMouseLeave={() => setHoveredLink(null)}
                                 className={`relative px-4 py-2 rounded-full text-[12px] sm:text-[13px] uppercase tracking-wide transition-colors duration-300 z-10 ${isActive ? 'font-semibold text-brand-darkest' : 'font-semibold text-brand-dark hover:text-brand-darkest'
@@ -140,23 +156,21 @@ export default function Navbar() {
                             >
                                 {hoveredLink === link.name && (
                                     <motion.span
-                                        layoutId="navbar-pill"
+                                        layoutId="navbar-hover-pill"
                                         className="absolute inset-0 bg-white/50 rounded-full -z-10"
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
                                     />
                                 )}
                                 {isActive && !hoveredLink && (
-                                    <motion.span
-                                        layoutId="navbar-pill"
-                                        className="absolute inset-0 bg-white/30 rounded-full -z-10"
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    <span
+                                        className="absolute inset-0 bg-white/30 rounded-full -z-10 transition-opacity duration-200"
                                     />
                                 )}
                                 {link.name}
                             </Link>
                         );
                     })}
-                </div>
+                </motion.div>
 
                 {/* Contact Button - Right Aligned (Desktop) */}
                 <motion.div variants={itemVariants} className="hidden md:flex items-center">

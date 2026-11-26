@@ -126,6 +126,44 @@ function LenisManager() {
     };
   }, [lenis]);
 
+  // 5. Staggered card animations on scroll (Why Choose Us & Why Now)
+  useEffect(() => {
+    const observeStaggerCards = (selector: string, delayInterval = 180) => {
+      const cards = document.querySelectorAll<HTMLElement>(selector);
+      if (!cards.length) return null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const card = entry.target as HTMLElement;
+              const index = Number(card.dataset.index || 0);
+              setTimeout(() => {
+                card.classList.add("is-visible");
+              }, index * delayInterval);
+              observer.unobserve(card);
+            }
+          });
+        },
+        {
+          threshold: 0.15,
+          rootMargin: "0px 0px -40px 0px",
+        }
+      );
+
+      cards.forEach((card) => observer.observe(card));
+      return observer;
+    };
+
+    const o1 = observeStaggerCards(".why-tarkai-card", 180);
+    const o2 = observeStaggerCards(".why-now-card", 180);
+
+    return () => {
+      if (o1) o1.disconnect();
+      if (o2) o2.disconnect();
+    };
+  }, [pathname]);
+
   return null;
 }
 

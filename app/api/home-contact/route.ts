@@ -28,12 +28,12 @@ export async function POST(request: Request) {
             from: process.env.EMAIL_USER,
             to: adminEmail,
             replyTo: email,
-            subject: `New Home Contact Form Submission from ${name}`,
+            subject: 'New Contact Request',
             text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
                     <div style="background-color: #20A6A8; color: white; padding: 20px; text-align: center;">
-                        <h2 style="margin: 0;">New Contact Request (Home Page)</h2>
+                        <h2 style="margin: 0;">New Contact Request</h2>
                     </div>
                     <div style="padding: 20px;">
                         <p><strong>Name:</strong> ${name}</p>

@@ -112,22 +112,22 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[48%_52%] gap-8 lg:gap-0 items-center">
 
-            <div className="text-left flex flex-col justify-center max-w-2xl mx-auto md:mx-0 w-full z-10 order-1 mt-4 lg:mt-12 xl:mt-16">
-              <p className="text-[13px] sm:text-[14px] font-semibold uppercase tracking-[0.12em] text-brand-accent mb-4 animate-slide-up">
+            <div className="text-left flex flex-col justify-center max-w-2xl mx-auto md:mx-0 w-full z-10 order-1 mt-4 lg:mt-12 xl:mt-16 animate-slide-in-left">
+              <p className="text-[13px] sm:text-[14px] font-semibold uppercase tracking-[0.12em] text-brand-accent mb-4">
                 Surat's Premier AI & ML Institute
               </p>
-              <h1 className="text-4xl sm:text-[42px] md:text-[52px] lg:text-[60px] font-bold text-brand-darkest tracking-[-0.04em] mb-5 leading-[1.06] max-w-155 animate-slide-up">
+              <h1 className="text-4xl sm:text-[42px] md:text-[52px] lg:text-[60px] font-bold text-brand-darkest tracking-[-0.04em] mb-5 leading-[1.06] max-w-155">
                 TarkAI EdTech<br /> Where Intelligence <span className="text-brand-accent">Meets Education</span><br className="hidden sm:block" />
               </h1>
-              <p className="text-[16px] sm:text-[18px] font-normal text-brand-dark/90 leading-[1.65] max-w-140 mb-6 animate-slide-up animate-delay-200">
+              <p className="text-[16px] sm:text-[18px] font-normal text-brand-dark/90 leading-[1.65] max-w-140 mb-6">
                 AI & ML courses in Surat taught by IIIT Lucknow M.Sc. graduates. Small batches, hands-on projects, and a 1-Month Placement Ready Program included.
               </p>
 
-              <div className="flex items-start gap-3 mb-8 animate-slide-up animate-delay-300">
+              <div className="flex items-start gap-3 mb-8">
                 <span className="text-brand-dark font-medium text-[14px] sm:text-[15px] leading-[1.6] max-w-md">Serving students & professionals across Surat, Gujarat — Foundation to Advanced AI tracks available.</span>
               </div>
 
-              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-slide-up animate-delay-400 w-full">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full">
                 <a
                   href="https://wa.me/919712358689?text=Hi%20TARK%20AI!%20I%27d%20like%20to%20book%20a%20free%20demo%20class."
                   target="_blank"
@@ -148,7 +148,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="w-full h-full hidden md:flex items-center justify-center order-2 lg:-mt-16 xl:-mt-20">
+            <div className="w-full h-full hidden md:flex items-center justify-center order-2 lg:-mt-16 xl:-mt-20 animate-slide-in-right">
               <HeroVisual />
             </div>
 
@@ -325,6 +325,7 @@ export default async function Home() {
             ].map((feature, index) => (
               <Link
                 key={index}
+                data-index={index}
                 href={feature.href}
                 className="why-tarkai-card group relative rounded-[28px] sm:rounded-4xl p-6 sm:p-7 lg:p-8 flex flex-col justify-between min-h-75 sm:min-h-80 lg:min-h-85 cursor-pointer overflow-hidden
                   bg-[#EAF7F7]
@@ -422,7 +423,7 @@ export default async function Home() {
 
           {/* Centered Cards Layout */}
           <div className="relative max-w-4xl mx-auto">
-              <div className="flex flex-col gap-4 sm:gap-6 gsap-slide-up-stagger">
+              <div className="flex flex-col gap-4 sm:gap-6">
                 {[
                   {
                     title: "AI transforms every workflow",
@@ -440,7 +441,7 @@ export default async function Home() {
                     icon: <FaUsers size={32} />
                   }
                 ].map((item, index) => (
-                  <div key={index} className="relative group">
+                  <div key={index} data-index={index} className="why-now-card relative group">
                     {/* Modern Card Design - All White */}
                     <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 w-full flex flex-col hover:-translate-y-2 transition-all duration-500 overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_50px_rgba(32,166,168,0.1)]">
                       

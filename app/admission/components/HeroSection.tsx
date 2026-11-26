@@ -86,13 +86,7 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-10 lg:gap-14 items-start">
 
           {/* ── Left Column: Demo Journey ── */}
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="lg:col-span-7 text-left space-y-3 sm:space-y-8 w-full"
-          >
+          <div className="lg:col-span-7 text-left space-y-3 sm:space-y-8 w-full">
             <div className="flex items-center gap-3 mb-2 sm:mb-0">
               {/* <div className="w-8 h-1 bg-[#00737a] rounded-full" /> */}
               <h2 className="text-2xl sm:text-4xl font-bold text-[#0f172a] tracking-tight">
@@ -100,20 +94,8 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
               </h2>
             </div>
 
-            {/* Premium Animated Feature Cards */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: { staggerChildren: 0.15, delayChildren: 0.4 }
-                }
-              }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 pt-2 sm:pt-12"
-            >
+            {/* Premium Feature Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 pt-2 sm:pt-12">
               {[
                 {
                   id: '01',
@@ -136,12 +118,8 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
                   desc: 'Direct live guidance from the Founder & Leadership of TarkAI EdTech',
                 }
               ].map((card, i) => (
-                <motion.div
+                <div
                   key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-                  }}
                   className="flex flex-col p-3.5 sm:p-8 rounded-xl sm:rounded-3xl bg-white border border-[#00737a]/25 shadow-[0_12px_36px_rgba(0,115,122,0.08)] hover:shadow-[0_20px_45px_rgba(0,115,122,0.14)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
                 >
                   {/* Watermark Number */}
@@ -161,17 +139,13 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
                     </div>
                     <p className="text-xs sm:text-base font-normal text-[#475569] leading-relaxed">{card.desc}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* ── Admission Form Column: Desktop Right Column ── */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+          <div
             className="lg:col-span-5 lg:sticky lg:top-24 w-full"
             ref={formRef}
           >
@@ -179,7 +153,7 @@ export default function HeroSection({ onApplyNow, formRef }: HeroProps) {
             <div id="admission-form-section">
               <AdmissionForm />
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

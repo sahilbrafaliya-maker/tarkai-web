@@ -32,6 +32,8 @@
     --animate-fade-in: fadeIn 0.8s ease-out forwards;
     --animate-slide-up: slideUp 0.8s ease-out forwards;
     --animate-scale-in: scaleIn 0.5s ease-out forwards;
+    --animate-slide-in-left: slideInLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+    --animate-slide-in-right: slideInRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 
     @keyframes blob {
         0% {
@@ -85,6 +87,30 @@
         }
     }
 
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
     @keyframes shimmer {
         from {
             transform: skewX(-20deg) translateX(-150%);
@@ -110,6 +136,16 @@
 }
 
 /* Explicit Animation Class for Navbar Button */
+.animate-slide-in-left {
+    animation: slideInLeft 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+}
+
 .animate-wave {
     animation: shimmer 2.5s infinite linear;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
@@ -274,6 +310,48 @@ body {
 .group:focus-visible .card-hover-wave {
     -webkit-clip-path: circle(160% at 100% 0%);
     clip-path: circle(160% at 100% 0%);
+}
+
+/* Why Choose Us: Staggered Card Entrance Animation */
+.why-tarkai-card {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.7s ease-in-out;
+    will-change: transform, opacity;
+}
+
+.why-tarkai-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .why-tarkai-card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* The Intelligence Shift / Why Now: Staggered Card Entrance Animation */
+.why-now-card {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.why-now-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .why-now-card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }
 
 /* Mobile responsive view: Why TarkAI is Surat's Best Choice section cards */

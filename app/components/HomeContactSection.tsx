@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { FaMapMarkerAlt } from "@react-icons/all-files/fa/FaMapMarkerAlt";
 import { FaEnvelope } from "@react-icons/all-files/fa/FaEnvelope";
 import { FaPhoneAlt } from "@react-icons/all-files/fa/FaPhoneAlt";
@@ -10,13 +11,21 @@ import dynamic from "next/dynamic";
 const HomeContactForm = dynamic(() => import("./HomeContactForm"), { ssr: false });
 
 export default function HomeContactSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-60px" });
+
   return (
     <section id="contact" className="pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-20 md:pb-32 bg-white relative overflow-hidden">
       <GeometricShapes />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-center">
+        <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-center">
           
-          <div className="max-w-2xl gsap-fade-up">
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-2xl"
+          >
             <div className="flex items-center justify-start gap-4 mb-3 sm:mb-4">
               <div className="w-8 h-px bg-[#20A6A8]/40"></div>
               <div className="px-5 py-1.5 rounded-full bg-[#20A6A8]/10 text-[#20A6A8] border border-[#20A6A8]/20 text-[13px] sm:text-[14px] font-medium leading-normal">
@@ -75,11 +84,16 @@ export default function HomeContactSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-3xl sm:rounded-4xl p-5 sm:p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(45,165,163,0.15)] border border-[#E8F8F8] lg:mt-12 gsap-fade-up">
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white rounded-3xl sm:rounded-4xl p-5 sm:p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(45,165,163,0.15)] border border-[#E8F8F8] lg:mt-12"
+          >
             <HomeContactForm />
-          </div>
+          </motion.div>
 
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function AboutPage() {
             <GeometricShapes hideTopLeftHexagon={true} hideTriangle={true} variant="about-page" />
             
             {/* New Hero Section with Video */}
-            <div className="pt-20 sm:pt-24 lg:pt-28">
+            <div className="pt-16 sm:pt-20 lg:pt-24">
                 <CallToActionVideo />
             </div>
 

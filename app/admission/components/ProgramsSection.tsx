@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'motion/react';
+import React from 'react';
 import GeometricShapes from '@/app/components/GeometricShapes';
 
 interface ProgramsProps {
@@ -38,21 +37,13 @@ const programs = [
 ];
 
 export default function ProgramsSection({ onEnroll }: ProgramsProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-
   return (
-    <section ref={ref} className="py-8 sm:py-20 bg-[#f8fafc] relative overflow-hidden">
+    <section className="py-8 sm:py-20 bg-[#f8fafc] relative overflow-hidden">
       <GeometricShapes variant="curriculum" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-5 sm:mb-14"
-        >
+        <div className="text-center mb-5 sm:mb-14">
           <span className="text-[#00737a] font-bold uppercase tracking-widest text-xs mb-2 block">
             CURATED SPECIALIZATIONS
           </span>
@@ -62,17 +53,14 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
           <p className="text-xs sm:text-base text-[#334155] max-w-2xl mx-auto mt-2 sm:mt-3 font-normal leading-relaxed">
             Flagship career programs tailored for students, graduates, and working professionals seeking high-growth roles.
           </p>
-        </motion.div>
+        </div>
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
           {programs.map((program, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 25 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.12 }}
-              className="bg-white border border-[#00737a]/20 rounded-xl sm:rounded-3xl p-3.5 sm:p-8 shadow-xs hover:shadow-xl hover:border-[#00737a] transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white border border-[#00737a]/20 rounded-xl sm:rounded-3xl p-3.5 sm:p-8 shadow-xs hover:shadow-xl hover:border-[#00737a] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 {/* Tag */}
@@ -123,7 +111,7 @@ export default function ProgramsSection({ onEnroll }: ProgramsProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </button>
-            </motion.div>
+            </div>
           ))}
         </div>
 
